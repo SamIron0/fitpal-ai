@@ -4,7 +4,8 @@ import Link from "next/link"
 import s from "./Navbar.module.css"
 import Image from "next/image"
 
-export default function Navbar() {
+export const Navbar = () => {
+  //export default function Navbar() {
   function handleButtonClick(): void {}
 
   return (
