@@ -10,7 +10,7 @@ import { Inter } from "next/font/google"
 import { cookies } from "next/headers"
 import { ReactNode } from "react"
 import "./globals.css"
-import { Navbar } from "@/components/ui/Navbar"
+import Navbar from "@/components/ui/Navbar"
 
 const inter = Inter({ subsets: ["latin"] })
 const APP_NAME = "Chatbot UI"

@@ -4,7 +4,7 @@ import Link from "next/link"
 import s from "./Navbar.module.css"
 import Image from "next/image"
 
-export const Navbar = () => {
+const Navbar = () => {
   //export default function Navbar() {
   function handleButtonClick(): void {}
 
@@ -33,3 +33,4 @@ export const Navbar = () => {
     </header>
   )
 }
+export default Navbar
