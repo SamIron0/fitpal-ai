@@ -17,7 +17,7 @@ export default function HomePage() {
         <Link href="/" rel="nofollow">
           <img
             className="h-24  md:h-28"
-            src="/fitpal-dark.svg"
+            src="/fitpal-dark.png"
             alt="logo"
           ></img>
         </Link>
