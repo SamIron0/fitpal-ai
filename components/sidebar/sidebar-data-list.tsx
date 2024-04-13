@@ -309,7 +309,12 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
             )}
           </>
         ) : contentType === "presets" ? (
-          <DietSelect selectedDiet="any" onSelectDiet={console.log} />
+          <>
+            <div className="text-muted-foreground font-bolds mb-1 text-sm">
+              Diet
+            </div>
+            <DietSelect selectedDiet="any" onSelectDiet={console.log} />
+          </>
         ) : null}
       </div>
 
