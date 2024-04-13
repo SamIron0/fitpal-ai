@@ -5,33 +5,14 @@ import { IconInfoCircle } from "@tabler/icons-react"
 import { WithTooltip } from "../ui/with-tooltip"
 
 interface DietOptionProps {
-  diet: LLM
+  diet: string
   onSelect: () => void
 }
 
 export const DietOption: FC<DietOptionProps> = ({ diet, onSelect }) => {
   return (
     <WithTooltip
-      display={
-        <div>
-          {diet.provider !== "ollama" && diet.pricing && (
-            <div className="space-y-1 text-sm">
-              <div>
-                <span className="font-semibold">Input Cost:</span>{" "}
-                {diet.pricing.inputCost} {diet.pricing.currency} per{" "}
-                {diet.pricing.unit}
-              </div>
-              {diet.pricing.outputCost && (
-                <div>
-                  <span className="font-semibold">Output Cost:</span>{" "}
-                  {diet.pricing.outputCost} {diet.pricing.currency} per{" "}
-                  {diet.pricing.unit}
-                </div>
-              )}
-            </div>
-          )}
-        </div>
-      }
+      display={<></>}
       side="bottom"
       trigger={
         <div
@@ -40,7 +21,7 @@ export const DietOption: FC<DietOptionProps> = ({ diet, onSelect }) => {
         >
           <div className="flex items-center space-x-2">
             <DietIcon provider={"paleo"} width={28} height={28} />
-            <div className="text-sm font-semibold">{diet.modelName}</div>
+            <div className="text-sm font-semibold">{diet}</div>
           </div>
         </div>
       }
