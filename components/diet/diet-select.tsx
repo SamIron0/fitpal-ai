@@ -82,15 +82,7 @@ export const DietSelect: FC<DietSelectProps> = ({
         className="space-y-2 overflow-auto p-2"
         style={{ width: triggerRef.current?.offsetWidth }}
         align="start"
-      >
-        <Tabs value={tab} onValueChange={(value: any) => setTab(value)}>
-          <TabsList defaultValue="hosted" className="grid grid-cols-2">
-            <TabsTrigger value="hosted">Hosted</TabsTrigger>
-
-            <TabsTrigger value="local">Local</TabsTrigger>
-          </TabsList>
-        </Tabs>
-      </DropdownMenuContent>
+      ></DropdownMenuContent>
     </DropdownMenu>
   )
 }
