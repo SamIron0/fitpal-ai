@@ -28,7 +28,7 @@ export const DietSelect: FC<DietSelectProps> = ({
 
   const [isOpen, setIsOpen] = useState(false)
   const [search, setSearch] = useState("")
-  const [diets, setDiets] = useState<DietProvider[]>([])
+  const [diets, setDiets] = useState<DietProvider[]>(["paleo","vegan"])
 
   useEffect(() => {
     if (isOpen) {
@@ -83,7 +83,11 @@ export const DietSelect: FC<DietSelectProps> = ({
         className="space-y-2 overflow-auto p-2"
         style={{ width: triggerRef.current?.offsetWidth }}
         align="start"
-      ></DropdownMenuContent>
+      >
+        {diets.map((diet) => (
+          <div>gg</div>
+        ))}
+      </DropdownMenuContent>
     </DropdownMenu>
   )
 }
