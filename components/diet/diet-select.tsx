@@ -85,7 +85,7 @@ export const DietSelect: FC<DietSelectProps> = ({
         align="start"
       >
         {diets.map((diet) => (
-          <DietOption key={diet} diet={diet} onSelect={handleSelectDiet(diet)} />
+          <DietOption key={diet} diet={diet} onSelect={() => handleSelectDiet(diet)} />
         ))}
       </DropdownMenuContent>
     </DropdownMenu>
