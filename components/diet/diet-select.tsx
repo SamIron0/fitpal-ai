@@ -12,21 +12,15 @@ import { Tabs, TabsList, TabsTrigger } from "../ui/tabs"
 import { DietIcon } from "./diet-icon"
 
 interface DietSelectProps {
-  selectedDietId: string
-  onSelectDiet: (modelId: LLMID) => void
+  selectedDiet: string
+  onSelectDiet: (diet: DietProvider) => void
 }
 
 export const DietSelect: FC<DietSelectProps> = ({
-  selectedDietId,
+  selectedDiet,
   onSelectDiet
 }) => {
-  const {
-    profile,
-    models,
-    availableHostedModels,
-    availableLocalModels,
-    availableOpenRouterModels
-  } = useContext(ChatbotUIContext)
+  const { profile } = useContext(ChatbotUIContext)
 
   const inputRef = useRef<HTMLInputElement>(null)
   const triggerRef = useRef<HTMLButtonElement>(null)
@@ -43,29 +37,10 @@ export const DietSelect: FC<DietSelectProps> = ({
     }
   }, [isOpen])
 
-  const handleSelectDiet = (modelId: LLMID) => {
-    onSelectDiet(modelId)
+  const handleSelectDiet = (diet: DietProvider) => {
+    onSelectDiet(diet)
     setIsOpen(false)
   }
-
-  const allModels = [
-    ...models.map(model => ({
-      modelId: model.model_id as LLMID,
-      modelName: model.name,
-      type: "paleo" as DietProvider,
-      hostedId: model.id,
-      platformLink: "",
-      imageInput: false
-    })),
-    ...availableHostedModels,
-    ...availableLocalModels,
-    ...availableOpenRouterModels
-  ]
-
-  const selectedModel = allModels.find(
-    model => model.modelId === selectedDietId
-  )
-
   if (!profile) return null
 
   return (
@@ -79,34 +54,28 @@ export const DietSelect: FC<DietSelectProps> = ({
       <DropdownMenuTrigger
         className="bg-background w-full justify-start border-2 px-3 py-5"
         asChild
-        disabled={allModels.length === 0}
+        disabled={false}
       >
-        {allModels.length === 0 ? (
-          <div className="rounded text-sm font-bold">
-            Unlock models by entering API keys in your profile settings.
-          </div>
-        ) : (
+        {
           <Button
             ref={triggerRef}
             className="flex items-center justify-between"
             variant="ghost"
           >
             <div className="flex items-center">
-              {selectedModel ? (
+              {selectedDiet ? (
                 <>
                   <DietIcon provider={"paleo"} width={26} height={26} />
-                  <div className="ml-2 flex items-center">
-                    {selectedModel?.modelName}
-                  </div>
+                  <div className="ml-2 flex items-center">{selectedDiet}</div>
                 </>
               ) : (
-                <div className="flex items-center">Select a model</div>
+                <div className="flex items-center">Select a diet</div>
               )}
             </div>
 
             <IconChevronDown />
           </Button>
-        )}
+        }
       </DropdownMenuTrigger>
 
       <DropdownMenuContent
@@ -114,15 +83,7 @@ export const DietSelect: FC<DietSelectProps> = ({
         style={{ width: triggerRef.current?.offsetWidth }}
         align="start"
       >
-        <Tabs value={tab} onValueChange={(value: any) => setTab(value)}>
-          {availableLocalModels.length > 0 && (
-            <TabsList defaultValue="hosted" className="grid grid-cols-2">
-              <TabsTrigger value="hosted">Hosted</TabsTrigger>
-
-              <TabsTrigger value="local">Local</TabsTrigger>
-            </TabsList>
-          )}
-        </Tabs>
+        <div>hello</div>{" "}
       </DropdownMenuContent>
     </DropdownMenu>
   )

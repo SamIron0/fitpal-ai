@@ -21,6 +21,7 @@ import { ModelItem } from "./items/models/model-item"
 import { PresetItem } from "./items/presets/preset-item"
 import { PromptItem } from "./items/prompts/prompt-item"
 import { ToolItem } from "./items/tools/tool-item"
+import { DietSelect } from "../diet/diet-select"
 
 interface SidebarDataListProps {
   contentType: ContentType
@@ -58,7 +59,7 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
         return <ChatItem key={item.id} chat={item as Tables<"chats">} />
 
       case "presets":
-        return <div>hellp</div>
+        return <PresetItem key={item.id} preset={item as Tables<"presets">} />
 
       case "prompts":
         return <PromptItem key={item.id} prompt={item as Tables<"prompts">} />
@@ -224,6 +225,7 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
         className="mt-2 flex flex-col overflow-auto"
         onDrop={handleDrop}
       >
+        <DietSelect selectedDiet="any" onSelectDiet={console.log} />
         {data.length === 0 && (
           <div className="flex grow flex-col items-center justify-center">
             <div className=" text-centertext-muted-foreground p-8 text-lg italic">
