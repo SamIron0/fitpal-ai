@@ -21,32 +21,23 @@ export async function POST(request: Request) {
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.SUPABASE_SERVICE_ROLE_KEY!
     )
-
-    const { data: customModel, error } = await supabaseAdmin
-      .from("models")
-      .select("*")
-      .eq("id", customModelId)
-      .single()
-
-    if (!customModel) {
-      throw new Error(error.message)
-    }
-
+    /*
     const custom = new OpenAI({
       apiKey: customModel.api_key || "",
       baseURL: customModel.base_url
     })
-
     const response = await custom.chat.completions.create({
       model: chatSettings.model as ChatCompletionCreateParamsBase["model"],
       messages: messages as ChatCompletionCreateParamsBase["messages"],
       temperature: chatSettings.temperature,
       stream: true
     })
-
+    
     const stream = OpenAIStream(response)
-
+    
     return new StreamingTextResponse(stream)
+    */
+    return new Response("Not implemented")
   } catch (error: any) {
     let errorMessage = error.message || "An unexpected error occurred"
     const errorCode = error.status || 500
