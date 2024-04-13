@@ -15,7 +15,6 @@ export async function POST(request: Request) {
     messages: any[]
     customModelId: string
   }
-
   try {
     const supabaseAdmin = createClient<Database>(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
