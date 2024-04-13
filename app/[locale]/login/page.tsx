@@ -95,7 +95,7 @@ export default async function Login({
 
     const email = formData.get("email") as string
     const password = formData.get("password") as string
-
+    /*
     const emailDomainWhitelistPatternsString = await getEnvVarOrEdgeConfigValue(
       "EMAIL_DOMAIN_WHITELIST"
     )
@@ -118,7 +118,7 @@ export default async function Login({
         )
       }
     }
-
+*/
     const cookieStore = cookies()
     const supabase = createClient(cookieStore)
 
