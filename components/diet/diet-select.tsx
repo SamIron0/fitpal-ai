@@ -10,6 +10,7 @@ import {
 } from "../ui/dropdown-menu"
 import { Tabs, TabsList, TabsTrigger } from "../ui/tabs"
 import { DietIcon } from "./diet-icon"
+import { DietOption } from "./diet-option"
 
 interface DietSelectProps {
   selectedDiet: string
@@ -27,7 +28,7 @@ export const DietSelect: FC<DietSelectProps> = ({
 
   const [isOpen, setIsOpen] = useState(false)
   const [search, setSearch] = useState("")
-  const [tab, setTab] = useState<"hosted" | "local">("hosted")
+  const [diets, setDiets] = useState<DietProvider[]>([])
 
   useEffect(() => {
     if (isOpen) {
