@@ -49,6 +49,16 @@ export const SidebarCreateButtons: FC<SidebarCreateButtonsProps> = ({
   }
 
   const getCreateFunction = () => {
+    /*  chat
+  mealplans
+  workouts
+  allergies
+  diets
+  macros
+  exclusions
+
+
+  */
     switch (contentType) {
       case "chats":
         return async () => {
