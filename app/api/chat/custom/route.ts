@@ -42,8 +42,8 @@ export async function POST(request: Request) {
         }
       }
     )
-    const stream = OpenAIStream(response.body)
 
+    const stream = OpenAIStream(response)
     // Respond with the stream
     return new StreamingTextResponse(stream)
     //   return new Response("Not implemented")
