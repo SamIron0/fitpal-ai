@@ -8,3 +8,14 @@ export type ModelProvider =
   | "ollama"
   | "openrouter"
   | "custom"
+
+export type DietProvider =
+  | "none"
+  | "mediterranean"
+  | "vegan"
+  | "vegetarian"
+  | "paleo"
+  | "keto"
+  | "low-carb"
+  | "gluten-free"
+  | "ketogenic"
