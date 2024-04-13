@@ -33,7 +33,7 @@ export async function POST(request: Request) {
         method: "POST",
         body: JSON.stringify({
           model: "mistralai/Mixtral-8x7B-Instruct-v0.1",
-          messages: [{ role: "user", content: "Write a poem" }],
+          messages,
           stream: true
         }),
         headers: {
