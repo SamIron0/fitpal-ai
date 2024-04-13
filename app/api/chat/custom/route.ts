@@ -5,6 +5,7 @@ import { OpenAIStream, StreamingTextResponse } from "ai"
 import { ServerRuntime } from "next"
 import OpenAI from "openai"
 import { ChatCompletionCreateParamsBase } from "openai/resources/chat/completions.mjs"
+import { Readable } from "stream"
 
 export const runtime: ServerRuntime = "edge"
 
@@ -20,23 +21,32 @@ export async function POST(request: Request) {
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.SUPABASE_SERVICE_ROLE_KEY!
     )
-    /*
-    const custom = new OpenAI({
-      apiKey: customModel.api_key || "",
-      baseURL: customModel.base_url
-    })
-    const response = await custom.chat.completions.create({
-      model: chatSettings.model as ChatCompletionCreateParamsBase["model"],
-      messages: messages as ChatCompletionCreateParamsBase["messages"],
-      temperature: chatSettings.temperature,
-      stream: true
-    })
-    
+
+    // for node.js before v21, you can use node-fetch package
+    // import fetch from 'node-fetch'
+
+    const API_KEY = process.env.DEEPINFRA_API_KEY
+
+    const response = await fetch(
+      "https://api.deepinfra.com/v1/openai/chat/completions",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          model: "mistralai/Mixtral-8x7B-Instruct-v0.1",
+          messages: [{ role: "user", content: "Write a poem" }],
+          stream: true
+        }),
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${API_KEY}`
+        }
+      }
+    )
     const stream = OpenAIStream(response)
-    
+
+    // Respond with the stream
     return new StreamingTextResponse(stream)
-    */
-    return new Response("Not implemented")
+    //   return new Response("Not implemented")
   } catch (error: any) {
     let errorMessage = error.message || "An unexpected error occurred"
     const errorCode = error.status || 500
