@@ -24,8 +24,8 @@ export const Macros: FC<MacrosProps> = ({
   return (
     <>
       <div className="mt-5 space-y-3">
-        <div className="flex items-center space-x-1">
-          <div className="text-muted-foreground mb-1  text-sm font-semibold">
+        <div className="mb-1  flex   items-center space-x-1">
+          <div className="text-muted-foreground text-sm font-semibold">
             Protein:
           </div>
 
@@ -62,10 +62,12 @@ export const Macros: FC<MacrosProps> = ({
         />
       </div>
       <div className="mt-6 space-y-3">
-        <div className="flex items-center space-x-1">
-          <div className="mb-1 text-sm font-semibold">Fats:</div>
+        <div className="mb-1 flex  items-center  space-x-1">
+          <div className="text-muted-foreground text-sm font-semibold">
+            Fat:
+          </div>
 
-          <div className="text-muted-foreground text-sm">{fat}</div>
+          <div className=" text-sm">{fat}</div>
         </div>
 
         <Slider
@@ -79,8 +81,8 @@ export const Macros: FC<MacrosProps> = ({
         />
       </div>
       <div className="mt-5 space-y-3">
-        <div className="flex items-center space-x-1">
-          <div className="text-muted-foreground mb-1  text-sm font-semibold">
+        <div className="mb-1 flex items-center  space-x-1">
+          <div className="text-muted-foreground  text-sm font-semibold">
             Workouts/week:
           </div>{" "}
           <div className=" text-sm">{protein}</div>
