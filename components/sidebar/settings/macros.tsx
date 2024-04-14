@@ -23,7 +23,7 @@ export const Macros: FC<MacrosProps> = ({
 }) => {
   return (
     <>
-      <div className="mt-5 space-y-3">
+      <div className="mt-8 space-y-3">
         <div className="mb-1  flex   items-center space-x-1">
           <div className="text-muted-foreground text-sm font-semibold">
             Protein:

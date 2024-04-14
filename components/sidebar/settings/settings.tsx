@@ -45,6 +45,12 @@ export const Settings: FC<SettingsProps> = () => {
           setAllergies(allergies)
         }}
       />
+      <Button
+        className="mb-3 mt-4 flex  h-[36px] grow"
+        onClick={() => updateSettings(selectedDiet)}
+      >
+        Save Changes{" "}
+      </Button>
     </>
   )
 }

@@ -23,7 +23,10 @@ export const Allergies: FC<AllergiesProps> = ({
   }
 
   return (
-    <div className="mt-4 w-full">
+    <div className="mt-12 w-full">
+      <div className="text-muted-foreground  text-sm font-semibold">
+        Allergies
+      </div>
       <div className=" flex space-x-2">
         <Input
           onClick={e => e.preventDefault()}
