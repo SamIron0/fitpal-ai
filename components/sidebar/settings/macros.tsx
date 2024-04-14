@@ -32,8 +32,8 @@ export const Macros = ({
           onValueChange={(values) => {
             setProtein(values[0]);
           }}
-          min={20}
-          max={500}
+          min={10}
+          max={600}
           step={5}
         />
       </div>
@@ -51,8 +51,8 @@ export const Macros = ({
           onValueChange={(values) => {
             setCarbs(values[0]);
           }}
-          min={20}
-          max={500}
+          min={10}
+          max={1000}
           step={5}
         />
       </div>
@@ -68,9 +68,27 @@ export const Macros = ({
           onValueChange={(values) => {
             setFat(values[0]);
           }}
-          min={20}
+          min={10}
           max={500}
           step={5}
+        />
+      </div>
+      <div className="mt-5 space-y-3">
+        <div className="flex items-center space-x-1">
+          <div className="text-muted-foreground mb-1  text-sm font-semibold">
+            Workouts/week:
+          </div>{" "}
+          <div className=" text-sm">{protein}</div>
+        </div>
+
+        <Slider
+          value={[workouts]}
+          onValueChange={(values) => {
+            setWorkouts(values[0]);
+          }}
+          min={0}
+          max={7}
+          step={1}
         />
       </div>
     </>
