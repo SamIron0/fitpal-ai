@@ -2,28 +2,29 @@ import { ChatbotUIContext } from "@/context/context"
 import { LLMID, DietProvider } from "@/types"
 import { IconChevronDown } from "@tabler/icons-react"
 import { FC, useContext, useEffect, useRef, useState } from "react"
-import { Button } from "../ui/button"
+import { Button } from "../../../ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger
-} from "../ui/dropdown-menu"
-import { Tabs, TabsList, TabsTrigger } from "../ui/tabs"
+} from "../../../ui/dropdown-menu"
+import { Tabs, TabsList, TabsTrigger } from "../../../ui/tabs"
 import { DietIcon } from "./diet-icon"
 import { DietOption } from "./diet-option"
 
 interface DietSelectProps {
   onSelect: (diet: DietProvider) => void
+  selectedDiet: DietProvider
 }
 
-export const DietSelect: FC<DietSelectProps> = ({ onSelect }) => {
+export const DietSelect: FC<DietSelectProps> = ({ onSelect, selectedDiet }) => {
   const { profile, setProfile } = useContext(ChatbotUIContext)
 
   const inputRef = useRef<HTMLInputElement>(null)
   const triggerRef = useRef<HTMLButtonElement>(null)
 
   const [isOpen, setIsOpen] = useState(false)
-  const [selectedDiet, setSelectedDiet] = useState<DietProvider>()
+  const [selected, setSelected] = useState<DietProvider>(selectedDiet)
   const diets: DietProvider[] = ["paleo", "vegan"]
   useEffect(() => {
     if (isOpen) {
@@ -34,7 +35,7 @@ export const DietSelect: FC<DietSelectProps> = ({ onSelect }) => {
   }, [isOpen])
 
   const handleSelectDiet = (diet: DietProvider) => {
-    setSelectedDiet(diet)
+    setSelected(diet)
     onSelect(diet)
     setIsOpen(false)
   }
@@ -61,10 +62,10 @@ export const DietSelect: FC<DietSelectProps> = ({ onSelect }) => {
               variant="ghost"
             >
               <div className="flex items-center">
-                {selectedDiet ? (
+                {selected ? (
                   <>
                     <DietIcon provider={"paleo"} width={26} height={26} />
-                    <div className="ml-2 flex items-center">{selectedDiet}</div>
+                    <div className="ml-2 flex items-center">{selected}</div>
                   </>
                 ) : (
                   <div className="flex items-center">Select a diet</div>

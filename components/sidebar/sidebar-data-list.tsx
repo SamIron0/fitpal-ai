@@ -21,10 +21,12 @@ import { ModelItem } from "./items/models/model-item"
 import { PresetItem } from "./items/presets/preset-item"
 import { PromptItem } from "./items/prompts/prompt-item"
 import { ToolItem } from "./items/tools/tool-item"
-import { DietSelect } from "../diet/diet-select"
+import { DietSelect } from "./settings/diet/diet-select"
 import { SidebarSearch } from "./sidebar-search"
 import { SidebarCreateButtons } from "./sidebar-create-buttons"
 import { Button } from "../ui/button"
+import { Slider } from "../ui/slider"
+import { Settings } from "./settings/settings"
 interface SidebarDataListProps {
   contentType: ContentType
   data: DataListType
@@ -329,29 +331,7 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
             )}
           </>
         ) : contentType === "presets" ? (
-          <>
-            <Button
-              className="mb-3 flex  h-[36px] grow"
-              onClick={() => setSelectedDiet}
-            >
-              Save{" "}
-            </Button>
-
-            <div className="text-muted-foreground font-bolds mb-1 text-sm">
-              Diet
-            </div>
-            <DietSelect onSelect={setSelectedDiet} />
-
-            <div className="text-muted-foreground font-bolds mb-1 mt-2 text-sm">
-              Protein
-            </div>
-            <div className="text-muted-foreground font-bolds mb-1 mt-2 text-sm">
-              Carbs
-            </div>
-            <div className="text-muted-foreground font-bolds mb-1 mt-2 text-sm">
-              Fat
-            </div>
-          </>
+          <Settings />
         ) : null}
       </div>
 
