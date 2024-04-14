@@ -79,6 +79,26 @@ export type Database = {
           }
         ]
       }
+      documents: {
+        Row: {
+          id: string
+          title: string
+          body: string
+          embedding: number[]
+        }
+        Insert: {
+          id?: string
+          title: string
+          body: string
+          embedding: number[]
+        }
+        Update: {
+          id?: string
+          title?: string
+          body?: string
+          embedding?: number[]
+        }
+      }
       assistant_collections: {
         Row: {
           assistant_id: string

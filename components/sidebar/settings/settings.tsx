@@ -8,6 +8,8 @@ import { Allergies } from "./allergies"
 import { updateSettings } from "@/db/settings"
 import { TablesUpdate } from "@/supabase/types"
 import { ChatbotUIContext } from "@/context/context"
+import { embeddingsInsert } from "./embeddings"
+import { title } from "process"
 
 interface SettingsProps {}
 export const Settings: FC<SettingsProps> = () => {
@@ -21,7 +23,7 @@ export const Settings: FC<SettingsProps> = () => {
   const [allergies, setAllergies] = useState<string[]>(
     settings?.allergies || []
   )
-  console.log("settings:", settings)
+  //console.log("settings:", settings)
   const settingsUpdate: TablesUpdate<"settings"> = {
     id: settings?.id,
     protein,
@@ -36,6 +38,11 @@ export const Settings: FC<SettingsProps> = () => {
     settings: TablesUpdate<"settings">
   ) => {
     await updateSettings(id, settings)
+    const embeddings = await embeddingsInsert({
+      title: "Settings",
+      body: JSON.stringify(settings)
+    })
+    console.log("embeddings:", embeddings)
     toast.success("Settings saved!")
   }
   return (
