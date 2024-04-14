@@ -55,12 +55,16 @@ export const updateEmbeddings: FC<EmbeddingsProps> = async ({
   const embedding = Array.from(output.data)
 
   // Store the vector in Postgres
-  const { data, error } = await supabase.from("documents").update({
-    workspace_id,
-    title,
-    body,
-    embedding
-  })
+  const { data, error } = await supabase
+    .from("documents")
+    .update({
+      workspace_id,
+      title,
+      body,
+      embedding
+    })
+    .eq("workspace_id", workspace_id || "")
+
   return data
 }
 export const retrieveEmbedding = async (workspace_id: string) => {
