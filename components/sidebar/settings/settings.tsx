@@ -4,7 +4,7 @@ import { DietSelect } from "./diet/diet-select"
 import { Macros } from "./macros"
 import { DietProvider } from "@/types"
 import { Allergies } from "./allergies"
-import { createSettings, updateSettings } from "@/db/settings"
+import { updateSettings } from "@/db/settings"
 import { TablesUpdate } from "@/supabase/types"
 import { ChatbotUIContext } from "@/context/context"
 
