@@ -1,3 +1,4 @@
+import { toast } from "react-hot-toast"
 import { FC, useContext, useState } from "react"
 import { Button } from "../../ui/button"
 import { DietSelect } from "./diet/diet-select"
@@ -30,12 +31,18 @@ export const Settings: FC<SettingsProps> = () => {
     allergies,
     diet: selectedDiet
   }
-
+  const handleSaveChanges = async (
+    id: string,
+    settings: TablesUpdate<"settings">
+  ) => {
+    await updateSettings(id, settings)
+    toast.success("Settings saved!")
+  }
   return (
     <>
       <Button
         className="mb-3 mt-4 flex  h-[36px] grow"
-        onClick={() => updateSettings(settings.id, settingsUpdate)}
+        onClick={() => handleSaveChanges(settings.id, settingsUpdate)}
       >
         Save Changes{" "}
       </Button>
