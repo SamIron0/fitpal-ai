@@ -9,7 +9,6 @@ import { updateSettings } from "@/db/settings"
 import { TablesUpdate } from "@/supabase/types"
 import { ChatbotUIContext } from "@/context/context"
 import { embeddingsInsert } from "./embeddings"
-import { title } from "process"
 
 interface SettingsProps {}
 export const Settings: FC<SettingsProps> = () => {
