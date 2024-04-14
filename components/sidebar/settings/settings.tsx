@@ -3,7 +3,7 @@ import { Button } from "../../ui/button"
 import { DietSelect } from "./diet/diet-select"
 import { Macros } from "./macros"
 import { DietProvider } from "@/types"
-import { Allergies } from "./Allergies"
+import { Allergies } from "./allergies"
 
 interface SettingsProps {}
 export const Settings: FC<SettingsProps> = () => {
