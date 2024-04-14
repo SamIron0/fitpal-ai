@@ -11,6 +11,7 @@ import {
 import { AssistantImage } from "@/types/images/assistant-image"
 import { VALID_ENV_KEYS } from "@/types/valid-keys"
 import { Dispatch, SetStateAction, createContext } from "react"
+import { number } from "zod"
 
 interface ChatbotUIContext {
   // PROFILE STORE
@@ -24,6 +25,8 @@ interface ChatbotUIContext {
   setCollections: Dispatch<SetStateAction<Tables<"collections">[]>>
   chats: Tables<"chats">[]
   setChats: Dispatch<SetStateAction<Tables<"chats">[]>>
+  settings: Tables<"settings">
+  setSettings: Dispatch<SetStateAction<Tables<"settings">>>
   files: Tables<"files">[]
   setFiles: Dispatch<SetStateAction<Tables<"files">[]>>
   folders: Tables<"folders">[]
@@ -150,6 +153,18 @@ export const ChatbotUIContext = createContext<ChatbotUIContext>({
   setCollections: () => {},
   chats: [],
   setChats: () => {},
+  settings: {
+    user_id: "",
+    workspace_id: "",
+    id: "",
+    protein: 0,
+    carbs: 0,
+    fat: 0,
+    workouts: 0,
+    allergies: [],
+    diet: "none"
+  },
+  setSettings: () => {},
   files: [],
   setFiles: () => {},
   folders: [],

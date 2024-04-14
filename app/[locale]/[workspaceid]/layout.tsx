@@ -4,6 +4,7 @@ import { Dashboard } from "@/components/ui/dashboard"
 import { ChatbotUIContext } from "@/context/context"
 import { getAssistantWorkspacesByWorkspaceId } from "@/db/assistants"
 import { getChatsByWorkspaceId } from "@/db/chats"
+
 import { getCollectionWorkspacesByWorkspaceId } from "@/db/collections"
 import { getFileWorkspacesByWorkspaceId } from "@/db/files"
 import { getFoldersByWorkspaceId } from "@/db/folders"
@@ -19,6 +20,7 @@ import { LLMID } from "@/types"
 import { useParams, useRouter } from "next/navigation"
 import { ReactNode, useContext, useEffect, useState } from "react"
 import Loading from "../loading"
+import { getSettingsByWorkspaceId } from "@/db/settings"
 
 interface WorkspaceLayoutProps {
   children: ReactNode
@@ -35,6 +37,7 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
     setAssistants,
     setAssistantImages,
     setChats,
+    setSettings,
     setCollections,
     setFolders,
     setFiles,
@@ -132,6 +135,9 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
 
     const chats = await getChatsByWorkspaceId(workspaceId)
     setChats(chats)
+
+    const settings = await getSettingsByWorkspaceId(workspaceId)
+    setSettings(settings)
 
     const collectionData =
       await getCollectionWorkspacesByWorkspaceId(workspaceId)
