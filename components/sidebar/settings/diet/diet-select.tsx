@@ -78,7 +78,7 @@ export const DietSelect: FC<DietSelectProps> = ({ onSelect, selectedDiet }) => {
         </DropdownMenuTrigger>
 
         <DropdownMenuContent
-          className="space-y-2 overflow-auto p-2"
+          className="flex flex-col space-y-2 overflow-auto p-2"
           style={{ width: triggerRef.current?.offsetWidth }}
           align="start"
         >
