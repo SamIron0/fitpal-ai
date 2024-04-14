@@ -38,6 +38,7 @@ export const Settings: FC<SettingsProps> = () => {
   ) => {
     await updateSettings(id, settings)
     const embeddings = await updateEmbeddings({
+      workspace_id: settings.workspace_id,
       title: "Settings",
       body: JSON.stringify(settings)
     })
