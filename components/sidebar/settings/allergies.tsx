@@ -9,7 +9,7 @@ interface AllergiesProps {
   userAllergies: string[] | undefined | null;
   setUserAllergies: (allergies: string[] | undefined | null) => void;
 }
-export const Allergies = ({}: AllergiesProps) => {
+export const Allergies = ({ userAllergies, setUserAllergies }: AllergiesProps) => {
   const [allergyInput, setAllergyInput] = useState<string>("");
    const deleteAllergy = async (allergy: string) => {
     setUserAllergies(userAllergies?.filter((a) => a !== allergy));
