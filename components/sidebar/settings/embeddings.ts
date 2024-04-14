@@ -2,12 +2,6 @@ import { supabase } from "@/lib/supabase/browser-client"
 import { pipeline } from "@xenova/transformers"
 import { FC } from "react"
 
-interface EmbeddingsProps {
-  workspace_id?: string
-  title: string
-  body: string
-}
-
 export const updateEmbeddings = async (
   title: string,
   body: string,

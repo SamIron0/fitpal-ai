@@ -30,7 +30,9 @@ export const Settings: FC<SettingsProps> = () => {
     fat,
     workouts,
     allergies,
-    diet: selectedDiet
+    diet: selectedDiet,
+    workspace_id: settings?.workspace_id,
+    user_id: settings?.user_id
   }
   const handleSaveChanges = async (
     id: string,
