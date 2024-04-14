@@ -64,16 +64,3 @@ export const updateSettings = async (
 
   return updatedSettings
 }
-
-export const deleteSettings = async (settingsId: string) => {
-  const { error } = await supabase
-    .from("settings")
-    .delete()
-    .eq("id", settingsId)
-
-  if (error) {
-    throw new Error(error.message)
-  }
-
-  return true
-}
