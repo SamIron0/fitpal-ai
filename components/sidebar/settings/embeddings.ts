@@ -8,11 +8,11 @@ interface EmbeddingsProps {
   body: string
 }
 
-export const updateEmbeddings: FC<EmbeddingsProps> = async ({
-  title,
-  body,
-  workspace_id
-}: EmbeddingsProps) => {
+export const updateEmbeddings = async (
+  title: string,
+  body: string,
+  workspace_id: string
+) => {
   const generateEmbedding = await pipeline(
     "feature-extraction",
     "Supabase/gte-small"

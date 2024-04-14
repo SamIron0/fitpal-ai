@@ -37,11 +37,11 @@ export const Settings: FC<SettingsProps> = () => {
     settings: TablesUpdate<"settings">
   ) => {
     await updateSettings(id, settings)
-    const embeddings = await updateEmbeddings({
-      workspace_id: settings.workspace_id,
-      title: "Settings",
-      body: JSON.stringify(settings)
-    })
+    const embeddings = await updateEmbeddings(
+      "Settings",
+      JSON.stringify(settings),
+      settings.workspace_id || ""
+    )
     console.log("embeddings:", embeddings)
     toast.success("Settings saved!")
   }
