@@ -16,15 +16,15 @@ export const getSettingsById = async (settingsId: string) => {
 }
 
 export const getSettingsByWorkspaceId = async (workspaceId: string) => {
-  const { data: chats, error } = await supabase
+  const { data: settings, error } = await supabase
     .from("settings")
     .select("*")
     .eq("workspace_id", workspaceId)
-  if (!chats) {
+  if (!settings) {
     throw new Error(error.message)
   }
 
-  return chats
+  return settings[0]
 }
 
 export const getSettingsWorkspacesBySettingsId = async (settingsId: string) => {
