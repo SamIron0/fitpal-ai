@@ -18,9 +18,9 @@ export const Macros = ({
 }: MacrosProps) => {
   return (
     <>
-      <div className="mt-6 space-y-3">
+      <div className="mt-5 space-y-3">
         <div className="flex items-center space-x-1">
-          <div className="text-muted-foreground mb-1 mt-2 text-sm font-semibold">
+          <div className="text-muted-foreground mb-1  text-sm font-semibold">
             Protein
           </div>
 
@@ -38,17 +38,19 @@ export const Macros = ({
         />
       </div>
       <div className="mt-6 space-y-3">
-        <div className="flex items-center space-x-1">
-          <div className="text-muted-foreground mb-1 mt-2 text-sm font-semibold">
+        <div className="mb-1 flex  items-center  space-x-1">
+          <div className="text-muted-foreground text-sm font-semibold">
             Carbs
           </div>
 
-          <div></div>
+          <div className="text-muted-foreground mbtext-sm">{carbs}</div>
         </div>
 
         <Slider
-          value={[]}
-          onValueChange={() => {}}
+          value={[carbs]}
+          onValueChange={values => {
+            setCarbs(values[0])
+          }}
           min={20}
           max={500}
           step={5}
@@ -56,7 +58,7 @@ export const Macros = ({
       </div>
       <div className="mt-6 space-y-3">
         <div className="flex items-center space-x-1">
-          <div className="text-muted-foreground mb-1 mt-2 text-sm font-semibold">
+          <div className="text-muted-foreground mb-1 text-sm font-semibold">
             Fats
           </div>
 
@@ -64,8 +66,10 @@ export const Macros = ({
         </div>
 
         <Slider
-          value={[]}
-          onValueChange={() => {}}
+          value={[fat]}
+          onValueChange={values => {
+            setFat(values[0])
+          }}
           min={20}
           max={500}
           step={5}

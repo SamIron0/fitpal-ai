@@ -3,6 +3,7 @@ import { Button } from "../../ui/button"
 import { DietSelect } from "./diet/diet-select"
 import { Macros } from "./macros"
 import { DietProvider } from "@/types"
+import { Allergies } from "./Allergies"
 
 interface SettingsProps {}
 export const Settings: FC<SettingsProps> = () => {
@@ -15,7 +16,7 @@ export const Settings: FC<SettingsProps> = () => {
     console.log(selectedDiet)
   }
   return (
-    <div className="">
+    <>
       <div className="text-muted-foreground mb-1 text-sm font-semibold">
         Diet
       </div>
@@ -28,12 +29,13 @@ export const Settings: FC<SettingsProps> = () => {
         fat={fat}
         setFat={setFat}
       />
+      <Allergies />
       <Button
-        className="mb-3 flex  h-[36px] grow"
+        className="mb-3 mt-4 flex  h-[36px] grow"
         onClick={() => updateSettings(selectedDiet)}
       >
-        Save{" "}
+        Save Changes{" "}
       </Button>
-    </div>
+    </>
   )
 }
