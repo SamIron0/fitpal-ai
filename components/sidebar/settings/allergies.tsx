@@ -39,8 +39,11 @@ export const Allergies = ({}: AllergiesProps) => {
       ) : (
         <div className="space-y-4">
           <div className="grid gap-6">
-            {userAllergies?.map((allergy) => (
-              <div className="flex items-center justify-between space-x-4">
+            {userAllergies?.map((allergy, index) => (
+              <div
+                className="flex items-center justify-between space-x-4"
+                key={index}
+              >
                 <div className="flex items-center space-x-4">
                   <p className="text-sm font-medium leading-none">{allergy}</p>
                 </div>
