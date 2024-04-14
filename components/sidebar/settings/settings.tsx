@@ -4,7 +4,7 @@ import { DietSelect } from "./diet/diet-select"
 import { Macros } from "./macros"
 import { DietProvider } from "@/types"
 import { Allergies } from "./allergies"
-import { createSettings } from "@/db/settings"
+import { createSettings, updateSettings } from "@/db/settings"
 import { TablesUpdate } from "@/supabase/types"
 import { ChatbotUIContext } from "@/context/context"
 
@@ -28,14 +28,12 @@ export const Settings: FC<SettingsProps> = () => {
     allergies,
     diet: selectedDiet
   }
-  const updateSettings = (selectedDiet: DietProvider) => {
-    console.log(selectedDiet)
-  }
+
   return (
     <>
       <Button
         className="mb-3 mt-4 flex  h-[36px] grow"
-        onClick={() => updateSettings(selectedDiet)}
+        onClick={() => updateSettings(settings.id, settingsUpdate)}
       >
         Save Changes{" "}
       </Button>
@@ -61,7 +59,7 @@ export const Settings: FC<SettingsProps> = () => {
       />
       <Button
         className="mb-3 mt-4 flex  h-[36px] grow"
-        onClick={() => updateSettings(selectedDiet)}
+        onClick={() => updateSettings(settings.id, settingsUpdate)}
       >
         Save Changes{" "}
       </Button>
