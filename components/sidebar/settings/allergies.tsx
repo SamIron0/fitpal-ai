@@ -5,13 +5,13 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { useState } from "react";
 
-interface AllergiesProps {}
+interface AllergiesProps {
+  userAllergies: string[] | undefined | null;
+  setUserAllergies: (allergies: string[] | undefined | null) => void;
+}
 export const Allergies = ({}: AllergiesProps) => {
   const [allergyInput, setAllergyInput] = useState<string>("");
-  const [userAllergies, setUserAllergies] = useState<
-    string[] | undefined | null
-  >(["nuts", "peanuts"]);
-  const deleteAllergy = async (allergy: string) => {
+   const deleteAllergy = async (allergy: string) => {
     setUserAllergies(userAllergies?.filter((a) => a !== allergy));
   };
   const addAllergy = async () => {
