@@ -1,16 +1,16 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
-import { useState } from "react"
+import { FC, useState } from "react"
 
 interface AllergiesProps {
   userAllergies: string[] | undefined | null
   setUserAllergies: (allergies: string[]) => void
 }
-export const Allergies = ({
+export const Allergies: FC<AllergiesProps> = ({
   userAllergies,
   setUserAllergies
-}: AllergiesProps) => {
+}) => {
   const [allergyInput, setAllergyInput] = useState<string>("")
   const deleteAllergy = async (allergy: string) => {
     if (!userAllergies) return
@@ -23,8 +23,8 @@ export const Allergies = ({
   }
 
   return (
-    <div className="w-full">
-      <div className="mt-4 flex space-x-2">
+    <div className="mt-4 w-full">
+      <div className=" flex space-x-2">
         <Input
           onClick={e => e.preventDefault()}
           placeholder="start typing..."

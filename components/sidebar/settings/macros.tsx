@@ -1,3 +1,4 @@
+import { FC } from "react"
 import { Slider } from "../../ui/slider"
 
 interface MacrosProps {
@@ -10,7 +11,7 @@ interface MacrosProps {
   workouts: number
   setWorkouts: Function
 }
-export const Macros = ({
+export const Macros: FC<MacrosProps> = ({
   protein,
   setProtein,
   carbs,
@@ -19,7 +20,7 @@ export const Macros = ({
   setFat,
   workouts,
   setWorkouts
-}: MacrosProps) => {
+}) => {
   return (
     <>
       <div className="mt-5 space-y-3">

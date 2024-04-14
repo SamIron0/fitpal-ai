@@ -13,7 +13,7 @@ export const Settings: FC<SettingsProps> = () => {
   const [fat, setFat] = useState(0)
   const [calories, setCalories] = useState(0)
   const [workouts, setWorkouts] = useState(0)
-
+  const [allergies, setAllergies] = useState<string[]>(["nut", "dairy"])
   const updateSettings = (selectedDiet: DietProvider) => {
     console.log(selectedDiet)
   }
@@ -40,9 +40,9 @@ export const Settings: FC<SettingsProps> = () => {
         setWorkouts={setWorkouts}
       />
       <Allergies
-        userAllergies={["nut", "dairy"]}
+        userAllergies={allergies}
         setUserAllergies={(allergies: string[]) => {
-          console.log(allergies)
+          setAllergies(allergies)
         }}
       />
     </>
