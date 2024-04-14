@@ -12,6 +12,8 @@ export const Settings: FC<SettingsProps> = () => {
   const [carbs, setCarbs] = useState(0);
   const [fat, setFat] = useState(0);
   const [calories, setCalories] = useState(0);
+  const [workouts, setWorkouts] = useState(0);
+
   const updateSettings = (selectedDiet: DietProvider) => {
     console.log(selectedDiet);
   };
@@ -34,6 +36,8 @@ export const Settings: FC<SettingsProps> = () => {
         setCarbs={setCarbs}
         fat={fat}
         setFat={setFat}
+        workouts={workouts}
+        setWorkouts={setWorkouts}
       />
       <Allergies
         userAllergies={["nut", "dairy"]}

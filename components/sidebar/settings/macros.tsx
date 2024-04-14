@@ -7,6 +7,8 @@ interface MacrosProps {
   setCarbs: Function;
   fat: number;
   setFat: Function;
+  workouts: number;
+  setWorkouts: Function;
 }
 export const Macros = ({
   protein,
@@ -15,6 +17,8 @@ export const Macros = ({
   setCarbs,
   fat,
   setFat,
+  workouts,
+  setWorkouts,
 }: MacrosProps) => {
   return (
     <>
