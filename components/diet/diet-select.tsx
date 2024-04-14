@@ -13,22 +13,17 @@ import { DietIcon } from "./diet-icon"
 import { DietOption } from "./diet-option"
 
 interface DietSelectProps {
-  selectedDiet: string
-  onSelectDiet: (diet: DietProvider) => void
+  onSelect: (diet: DietProvider) => void
 }
 
-export const DietSelect: FC<DietSelectProps> = ({
-  selectedDiet,
-  onSelectDiet
-}) => {
-  const { profile } = useContext(ChatbotUIContext)
+export const DietSelect: FC<DietSelectProps> = ({ onSelect }) => {
+  const { profile, setProfile } = useContext(ChatbotUIContext)
 
   const inputRef = useRef<HTMLInputElement>(null)
   const triggerRef = useRef<HTMLButtonElement>(null)
 
   const [isOpen, setIsOpen] = useState(false)
-  const [search, setSearch] = useState("")
-  const [selected, setSelectedDiet] = useState<DietProvider>()
+  const [selectedDiet, setSelectedDiet] = useState<DietProvider>()
   const diets: DietProvider[] = ["paleo", "vegan"]
   useEffect(() => {
     if (isOpen) {
@@ -39,60 +34,62 @@ export const DietSelect: FC<DietSelectProps> = ({
   }, [isOpen])
 
   const handleSelectDiet = (diet: DietProvider) => {
-    //onSelectDiet(diet);
     setSelectedDiet(diet)
+    onSelect(diet)
     setIsOpen(false)
   }
   if (!profile) return null
 
   return (
-    <DropdownMenu
-      open={isOpen}
-      onOpenChange={isOpen => {
-        setIsOpen(isOpen)
-        setSearch("")
-      }}
-    >
-      <DropdownMenuTrigger
-        className="bg-background w-full justify-start border-2 px-3 py-5"
-        asChild
-        disabled={false}
+    <>
+      {" "}
+      <DropdownMenu
+        open={isOpen}
+        onOpenChange={isOpen => {
+          setIsOpen(isOpen)
+        }}
       >
-        {
-          <Button
-            ref={triggerRef}
-            className="flex items-center justify-between"
-            variant="ghost"
-          >
-            <div className="flex items-center">
-              {selectedDiet ? (
-                <>
-                  <DietIcon provider={"paleo"} width={26} height={26} />
-                  <div className="ml-2 flex items-center">{selectedDiet}</div>
-                </>
-              ) : (
-                <div className="flex items-center">Select a diet</div>
-              )}
-            </div>
+        <DropdownMenuTrigger
+          className="bg-background w-full justify-start border-2 px-3 py-5"
+          asChild
+          disabled={false}
+        >
+          {
+            <Button
+              ref={triggerRef}
+              className="flex items-center justify-between"
+              variant="ghost"
+            >
+              <div className="flex items-center">
+                {selectedDiet ? (
+                  <>
+                    <DietIcon provider={"paleo"} width={26} height={26} />
+                    <div className="ml-2 flex items-center">{selectedDiet}</div>
+                  </>
+                ) : (
+                  <div className="flex items-center">Select a diet</div>
+                )}
+              </div>
 
-            <IconChevronDown />
-          </Button>
-        }
-      </DropdownMenuTrigger>
+              <IconChevronDown />
+            </Button>
+          }
+        </DropdownMenuTrigger>
 
-      <DropdownMenuContent
-        className="space-y-2 overflow-auto p-2"
-        style={{ width: triggerRef.current?.offsetWidth }}
-        align="start"
-      >
-        {diets.map(diet => (
-          <DietOption
-            key={diet}
-            diet={diet}
-            onSelect={() => handleSelectDiet(diet)}
-          />
-        ))}
-      </DropdownMenuContent>
-    </DropdownMenu>
+        <DropdownMenuContent
+          className="space-y-2 overflow-auto p-2"
+          style={{ width: triggerRef.current?.offsetWidth }}
+          align="start"
+        >
+          {diets.map(diet => (
+            <DietOption
+              key={diet}
+              diet={diet}
+              onSelect={() => handleSelectDiet(diet)}
+            />
+          ))}
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </>
   )
 }

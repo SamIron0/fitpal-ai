@@ -9,7 +9,7 @@ import { updatePrompt } from "@/db/prompts"
 import { updateTool } from "@/db/tools"
 import { cn } from "@/lib/utils"
 import { Tables } from "@/supabase/types"
-import { ContentType, DataItemType, DataListType } from "@/types"
+import { ContentType, DataItemType, DataListType, DietProvider } from "@/types"
 import { FC, useContext, useEffect, useRef, useState } from "react"
 import { Separator } from "../ui/separator"
 import { AssistantItem } from "./items/assistants/assistant-item"
@@ -24,7 +24,7 @@ import { ToolItem } from "./items/tools/tool-item"
 import { DietSelect } from "../diet/diet-select"
 import { SidebarSearch } from "./sidebar-search"
 import { SidebarCreateButtons } from "./sidebar-create-buttons"
-
+import { Button } from "../ui/button"
 interface SidebarDataListProps {
   contentType: ContentType
   data: DataListType
@@ -55,7 +55,7 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
 
   const [isOverflowing, setIsOverflowing] = useState(false)
   const [isDragOver, setIsDragOver] = useState(false)
-
+  const [selectedDiet, setSelectedDiet] = useState<DietProvider>()
   const getDataListComponent = (
     contentType: ContentType,
     item: DataItemType
@@ -330,10 +330,17 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
           </>
         ) : contentType === "presets" ? (
           <>
+            <Button
+              className="flex h-[36px] grow"
+              onClick={() => setSelectedDiet}
+            >
+              Save{" "}
+            </Button>
+
             <div className="text-muted-foreground font-bolds mb-1 text-sm">
               Diet
             </div>
-            <DietSelect selectedDiet="any" onSelectDiet={console.log} />
+            <DietSelect onSelect={setSelectedDiet} />
           </>
         ) : null}
       </div>
