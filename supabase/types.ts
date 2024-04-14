@@ -81,19 +81,19 @@ export type Database = {
       }
       documents: {
         Row: {
-          id: string
+          workspace_id: string
           title: string
           body: string
           embedding: number[]
         }
         Insert: {
-          id?: string
+          workspace_id?: string
           title: string
           body: string
           embedding: number[]
         }
         Update: {
-          id?: string
+          workspace_id?: string
           title?: string
           body?: string
           embedding?: number[]

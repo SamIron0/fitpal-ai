@@ -8,7 +8,7 @@ import { Allergies } from "./allergies"
 import { updateSettings } from "@/db/settings"
 import { TablesUpdate } from "@/supabase/types"
 import { ChatbotUIContext } from "@/context/context"
-import { embeddingsInsert } from "./embeddings"
+import { updateEmbeddings } from "./embeddings"
 
 interface SettingsProps {}
 export const Settings: FC<SettingsProps> = () => {
@@ -37,7 +37,7 @@ export const Settings: FC<SettingsProps> = () => {
     settings: TablesUpdate<"settings">
   ) => {
     await updateSettings(id, settings)
-    const embeddings = await embeddingsInsert({
+    const embeddings = await updateEmbeddings({
       title: "Settings",
       body: JSON.stringify(settings)
     })
