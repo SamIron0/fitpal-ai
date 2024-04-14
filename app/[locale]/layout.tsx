@@ -10,7 +10,7 @@ import { Inter } from "next/font/google"
 import { cookies } from "next/headers"
 import { ReactNode } from "react"
 import "./globals.css"
-import ToasterProvider from "@/components/utility/ToasterProvider"
+import ToasterProvider from "@/components/utility/toasterProvider"
 
 const inter = Inter({ subsets: ["latin"] })
 const APP_NAME = "Chatbot UI"
