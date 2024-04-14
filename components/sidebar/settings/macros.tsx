@@ -85,7 +85,7 @@ export const Macros: FC<MacrosProps> = ({
           <div className="text-muted-foreground  text-sm font-semibold">
             Workouts/week:
           </div>{" "}
-          <div className=" text-sm">{protein}</div>
+          <div className=" text-sm">{workouts}</div>
         </div>
 
         <Slider
