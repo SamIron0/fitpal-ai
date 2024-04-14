@@ -34,7 +34,9 @@ export const insertEmbeddings: FC<EmbeddingsProps> = async () => {
   })
   return data
 }
-export const updateEmbeddings: FC<EmbeddingsProps> = async () => {
+export const updateEmbeddings: FC<EmbeddingsProps> = async ({
+  workspace_id
+}: EmbeddingsProps) => {
   const generateEmbedding = await pipeline(
     "feature-extraction",
     "Supabase/gte-small"
@@ -59,5 +61,16 @@ export const updateEmbeddings: FC<EmbeddingsProps> = async () => {
     body,
     embedding
   })
+  return data
+}
+export const retrieveEmbedding = async (workspace_id: string) => {
+  const { data, error } = await supabase
+    .from("documents")
+    .select(
+      `
+    embedding, 
+   `
+    )
+    .eq("workspace_id", workspace_id)
   return data
 }
