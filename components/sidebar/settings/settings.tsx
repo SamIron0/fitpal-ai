@@ -68,7 +68,7 @@ export const Settings: FC<SettingsProps> = () => {
       />
       <Button
         className="mb-3 mt-4 flex  h-[36px] grow"
-        onClick={() => updateSettings(settings.id, settingsUpdate)}
+        onClick={() => handleSaveChanges(settings.id, settingsUpdate)}
       >
         Save Changes{" "}
       </Button>
