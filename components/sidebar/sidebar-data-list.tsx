@@ -22,17 +22,23 @@ import { PresetItem } from "./items/presets/preset-item"
 import { PromptItem } from "./items/prompts/prompt-item"
 import { ToolItem } from "./items/tools/tool-item"
 import { DietSelect } from "../diet/diet-select"
+import { SidebarSearch } from "./sidebar-search"
+import { SidebarCreateButtons } from "./sidebar-create-buttons"
 
 interface SidebarDataListProps {
   contentType: ContentType
   data: DataListType
   folders: Tables<"folders">[]
+  searchTerm: string
+  setSearchTerm: Function
 }
 
 export const SidebarDataList: FC<SidebarDataListProps> = ({
   contentType,
   data,
-  folders
+  folders,
+  searchTerm,
+  setSearchTerm
 }) => {
   const {
     setChats,
@@ -226,6 +232,20 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
       >
         {contentType === "chats" ? (
           <>
+            <div className="mt-2 flex items-center">
+              <SidebarCreateButtons
+                contentType={contentType}
+                hasData={data.length > 0}
+              />
+            </div>
+
+            <div className="mt-2">
+              <SidebarSearch
+                contentType={contentType}
+                searchTerm={searchTerm}
+                setSearchTerm={setSearchTerm}
+              />
+            </div>
             {data.length === 0 && (
               <div className="flex grow flex-col items-center justify-center">
                 <div className="text-centertext-muted-foreground p-8 text-lg italic">
