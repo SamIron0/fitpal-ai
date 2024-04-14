@@ -19,8 +19,8 @@ export const Allergies = ({}: AllergiesProps) => {
   };
 
   return (
-    <div>
-      <div className="flex space-x-2">
+    <div className="w-full">
+      <div className="flex mt-4 space-x-2">
         <Input
           onClick={(e) => e.preventDefault()}
           placeholder="start typing..."

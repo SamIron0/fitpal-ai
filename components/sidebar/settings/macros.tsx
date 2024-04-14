@@ -1,12 +1,12 @@
-import { Slider } from "../../ui/slider"
+import { Slider } from "../../ui/slider";
 
 interface MacrosProps {
-  protein: number
-  setProtein: Function
-  carbs: number
-  setCarbs: Function
-  fat: number
-  setFat: Function
+  protein: number;
+  setProtein: Function;
+  carbs: number;
+  setCarbs: Function;
+  fat: number;
+  setFat: Function;
 }
 export const Macros = ({
   protein,
@@ -14,23 +14,23 @@ export const Macros = ({
   carbs,
   setCarbs,
   fat,
-  setFat
+  setFat,
 }: MacrosProps) => {
   return (
     <>
       <div className="mt-5 space-y-3">
         <div className="flex items-center space-x-1">
           <div className="text-muted-foreground mb-1  text-sm font-semibold">
-            Protein
+            Protein:
           </div>
 
-          <div></div>
+          <div className=" text-sm">{protein}</div>
         </div>
 
         <Slider
           value={[protein]}
-          onValueChange={values => {
-            setProtein(values[0])
+          onValueChange={(values) => {
+            setProtein(values[0]);
           }}
           min={20}
           max={500}
@@ -40,16 +40,16 @@ export const Macros = ({
       <div className="mt-6 space-y-3">
         <div className="mb-1 flex  items-center  space-x-1">
           <div className="text-muted-foreground text-sm font-semibold">
-            Carbs
+            Carbs:
           </div>
 
-          <div className="text-muted-foreground mbtext-sm">{carbs}</div>
+          <div className=" text-sm">{carbs}</div>
         </div>
 
         <Slider
           value={[carbs]}
-          onValueChange={values => {
-            setCarbs(values[0])
+          onValueChange={(values) => {
+            setCarbs(values[0]);
           }}
           min={20}
           max={500}
@@ -58,17 +58,15 @@ export const Macros = ({
       </div>
       <div className="mt-6 space-y-3">
         <div className="flex items-center space-x-1">
-          <div className="text-muted-foreground mb-1 text-sm font-semibold">
-            Fats
-          </div>
+          <div className="mb-1 text-sm font-semibold">Fats:</div>
 
-          <div></div>
+          <div className="text-muted-foreground text-sm">{fat}</div>
         </div>
 
         <Slider
           value={[fat]}
-          onValueChange={values => {
-            setFat(values[0])
+          onValueChange={(values) => {
+            setFat(values[0]);
           }}
           min={20}
           max={500}
@@ -76,5 +74,5 @@ export const Macros = ({
         />
       </div>
     </>
-  )
-}
+  );
+};

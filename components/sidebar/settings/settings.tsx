@@ -17,7 +17,13 @@ export const Settings: FC<SettingsProps> = () => {
   };
   return (
     <>
-      <div className="text-muted-foreground mb-1 text-sm font-semibold">
+      <Button
+        className="mb-3 mt-4 flex  h-[36px] grow"
+        onClick={() => updateSettings(selectedDiet)}
+      >
+        Save Changes{" "}
+      </Button>
+      <div className="text-muted-foreground mb-1 mt-4 text-sm font-semibold">
         Diet
       </div>
       <DietSelect onSelect={setSelectedDiet} selectedDiet={selectedDiet} />
@@ -35,12 +41,6 @@ export const Settings: FC<SettingsProps> = () => {
           console.log(value);
         }}
       />
-      <Button
-        className="mb-3 mt-4 flex  h-[36px] grow"
-        onClick={() => updateSettings(selectedDiet)}
-      >
-        Save Changes{" "}
-      </Button>
     </>
   );
 };
