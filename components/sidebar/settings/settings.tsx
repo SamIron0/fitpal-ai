@@ -10,14 +10,16 @@ import { ChatbotUIContext } from "@/context/context"
 
 interface SettingsProps {}
 export const Settings: FC<SettingsProps> = () => {
-  const [selectedDiet, setSelectedDiet] = useState<DietProvider>("none")
-  const [protein, setProtein] = useState(0)
-  const [carbs, setCarbs] = useState(0)
-  const [fat, setFat] = useState(0)
-  const [calories, setCalories] = useState(protein * 4 + carbs * 4 + fat * 9)
-  const [workouts, setWorkouts] = useState(0)
-  const [allergies, setAllergies] = useState<string[]>(["nut", "dairy"])
   const { settings } = useContext(ChatbotUIContext)
+  const [selectedDiet, setSelectedDiet] = useState<DietProvider>(settings?.diet)
+  const [protein, setProtein] = useState(settings?.protein || 0)
+  const [carbs, setCarbs] = useState(settings?.carbs || 0)
+  const [fat, setFat] = useState(settings?.fat || 0)
+  const [calories, setCalories] = useState(protein * 4 + carbs * 4 + fat * 9)
+  const [workouts, setWorkouts] = useState(settings?.workouts || 0)
+  const [allergies, setAllergies] = useState<string[]>(
+    settings?.allergies || []
+  )
 
   const settingsUpdate: TablesUpdate<"settings"> = {
     id: settings?.id,
