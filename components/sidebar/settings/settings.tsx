@@ -1,22 +1,22 @@
-import { FC, useState } from "react";
-import { Button } from "../../ui/button";
-import { DietSelect } from "./diet/diet-select";
-import { Macros } from "./macros";
-import { DietProvider } from "@/types";
-import { Allergies } from "./allergies";
+import { FC, useState } from "react"
+import { Button } from "../../ui/button"
+import { DietSelect } from "./diet/diet-select"
+import { Macros } from "./macros"
+import { DietProvider } from "@/types"
+import { Allergies } from "./Allergies"
 
 interface SettingsProps {}
 export const Settings: FC<SettingsProps> = () => {
-  const [selectedDiet, setSelectedDiet] = useState<DietProvider>("none");
-  const [protein, setProtein] = useState(0);
-  const [carbs, setCarbs] = useState(0);
-  const [fat, setFat] = useState(0);
-  const [calories, setCalories] = useState(0);
-  const [workouts, setWorkouts] = useState(0);
+  const [selectedDiet, setSelectedDiet] = useState<DietProvider>("none")
+  const [protein, setProtein] = useState(0)
+  const [carbs, setCarbs] = useState(0)
+  const [fat, setFat] = useState(0)
+  const [calories, setCalories] = useState(0)
+  const [workouts, setWorkouts] = useState(0)
 
   const updateSettings = (selectedDiet: DietProvider) => {
-    console.log(selectedDiet);
-  };
+    console.log(selectedDiet)
+  }
   return (
     <>
       <Button
@@ -42,9 +42,9 @@ export const Settings: FC<SettingsProps> = () => {
       <Allergies
         userAllergies={["nut", "dairy"]}
         setUserAllergies={(allergies: string[]) => {
-          console.log(value);
+          console.log(allergies)
         }}
       />
     </>
-  );
-};
+  )
+}

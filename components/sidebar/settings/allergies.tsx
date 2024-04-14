@@ -1,31 +1,37 @@
-"use client";
+"use client"
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
-import { useState } from "react";
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Separator } from "@/components/ui/separator"
+import { useState } from "react"
 
 interface AllergiesProps {
-  userAllergies: string[] | undefined | null;
-  setUserAllergies: (allergies: string[] | undefined | null) => void;
+  userAllergies: string[] | undefined | null
+  setUserAllergies: (allergies: string[]) => void
 }
-export const Allergies = ({ userAllergies, setUserAllergies }: AllergiesProps) => {
-  const [allergyInput, setAllergyInput] = useState<string>("");
-   const deleteAllergy = async (allergy: string) => {
-    setUserAllergies(userAllergies?.filter((a) => a !== allergy));
-  };
+export const Allergies = ({
+  userAllergies,
+  setUserAllergies
+}: AllergiesProps) => {
+  const [allergyInput, setAllergyInput] = useState<string>("")
+  const deleteAllergy = async (allergy: string) => {
+    if (!userAllergies) return
+    setUserAllergies(userAllergies?.filter(a => a !== allergy))
+  }
   const addAllergy = async () => {
-    setUserAllergies(userAllergies?.concat(allergyInput));
-  };
+    if (!userAllergies) return
+
+    setUserAllergies(userAllergies?.concat(allergyInput))
+  }
 
   return (
     <div className="w-full">
-      <div className="flex mt-4 space-x-2">
+      <div className="mt-4 flex space-x-2">
         <Input
-          onClick={(e) => e.preventDefault()}
+          onClick={e => e.preventDefault()}
           placeholder="start typing..."
           value={allergyInput}
-          onChange={(e) => setAllergyInput(e.target.value)}
+          onChange={e => setAllergyInput(e.target.value)}
           style={{ fontSize: "16px" }}
         />
 
@@ -59,5 +65,5 @@ export const Allergies = ({ userAllergies, setUserAllergies }: AllergiesProps) =
         </div>
       )}
     </div>
-  );
-};
+  )
+}

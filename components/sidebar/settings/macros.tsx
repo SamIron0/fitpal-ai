@@ -1,14 +1,14 @@
-import { Slider } from "../../ui/slider";
+import { Slider } from "../../ui/slider"
 
 interface MacrosProps {
-  protein: number;
-  setProtein: Function;
-  carbs: number;
-  setCarbs: Function;
-  fat: number;
-  setFat: Function;
-  workouts: number;
-  setWorkouts: Function;
+  protein: number
+  setProtein: Function
+  carbs: number
+  setCarbs: Function
+  fat: number
+  setFat: Function
+  workouts: number
+  setWorkouts: Function
 }
 export const Macros = ({
   protein,
@@ -18,7 +18,7 @@ export const Macros = ({
   fat,
   setFat,
   workouts,
-  setWorkouts,
+  setWorkouts
 }: MacrosProps) => {
   return (
     <>
@@ -33,8 +33,8 @@ export const Macros = ({
 
         <Slider
           value={[protein]}
-          onValueChange={(values) => {
-            setProtein(values[0]);
+          onValueChange={values => {
+            setProtein(values[0])
           }}
           min={10}
           max={600}
@@ -52,8 +52,8 @@ export const Macros = ({
 
         <Slider
           value={[carbs]}
-          onValueChange={(values) => {
-            setCarbs(values[0]);
+          onValueChange={values => {
+            setCarbs(values[0])
           }}
           min={10}
           max={1000}
@@ -69,8 +69,8 @@ export const Macros = ({
 
         <Slider
           value={[fat]}
-          onValueChange={(values) => {
-            setFat(values[0]);
+          onValueChange={values => {
+            setFat(values[0])
           }}
           min={10}
           max={500}
@@ -87,8 +87,8 @@ export const Macros = ({
 
         <Slider
           value={[workouts]}
-          onValueChange={(values) => {
-            setWorkouts(values[0]);
+          onValueChange={values => {
+            setWorkouts(values[0])
           }}
           min={0}
           max={7}
@@ -96,5 +96,5 @@ export const Macros = ({
         />
       </div>
     </>
-  );
-};
+  )
+}
