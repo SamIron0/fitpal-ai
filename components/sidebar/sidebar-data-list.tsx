@@ -331,7 +331,7 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
         ) : contentType === "presets" ? (
           <>
             <Button
-              className="flex h-[36px] grow"
+              className="mb-3 flex  h-[36px] grow"
               onClick={() => setSelectedDiet}
             >
               Save{" "}
@@ -341,6 +341,16 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
               Diet
             </div>
             <DietSelect onSelect={setSelectedDiet} />
+
+            <div className="text-muted-foreground font-bolds mb-1 mt-2 text-sm">
+              Protein
+            </div>
+            <div className="text-muted-foreground font-bolds mb-1 mt-2 text-sm">
+              Carbs
+            </div>
+            <div className="text-muted-foreground font-bolds mb-1 mt-2 text-sm">
+              Fat
+            </div>
           </>
         ) : null}
       </div>
