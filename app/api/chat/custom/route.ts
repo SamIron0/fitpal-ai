@@ -39,7 +39,10 @@ export async function POST(request: Request) {
         `}`
       }
     ]
-    const combinedMessages = [...messages, ...messagesExtension]
+    var combinedMessages = messages
+    if (messages.length === 0) {
+      combinedMessages = [...messagesExtension, ...messages]
+    }
 
     const API_KEY = process.env.DEEPINFRA_API_KEY
 
