@@ -50,7 +50,7 @@ export async function POST(request: Request) {
         method: "POST",
         body: JSON.stringify({
           model: "mistralai/Mixtral-8x7B-Instruct-v0.1",
-          combinedMessages,
+          messages: combinedMessages,
           stream: true,
           top_p: 0.8
         }),
