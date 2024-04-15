@@ -202,16 +202,29 @@ export default function SetupPage() {
       case 3:
         return (
           <StepContainer
-            stepDescription="You are all set up!"
+            stepDescription="Enter your preferences!"
             stepNum={currentStep}
-            stepTitle="Setup Complete"
+            stepTitle="Preferences"
+            onShouldProceed={handleShouldProceed}
+            showNextButton={true}
+            showBackButton={true}
+          ></StepContainer>
+        )
+      case 4:
+        return (
+          <StepContainer
+            stepDescription="Enter your macros or click the button to calculate."
+            stepNum={currentStep}
+            stepTitle="Set your macros (optional)"
             onShouldProceed={handleShouldProceed}
             showNextButton={true}
             showBackButton={true}
           >
+            {" "}
             <FinishStep displayName={displayName} />
           </StepContainer>
         )
+
       default:
         return null
     }
