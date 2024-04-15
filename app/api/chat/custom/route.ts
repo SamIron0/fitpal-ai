@@ -9,14 +9,15 @@ export const runtime: ServerRuntime = "edge"
 
 export async function POST(request: Request) {
   const json = await request.json()
-  const { chatSettings, messages, customModelId, workspace_id } = json as {
+  const { chatSettings, messages, customModelId, settings } = json as {
     chatSettings: ChatSettings
     messages: any[]
     customModelId: string
-    workspace_id: string
+    settings: any
   }
+  // const workspace_id =
   try {
-    const supabaseAdmin = createClient<Database>(
+    /*  const supabaseAdmin = createClient<Database>(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.SUPABASE_SERVICE_ROLE_KEY!
     )
@@ -27,9 +28,9 @@ export async function POST(request: Request) {
         match_threshold: 0.75, // Choose an appropriate threshold for your data
         match_count: 5 // Choose the number of matches
       })
-      console.log("documents:", documents)
-    }
+    }*/
     const API_KEY = process.env.DEEPINFRA_API_KEY
+    console.log("settings:", settings)
 
     const response = await fetch(
       "https://api.deepinfra.com/v1/openai/chat/completions",
