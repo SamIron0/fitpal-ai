@@ -348,6 +348,7 @@ export const handleCreateMessages = async (
   currentChat: Tables<"chats">,
   profile: Tables<"profiles">,
   modelData: LLM,
+  settings: Tables<"settings">,
   messageContent: string,
   generatedText: string,
   newMessageImages: MessageImage[],
