@@ -1,5 +1,5 @@
 import { retrieveEmbedding } from "@/components/sidebar/settings/embeddings"
-import { Database } from "@/supabase/types"
+import { Database, Tables } from "@/supabase/types"
 import { ChatSettings } from "@/types"
 import { createClient } from "@supabase/supabase-js"
 import { OpenAIStream, StreamingTextResponse } from "ai"
@@ -13,24 +13,24 @@ export async function POST(request: Request) {
     chatSettings: ChatSettings
     messages: any[]
     customModelId: string
-    settings: any
+    settings: Tables<"settings">
   }
   // const workspace_id =
   try {
-    /*  const supabaseAdmin = createClient<Database>(
+    const supabaseAdmin = createClient<Database>(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.SUPABASE_SERVICE_ROLE_KEY!
     )
-    const embedding = await retrieveEmbedding(workspace_id)
+    const embedding = await retrieveEmbedding(settings.workspace_id)
     if (embedding !== null) {
       const { data: documents } = await supabaseAdmin.rpc("match_documents", {
         query_embedding: embedding[0].embedding, // Pass the embedding you want to compare
         match_threshold: 0.75, // Choose an appropriate threshold for your data
         match_count: 5 // Choose the number of matches
       })
-    }*/
+      console.log("docs:", documents)
+    }
     const API_KEY = process.env.DEEPINFRA_API_KEY
-    console.log("settings:", settings)
 
     const response = await fetch(
       "https://api.deepinfra.com/v1/openai/chat/completions",
