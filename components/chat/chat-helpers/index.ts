@@ -1,5 +1,6 @@
 // Only used in use-chat-handler.tsx to keep it clean
 
+import { ChatbotUIContext } from "@/context/context"
 import { createChatFiles } from "@/db/chat-files"
 import { createChat } from "@/db/chats"
 import { createMessageFileItems } from "@/db/message-file-items"
@@ -19,7 +20,7 @@ import {
   LLM,
   MessageImage
 } from "@/types"
-import React from "react"
+import React, { useContext } from "react"
 import { toast } from "sonner"
 import { v4 as uuidv4 } from "uuid"
 
@@ -174,6 +175,7 @@ export const handleHostedChat = async (
 
   const apiEndpoint = "/api/chat/custom"
 
+  //const {settings}: {settings: Tables<"settings">} =  useContext(ChatbotUIContext)
   const requestBody = {
     settings: "settings",
     chatSettings: payload.chatSettings,
