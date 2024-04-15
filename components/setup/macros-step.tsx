@@ -69,7 +69,7 @@ export const MacrosStep: FC<MacrosStepProps> = ({
   return (
     <>
       <div className="space-y-1">
-        <Label>
+        <Label className="flex items-center">
           <div>Calories</div>
           <div className=" text-sm">{calories}</div>
         </Label>
@@ -97,7 +97,7 @@ export const MacrosStep: FC<MacrosStepProps> = ({
       </div>
 
       <div className="flex space-y-1">
-        <Label>
+        <Label className="flex items-center">
           <div>Carbs: {"  "}</div> <div className=" text-sm">{carbs}</div>
         </Label>
 
@@ -111,8 +111,8 @@ export const MacrosStep: FC<MacrosStepProps> = ({
           step={1}
         />
       </div>
-      <div className="flex space-y-1">
-        <Label>
+      <div className=" space-y-1">
+        <Label className="flex items-center">
           <div>Fat: {"  "}</div> <div className=" text-sm">{fat}</div>
         </Label>
 
