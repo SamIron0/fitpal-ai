@@ -149,6 +149,7 @@ export const handleHostedChat = async (
   payload: ChatPayload,
   profile: Tables<"profiles">,
   modelData: LLM,
+  settings: Tables<"settings">,
   tempAssistantChatMessage: ChatMessage,
   isRegeneration: boolean,
   newAbortController: AbortController,
@@ -175,9 +176,8 @@ export const handleHostedChat = async (
 
   const apiEndpoint = "/api/chat/custom"
 
-  //const {settings}: {settings: Tables<"settings">} =  useContext(ChatbotUIContext)
   const requestBody = {
-    settings: "settings",
+    settings: settings,
     chatSettings: payload.chatSettings,
     messages: formattedMessages,
     customModelId: provider === "custom" ? modelData.hostedId : ""
@@ -348,7 +348,6 @@ export const handleCreateMessages = async (
   currentChat: Tables<"chats">,
   profile: Tables<"profiles">,
   modelData: LLM,
-  settings: Tables<"settings">,
   messageContent: string,
   generatedText: string,
   newMessageImages: MessageImage[],
