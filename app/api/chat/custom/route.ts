@@ -1,32 +1,34 @@
+import { retrieveEmbedding } from "@/components/sidebar/settings/embeddings"
 import { Database } from "@/supabase/types"
 import { ChatSettings } from "@/types"
 import { createClient } from "@supabase/supabase-js"
 import { OpenAIStream, StreamingTextResponse } from "ai"
 import { ServerRuntime } from "next"
-import OpenAI from "openai"
-import { ChatCompletionCreateParamsBase } from "openai/resources/chat/completions.mjs"
-import { Readable } from "stream"
 
 export const runtime: ServerRuntime = "edge"
 
 export async function POST(request: Request) {
   const json = await request.json()
-  const { chatSettings, messages, customModelId } = json as {
+  const { chatSettings, messages, customModelId, workspace_id } = json as {
     chatSettings: ChatSettings
     messages: any[]
     customModelId: string
+    workspace_id: string
   }
   try {
     const supabaseAdmin = createClient<Database>(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.SUPABASE_SERVICE_ROLE_KEY!
     )
-    const { data: documents } = await supabaseAdmin.rpc("match_documents", {
-      query_embedding: "embedding", // Pass the embedding you want to compare
-      match_threshold: 0.75, // Choose an appropriate threshold for your data
-      match_count: 5 // Choose the number of matches
-    })
-    console.log("documents:", documents)
+    const embedding = await retrieveEmbedding(workspace_id)
+    if (embedding !== null) {
+      const { data: documents } = await supabaseAdmin.rpc("match_documents", {
+        query_embedding: embedding[0].embedding, // Pass the embedding you want to compare
+        match_threshold: 0.75, // Choose an appropriate threshold for your data
+        match_count: 5 // Choose the number of matches
+      })
+      console.log("documents:", documents)
+    }
     const API_KEY = process.env.DEEPINFRA_API_KEY
 
     const response = await fetch(

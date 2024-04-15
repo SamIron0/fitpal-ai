@@ -40,11 +40,7 @@ export const updateEmbeddings = async (
 export const retrieveEmbedding = async (workspace_id: string) => {
   const { data, error } = await supabase
     .from("documents")
-    .select(
-      `
-    embedding, 
-   `
-    )
+    .select("embedding")
     .eq("workspace_id", workspace_id)
   return data
 }
