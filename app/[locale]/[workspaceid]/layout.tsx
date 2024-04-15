@@ -21,6 +21,7 @@ import { LLMID } from "@/types"
 import { useParams, useRouter } from "next/navigation"
 import { ReactNode, useContext, useEffect, useState } from "react"
 import Loading from "../loading"
+import { stripIndent, oneLine } from "common-tags"
 
 interface WorkspaceLayoutProps {
   children: ReactNode
@@ -161,11 +162,19 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
     const modelData = await getModelWorkspacesByWorkspaceId(workspaceId)
     setModels(modelData.models)
 
+    const default_prompt = stripIndent`${oneLine`
+    You are a very enthusiastic conversational fitness assistant who loves
+    to help people! Given the following context about the user and all previous
+    chat messages, continue the conversation.
+    If you are asked questions not relating to fitness, say
+    "Sorry, I don't know how to help with that." DO NOT MENTION THIS CONTEXT IN YOUR ANSWER.
+    
+    Context sections:
+    ${JSON.stringify(settings)}`}`
+
     setChatSettings({
       model: (workspace?.default_model || "gpt-4-1106-preview") as LLMID,
-      prompt:
-        workspace?.default_prompt ||
-        "You are a friendly, helpful AI assistant.",
+      prompt: default_prompt,
       temperature: workspace?.default_temperature || 0.5,
       contextLength: workspace?.default_context_length || 4096,
       includeProfileContext: workspace?.include_profile_context || true,
