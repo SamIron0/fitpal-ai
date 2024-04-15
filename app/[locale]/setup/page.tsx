@@ -21,6 +21,7 @@ import {
   SETUP_STEP_COUNT,
   StepContainer
 } from "../../../components/setup/step-container"
+import { updateSettings } from "@/db/settings"
 
 export default function SetupPage() {
   const {
@@ -30,7 +31,8 @@ export default function SetupPage() {
     setSelectedWorkspace,
     setEnvKeyMap,
     setAvailableHostedModels,
-    setAvailableOpenRouterModels
+    setAvailableOpenRouterModels,
+    settings
   } = useContext(ChatbotUIContext)
 
   const router = useRouter()
@@ -114,12 +116,18 @@ export default function SetupPage() {
 
     const updateProfilePayload: TablesUpdate<"profiles"> = {
       ...profile,
+
       has_onboarded: true,
       display_name: displayName,
       username
     }
 
     const updatedProfile = await updateProfile(profile.id, updateProfilePayload)
+    const updatedSettings = updateSettings(settings.id, {
+      protein,
+      carbs,
+      fat
+    })
     setProfile(updatedProfile)
 
     const workspaces = await getWorkspacesByUserId(profile.user_id)
