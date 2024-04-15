@@ -2,6 +2,10 @@ import { supabase } from "@/lib/supabase/browser-client"
 import { pipeline } from "@xenova/transformers"
 import { FC } from "react"
 
+export const genereateEmbeddings = async () => {
+  return true
+}
+
 export const updateEmbeddings = async (
   title: string,
   body: string,

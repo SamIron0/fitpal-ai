@@ -1,3 +1,4 @@
+import { oneLine, stripIndent } from "common-tags"
 import { retrieveEmbedding } from "@/components/sidebar/settings/embeddings"
 import { Database, Tables } from "@/supabase/types"
 import { ChatSettings } from "@/types"
@@ -15,23 +16,32 @@ export async function POST(request: Request) {
     customModelId: string
     settings: Tables<"settings">
   }
-  // const workspace_id =
+
   try {
     const supabaseAdmin = createClient<Database>(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.SUPABASE_SERVICE_ROLE_KEY!
     )
-    const embedding = await retrieveEmbedding(settings.workspace_id)
 
-    console.log("embedding:", embedding)
-    if (embedding !== null) {
-      const { data: documents } = await supabaseAdmin.rpc("match_documents", {
-        query_embedding: embedding[0].embedding, // Pass the embedding you want to compare
-        match_threshold: 0.75, // Choose an appropriate threshold for your data
-        match_count: 5 // Choose the number of matches
-      })
-      console.log("docs:", documents)
-    }
+    const messagesExtension = [
+      {
+        role: "user",
+        content: stripIndent`${oneLine`
+          You are a very enthusiastic Supabase representative who loves
+          to help people! Given the following sections from the Supabase
+          documentation, answer the question using only that information,
+          outputted in markdown format. If you are unsure and the answer
+          is not explicitly written in the documentation, say
+          "Sorry, I don't know how to help with that."
+          
+          Context sections:
+          ${JSON.stringify(settings)}
+         
+        `}`
+      }
+    ]
+    const combinedMessages = [...messages, ...messagesExtension]
+
     const API_KEY = process.env.DEEPINFRA_API_KEY
 
     const response = await fetch(
@@ -40,8 +50,9 @@ export async function POST(request: Request) {
         method: "POST",
         body: JSON.stringify({
           model: "mistralai/Mixtral-8x7B-Instruct-v0.1",
-          messages,
-          stream: true
+          combinedMessages,
+          stream: true,
+          top_p: 0.8
         }),
         headers: {
           "Content-Type": "application/json",
