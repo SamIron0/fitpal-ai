@@ -22,6 +22,8 @@ export async function POST(request: Request) {
       process.env.SUPABASE_SERVICE_ROLE_KEY!
     )
     const embedding = await retrieveEmbedding(settings.workspace_id)
+
+    console.log("embedding:", embedding)
     if (embedding !== null) {
       const { data: documents } = await supabaseAdmin.rpc("match_documents", {
         query_embedding: embedding[0].embedding, // Pass the embedding you want to compare
