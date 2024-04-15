@@ -1,6 +1,6 @@
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { FC, useState } from "react"
+import { FC, useEffect, useState } from "react"
 import { Button } from "../ui/button"
 import { Slider } from "../ui/slider"
 
@@ -48,6 +48,12 @@ export const MacrosStep: FC<MacrosStepProps> = ({
   const [percentProtein, setPercentProtein] = useState(25)
   const [percentCarbs, setPercentCarbs] = useState(50)
   const [percentFat, setPercentFat] = useState(25)
+
+  useEffect(() => {
+    setProtein(percentProtein * 0.01 * calories)
+    setCarbs(percentCarbs * 0.01 * calories)
+    setFat(percentFat * 0.01 * calories)
+  }, [calories])
   const onChangeCarbs = (value: number) => {
     setPercentCarbs(value)
     setCarbs(value * 0.01 * calories)
