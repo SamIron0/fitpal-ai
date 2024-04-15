@@ -175,6 +175,7 @@ export const handleHostedChat = async (
   const apiEndpoint = "/api/chat/custom"
 
   const requestBody = {
+    settings: "settings",
     chatSettings: payload.chatSettings,
     messages: formattedMessages,
     customModelId: provider === "custom" ? modelData.hostedId : ""
