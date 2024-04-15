@@ -1532,6 +1532,18 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      match_documents: {
+        Args: {
+          query_embedding: string
+          match_threshold: number
+          match_count: number
+        }
+        Returns: {
+          workspace_id: string
+          body: number
+          similarity: number
+        }[]
+      }
       create_duplicate_messages_for_new_chat: {
         Args: {
           old_chat_id: string

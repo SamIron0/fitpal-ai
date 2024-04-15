@@ -21,10 +21,12 @@ export async function POST(request: Request) {
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.SUPABASE_SERVICE_ROLE_KEY!
     )
-
-    // for node.js before v21, you can use node-fetch package
-    // import fetch from 'node-fetch'
-
+    const { data: documents } = await supabaseAdmin.rpc("match_documents", {
+      query_embedding: "embedding", // Pass the embedding you want to compare
+      match_threshold: 0.75, // Choose an appropriate threshold for your data
+      match_count: 5 // Choose the number of matches
+    })
+    console.log("documents:", documents)
     const API_KEY = process.env.DEEPINFRA_API_KEY
 
     const response = await fetch(
