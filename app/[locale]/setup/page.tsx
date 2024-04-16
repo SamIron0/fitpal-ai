@@ -23,6 +23,7 @@ import {
 } from "../../../components/setup/step-container"
 import { updateSettings } from "@/db/settings"
 import { PreferencesStep } from "@/components/setup/preferences-step"
+import { DietProvider } from "@/types/diet"
 
 export default function SetupPage() {
   const {
@@ -133,7 +134,7 @@ export default function SetupPage() {
       fat,
       workouts,
       allergies,
-      diet
+      diet: diet as DietProvider
     }
     const updatedSettings = updateSettings(settings.id, updateSettingsPayload)
     setProfile(updatedProfile)
