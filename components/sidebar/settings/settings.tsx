@@ -1,7 +1,7 @@
 import { toast } from "react-hot-toast"
 import { FC, useContext, useState } from "react"
 import { Button } from "../../ui/button"
-import { DietSelect } from "./diet/diet-select"
+import { DietSelect } from "../../diet/diet-select"
 import { Macros } from "./macros"
 import { DietProvider } from "@/types"
 import { Allergies } from "./allergies"

@@ -1,14 +1,14 @@
 import { ChatbotUIContext } from "@/context/context"
-import { LLMID, DietProvider } from "@/types"
+import { DietProvider } from "@/types/diet"
 import { IconChevronDown } from "@tabler/icons-react"
 import { FC, useContext, useEffect, useRef, useState } from "react"
-import { Button } from "../../../ui/button"
+import { Button } from "../ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger
-} from "../../../ui/dropdown-menu"
-import { Tabs, TabsList, TabsTrigger } from "../../../ui/tabs"
+} from "../ui/dropdown-menu"
+import { Tabs, TabsList, TabsTrigger } from "../ui/tabs"
 import { DietIcon } from "./diet-icon"
 import { DietOption } from "./diet-option"
 
@@ -25,7 +25,17 @@ export const DietSelect: FC<DietSelectProps> = ({ onSelect, selectedDiet }) => {
 
   const [isOpen, setIsOpen] = useState(false)
   const [selected, setSelected] = useState<DietProvider>(selectedDiet)
-  const diets: DietProvider[] = ["paleo", "vegan"]
+  const diets: DietProvider[] = [
+    "none",
+    "paleo",
+    "vegan",
+    "gluten-free",
+    "ketogenic",
+    "pescatarian",
+    "mediterranean",
+    "low-carb",
+    "vegetarian"
+  ]
   useEffect(() => {
     if (isOpen) {
       setTimeout(() => {

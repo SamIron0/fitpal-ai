@@ -22,6 +22,7 @@ import {
   StepContainer
 } from "../../../components/setup/step-container"
 import { updateSettings } from "@/db/settings"
+import { PreferencesStep } from "@/components/setup/preferences-step"
 
 export default function SetupPage() {
   const {
@@ -54,7 +55,9 @@ export default function SetupPage() {
   const [age, setAge] = useState(0)
   const [gender, setGender] = useState("")
   const [activityLevel, setActivityLevel] = useState(0)
-
+  const [workouts, setWorkouts] = useState(0)
+  const [allergies, setAllergies] = useState<string[]>([])
+  const [diet, setDiet] = useState("")
   useEffect(() => {
     ;(async () => {
       const session = (await supabase.auth.getSession()).data.session
@@ -198,7 +201,6 @@ export default function SetupPage() {
           </StepContainer>
         )
 
-      // Finish Step
       case 3:
         return (
           <StepContainer
@@ -208,19 +210,27 @@ export default function SetupPage() {
             onShouldProceed={handleShouldProceed}
             showNextButton={true}
             showBackButton={true}
-          ></StepContainer>
+          >
+            <PreferencesStep
+              allergies={allergies}
+              setAllergies={setAllergies}
+              diet={diet}
+              setDiet={setDiet}
+              workouts={workouts}
+              setWorkouts={setWorkouts}
+            />
+          </StepContainer>
         )
       case 4:
         return (
           <StepContainer
-            stepDescription="Enter your macros or click the button to calculate."
+            stepDescription="You are all set up!"
             stepNum={currentStep}
-            stepTitle="Set your macros (optional)"
+            stepTitle="Setup Complete"
             onShouldProceed={handleShouldProceed}
             showNextButton={true}
             showBackButton={true}
           >
-            {" "}
             <FinishStep displayName={displayName} />
           </StepContainer>
         )

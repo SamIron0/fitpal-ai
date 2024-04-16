@@ -2,7 +2,7 @@ import { LLM } from "@/types"
 import { FC } from "react"
 import { DietIcon } from "./diet-icon"
 import { IconInfoCircle } from "@tabler/icons-react"
-import { WithTooltip } from "../../../ui/with-tooltip"
+import { WithTooltip } from "../ui/with-tooltip"
 
 interface DietOptionProps {
   diet: string
