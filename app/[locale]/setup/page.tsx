@@ -126,11 +126,16 @@ export default function SetupPage() {
     }
 
     const updatedProfile = await updateProfile(profile.id, updateProfilePayload)
-    const updatedSettings = updateSettings(settings.id, {
+    const updateSettingsPayload: TablesUpdate<"settings"> = {
+      ...settings,
       protein,
       carbs,
-      fat
-    })
+      fat,
+      workouts,
+      allergies,
+      diet
+    }
+    const updatedSettings = updateSettings(settings.id, updateSettingsPayload)
     setProfile(updatedProfile)
 
     const workspaces = await getWorkspacesByUserId(profile.user_id)
