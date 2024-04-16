@@ -9,7 +9,8 @@ import { updatePrompt } from "@/db/prompts"
 import { updateTool } from "@/db/tools"
 import { cn } from "@/lib/utils"
 import { Tables } from "@/supabase/types"
-import { ContentType, DataItemType, DataListType, DietProvider } from "@/types"
+import { ContentType, DataItemType, DataListType } from "@/types"
+
 import { FC, useContext, useEffect, useRef, useState } from "react"
 import { Separator } from "../ui/separator"
 import { AssistantItem } from "./items/assistants/assistant-item"
@@ -57,7 +58,6 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
 
   const [isOverflowing, setIsOverflowing] = useState(false)
   const [isDragOver, setIsDragOver] = useState(false)
-  const [selectedDiet, setSelectedDiet] = useState<DietProvider>()
   const getDataListComponent = (
     contentType: ContentType,
     item: DataItemType

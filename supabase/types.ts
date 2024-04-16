@@ -1,4 +1,4 @@
-import { DietProvider } from "@/types"
+import { DietProvider } from "@/types/diet"
 
 export type Json =
   | string
