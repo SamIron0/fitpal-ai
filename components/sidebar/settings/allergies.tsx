@@ -33,6 +33,7 @@ export const Allergies: FC<AllergiesProps> = ({
           placeholder="start typing..."
           value={allergyInput}
           onChange={e => setAllergyInput(e.target.value)}
+          style={{ fontSize: "16px" }}
         />
 
         <Button onClick={() => addAllergy()} className="shrink-0">
