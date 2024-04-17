@@ -22,7 +22,7 @@ export const Settings: FC<SettingsProps> = () => {
   const [allergies, setAllergies] = useState<string[]>(
     settings?.allergies || []
   )
-
+  const { setChatSettings, chatSettings } = useContext(ChatbotUIContext)
   //console.log("settings:", settings)
   const settingsUpdate: TablesUpdate<"settings"> = {
     id: settings?.id,
@@ -41,6 +41,18 @@ export const Settings: FC<SettingsProps> = () => {
   ) => {
     const toastId = toast.loading("Saving...")
     await updateSettings(id, settings)
+    setChatSettings({
+      includeWorkspaceInstructions:
+        chatSettings?.includeWorkspaceInstructions || false,
+      includeProfileContext: chatSettings?.includeProfileContext || false,
+      contextLength: chatSettings?.contextLength || 4096,
+      temperature: chatSettings?.temperature || 0.7,
+      model: chatSettings?.model || "gpt-3.5-turbo",
+      prompt: chatSettings?.prompt || "",
+      embeddingsProvider: chatSettings?.embeddingsProvider || "openai",
+      contextIsOutdated: true
+    })
+
     const embeddings = await updateEmbeddings(
       "Settings",
       JSON.stringify(settings),
