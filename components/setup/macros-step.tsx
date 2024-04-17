@@ -81,8 +81,8 @@ export const MacrosStep: FC<MacrosStepProps> = ({
 
       <div className="mt-5 space-y-2">
         <Label className="flex items-center">
-          <div className="mr-2">Protein(g): {"  "}</div>{" "}
-          <div className=" text-sm">{(protein / 4).toFixed(2)}</div>
+          <div className="mr-2">Protein: {"  "}</div>{" "}
+          <div className=" text-sm">{(protein / 4).toFixed(2)}g</div>
           <div className="text-muted-foreground flex w-full justify-end text-sm">
             {percentProtein}%
           </div>
@@ -101,8 +101,8 @@ export const MacrosStep: FC<MacrosStepProps> = ({
 
       <div className=" space-y-1">
         <Label className="flex items-center">
-          <div className="mr-2">Carbs(g): {"  "}</div>{" "}
-          <div className=" text-sm">{(carbs / 4).toFixed(2)}</div>
+          <div className="mr-2">Carbs: {"  "}</div>{" "}
+          <div className=" text-sm">{(carbs / 4).toFixed(2)}g</div>
           <div className="text-muted-foreground flex w-full justify-end text-sm">
             {percentCarbs}%
           </div>
@@ -120,8 +120,8 @@ export const MacrosStep: FC<MacrosStepProps> = ({
       </div>
       <div className=" space-y-1">
         <Label className="flex items-center">
-          <div className="mr-2">Fat(g): {"  "}</div>{" "}
-          <div className=" text-sm">{(fat / 9).toFixed(2)}</div>
+          <div className="mr-2">Fats: {"  "}</div>{" "}
+          <div className=" text-sm">{(fat / 9).toFixed(2)}g</div>
           <div className="text-muted-foreground flex w-full justify-end text-sm">
             {percentFat}%
           </div>
