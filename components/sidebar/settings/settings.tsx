@@ -22,7 +22,8 @@ export const Settings: FC<SettingsProps> = () => {
   const [allergies, setAllergies] = useState<string[]>(
     settings?.allergies || []
   )
-  const { setChatSettings, chatSettings } = useContext(ChatbotUIContext)
+  const { setChatSettings, chatSettings, setSettings } =
+    useContext(ChatbotUIContext)
   //console.log("settings:", settings)
   const settingsUpdate: TablesUpdate<"settings"> = {
     id: settings?.id,
@@ -35,11 +36,12 @@ export const Settings: FC<SettingsProps> = () => {
     workspace_id: settings?.workspace_id,
     user_id: settings?.user_id
   }
-  const handleSaveChanges = async (
-    id: string,
-    settings: TablesUpdate<"settings">
-  ) => {
+  const handleSaveChanges = async (id: string, settings: any) => {
     const toastId = toast.loading("Saving...")
+
+    if (settings !== undefined) {
+      setSettings(settings)
+    }
     await updateSettings(id, settings)
     setChatSettings({
       includeWorkspaceInstructions:
