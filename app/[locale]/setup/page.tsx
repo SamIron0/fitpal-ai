@@ -177,7 +177,7 @@ export default function SetupPage() {
       case 2:
         return (
           <StepContainer
-            stepDescription="Enter your macros or click the button to calculate."
+            stepDescription="Enter your macros(you can edit this later)."
             stepNum={currentStep}
             stepTitle="Set your macros (optional)"
             onShouldProceed={handleShouldProceed}

@@ -71,7 +71,6 @@ export const MacrosStep: FC<MacrosStepProps> = ({
       <div className="space-y-1">
         <Label className="flex items-center">
           <div>Calories</div>
-          <div className=" text-sm">{calories}</div>
         </Label>
 
         <Input
@@ -82,7 +81,8 @@ export const MacrosStep: FC<MacrosStepProps> = ({
 
       <div className="mt-5 space-y-2">
         <Label className="flex items-center">
-          <div>Protein: {"  "}</div> <div className=" text-sm">{protein}</div>
+          <div className="mr-2">Protein: {"  "}</div>{" "}
+          <div className=" text-sm">{protein}</div>
         </Label>
 
         <Slider
@@ -96,9 +96,10 @@ export const MacrosStep: FC<MacrosStepProps> = ({
         />
       </div>
 
-      <div className="flex space-y-1">
+      <div className=" space-y-1">
         <Label className="flex items-center">
-          <div>Carbs: {"  "}</div> <div className=" text-sm">{carbs}</div>
+          <div className="mr-2">Carbs: {"  "}</div>{" "}
+          <div className=" text-sm">{carbs}</div>
         </Label>
 
         <Slider
@@ -113,7 +114,8 @@ export const MacrosStep: FC<MacrosStepProps> = ({
       </div>
       <div className=" space-y-1">
         <Label className="flex items-center">
-          <div>Fat: {"  "}</div> <div className=" text-sm">{fat}</div>
+          <div className="mr-2">Fat: {"  "}</div>{" "}
+          <div className=" text-sm">{fat}</div>
         </Label>
 
         <Slider
