@@ -163,17 +163,7 @@ export const handleHostedChat = async (
   const provider = modelData.provider
 
   let formattedMessages = []
-
-  if (provider === "google") {
-    formattedMessages = await buildGoogleGeminiFinalMessages(
-      payload,
-      profile,
-      newMessageImages
-    )
-  } else {
-    formattedMessages = await buildFinalMessages(payload, profile, chatImages)
-  }
-
+  formattedMessages = await buildFinalMessages(payload, profile, chatImages)
   const apiEndpoint = "/api/chat/custom"
 
   const requestBody = {

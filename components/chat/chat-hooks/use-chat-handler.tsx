@@ -259,6 +259,12 @@ export const useChatHandler = () => {
           selectedAssistant
         )
 
+      if (chatSettings?.contextIsOutdated) {
+        chatSettings.prompt = "reply as a comedian"
+        //const systemMessage = {role: "system", content: repl}
+        chatSettings.contextIsOutdated = false
+      }
+
       let payload: ChatPayload = {
         chatSettings: chatSettings!,
         workspaceInstructions: selectedWorkspace!.instructions || "",

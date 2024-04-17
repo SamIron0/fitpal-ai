@@ -22,6 +22,7 @@ export const Settings: FC<SettingsProps> = () => {
   const [allergies, setAllergies] = useState<string[]>(
     settings?.allergies || []
   )
+
   //console.log("settings:", settings)
   const settingsUpdate: TablesUpdate<"settings"> = {
     id: settings?.id,
@@ -38,6 +39,7 @@ export const Settings: FC<SettingsProps> = () => {
     id: string,
     settings: TablesUpdate<"settings">
   ) => {
+    const toastId = toast.loading("Saving...")
     await updateSettings(id, settings)
     const embeddings = await updateEmbeddings(
       "Settings",
@@ -45,6 +47,7 @@ export const Settings: FC<SettingsProps> = () => {
       settings.workspace_id || ""
     )
     console.log("embeddings:", embeddings)
+    toast.remove(toastId)
     toast.success("Settings saved!")
   }
   return (
@@ -76,7 +79,7 @@ export const Settings: FC<SettingsProps> = () => {
         }}
       />
       <Button
-        className="mb-3 mt-4 flex  h-[36px] grow"
+        className="mb-3 mt-12 flex  h-[36px] grow"
         onClick={() => handleSaveChanges(settings.id, settingsUpdate)}
       >
         Save Changes{" "}

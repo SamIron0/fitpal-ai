@@ -27,7 +27,7 @@ export const Allergies: FC<AllergiesProps> = ({
       <div className="text-muted-foreground  text-sm font-semibold">
         Allergies
       </div>
-      <div className=" flex space-x-2">
+      <div className="mt-2 flex space-x-2">
         <Input
           onClick={e => e.preventDefault()}
           placeholder="start typing..."
