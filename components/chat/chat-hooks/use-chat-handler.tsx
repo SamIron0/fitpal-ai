@@ -262,6 +262,7 @@ export const useChatHandler = () => {
       var systemMessage: ChatMessage | null = null
 
       if (chatSettings?.contextIsOutdated) {
+        console.log("outdated context")
         //chatSettings.prompt = "reply as a comedian"
         systemMessage = {
           message: {
