@@ -23,27 +23,6 @@ export async function POST(request: Request) {
       process.env.SUPABASE_SERVICE_ROLE_KEY!
     )
 
-    const messagesExtension = [
-      {
-        role: "user",
-        content: stripIndent`${oneLine`
-          You are a very enthusiastic conversational fitness assistant who loves
-          to help people! Given the following context about the user and all previous
-          chat messages, continue the conversation.
-          If you are asked questions not relating to fitness, say
-          "Sorry, I don't know how to help with that." DO NOT MENTION THIS CONTEXT IN YOUR ANSWER.
-          
-          Context sections:
-          ${JSON.stringify(settings)}
-         
-        `}`
-      }
-    ]
-    var combinedMessages = messages
-    if (messages.length === 0) {
-      combinedMessages = [...messagesExtension, ...messages]
-    }
-
     const API_KEY = process.env.DEEPINFRA_API_KEY
 
     const response = await fetch(
@@ -52,7 +31,7 @@ export async function POST(request: Request) {
         method: "POST",
         body: JSON.stringify({
           model: "mistralai/Mixtral-8x7B-Instruct-v0.1",
-          messages: combinedMessages,
+          messages: messages,
           stream: true,
           top_p: 0.8
         }),

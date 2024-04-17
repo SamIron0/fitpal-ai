@@ -21,6 +21,7 @@ import {
   processResponse,
   validateChatSettings
 } from "../chat-helpers"
+import { stripIndent, oneLine } from "common-tags"
 
 export const useChatHandler = () => {
   const router = useRouter()
@@ -268,7 +269,15 @@ export const useChatHandler = () => {
           message: {
             chat_id: "",
             assistant_id: null,
-            content: "reply as a comedian",
+            content: stripIndent`${oneLine`
+            You are a very enthusiastic conversational fitness assistant who loves
+            to help people! Given the following context about the user and all previous
+            chat messages, continue the conversation.
+            If you are asked questions not relating to fitness, say
+            "Sorry, I don't know how to help with that." DO NOT MENTION THIS CONTEXT IN YOUR ANSWER.
+            
+            Context sections:
+            ${JSON.stringify(settings)}`}`,
             created_at: "",
             id: uuidv4(),
             image_paths: [],
