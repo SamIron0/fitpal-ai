@@ -33,8 +33,8 @@ export const PreferencesStep: FC<PreferencesStepProps> = ({
       </div>
       <div className=" space-y-1">
         <Label className="mb-1 flex items-center">
-          <div className="mr-2">Workouts/week: {"  "}</div>
-          <div>{workouts}</div>
+          <div className="mr-2">Workouts: {"  "}</div>
+          <div>{workouts}x / week</div>
         </Label>
 
         <Slider
@@ -55,6 +55,7 @@ export const PreferencesStep: FC<PreferencesStepProps> = ({
         <Input
           value={allergies}
           onChange={e => setAllergies(e.target.value.split(","))}
+          placeholder="eg. milk, eggs, nuts"
         />
       </div>
     </>
