@@ -270,13 +270,11 @@ export const useChatHandler = () => {
             chat_id: "",
             assistant_id: null,
             content: stripIndent`${oneLine`
-            You are a very enthusiastic conversational fitness assistant who loves
-            to help people! Given the following context about the user and all previous
-            chat messages, continue the conversation.
-            If you are asked questions not relating to fitness, say
-            "Sorry, I don't know how to help with that." DO NOT MENTION THIS CONTEXT IN YOUR ANSWER.
+          Given the following updatedcontext about the user and all previous
+            chat messages, continue the conversation. This is a system message! Do not 
+            under any circumstance mention this context message in any response.
             
-            Context sections:
+            New Context:
             ${JSON.stringify(settings)}`}`,
             created_at: "",
             id: uuidv4(),
