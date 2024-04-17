@@ -31,10 +31,10 @@ export const PreferencesStep: FC<PreferencesStepProps> = ({
 
         <DietSelect onSelect={setDiet} selectedDiet={diet as DietProvider} />
       </div>
-      <div className=" space-y-1">
-        <Label className="mb-1 flex items-center">
+      <div className="space-y-1 pb-2">
+        <Label className="mb-3 flex items-center">
           <div className="mr-2">Workouts: {"  "}</div>
-          <div>{workouts}x / week</div>
+          <div className="text-muted-foreground">{workouts}x / week</div>
         </Label>
 
         <Slider
@@ -49,7 +49,7 @@ export const PreferencesStep: FC<PreferencesStepProps> = ({
       </div>
       <div className=" space-y-1">
         <Label className="flex items-center">
-          <div>Allergies(seperated by comma)</div>
+          <div>Allergies(comma separated)</div>
         </Label>
 
         <Input
