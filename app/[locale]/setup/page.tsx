@@ -21,7 +21,7 @@ import {
   SETUP_STEP_COUNT,
   StepContainer
 } from "../../../components/setup/step-container"
-import { updateSettings } from "@/db/settings"
+import { getSettingsById, updateSettings } from "@/db/settings"
 import { PreferencesStep } from "@/components/setup/preferences-step"
 import { DietProvider } from "@/types/diet"
 
@@ -34,7 +34,6 @@ export default function SetupPage() {
     setEnvKeyMap,
     setAvailableHostedModels,
     setAvailableOpenRouterModels,
-    settings,
     setSettings
   } = useContext(ChatbotUIContext)
 
@@ -118,7 +117,7 @@ export default function SetupPage() {
 
     const user = session.user
     const profile = await getProfileByUserId(user.id)
-
+    const settings = await getSettingsById(user.id)
     const updateProfilePayload: TablesUpdate<"profiles"> = {
       ...profile,
 
