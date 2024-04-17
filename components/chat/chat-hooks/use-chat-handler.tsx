@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from "uuid"
 import { ChatbotUIContext } from "@/context/context"
 import { getAssistantCollectionsByAssistantId } from "@/db/assistant-collections"
 import { getAssistantFilesByAssistantId } from "@/db/assistant-files"
@@ -258,10 +259,26 @@ export const useChatHandler = () => {
           setChatMessages,
           selectedAssistant
         )
+      var systemMessage: ChatMessage | null = null
 
       if (chatSettings?.contextIsOutdated) {
-        chatSettings.prompt = "reply as a comedian"
-        //const systemMessage = {role: "system", content: repl}
+        //chatSettings.prompt = "reply as a comedian"
+        systemMessage = {
+          message: {
+            chat_id: "",
+            assistant_id: null,
+            content: "reply as a comedian",
+            created_at: "",
+            id: uuidv4(),
+            image_paths: [],
+            model: chatSettings.model,
+            role: "system",
+            sequence_number: chatMessages.length,
+            updated_at: "",
+            user_id: ""
+          },
+          fileItems: []
+        }
         chatSettings.contextIsOutdated = false
       }
 
@@ -270,7 +287,9 @@ export const useChatHandler = () => {
         workspaceInstructions: selectedWorkspace!.instructions || "",
         chatMessages: isRegeneration
           ? [...chatMessages]
-          : [...chatMessages, tempUserChatMessage],
+          : systemMessage
+            ? [...chatMessages, tempUserChatMessage, systemMessage]
+            : [...chatMessages, tempUserChatMessage],
         assistant: selectedChat?.assistant_id ? selectedAssistant : null,
         messageFileItems: retrievedFileItems,
         chatFileItems: chatFileItems
