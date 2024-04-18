@@ -10,11 +10,9 @@ const Navbar = () => {
 
   return (
     <header className="from-background/10 via-background/50 to-background/80 sticky top-0 z-50 flex h-16  w-full shrink-0 items-center justify-between border-b border-[#232325] bg-gradient-to-b backdrop-blur-xl">
-      <div className="flex items-center pl-3 pt-1.5 lg:pl-32">
-        <Link href="/" rel="nofollow">
-          <img className="h-12 " src="/logo.png" alt="logo"></img>
-        </Link>
-      </div>
+      <Link href="/" rel="nofollow" className="flex items-center pl-3 lg:pl-32">
+        <img className="h-12 " src="/logo.png" alt="logo"></img>
+      </Link>
       <div className="flex items-center justify-end space-x-2 pr-3 lg:pr-32">
         <Link
           href="/login"

@@ -13,7 +13,7 @@ export default function HomePage() {
     <div className="flex w-full flex-col justify-center ">
       <Navbar />
 
-      <div className="mx-auto px-4 sm:max-w-4xl sm:px-6">
+      <div className="mx-auto flex max-w-4xl flex-col items-center px-4 sm:px-6">
         {/* Hero content */}
         <div className="pb-6 pt-24 md:pb-14 md:pt-32">
           {/* Section header */}
