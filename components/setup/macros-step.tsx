@@ -56,15 +56,18 @@ export const MacrosStep: FC<MacrosStepProps> = ({
   }, [calories])
   const onChangeCarbs = (value: number) => {
     setPercentCarbs(value)
-    setCarbs(value * 0.01 * calories)
+    const carbsInKcal = value * 0.01 * calories
+    setCarbs(carbsInKcal / 4)
   }
   const onChangeProtein = (value: number) => {
     setPercentProtein(value)
-    setProtein(value * 0.01 * calories)
+    const proteinInKcal = value * 0.01 * calories
+    setProtein(proteinInKcal / 4)
   }
   const onChangeFat = (value: number) => {
     setPercentFat(value)
-    setFat(value * 0.01 * calories)
+    const fatInKcal = value * 0.01 * calories
+    setFat(fatInKcal / 9)
   }
   return (
     <>
