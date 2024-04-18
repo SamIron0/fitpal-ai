@@ -265,9 +265,11 @@ export const useChatHandler = () => {
       if (chatSettings?.contextIsOutdated) {
         const updatedSettings: Tables<"settings"> = {
           ...settings,
-          protein: settings.protein * 0.01 * settings.calories,
-          fat: settings.fat * 0.01 * settings.calories,
-          carbs: settings.carbs * 0.01 * settings.calories
+          protein: Math.round(
+            (settings.protein * 0.01 * settings.calories) / 4
+          ),
+          fat: Math.round((settings.fat * 0.01 * settings.calories) / 9),
+          carbs: Math.round((settings.carbs * 0.01 * settings.calories) / 4) //+ settings.carbs * 0.01 * settings.calories
         }
         console.log("settiings:", updatedSettings)
         systemMessage = {

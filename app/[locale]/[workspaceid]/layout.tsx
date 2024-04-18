@@ -165,9 +165,9 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
 
     const updatedSettings: TablesUpdate<"settings"> = {
       ...settings,
-      protein: settings?.protein * 0.01 * settings?.calories,
-      carbs: settings?.carbs * 0.01 * settings?.calories,
-      fat: settings?.fat * 0.01 * settings?.calories
+      protein: Math.round((settings.protein * 0.01 * settings.calories) / 4),
+      fat: Math.round((settings.fat * 0.01 * settings.calories) / 9),
+      carbs: Math.round((settings.carbs * 0.01 * settings.calories) / 4) //+ settings.carbs * 0.01 * settings.calories
     }
     const default_prompt = stripIndent`${oneLine`
     You are a very enthusiastic conversational fitness assistant who loves
