@@ -162,7 +162,7 @@ export const ChatbotUIContext = createContext<ChatbotUIContext>({
     fat: 0,
     workouts: 0,
     allergies: [],
-    diet: "none"
+    diet: "anything"
   },
   setSettings: () => {},
   files: [],
