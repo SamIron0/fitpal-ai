@@ -87,7 +87,7 @@ export const MacrosStep: FC<MacrosStepProps> = ({
           <div className="mr-2">Protein: {"  "}</div>{" "}
           <div className=" text-sm">~{(protein / 4).toFixed(2)}g</div>
           <div className="text-muted-foreground flex w-full justify-end text-sm">
-            {percentProtein}%
+            {Math.round(percentProtein)}%
           </div>
         </Label>
 
@@ -107,7 +107,7 @@ export const MacrosStep: FC<MacrosStepProps> = ({
           <div className="mr-2">Carbs: {"  "}</div>{" "}
           <div className=" text-sm">~{(carbs / 4).toFixed(2)}g</div>
           <div className="text-muted-foreground flex w-full justify-end text-sm">
-            {percentCarbs}%
+            {Math.round(percentCarbs)}%
           </div>
         </Label>
 
@@ -126,7 +126,7 @@ export const MacrosStep: FC<MacrosStepProps> = ({
           <div className="mr-2">Fats: {"  "}</div>{" "}
           <div className=" text-sm">~{(fat / 9).toFixed(2)}g</div>
           <div className="text-muted-foreground flex w-full justify-end text-sm">
-            {percentFat}%
+            {Math.round(percentFat)}%
           </div>
         </Label>
 
