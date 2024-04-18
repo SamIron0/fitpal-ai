@@ -30,6 +30,7 @@ export const Settings: FC<SettingsProps> = () => {
     protein,
     carbs,
     fat,
+    calories,
     workouts,
     allergies,
     diet: selectedDiet,
@@ -98,6 +99,7 @@ export const Settings: FC<SettingsProps> = () => {
       <Button
         className="mb-3 mt-12 flex  h-[36px] grow"
         onClick={() => handleSaveChanges(settings.id, settingsUpdate)}
+        disabled={JSON.stringify(settings) === JSON.stringify(settingsUpdate)}
       >
         Save Changes{" "}
       </Button>
