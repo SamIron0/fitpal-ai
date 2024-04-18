@@ -39,6 +39,21 @@ export const Macros: FC<MacrosProps> = ({
     setCarbs((percentCarbs * 0.01 * calories) / 4)
     setFat((percentFat * 0.01 * calories) / 9)
   }, [calories])
+  const onChangeFat = (value: number) => {
+    setPercentFat(value)
+    const fatInKcal = value * 0.01 * calories
+    setFat(fatInKcal / 9)
+  }
+  const onChangeCarbs = (value: number) => {
+    setPercentCarbs(value)
+    const carbsInKcal = value * 0.01 * calories
+    setCarbs(carbsInKcal / 4)
+  }
+  const onChangeProtein = (value: number) => {
+    setPercentProtein(value)
+    const proteinInKcal = value * 0.01 * calories
+    setProtein(proteinInKcal / 4)
+  }
   return (
     <>
       <div className="mt-6 space-y-1">
@@ -67,11 +82,11 @@ export const Macros: FC<MacrosProps> = ({
         <Slider
           value={[protein]}
           onValueChange={values => {
-            setProtein(values[0])
+            onChangeProtein(values[0])
           }}
           min={10}
-          max={600}
-          step={2}
+          max={100}
+          step={1}
         />
       </div>
       <div className="mt-6 space-y-3">
@@ -89,11 +104,11 @@ export const Macros: FC<MacrosProps> = ({
         <Slider
           value={[carbs]}
           onValueChange={values => {
-            setCarbs(values[0])
+            onChangeCarbs(values[0])
           }}
           min={10}
-          max={1000}
-          step={2}
+          max={100}
+          step={1}
         />
       </div>
       <div className="mt-6 space-y-3">
@@ -111,11 +126,11 @@ export const Macros: FC<MacrosProps> = ({
         <Slider
           value={[fat]}
           onValueChange={values => {
-            setFat(values[0])
+            onChangeFat(values[0])
           }}
           min={10}
-          max={500}
-          step={2}
+          max={100}
+          step={1}
         />
       </div>
       <div className="mt-5 space-y-3">
