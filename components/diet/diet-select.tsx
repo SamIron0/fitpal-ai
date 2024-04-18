@@ -33,7 +33,6 @@ export const DietSelect: FC<DietSelectProps> = ({ onSelect, selectedDiet }) => {
     "ketogenic",
     "pescatarian",
     "mediterranean",
-    "low-carb",
     "vegetarian"
   ]
   useEffect(() => {

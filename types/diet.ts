@@ -4,8 +4,6 @@ export type DietProvider =
   | "vegan"
   | "vegetarian"
   | "paleo"
-  | "keto"
-  | "low-carb"
   | "gluten-free"
   | "ketogenic"
   | "pescatarian"

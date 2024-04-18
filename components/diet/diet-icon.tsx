@@ -90,16 +90,7 @@ export const DietIcon: FC<DietIconProps> = ({
           )}
         />
       )
-    case "low-carb":
-      return (
-        <MdOutlineEggAlt
-          className={cn(
-            "size-6 rounded-sm bg-white p-1 text-black",
-            props.className,
-            theme === "dark" ? "bg-white" : "border-DEFAULT border-black"
-          )}
-        />
-      )
+
     case "vegetarian":
       return (
         <GiBroccoli
