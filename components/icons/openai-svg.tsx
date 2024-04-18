@@ -15,10 +15,10 @@ export const OpenAISVG: FC<OpenAISVGProps> = ({
     <svg
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
-      width="500"
+      width={width}
       zoomAndPan="magnify"
       viewBox="0 0 375 374.999991"
-      height="500"
+      height={height}
       preserveAspectRatio="xMidYMid meet"
       version="1.0"
     >
