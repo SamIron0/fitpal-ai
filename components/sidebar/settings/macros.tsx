@@ -27,11 +27,15 @@ export const Macros: FC<MacrosProps> = ({
   workouts,
   setWorkouts
 }) => {
-  const [fatInGram, setFatInGram] = useState((fat * 0.01 * calories) / 9)
-  const [proteinInGram, setProteinInGram] = useState(
-    (protein * 0.01 * calories) / 4
+  const [fatInGram, setFatInGram] = useState(
+    Math.round((fat * 0.01 * calories) / 9)
   )
-  const [carbsInGram, setCarbsInGram] = useState((carbs * 0.01 * calories) / 4)
+  const [proteinInGram, setProteinInGram] = useState(
+    Math.round((protein * 0.01 * calories) / 4)
+  )
+  const [carbsInGram, setCarbsInGram] = useState(
+    Math.round((carbs * 0.01 * calories) / 4)
+  )
   /*
   useEffect(() => {
     setProtein(Math.round((percentProtein * 0.01 * calories) / 4))
