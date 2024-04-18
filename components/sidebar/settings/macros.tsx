@@ -73,7 +73,7 @@ export const Macros: FC<MacrosProps> = ({
             Protein:
           </div>
 
-          <div className=" text-sm">{protein}g</div>
+          <div className=" text-sm">{Math.round(protein)}g</div>
           <div className="text-muted-foreground flex w-full justify-end text-sm">
             {percentProtein}%
           </div>
@@ -95,7 +95,7 @@ export const Macros: FC<MacrosProps> = ({
             Carbs:
           </div>
 
-          <div className=" text-sm">{carbs}g</div>
+          <div className=" text-sm">{Math.round(carbs)}g</div>
           <div className="text-muted-foreground flex w-full justify-end text-sm">
             {percentCarbs}%
           </div>
@@ -117,7 +117,7 @@ export const Macros: FC<MacrosProps> = ({
             Fat:
           </div>
 
-          <div className=" text-sm">{fat}g</div>
+          <div className=" text-sm">{Math.round(fat)}g</div>
           <div className="text-muted-foreground flex w-full justify-end text-sm">
             {percentFat}%
           </div>
