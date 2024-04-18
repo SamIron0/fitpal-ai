@@ -98,7 +98,7 @@ export default async function RootLayout({
             resources={resources}
           >
             <Toaster richColors position="top-center" duration={3000} />
-            <div className="bg-background text-foreground flex h-dvh flex-col items-center ">
+            <div className="bg-background text-foreground flex h-dvh flex-col items-center overflow-x-hidden">
               {session ? <GlobalState>{children}</GlobalState> : children}
             </div>
           </TranslationsProvider>
