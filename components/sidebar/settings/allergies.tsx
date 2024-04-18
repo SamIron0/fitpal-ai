@@ -57,6 +57,7 @@ export const Allergies: FC<AllergiesProps> = ({
                 <Button
                   onClick={() => deleteAllergy(allergy)}
                   variant="secondary"
+                  size="sm"
                 >
                   Remove
                 </Button>
