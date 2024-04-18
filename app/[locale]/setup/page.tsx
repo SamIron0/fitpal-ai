@@ -34,7 +34,8 @@ export default function SetupPage() {
     setEnvKeyMap,
     setAvailableHostedModels,
     setAvailableOpenRouterModels,
-    setSettings
+    setSettings,
+    settings
   } = useContext(ChatbotUIContext)
 
   const router = useRouter()
@@ -117,7 +118,7 @@ export default function SetupPage() {
 
     const user = session.user
     const profile = await getProfileByUserId(user.id)
-    const settings = await getSettingsById(user.id)
+    //const settings = await getSettingsById(user.id)
     const updateProfilePayload: TablesUpdate<"profiles"> = {
       ...profile,
 
@@ -127,16 +128,14 @@ export default function SetupPage() {
     }
     // updaate local and db settings
     const settingsUpdate: TablesUpdate<"settings"> = {
-      id: settings?.id,
-      protein: protein / 4,
-      carbs: carbs / 4,
-      fat: fat / 9,
+      ...settings,
+      protein,
+      carbs,
+      fat,
       calories,
       workouts,
       allergies,
-      diet: diet as DietProvider,
-      workspace_id: settings?.workspace_id,
-      user_id: settings?.user_id
+      diet: diet as DietProvider
     }
     const updatedSettings = await updateSettings(settings.id, settingsUpdate)
     setSettings(updatedSettings)
