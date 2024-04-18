@@ -1,4 +1,4 @@
-import { FC, useState } from "react"
+import { FC, useEffect, useState } from "react"
 import { Slider } from "../../ui/slider"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
@@ -24,13 +24,21 @@ export const Macros: FC<MacrosProps> = ({
   setWorkouts
 }) => {
   const [calories, setCalories] = useState(protein * 4 + carbs * 4 + fat * 9)
+
   const [percentProtein, setPercentProtein] = useState(
-    ((protein * 4) / calories) * 100
+    Math.round((protein * 4) / calories) * 100
   )
   const [percentCarbs, setPercentCarbs] = useState(
-    ((carbs * 4) / calories) * 100
+    Math.round((carbs * 4) / calories) * 100
   )
-  const [percentFat, setPercentFat] = useState(((fat * 9) / calories) * 100)
+  const [percentFat, setPercentFat] = useState(
+    Math.round((fat * 9) / calories) * 100
+  )
+  useEffect(() => {
+    setProtein(percentProtein * 0.01 * calories)
+    setCarbs(percentCarbs * 0.01 * calories)
+    setFat(percentFat * 0.01 * calories)
+  }, [calories])
   return (
     <>
       <div className="mt-6 space-y-1">
@@ -63,7 +71,7 @@ export const Macros: FC<MacrosProps> = ({
           }}
           min={10}
           max={600}
-          step={5}
+          step={2}
         />
       </div>
       <div className="mt-6 space-y-3">
@@ -85,7 +93,7 @@ export const Macros: FC<MacrosProps> = ({
           }}
           min={10}
           max={1000}
-          step={5}
+          step={2}
         />
       </div>
       <div className="mt-6 space-y-3">
@@ -95,6 +103,9 @@ export const Macros: FC<MacrosProps> = ({
           </div>
 
           <div className=" text-sm">{fat}</div>
+          <div className="text-muted-foreground flex w-full justify-end text-sm">
+            {percentFat}%
+          </div>
         </div>
 
         <Slider
@@ -104,7 +115,7 @@ export const Macros: FC<MacrosProps> = ({
           }}
           min={10}
           max={500}
-          step={5}
+          step={2}
         />
       </div>
       <div className="mt-5 space-y-3">
@@ -113,9 +124,6 @@ export const Macros: FC<MacrosProps> = ({
             Workouts/week:
           </div>{" "}
           <div className=" text-sm">{workouts}</div>
-          <div className="text-muted-foreground flex w-full justify-end text-sm">
-            {percentFat}%
-          </div>
         </div>
 
         <Slider
