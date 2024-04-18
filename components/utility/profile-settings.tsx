@@ -383,19 +383,6 @@ export const ProfileSettings: FC<ProfileSettingsProps> = ({}) => {
               </div>
 
               <div className="space-y-1">
-                <Label>Profile Image</Label>
-
-                <ImagePicker
-                  src={profileImageSrc}
-                  image={profileImageFile}
-                  height={50}
-                  width={50}
-                  onSrcChange={setProfileImageSrc}
-                  onImageChange={setProfileImageFile}
-                />
-              </div>
-
-              <div className="space-y-1">
                 <Label>Chat Display Name</Label>
 
                 <Input
@@ -405,26 +392,6 @@ export const ProfileSettings: FC<ProfileSettingsProps> = ({}) => {
                   maxLength={PROFILE_DISPLAY_NAME_MAX}
                 />
               </div>
-
-              <div className="space-y-1">
-                <Label className="text-sm">
-                  What would you like the AI to know about you to provide better
-                  responses?
-                </Label>
-
-                <TextareaAutosize
-                  value={profileInstructions}
-                  onValueChange={setProfileInstructions}
-                  placeholder="Profile context... (optional)"
-                  minRows={6}
-                  maxRows={10}
-                />
-
-                <LimitDisplay
-                  used={profileInstructions.length}
-                  limit={PROFILE_CONTEXT_MAX}
-                />
-              </div>
             </TabsContent>
           </Tabs>
         </div>
@@ -432,21 +399,6 @@ export const ProfileSettings: FC<ProfileSettingsProps> = ({}) => {
         <div className="mt-6 flex items-center">
           <div className="flex items-center space-x-1">
             <ThemeSwitcher />
-
-            <WithTooltip
-              display={
-                <div>
-                  Download Chatbot UI 1.0 data as JSON. Import coming soon!
-                </div>
-              }
-              trigger={
-                <IconFileDownload
-                  className="cursor-pointer hover:opacity-50"
-                  size={32}
-                  onClick={exportLocalStorageAsJSON}
-                />
-              }
-            />
           </div>
 
           <div className="ml-auto space-x-2">
