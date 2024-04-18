@@ -35,12 +35,10 @@ export const DietIcon: FC<DietIconProps> = ({
       return (
         <IoFastFoodOutline
           className={cn(
-            "rounded-sm bg-white p-1 text-black",
+            "size-6 rounded-sm bg-white p-1 text-black",
             props.className,
             theme === "dark" ? "bg-white" : "border-DEFAULT border-black"
           )}
-          width={width}
-          height={height}
         />
       )
 
