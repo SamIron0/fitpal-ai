@@ -80,7 +80,7 @@ export const Macros: FC<MacrosProps> = ({
         </div>
 
         <Slider
-          value={[protein]}
+          value={[percentProtein]}
           onValueChange={values => {
             onChangeProtein(values[0])
           }}
@@ -102,7 +102,7 @@ export const Macros: FC<MacrosProps> = ({
         </div>
 
         <Slider
-          value={[carbs]}
+          value={[percentCarbs]}
           onValueChange={values => {
             onChangeCarbs(values[0])
           }}
@@ -124,7 +124,7 @@ export const Macros: FC<MacrosProps> = ({
         </div>
 
         <Slider
-          value={[fat]}
+          value={[percentFat]}
           onValueChange={values => {
             onChangeFat(values[0])
           }}
