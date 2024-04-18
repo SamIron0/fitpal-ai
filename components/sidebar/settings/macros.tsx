@@ -1,5 +1,7 @@
-import { FC } from "react"
+import { FC, useState } from "react"
 import { Slider } from "../../ui/slider"
+import { Label } from "@/components/ui/label"
+import { Input } from "@/components/ui/input"
 
 interface MacrosProps {
   protein: number
@@ -21,8 +23,27 @@ export const Macros: FC<MacrosProps> = ({
   workouts,
   setWorkouts
 }) => {
+  const [calories, setCalories] = useState(protein * 4 + carbs * 4 + fat * 9)
+  const [percentProtein, setPercentProtein] = useState(
+    ((protein * 4) / calories) * 100
+  )
+  const [percentCarbs, setPercentCarbs] = useState(
+    ((carbs * 4) / calories) * 100
+  )
+  const [percentFat, setPercentFat] = useState(((fat * 9) / calories) * 100)
   return (
     <>
+      <div className="mt-6 space-y-1">
+        <Label className="flex items-center">
+          <div>Calories(kcal): </div>
+        </Label>
+
+        <Input
+          value={calories}
+          onChange={e => setCalories(Number(e.target.value))}
+        />
+      </div>
+
       <div className="mt-8 space-y-3">
         <div className="mb-1  flex   items-center space-x-1">
           <div className="text-muted-foreground text-sm font-semibold">
@@ -30,6 +51,9 @@ export const Macros: FC<MacrosProps> = ({
           </div>
 
           <div className=" text-sm">{protein}</div>
+          <div className="text-muted-foreground flex w-full justify-end text-sm">
+            {percentProtein}%
+          </div>
         </div>
 
         <Slider
@@ -49,6 +73,9 @@ export const Macros: FC<MacrosProps> = ({
           </div>
 
           <div className=" text-sm">{carbs}</div>
+          <div className="text-muted-foreground flex w-full justify-end text-sm">
+            {percentCarbs}%
+          </div>
         </div>
 
         <Slider
@@ -86,6 +113,9 @@ export const Macros: FC<MacrosProps> = ({
             Workouts/week:
           </div>{" "}
           <div className=" text-sm">{workouts}</div>
+          <div className="text-muted-foreground flex w-full justify-end text-sm">
+            {percentFat}%
+          </div>
         </div>
 
         <Slider
