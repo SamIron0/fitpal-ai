@@ -101,7 +101,7 @@ export const MacrosStep: FC<MacrosStepProps> = ({
         />
       </div>
 
-      <div className=" space-y-1">
+      <div className=" space-y-2">
         <Label className="flex items-center">
           <div className="mr-2">Carbs: {"  "}</div>{" "}
           <div className=" text-sm">{Math.round(carbsInGrams)}g</div>
@@ -120,7 +120,7 @@ export const MacrosStep: FC<MacrosStepProps> = ({
           step={1}
         />
       </div>
-      <div className=" space-y-1">
+      <div className=" space-y-2">
         <Label className="flex items-center">
           <div className="mr-2">Fats: {"  "}</div>{" "}
           <div className=" text-sm">{Math.round(fatInGrams)}g</div>

@@ -51,7 +51,7 @@ export default function SetupPage() {
   const [protein, setProtein] = useState(25)
   const [carbs, setCarbs] = useState(50)
   const [fat, setFat] = useState(25)
-  const [calories, setCalories] = useState(0)
+  const [calories, setCalories] = useState(2505)
   const [height, setHeight] = useState(0)
   const [weight, setWeight] = useState(0)
   const [age, setAge] = useState(0)
