@@ -267,7 +267,7 @@ export const useChatHandler = () => {
         const updatedSettings: Tables<"settings"> = {
           ...settings,
           protein: settings.protein * 0.01 * settings.calories,
-          fat: settings.fa * 0.01 * settings.calories,
+          fat: settings.fat * 0.01 * settings.calories,
           carbs: settings.carbs * 0.01 * settings.calories
         }
         systemMessage = {
