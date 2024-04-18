@@ -74,7 +74,7 @@ export const DietSelect: FC<DietSelectProps> = ({ onSelect, selectedDiet }) => {
               <div className="flex items-center">
                 {selected ? (
                   <>
-                    <DietIcon provider={"paleo"} width={26} height={26} />
+                    <DietIcon provider={selected} width={26} height={26} />
                     <div className="ml-2 flex items-center">{selected}</div>
                   </>
                 ) : (
