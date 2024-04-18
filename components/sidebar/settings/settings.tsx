@@ -78,6 +78,8 @@ export const Settings: FC<SettingsProps> = () => {
       <DietSelect onSelect={setSelectedDiet} selectedDiet={selectedDiet} />
       <Macros
         protein={protein}
+        calories={calories}
+        setCalories={setCalories}
         setProtein={setProtein}
         carbs={carbs}
         setCarbs={setCarbs}

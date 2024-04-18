@@ -128,9 +128,9 @@ export default function SetupPage() {
     // updaate local and db settings
     const settingsUpdate: TablesUpdate<"settings"> = {
       id: settings?.id,
-      protein,
-      carbs,
-      fat,
+      protein: protein / 4,
+      carbs: carbs / 4,
+      fat: fat / 9,
       workouts,
       allergies,
       diet: diet as DietProvider,

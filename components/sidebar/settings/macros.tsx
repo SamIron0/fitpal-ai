@@ -1,7 +1,11 @@
-import { FC } from "react"
+import { FC, useState } from "react"
 import { Slider } from "../../ui/slider"
+import { Label } from "@/components/ui/label"
+import { Input } from "@/components/ui/input"
 
 interface MacrosProps {
+  calories: number
+  setCalories: Function
   protein: number
   setProtein: Function
   carbs: number
@@ -12,6 +16,8 @@ interface MacrosProps {
   setWorkouts: Function
 }
 export const Macros: FC<MacrosProps> = ({
+  calories,
+  setCalories,
   protein,
   setProtein,
   carbs,
@@ -21,80 +27,81 @@ export const Macros: FC<MacrosProps> = ({
   workouts,
   setWorkouts
 }) => {
+  const [percentProtein, setPercentProtein] = useState(
+    ((protein * 4) / calories) * 100
+  )
+  const [percentCarbs, setPercentCarbs] = useState(
+    ((carbs * 4) / calories) * 100
+  )
+  const [percentFat, setPercentFat] = useState(((fat * 9) / calories) * 100)
   return (
     <>
-      <div className="mt-8 space-y-3">
-        <div className="mb-1  flex   items-center space-x-1">
-          <div className="text-muted-foreground text-sm font-semibold">
-            Protein:
-          </div>
+      <div className="space-y-1">
+        <Label className="flex items-center">
+          <div>Calories(kcal): </div>
+        </Label>
 
-          <div className=" text-sm">{protein}</div>
-        </div>
+        <Input
+          value={calories}
+          onChange={e => setCalories(Number(e.target.value))}
+        />
+      </div>
+
+      <div className="mt-5 space-y-2">
+        <Label className="flex items-center">
+          <div className="mr-2">Protein: {"  "}</div>{" "}
+          <div className=" text-sm">~{protein}g</div>
+          <div className="text-muted-foreground flex w-full justify-end text-sm">
+            {percentProtein}%
+          </div>
+        </Label>
 
         <Slider
-          value={[protein]}
+          value={[percentProtein]}
           onValueChange={values => {
             setProtein(values[0])
           }}
           min={10}
-          max={600}
-          step={5}
+          max={100}
+          step={1}
         />
       </div>
-      <div className="mt-6 space-y-3">
-        <div className="mb-1 flex  items-center  space-x-1">
-          <div className="text-muted-foreground text-sm font-semibold">
-            Carbs:
-          </div>
 
-          <div className=" text-sm">{carbs}</div>
-        </div>
+      <div className=" space-y-1">
+        <Label className="flex items-center">
+          <div className="mr-2">Carbs: {"  "}</div>{" "}
+          <div className=" text-sm">{carbs}g</div>
+          <div className="text-muted-foreground flex w-full justify-end text-sm">
+            {percentCarbs}%
+          </div>
+        </Label>
 
         <Slider
-          value={[carbs]}
+          value={[percentCarbs]}
           onValueChange={values => {
             setCarbs(values[0])
           }}
           min={10}
-          max={1000}
-          step={5}
+          max={100}
+          step={1}
         />
       </div>
-      <div className="mt-6 space-y-3">
-        <div className="mb-1 flex  items-center  space-x-1">
-          <div className="text-muted-foreground text-sm font-semibold">
-            Fat:
+      <div className=" space-y-1">
+        <Label className="flex items-center">
+          <div className="mr-2">Fats: {"  "}</div>{" "}
+          <div className=" text-sm">~{fat}g</div>
+          <div className="text-muted-foreground flex w-full justify-end text-sm">
+            {percentFat}%
           </div>
-
-          <div className=" text-sm">{fat}</div>
-        </div>
+        </Label>
 
         <Slider
-          value={[fat]}
+          value={[percentFat]}
           onValueChange={values => {
             setFat(values[0])
           }}
           min={10}
-          max={500}
-          step={5}
-        />
-      </div>
-      <div className="mt-5 space-y-3">
-        <div className="mb-1 flex items-center  space-x-1">
-          <div className="text-muted-foreground  text-sm font-semibold">
-            Workouts/week:
-          </div>{" "}
-          <div className=" text-sm">{workouts}</div>
-        </div>
-
-        <Slider
-          value={[workouts]}
-          onValueChange={values => {
-            setWorkouts(values[0])
-          }}
-          min={0}
-          max={7}
+          max={100}
           step={1}
         />
       </div>
