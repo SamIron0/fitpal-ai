@@ -1,6 +1,5 @@
 "use client"
 
-import { ChatbotUISVG } from "@/components/icons/chatbotui-svg"
 import { IconArrowRight } from "@tabler/icons-react"
 import { useTheme } from "next-themes"
 import Link from "next/link"
@@ -77,26 +76,6 @@ export default function HomePage() {
         </div>
       </div>
 
-      <footer className="mx-auto max-w-[1920px] bg-zinc-900 px-4">
-        <div className="flex flex-row items-center justify-between space-y-2 bg-zinc-900 py-2">
-          <div>
-            <span>&copy; {new Date().getFullYear()} FitpalAI. </span>
-          </div>
-          <div className="flex items-center">
-            <a
-              className=""
-              href="https://twitter.com/csi0x"
-              aria-label="twitter link"
-            >
-              <img
-                src="/x-logo.svg"
-                alt="twitter"
-                className="inline-block h-8 text-white"
-              />
-            </a>
-          </div>
-        </div>
-      </footer>
     </>
   )
 }
