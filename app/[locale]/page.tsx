@@ -77,29 +77,6 @@ export default function HomePage() {
         </div>
       </div>
 
-      <div className="flex w-full items-center justify-center px-4 pt-32">
-        <figure className="relative  z-[1] h-auto w-[50rem] max-w-full rounded-t-lg border-DEFAULT border-zinc-700 shadow-[0_2.75rem_3.5rem_-2rem_rgb(45_55_75_/_20%),_0_0_5rem_-2rem_rgb(45_55_75_/_15%)] dark:shadow-[0_2.75rem_3.5rem_-2rem_rgb(0_0_0_/_20%),_0_0_5rem_-2rem_rgb(0_0_0_/_15%)]">
-          <div className="relative flex max-w-[50rem] items-center rounded-t-lg bg-zinc-800 px-24 py-2 dark:bg-zinc-700">
-            <div className="absolute start-4 top-2/4 flex -translate-y-1 space-x-1">
-              <span className="size-2 rounded-full bg-zinc-600 dark:bg-zinc-600"></span>
-              <span className="size-2 rounded-full bg-zinc-600 dark:bg-zinc-600"></span>
-              <span className="size-2 rounded-full bg-zinc-600 dark:bg-zinc-600"></span>
-            </div>
-            <div className="flex size-full items-center justify-center rounded-sm bg-zinc-700 py-0.5 text-[.25rem] text-zinc-400 sm:text-[.5rem] dark:bg-zinc-600 dark:text-zinc-400">
-              www.fitpalai.com
-            </div>
-          </div>
-
-          <div className="bg-zinc-800 ">
-            <img
-              className="h-auto max-w-full "
-              src="mockup1.png"
-              alt="ImageMockup"
-            />
-          </div>
-        </figure>
-      </div>
-
       <footer className="mx-auto max-w-[1920px] bg-zinc-900 px-4">
         <div className="flex flex-row items-center justify-between space-y-2 bg-zinc-900 py-2">
           <div>
