@@ -19,7 +19,7 @@ export default function HomePage() {
           {/* Section header */}
           <div className="pb-12 text-center md:pb-16">
             <h1
-              className="leading-tighter mb-4 text-5xl font-extrabold tracking-tighter text-white md:text-6xl"
+              className="leading-tighter mb-4 text-4xl font-extrabold tracking-tighter text-white md:text-6xl"
               data-aos="zoom-y-out"
             >
               The most{" "}
@@ -30,7 +30,7 @@ export default function HomePage() {
             </h1>
             <div className="mx-auto max-w-3xl">
               <p
-                className="mb-8 text-xl text-gray-600"
+                className="mb-8 text-lg text-gray-600"
                 data-aos="zoom-y-out"
                 data-aos-delay="150"
               >
@@ -40,9 +40,9 @@ export default function HomePage() {
               </p>{" "}
               <div className="px-8 pb-6">
                 <div className="mx-auto flex h-12 w-[358px] items-center rounded-full  border  border-[#232325] bg-[#0D0D0E] sm:w-[370px] ">
-                  <Link href="/signup" className="flex w-full p-3 ">
+                  <Link href="/login" className="flex w-full p-3 ">
                     <div className="flex w-1/4 justify-start px-0.5 ">
-                      <div className="circle-div">
+                      <div className="size-5 ">
                         <img src={mealIcon.src} alt="meal image" />
                       </div>
                     </div>
