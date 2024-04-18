@@ -41,17 +41,17 @@ export const Macros: FC<MacrosProps> = ({
   const onChangeFat = (value: number) => {
     setFat(value)
     const fatInGram = (value * 0.01 * calories) / 9
-    setFatInGram(fatInGram)
+    setFatInGram(Math.round(fatInGram))
   }
   const onChangeCarbs = (value: number) => {
     setCarbs(value)
     const carbsInGram = (value * 0.01 * calories) / 4
-    setCarbsInGram(carbsInGram)
+    setCarbsInGram(Math.round(carbsInGram))
   }
   const onChangeProtein = (value: number) => {
     setProtein(value)
     const proteinInGram = (value * 0.01 * calories) / 4
-    setProteinInGram(proteinInGram)
+    setProteinInGram(Math.round(proteinInGram))
   }
   return (
     <>
