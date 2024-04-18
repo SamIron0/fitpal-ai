@@ -79,6 +79,7 @@ export const MacrosStep: FC<MacrosStepProps> = ({
         <Input
           value={calories}
           onChange={e => setCalories(Number(e.target.value))}
+          placeholder="e.g 2000"
         />
       </div>
 

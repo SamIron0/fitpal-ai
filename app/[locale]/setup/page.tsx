@@ -131,6 +131,7 @@ export default function SetupPage() {
       protein: protein / 4,
       carbs: carbs / 4,
       fat: fat / 9,
+      calories,
       workouts,
       allergies,
       diet: diet as DietProvider,

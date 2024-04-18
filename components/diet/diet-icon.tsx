@@ -18,14 +18,11 @@ import { FC, HTMLAttributes } from "react"
 
 interface DietIconProps extends HTMLAttributes<HTMLDivElement> {
   provider: DietProvider
-  height: number
-  width: number
 }
 
 export const DietIcon: FC<DietIconProps> = ({
   provider,
-  height,
-  width,
+
   ...props
 }) => {
   const { theme } = useTheme()
@@ -46,12 +43,10 @@ export const DietIcon: FC<DietIconProps> = ({
       return (
         <TbMeat
           className={cn(
-            "rounded-sm bg-white p-1 text-black",
+            "size-6 rounded-sm bg-white p-1 text-black",
             props.className,
             theme === "dark" ? "bg-white" : "border-DEFAULT border-black"
           )}
-          width={width}
-          height={height}
         />
       )
 
@@ -59,87 +54,73 @@ export const DietIcon: FC<DietIconProps> = ({
       return (
         <LuVegan
           className={cn(
-            "rounded-sm bg-white p-1 text-black",
+            "size-6 rounded-sm bg-white p-1 text-black",
             props.className,
             theme === "dark" ? "bg-white" : "border-DEFAULT border-black"
           )}
-          width={width}
-          height={height}
         />
       )
     case "gluten-free":
       return (
         <TbSalad
           className={cn(
-            "rounded-sm bg-white p-1 text-black",
+            "size-6 rounded-sm bg-white p-1 text-black",
             props.className,
             theme === "dark" ? "bg-white" : "border-DEFAULT border-black"
           )}
-          width={width}
-          height={height}
         />
       )
     case "ketogenic":
       return (
         <IoFishOutline
           className={cn(
-            "rounded-sm bg-white p-1 text-black",
+            "size-6 rounded-sm bg-white p-1 text-black",
             props.className,
             theme === "dark" ? "bg-white" : "border-DEFAULT border-black"
           )}
-          width={width}
-          height={height}
         />
       )
     case "pescatarian":
       return (
         <GiShrimp
           className={cn(
-            "rounded-sm bg-white p-1 text-black",
+            "size-6 rounded-sm bg-white p-1 text-black",
             props.className,
             theme === "dark" ? "bg-white" : "border-DEFAULT border-black"
           )}
-          width={width}
-          height={height}
         />
       )
     case "low-carb":
       return (
         <MdOutlineEggAlt
           className={cn(
-            "rounded-sm bg-white p-1 text-black",
+            "size-6 rounded-sm bg-white p-1 text-black",
             props.className,
             theme === "dark" ? "bg-white" : "border-DEFAULT border-black"
           )}
-          width={width}
-          height={height}
         />
       )
     case "vegetarian":
       return (
         <GiBroccoli
           className={cn(
-            "rounded-sm bg-white p-1 text-black",
+            "size-6 rounded-sm bg-white p-1 text-black",
             props.className,
             theme === "dark" ? "bg-white" : "border-DEFAULT border-black"
           )}
-          width={width}
-          height={height}
         />
       )
     case "mediterranean":
       return (
         <GiGrapes
           className={cn(
-            "rounded-sm bg-white p-1 text-black",
+            "size-6 rounded-sm bg-white p-1 text-black",
             props.className,
             theme === "dark" ? "bg-white" : "border-DEFAULT border-black"
           )}
-          width={width}
-          height={height}
         />
       )
     default:
-      return <IconSparkles size={width} />
+      return <IconSparkles />
   }
 }

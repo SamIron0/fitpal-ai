@@ -160,6 +160,7 @@ export const ChatbotUIContext = createContext<ChatbotUIContext>({
     protein: 0,
     carbs: 0,
     fat: 0,
+    calories: 0,
     workouts: 0,
     allergies: [],
     diet: "anything"

@@ -42,6 +42,7 @@ export type Database = {
           protein: number
           carbs: number
           fat: number
+          calories: number
           allergies: string[]
           user_id: string
           diet: DietProvider
@@ -53,6 +54,7 @@ export type Database = {
           protein: number
           carbs: number
           fat: number
+          calories: number
           allergies: string[]
           user_id: string
           diet: DietProvider
@@ -64,6 +66,7 @@ export type Database = {
           protein?: number
           carbs?: number
           fat?: number
+          calories?: number
           allergies?: string[]
           user_id?: string
           diet?: DietProvider
