@@ -21,7 +21,7 @@ export const DietOption: FC<DietOptionProps> = ({ diet, onSelect }) => {
           onClick={onSelect}
         >
           <div className="flex items-center space-x-2">
-            <DietIcon provider={diet as DietProvider} width={40} height={40} />
+            <DietIcon provider={diet as DietProvider} />
             <div className="text-sm font-semibold">{diet}</div>
           </div>
         </div>
