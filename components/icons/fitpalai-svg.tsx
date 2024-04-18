@@ -1,8 +1,8 @@
-import { FC } from "react";
+import { FC } from "react"
 
 interface FitpalAISVGProps {
-  theme: "dark" | "light";
-  scale?: number;
+  theme: "dark" | "light"
+  scale?: number
 }
 
 export const FitpalAISVG: FC<FitpalAISVGProps> = ({ theme, scale = 1 }) => {
@@ -11,11 +11,9 @@ export const FitpalAISVG: FC<FitpalAISVGProps> = ({ theme, scale = 1 }) => {
       width={189 * scale}
       height={194 * scale}
       xmlns="http://www.w3.org/2000/svg"
-      xmlns:xlink="http://www.w3.org/1999/xlink"
-      width="500"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
       zoomAndPan="magnify"
       viewBox="0 0 375 374.999991"
-      height="500"
       preserveAspectRatio="xMidYMid meet"
       version="1.0"
     >
@@ -32,5 +30,5 @@ export const FitpalAISVG: FC<FitpalAISVGProps> = ({ theme, scale = 1 }) => {
         fill-rule="evenodd"
       />
     </svg>
-  );
-};
+  )
+}
