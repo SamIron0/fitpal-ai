@@ -19,7 +19,7 @@ export default function HomePage() {
           {/* Section header */}
           <div className="pb-12 text-center md:pb-16">
             <h1
-              className="leading-tighter mb-4 text-4xl font-extrabold tracking-tighter text-white md:text-6xl"
+              className="leading-tighter mb-4 text-4xl font-extrabold tracking-tighter text-white md:text-5xl"
               data-aos="zoom-y-out"
             >
               The most{" "}
