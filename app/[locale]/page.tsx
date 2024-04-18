@@ -42,7 +42,7 @@ export default function HomePage() {
                 <div className="mx-auto flex h-12 w-[358px] items-center rounded-full  border  border-[#232325] bg-[#0D0D0E] sm:w-[370px] ">
                   <Link href="/login" className="flex w-full p-3 ">
                     <div className="flex w-1/4 justify-start px-0.5 ">
-                      <div className="size-5 ">
+                      <div className="size-10 ">
                         <img src={mealIcon.src} alt="meal image" />
                       </div>
                     </div>
