@@ -17,7 +17,7 @@ export const Settings: FC<SettingsProps> = () => {
   const [protein, setProtein] = useState(Math.round(settings?.protein) || 0)
   const [carbs, setCarbs] = useState(Math.round(settings?.carbs) || 0)
   const [fat, setFat] = useState(Math.round(settings?.fat) || 0)
-  const [calories, setCalories] = useState(protein * 4 + carbs * 4 + fat * 9)
+  const [calories, setCalories] = useState(settings?.calories || 0)
   const [workouts, setWorkouts] = useState(settings?.workouts || 0)
   const [allergies, setAllergies] = useState<string[]>(
     settings?.allergies || []
