@@ -27,13 +27,10 @@ export const Macros: FC<MacrosProps> = ({
   workouts,
   setWorkouts
 }) => {
-  const [percentProtein, setPercentProtein] = useState(
-    ((protein * 4) / calories) * 100
-  )
-  const [percentCarbs, setPercentCarbs] = useState(
-    ((carbs * 4) / calories) * 100
-  )
-  const [percentFat, setPercentFat] = useState(((fat * 9) / calories) * 100)
+  const toPercent = (value: number) => Math.round((value / calories) * 100)
+  const [percentProtein, setPercentProtein] = useState(toPercent(protein * 4))
+  const [percentCarbs, setPercentCarbs] = useState(toPercent(carbs * 4))
+  const [percentFat, setPercentFat] = useState(toPercent(fat * 9))
   return (
     <>
       <div className="space-y-1">
