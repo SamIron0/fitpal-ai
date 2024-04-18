@@ -13,17 +13,7 @@ interface SidebarProps {
 }
 
 export const Sidebar: FC<SidebarProps> = ({ contentType, showSidebar }) => {
-  const {
-    folders,
-    chats,
-    presets,
-    prompts,
-    files,
-    collections,
-    assistants,
-    tools,
-    models
-  } = useContext(ChatbotUIContext)
+  const { folders, chats, presets, prompts } = useContext(ChatbotUIContext)
 
   const chatFolders = folders.filter(folder => folder.type === "chats")
   const presetFolders = folders.filter(folder => folder.type === "presets")
