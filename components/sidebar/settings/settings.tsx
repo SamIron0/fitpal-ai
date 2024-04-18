@@ -83,6 +83,8 @@ export const Settings: FC<SettingsProps> = () => {
         carbs={carbs}
         setCarbs={setCarbs}
         fat={fat}
+        calories={calories}
+        setCalories={setCalories}
         setFat={setFat}
         workouts={workouts}
         setWorkouts={setWorkouts}

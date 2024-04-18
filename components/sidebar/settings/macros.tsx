@@ -9,6 +9,8 @@ interface MacrosProps {
   carbs: number
   setCarbs: Function
   fat: number
+  calories: number
+  setCalories: Function
   setFat: Function
   workouts: number
   setWorkouts: Function
@@ -19,12 +21,12 @@ export const Macros: FC<MacrosProps> = ({
   carbs,
   setCarbs,
   fat,
+  calories,
+  setCalories,
   setFat,
   workouts,
   setWorkouts
 }) => {
-  const [calories, setCalories] = useState(protein * 4 + carbs * 4 + fat * 9)
-
   const [fatInGram, setFatInGram] = useState(0)
   const [proteinInGram, setProteinInGram] = useState(0)
   const [carbsInGram, setCarbsInGram] = useState(0)
