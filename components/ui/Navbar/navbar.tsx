@@ -14,7 +14,7 @@ const Navbar = () => {
         <Link href="/" rel="nofollow">
           <img
             className="h-[110px]  md:h-[120px]"
-            src="/logo.svg"
+            src="/logo.png"
             alt="logo"
           ></img>
         </Link>
