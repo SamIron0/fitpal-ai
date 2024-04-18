@@ -3,6 +3,7 @@ import { Label } from "@/components/ui/label"
 import { FC, useEffect, useState } from "react"
 import { Button } from "../ui/button"
 import { Slider } from "../ui/slider"
+import { set } from "date-fns"
 
 interface MacrosStepProps {
   protein: number
@@ -45,29 +46,26 @@ export const MacrosStep: FC<MacrosStepProps> = ({
   activityLevel,
   setActivityLevel
 }) => {
-  const [percentProtein, setPercentProtein] = useState(25)
-  const [percentCarbs, setPercentCarbs] = useState(50)
-  const [percentFat, setPercentFat] = useState(25)
+  const [proteinInGrams, setProteinInGrams] = useState(0)
+  const [carbsInGrams, setCarbsInGrams] = useState(0)
+  const [fatInGrams, setFatInGrams] = useState(0)
 
   useEffect(() => {
-    setProtein(percentProtein * 0.01 * calories)
-    setCarbs(percentCarbs * 0.01 * calories)
-    setFat(percentFat * 0.01 * calories)
+    setProteinInGrams(Math.round((protein * 0.01 * calories) / 4))
+    setCarbsInGrams(Math.round((carbs * 0.01 * calories) / 4))
+    setFatInGrams(Math.round((fat * 0.01 * calories) / 9))
   }, [calories])
   const onChangeCarbs = (value: number) => {
-    setPercentCarbs(value)
-    const carbsInKcal = value * 0.01 * calories
-    setCarbs(carbsInKcal / 4)
+    setCarbs(value)
+    setCarbsInGrams(Math.round((carbs * 0.01 * calories) / 4))
   }
   const onChangeProtein = (value: number) => {
-    setPercentProtein(value)
-    const proteinInKcal = value * 0.01 * calories
-    setProtein(proteinInKcal / 4)
+    setProtein(value)
+    setProteinInGrams(Math.round((protein * 0.01 * calories) / 4))
   }
   const onChangeFat = (value: number) => {
-    setPercentFat(value)
-    const fatInKcal = value * 0.01 * calories
-    setFat(fatInKcal / 9)
+    setFat(value)
+    setFatInGrams(Math.round((fat * 0.01 * calories) / 9))
   }
   return (
     <>
@@ -88,12 +86,12 @@ export const MacrosStep: FC<MacrosStepProps> = ({
           <div className="mr-2">Protein: {"  "}</div>{" "}
           <div className=" text-sm">~{(protein / 4).toFixed(2)}g</div>
           <div className="text-muted-foreground flex w-full justify-end text-sm">
-            {Math.round(percentProtein)}%
+            {Math.round(protein)}%
           </div>
         </Label>
 
         <Slider
-          value={[percentProtein]}
+          value={[protein]}
           onValueChange={values => {
             onChangeProtein(values[0])
           }}
@@ -108,12 +106,12 @@ export const MacrosStep: FC<MacrosStepProps> = ({
           <div className="mr-2">Carbs: {"  "}</div>{" "}
           <div className=" text-sm">~{(carbs / 4).toFixed(2)}g</div>
           <div className="text-muted-foreground flex w-full justify-end text-sm">
-            {Math.round(percentCarbs)}%
+            {Math.round(carbs)}%
           </div>
         </Label>
 
         <Slider
-          value={[percentCarbs]}
+          value={[carbs]}
           onValueChange={values => {
             onChangeCarbs(values[0])
           }}
@@ -127,12 +125,12 @@ export const MacrosStep: FC<MacrosStepProps> = ({
           <div className="mr-2">Fats: {"  "}</div>{" "}
           <div className=" text-sm">~{(fat / 9).toFixed(2)}g</div>
           <div className="text-muted-foreground flex w-full justify-end text-sm">
-            {Math.round(percentFat)}%
+            {Math.round(fat)}%
           </div>
         </Label>
 
         <Slider
-          value={[percentFat]}
+          value={[fat]}
           onValueChange={values => {
             onChangeFat(values[0])
           }}
