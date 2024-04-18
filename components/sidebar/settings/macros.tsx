@@ -35,9 +35,9 @@ export const Macros: FC<MacrosProps> = ({
     Math.round(((fat * 9) / calories) * 100)
   )
   useEffect(() => {
-    setProtein((percentProtein * 0.01 * calories) / 4)
-    setCarbs((percentCarbs * 0.01 * calories) / 4)
-    setFat((percentFat * 0.01 * calories) / 9)
+    setProtein(Math.round((percentProtein * 0.01 * calories) / 4))
+    setCarbs(Math.round((percentCarbs * 0.01 * calories) / 4))
+    setFat(Math.round((percentFat * 0.01 * calories) / 9))
   }, [calories])
   const onChangeFat = (value: number) => {
     setPercentFat(value)
