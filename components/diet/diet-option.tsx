@@ -3,6 +3,7 @@ import { FC } from "react"
 import { DietIcon } from "./diet-icon"
 import { IconInfoCircle } from "@tabler/icons-react"
 import { WithTooltip } from "../ui/with-tooltip"
+import { DietProvider } from "@/types/diet"
 
 interface DietOptionProps {
   diet: string
@@ -20,7 +21,7 @@ export const DietOption: FC<DietOptionProps> = ({ diet, onSelect }) => {
           onClick={onSelect}
         >
           <div className="flex items-center space-x-2">
-            <DietIcon provider={"paleo"} width={28} height={28} />
+            <DietIcon provider={diet as DietProvider} width={28} height={28} />
             <div className="text-sm font-semibold">{diet}</div>
           </div>
         </div>
