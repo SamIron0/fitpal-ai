@@ -26,7 +26,7 @@ export const DietSelect: FC<DietSelectProps> = ({ onSelect, selectedDiet }) => {
   const [isOpen, setIsOpen] = useState(false)
   const [selected, setSelected] = useState<DietProvider>(selectedDiet)
   const diets: DietProvider[] = [
-    "none",
+    "anything",
     "paleo",
     "vegan",
     "gluten-free",

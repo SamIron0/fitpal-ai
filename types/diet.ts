@@ -1,5 +1,5 @@
 export type DietProvider =
-  | "none"
+  | "anything"
   | "mediterranean"
   | "vegan"
   | "vegetarian"
