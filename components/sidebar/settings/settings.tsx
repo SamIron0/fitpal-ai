@@ -14,9 +14,9 @@ interface SettingsProps {}
 export const Settings: FC<SettingsProps> = () => {
   const { settings } = useContext(ChatbotUIContext)
   const [selectedDiet, setSelectedDiet] = useState<DietProvider>(settings?.diet)
-  const [protein, setProtein] = useState(settings?.protein || 0)
-  const [carbs, setCarbs] = useState(settings?.carbs || 0)
-  const [fat, setFat] = useState(settings?.fat || 0)
+  const [protein, setProtein] = useState(Math.round(settings?.protein) || 0)
+  const [carbs, setCarbs] = useState(Math.round(settings?.carbs) || 0)
+  const [fat, setFat] = useState(Math.round(settings?.fat) || 0)
   const [calories, setCalories] = useState(protein * 4 + carbs * 4 + fat * 9)
   const [workouts, setWorkouts] = useState(settings?.workouts || 0)
   const [allergies, setAllergies] = useState<string[]>(
