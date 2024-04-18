@@ -16,11 +16,13 @@ export const OpenAISVG: FC<OpenAISVGProps> = ({
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
       width={width}
+      className={className}
       zoomAndPan="magnify"
       viewBox="0 0 375 374.999991"
       height={height}
       preserveAspectRatio="xMidYMid meet"
       version="1.0"
+      role="img"
     >
       <path
         fill="#46b7fa"
