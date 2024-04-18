@@ -46,9 +46,9 @@ export const MacrosStep: FC<MacrosStepProps> = ({
   activityLevel,
   setActivityLevel
 }) => {
-  const [proteinInGrams, setProteinInGrams] = useState(0)
-  const [carbsInGrams, setCarbsInGrams] = useState(0)
-  const [fatInGrams, setFatInGrams] = useState(0)
+  const [proteinInGrams, setProteinInGrams] = useState(25)
+  const [carbsInGrams, setCarbsInGrams] = useState(50)
+  const [fatInGrams, setFatInGrams] = useState(25)
 
   useEffect(() => {
     setProteinInGrams(Math.round((protein * 0.01 * calories) / 4))
@@ -84,7 +84,7 @@ export const MacrosStep: FC<MacrosStepProps> = ({
       <div className="mt-5 space-y-2">
         <Label className="flex items-center">
           <div className="mr-2">Protein: {"  "}</div>{" "}
-          <div className=" text-sm">~{Math.round(proteinInGrams)}g</div>
+          <div className=" text-sm">{Math.round(proteinInGrams)}g</div>
           <div className="text-muted-foreground flex w-full justify-end text-sm">
             {Math.round(protein)}%
           </div>
