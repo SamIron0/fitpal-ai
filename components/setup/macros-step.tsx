@@ -46,9 +46,9 @@ export const MacrosStep: FC<MacrosStepProps> = ({
   activityLevel,
   setActivityLevel
 }) => {
-  const [proteinInGrams, setProteinInGrams] = useState(25)
-  const [carbsInGrams, setCarbsInGrams] = useState(50)
-  const [fatInGrams, setFatInGrams] = useState(25)
+  const [proteinInGrams, setProteinInGrams] = useState(0)
+  const [carbsInGrams, setCarbsInGrams] = useState(0)
+  const [fatInGrams, setFatInGrams] = useState(0)
 
   useEffect(() => {
     setProteinInGrams(Math.round((protein * 0.01 * calories) / 4))
