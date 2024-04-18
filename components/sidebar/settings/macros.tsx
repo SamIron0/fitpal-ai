@@ -25,34 +25,29 @@ export const Macros: FC<MacrosProps> = ({
 }) => {
   const [calories, setCalories] = useState(protein * 4 + carbs * 4 + fat * 9)
 
-  const [percentProtein, setPercentProtein] = useState(
-    Math.round(((protein * 4) / calories) * 100)
-  )
-  const [percentCarbs, setPercentCarbs] = useState(
-    Math.round(((carbs * 4) / calories) * 100)
-  )
-  const [percentFat, setPercentFat] = useState(
-    Math.round(((fat * 9) / calories) * 100)
-  )
+  const [fatInGram, setFatInGram] = useState(0)
+  const [proteinInGram, setProteinInGram] = useState(0)
+  const [carbsInGram, setCarbsInGram] = useState(0)
+  /*
   useEffect(() => {
     setProtein(Math.round((percentProtein * 0.01 * calories) / 4))
     setCarbs(Math.round((percentCarbs * 0.01 * calories) / 4))
     setFat(Math.round((percentFat * 0.01 * calories) / 9))
-  }, [calories])
+  }, [calories])*/
   const onChangeFat = (value: number) => {
-    setPercentFat(value)
-    const fatInKcal = value * 0.01 * calories
-    setFat(fatInKcal / 9)
+    setFat(value)
+    const fatInGram = (value * 0.01 * calories) / 9
+    setFatInGram(fatInGram)
   }
   const onChangeCarbs = (value: number) => {
-    setPercentCarbs(value)
-    const carbsInKcal = value * 0.01 * calories
-    setCarbs(carbsInKcal / 4)
+    setCarbs(value)
+    const carbsInGram = (value * 0.01 * calories) / 4
+    setCarbsInGram(carbsInGram)
   }
   const onChangeProtein = (value: number) => {
-    setPercentProtein(value)
-    const proteinInKcal = value * 0.01 * calories
-    setProtein(proteinInKcal / 4)
+    setProtein(value)
+    const proteinInGram = (value * 0.01 * calories) / 4
+    setProteinInGram(proteinInGram)
   }
   return (
     <>
@@ -73,16 +68,14 @@ export const Macros: FC<MacrosProps> = ({
             Protein:
           </div>
 
-          <div className=" text-sm">
-            {Math.round(percentProtein * 0.01 * calories)}g
-          </div>
+          <div className=" text-sm">{proteinInGram}g</div>
           <div className="text-muted-foreground flex w-full justify-end text-sm">
             {protein}%
           </div>
         </div>
 
         <Slider
-          value={[percentProtein]}
+          value={[protein]}
           onValueChange={values => {
             onChangeProtein(values[0])
           }}
@@ -97,16 +90,14 @@ export const Macros: FC<MacrosProps> = ({
             Carbs:
           </div>
 
-          <div className=" text-sm">
-            {Math.round(percentCarbs * 0.01 * calories)}g
-          </div>
+          <div className=" text-sm">{carbsInGram}g</div>
           <div className="text-muted-foreground flex w-full justify-end text-sm">
             {carbs}%
           </div>
         </div>
 
         <Slider
-          value={[percentCarbs]}
+          value={[carbs]}
           onValueChange={values => {
             onChangeCarbs(values[0])
           }}
@@ -121,16 +112,14 @@ export const Macros: FC<MacrosProps> = ({
             Fat:
           </div>
 
-          <div className=" text-sm">
-            {Math.round(percentFat * 0.01 * calories)}g
-          </div>
+          <div className=" text-sm">{fatInGram}g</div>
           <div className="text-muted-foreground flex w-full justify-end text-sm">
             {fat}%
           </div>
         </div>
 
         <Slider
-          value={[percentFat]}
+          value={[fat]}
           onValueChange={values => {
             onChangeFat(values[0])
           }}
