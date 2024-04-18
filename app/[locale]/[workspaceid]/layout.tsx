@@ -22,6 +22,7 @@ import { useParams, useRouter } from "next/navigation"
 import { ReactNode, useContext, useEffect, useState } from "react"
 import Loading from "../loading"
 import { stripIndent, oneLine } from "common-tags"
+import { TablesUpdate } from "@/supabase/types"
 
 interface WorkspaceLayoutProps {
   children: ReactNode
@@ -162,6 +163,12 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
     const modelData = await getModelWorkspacesByWorkspaceId(workspaceId)
     setModels(modelData.models)
 
+    const updatedSettings: TablesUpdate<"settings"> = {
+      ...settings,
+      protein: settings?.protein * 0.01 * settings?.calories,
+      carbs: settings?.carbs * 0.01 * settings?.calories,
+      fat: settings?.fat * 0.01 * settings?.calories
+    }
     const default_prompt = stripIndent`${oneLine`
     You are a very enthusiastic conversational fitness assistant who loves
     to help people! Given the following context about the user and all previous
@@ -170,7 +177,7 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
     "Sorry, I don't know how to help with that." DO NOT MENTION THIS CONTEXT IN YOUR ANSWER.
     
     Context sections:
-    ${JSON.stringify(settings)}`}`
+    ${JSON.stringify(updatedSettings)}`}`
 
     setChatSettings({
       model: (workspace?.default_model || "gpt-4-1106-preview") as LLMID,

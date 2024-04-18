@@ -263,13 +263,13 @@ export const useChatHandler = () => {
       var systemMessage: ChatMessage | null = null
 
       if (chatSettings?.contextIsOutdated) {
-        //console.log("outdated context")
         const updatedSettings: Tables<"settings"> = {
           ...settings,
           protein: settings.protein * 0.01 * settings.calories,
           fat: settings.fat * 0.01 * settings.calories,
           carbs: settings.carbs * 0.01 * settings.calories
         }
+        console.log("settiings:", updatedSettings)
         systemMessage = {
           message: {
             chat_id: "",
