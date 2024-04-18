@@ -26,13 +26,13 @@ export const Macros: FC<MacrosProps> = ({
   const [calories, setCalories] = useState(protein * 4 + carbs * 4 + fat * 9)
 
   const [percentProtein, setPercentProtein] = useState(
-    Math.round((protein * 4) / calories) * 100
+    Math.round(((protein * 4) / calories) * 100)
   )
   const [percentCarbs, setPercentCarbs] = useState(
-    Math.round((carbs * 4) / calories) * 100
+    Math.round(((carbs * 4) / calories) * 100)
   )
   const [percentFat, setPercentFat] = useState(
-    Math.round((fat * 9) / calories) * 100
+    Math.round(((fat * 9) / calories) * 100)
   )
   useEffect(() => {
     setProtein((percentProtein * 0.01 * calories) / 4)
@@ -58,7 +58,7 @@ export const Macros: FC<MacrosProps> = ({
             Protein:
           </div>
 
-          <div className=" text-sm">{protein}</div>
+          <div className=" text-sm">{protein}g</div>
           <div className="text-muted-foreground flex w-full justify-end text-sm">
             {percentProtein}%
           </div>
@@ -80,7 +80,7 @@ export const Macros: FC<MacrosProps> = ({
             Carbs:
           </div>
 
-          <div className=" text-sm">{carbs}</div>
+          <div className=" text-sm">{carbs}g</div>
           <div className="text-muted-foreground flex w-full justify-end text-sm">
             {percentCarbs}%
           </div>
@@ -102,7 +102,7 @@ export const Macros: FC<MacrosProps> = ({
             Fat:
           </div>
 
-          <div className=" text-sm">{fat}</div>
+          <div className=" text-sm">{fat}g</div>
           <div className="text-muted-foreground flex w-full justify-end text-sm">
             {percentFat}%
           </div>
