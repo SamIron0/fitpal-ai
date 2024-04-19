@@ -202,7 +202,7 @@ export const SidebarCreateItem: FC<SidebarCreateItemProps> = ({
 
       const newItem = await createFunction(createState, selectedWorkspace.id)
 
-      setStateFunction((prevItems: any) => [...prevItems, newItem])
+      //setStateFunction((prevItems: any) => [...prevItems, newItem])
 
       onOpenChange(false)
       setCreating(false)
