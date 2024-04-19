@@ -48,6 +48,9 @@ export const GlobalState: FC<GlobalStateProps> = ({ children }) => {
   const [presets, setPresets] = useState<Tables<"presets">[]>([])
   const [prompts, setPrompts] = useState<Tables<"prompts">[]>([])
   const [tools, setTools] = useState<Tables<"tools">[]>([])
+  const [calculator, setCalculator] = useState<Tables<"calculator">>(
+    {} as Tables<"calculator">
+  )
   const [workspaces, setWorkspaces] = useState<Tables<"workspaces">[]>([])
   const [settings, setSettings] = useState<Tables<"settings">>(
     {} as Tables<"settings">
@@ -229,7 +232,8 @@ export const GlobalState: FC<GlobalStateProps> = ({ children }) => {
         setTools,
         workspaces,
         setWorkspaces,
-
+        setCalculator,
+        calculator,
         // MODELS STORE
         envKeyMap,
         setEnvKeyMap,
