@@ -6,6 +6,11 @@ import { getErrorRedirect } from "@/utils/helpers"
 import { User } from "@supabase/supabase-js"
 import { createClient } from "@/lib/supabase/server"
 import { cookies } from "next/headers"
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Login"
+}
 
 export default async function Pricing() {
   const supabase = createClient(cookies())
