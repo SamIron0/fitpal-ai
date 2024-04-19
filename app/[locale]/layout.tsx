@@ -11,6 +11,7 @@ import { cookies } from "next/headers"
 import { ReactNode } from "react"
 import "./globals.css"
 import ToasterProvider from "@/components/utility/toasterProvider"
+import { Analytics } from "@vercel/analytics/react"
 
 const inter = Inter({ subsets: ["latin"] })
 const APP_NAME = "Chatbot UI"
@@ -103,6 +104,7 @@ export default async function RootLayout({
             </div>
           </TranslationsProvider>
         </Providers>
+        <Analytics />
       </body>
     </html>
   )
