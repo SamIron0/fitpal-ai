@@ -30,7 +30,7 @@ export async function POST(request: Request) {
       {
         method: "POST",
         body: JSON.stringify({
-          model: "mistralai/Mixtral-8x7B-Instruct-v0.1",
+          model: "meta-llama/Meta-Llama-3-70B-Instruct",
           messages: messages,
           stream: true,
           top_p: 0.8
