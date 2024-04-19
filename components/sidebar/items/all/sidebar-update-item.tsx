@@ -152,24 +152,6 @@ export const SidebarUpdateItem: FC<SidebarUpdateItemProps> = ({
     Tables<"tools">[]
   >([])
 
-  useEffect(() => {
-    if (isOpen) {
-      const fetchData = async () => {
-        if (workspaces.length > 1) {
-          const workspaces = await fetchSelectedWorkspaces()
-          setStartingWorkspaces(workspaces)
-          setSelectedWorkspaces(workspaces)
-        }
-
-        const fetchDataFunction = fetchDataFunctions[contentType]
-        if (!fetchDataFunction) return
-        await fetchDataFunction(item.id)
-      }
-
-      fetchData()
-    }
-  }, [isOpen])
-
   const renderState = {
     chats: null,
     presets: null,
@@ -261,16 +243,6 @@ export const SidebarUpdateItem: FC<SidebarUpdateItemProps> = ({
     }
   }
 
-  const fetchSelectedWorkspaces = async () => {
-    const fetchFunction = fetchWorkpaceFunctions[contentType]
-
-    if (!fetchFunction) return []
-
-    const workspaces = await fetchFunction(item.id)
-
-    return workspaces
-  }
-
   const handleWorkspaceUpdates = async (
     startingWorkspaces: Tables<"workspaces">[],
     selectedWorkspaces: Tables<"workspaces">[],
@@ -295,16 +267,6 @@ export const SidebarUpdateItem: FC<SidebarUpdateItemProps> = ({
 
     for (const workspace of deleteList) {
       await deleteWorkspaceFn(itemId, workspace.id)
-    }
-
-    if (deleteList.map(w => w.id).includes(selectedWorkspace.id)) {
-      const setStateFunction = stateUpdateFunctions[contentType]
-
-      if (setStateFunction) {
-        setStateFunction((prevItems: any) =>
-          prevItems.filter((prevItem: any) => prevItem.id !== item.id)
-        )
-      }
     }
 
     const createList = selectedWorkspaces.filter(
@@ -582,30 +544,6 @@ export const SidebarUpdateItem: FC<SidebarUpdateItemProps> = ({
     models: setModels
   }
 
-  const handleUpdate = async () => {
-    try {
-      const updateFunction = updateFunctions[contentType]
-      const setStateFunction = stateUpdateFunctions[contentType]
-
-      if (!updateFunction || !setStateFunction) return
-      if (isTyping) return // Prevent update while typing
-
-      const updatedItem = await updateFunction(item.id, updateState)
-
-      setStateFunction((prevItems: any) =>
-        prevItems.map((prevItem: any) =>
-          prevItem.id === item.id ? updatedItem : prevItem
-        )
-      )
-
-      setIsOpen(false)
-
-      toast.success(`${contentType.slice(0, -1)} updated successfully`)
-    } catch (error) {
-      toast.error(`Error updating ${contentType.slice(0, -1)}. ${error}`)
-    }
-  }
-
   const handleSelectWorkspace = (workspace: Tables<"workspaces">) => {
     setSelectedWorkspaces(prevState => {
       const isWorkspaceAlreadySelected = prevState.find(
@@ -656,8 +594,6 @@ export const SidebarUpdateItem: FC<SidebarUpdateItemProps> = ({
                 />
               </div>
             )}
-
-            {renderInputs(renderState[contentType])}
           </div>
         </div>
 
@@ -667,10 +603,6 @@ export const SidebarUpdateItem: FC<SidebarUpdateItemProps> = ({
           <div className="flex grow justify-end space-x-2">
             <Button variant="outline" onClick={() => setIsOpen(false)}>
               Cancel
-            </Button>
-
-            <Button ref={buttonRef} onClick={handleUpdate}>
-              Save
             </Button>
           </div>
         </SheetFooter>

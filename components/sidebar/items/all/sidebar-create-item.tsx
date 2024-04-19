@@ -11,6 +11,7 @@ import { createAssistantCollections } from "@/db/assistant-collections"
 import { createAssistantFiles } from "@/db/assistant-files"
 import { createAssistantTools } from "@/db/assistant-tools"
 import { createAssistant, updateAssistant } from "@/db/assistants"
+import { createCalculator } from "@/db/calculator"
 import { createChat } from "@/db/chats"
 import { createCollectionFiles } from "@/db/collection-files"
 import { createCollection } from "@/db/collections"
@@ -50,6 +51,7 @@ export const SidebarCreateItem: FC<SidebarCreateItemProps> = ({
     selectedWorkspace,
     setChats,
     setPresets,
+    setCalculator,
     setPrompts,
     setFiles,
     setCollections,
@@ -67,6 +69,7 @@ export const SidebarCreateItem: FC<SidebarCreateItemProps> = ({
     chats: createChat,
     presets: createPreset,
     prompts: createPrompt,
+    calculator: createCalculator,
     files: async (
       createState: { file: File } & TablesInsert<"files">,
       workspaceId: string
@@ -176,6 +179,7 @@ export const SidebarCreateItem: FC<SidebarCreateItemProps> = ({
   const stateUpdateFunctions = {
     chats: setChats,
     presets: setPresets,
+    calculator: setCalculator,
     prompts: setPrompts,
     files: setFiles,
     collections: setCollections,
@@ -198,7 +202,7 @@ export const SidebarCreateItem: FC<SidebarCreateItemProps> = ({
 
       const newItem = await createFunction(createState, selectedWorkspace.id)
 
-      setStateFunction((prevItems: any) => [...prevItems, newItem])
+      //setStateFunction((prevItems: any) => [...prevItems, newItem])
 
       onOpenChange(false)
       setCreating(false)

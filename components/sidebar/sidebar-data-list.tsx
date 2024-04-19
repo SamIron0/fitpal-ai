@@ -13,21 +13,15 @@ import { ContentType, DataItemType, DataListType } from "@/types"
 
 import { FC, useContext, useEffect, useRef, useState } from "react"
 import { Separator } from "../ui/separator"
-import { AssistantItem } from "./items/assistants/assistant-item"
 import { ChatItem } from "./items/chat/chat-item"
-import { CollectionItem } from "./items/collections/collection-item"
-import { FileItem } from "./items/files/file-item"
 import { Folder } from "./items/folders/folder-item"
-import { ModelItem } from "./items/models/model-item"
 import { PresetItem } from "./items/presets/preset-item"
 import { PromptItem } from "./items/prompts/prompt-item"
-import { ToolItem } from "./items/tools/tool-item"
-import { DietSelect } from "../diet/diet-select"
 import { SidebarSearch } from "./sidebar-search"
 import { SidebarCreateButtons } from "./sidebar-create-buttons"
-import { Button } from "../ui/button"
-import { Slider } from "../ui/slider"
 import { Settings } from "./settings/settings"
+import { Calculator } from "./settings/calculator/calculator"
+import { updateCalculator } from "@/db/calculator"
 interface SidebarDataListProps {
   contentType: ContentType
   data: DataListType
@@ -46,6 +40,7 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
   const {
     setChats,
     setPresets,
+    setCalculator,
     setPrompts,
     setFiles,
     setCollections,
@@ -121,6 +116,7 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
     presets: updatePreset,
     prompts: updatePrompt,
     files: updateFile,
+    calculator: updateCalculator,
     collections: updateCollection,
     assistants: updateAssistant,
     tools: updateTool,
@@ -132,6 +128,7 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
     presets: setPresets,
     prompts: setPrompts,
     files: setFiles,
+    calculator: setCalculator,
     collections: setCollections,
     assistants: setAssistants,
     tools: setTools,
@@ -307,6 +304,8 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
           </>
         ) : contentType === "presets" ? (
           <Settings />
+        ) : contentType === "calculator" ? (
+          <Calculator />
         ) : null}
       </div>
 

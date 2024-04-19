@@ -1170,6 +1170,54 @@ export type Database = {
           }
         ]
       }
+      calculator: {
+        Row: {
+          weight: number
+          height: number
+          activity_level: number
+          age: number
+          gender: string
+          user_id: string
+          id: string
+          workspace_id: string
+        }
+        Insert: {
+          weight: number
+          height: number
+          activity_level: number
+          age: number
+          gender: string
+          user_id: string
+          id?: string
+          workspace_id: string
+        }
+        Update: {
+          weight?: number
+          height?: number
+          activity_level?: number
+          age?: number
+          gender?: string
+          user_id?: string
+          id?: string
+          workspace_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "presets_folder_id_fkey"
+            columns: ["folder_id"]
+            isOneToOne: false
+            referencedRelation: "folders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "presets_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
       profiles: {
         Row: {
           anthropic_api_key: string | null
