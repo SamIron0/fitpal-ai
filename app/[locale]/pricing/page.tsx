@@ -10,7 +10,7 @@ import { User } from "@supabase/supabase-js"
 import { useState } from "react"
 import { createClient } from "@/lib/supabase/server"
 import { cookies } from "next/headers"
-import { usePathname, useRouter } from "next/navigation"
+import { useRouter } from "next/navigation"
 
 type Subscription = Tables<"subscriptions">
 type Product = Tables<"products">
@@ -40,7 +40,7 @@ export default async function Pricing() {
   const [billingInterval, setBillingInterval] =
     useState<BillingInterval>("month")
   const [priceIdLoading, setPriceIdLoading] = useState<string>()
-  const currentPath = usePathname()
+  const currentPath = "/api/pricing"
 
   const handleStripeCheckout = async (price: Price) => {
     setPriceIdLoading(price.id)
