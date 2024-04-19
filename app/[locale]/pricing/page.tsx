@@ -7,6 +7,7 @@ import { User } from "@supabase/supabase-js"
 import { createClient } from "@/lib/supabase/server"
 import { cookies } from "next/headers"
 import { Metadata } from "next"
+import Offers from "@/components/offers/offers"
 
 export const metadata: Metadata = {
   title: "Login"
@@ -35,5 +36,6 @@ export default async function Pricing() {
     .eq("prices.active", true)
     .order("metadata->index")
     .order("unit_amount", { referencedTable: "prices" })
-  return <Pricing />
+
+  return <Offers user={user} subscription={subscription} products={products} />
 }
