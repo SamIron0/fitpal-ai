@@ -6,10 +6,11 @@ import { getStripe } from "@/utils/stripe/client"
 import { checkoutWithStripe } from "@/utils/stripe/server"
 import { getErrorRedirect } from "@/utils/helpers"
 import { User } from "@supabase/supabase-js"
-import { useRouter, usePathname } from "next/navigation"
+//import { useRouter, usePathname } from "next/navigation"
 import { useState } from "react"
 import { createClient } from "@/lib/supabase/server"
 import { cookies } from "next/headers"
+import { usePathname, useRouter } from "next/navigation"
 
 type Subscription = Tables<"subscriptions">
 type Product = Tables<"products">
