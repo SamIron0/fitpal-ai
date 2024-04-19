@@ -5,7 +5,7 @@ import {
   IconBooks,
   IconFile,
   IconMessage,
-  IconPencil,
+  IconCalculator,
   IconRobotFace,
   IconSparkles
 } from "@tabler/icons-react"
@@ -36,6 +36,11 @@ export const SidebarSwitcher: FC<SidebarSwitcherProps> = ({
         <SidebarSwitchItem
           icon={<IconAdjustmentsHorizontal size={SIDEBAR_ICON_SIZE} />}
           contentType="presets"
+          onContentTypeChange={onContentTypeChange}
+        />
+        <SidebarSwitchItem
+          icon={<IconCalculator size={SIDEBAR_ICON_SIZE} />}
+          contentType="calculator"
           onContentTypeChange={onContentTypeChange}
         />
       </TabsList>

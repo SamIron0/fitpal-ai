@@ -28,6 +28,8 @@ import { SidebarCreateButtons } from "./sidebar-create-buttons"
 import { Button } from "../ui/button"
 import { Slider } from "../ui/slider"
 import { Settings } from "./settings/settings"
+import { Calculator } from "./settings/calculator/calculator"
+import { updateCalculator } from "@/db/calculator"
 interface SidebarDataListProps {
   contentType: ContentType
   data: DataListType
@@ -46,6 +48,7 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
   const {
     setChats,
     setPresets,
+    setCalculator,
     setPrompts,
     setFiles,
     setCollections,
@@ -121,6 +124,7 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
     presets: updatePreset,
     prompts: updatePrompt,
     files: updateFile,
+    calculator: updateCalculator,
     collections: updateCollection,
     assistants: updateAssistant,
     tools: updateTool,
@@ -132,6 +136,7 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
     presets: setPresets,
     prompts: setPrompts,
     files: setFiles,
+    calculator: setCalculator,
     collections: setCollections,
     assistants: setAssistants,
     tools: setTools,
@@ -307,6 +312,8 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
           </>
         ) : contentType === "presets" ? (
           <Settings />
+        ) : contentType === "calculator" ? (
+          <Calculator />
         ) : null}
       </div>
 

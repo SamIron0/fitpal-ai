@@ -36,6 +36,8 @@ interface ChatbotUIContext {
   presets: Tables<"presets">[]
   setPresets: Dispatch<SetStateAction<Tables<"presets">[]>>
   prompts: Tables<"prompts">[]
+  calculator: Tables<"calculator">
+  setCalculator: Dispatch<SetStateAction<Tables<"calculator">>>
   setPrompts: Dispatch<SetStateAction<Tables<"prompts">[]>>
   tools: Tables<"tools">[]
   setTools: Dispatch<SetStateAction<Tables<"tools">[]>>
@@ -167,6 +169,17 @@ export const ChatbotUIContext = createContext<ChatbotUIContext>({
   },
   setSettings: () => {},
   files: [],
+  calculator: {
+    id: "",
+    user_id: "",
+    workspace_id: "",
+    weight: 0,
+    height: 0,
+    activity_level: 0,
+    age: 0,
+    gender: "male"
+  },
+  setCalculator: () => {},
   setFiles: () => {},
   folders: [],
   setFolders: () => {},
