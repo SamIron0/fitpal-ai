@@ -2,14 +2,15 @@
 
 import Stripe from 'stripe';
 import { stripe } from '@/utils/stripe/config';
-import { createClient } from '@/utils/supabase/server';
-import { createOrRetrieveCustomer } from '@/utils/supabase/admin';
+import { createClient } from '@/lib/supabase/server';
+import { createOrRetrieveCustomer } from '@/db/admin';
 import {
   getURL,
   getErrorRedirect,
   calculateTrialEndUnixTimestamp
 } from '@/utils/helpers';
-import { Tables } from '@/types_db';
+import { Tables } from '@/supabase/types';
+import { cookies } from 'next/headers';
 
 type Price = Tables<'prices'>;
 
@@ -24,7 +25,8 @@ export async function checkoutWithStripe(
 ): Promise<CheckoutResponse> {
   try {
     // Get the user from Supabase auth
-    const supabase = createClient();
+    const cookieStore = cookies();
+    const supabase = createClient( cookieStore );
     const {
       error,
       data: { user }
@@ -121,7 +123,7 @@ export async function checkoutWithStripe(
 
 export async function createStripePortal(currentPath: string) {
   try {
-    const supabase = createClient();
+    const supabase = createClient( cookies() );
     const {
       error,
       data: { user }
