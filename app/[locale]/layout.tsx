@@ -90,6 +90,22 @@ export default async function RootLayout({
 
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-DM7XC7YDQT"
+        ></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'G-DM7XC7YDQT');
+              `
+          }}
+        ></script>
+      </head>
       <body className={inter.className}>
         <ToasterProvider />
         <Providers attribute="class" defaultTheme="dark">
