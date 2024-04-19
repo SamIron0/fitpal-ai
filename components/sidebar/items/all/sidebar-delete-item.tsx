@@ -88,21 +88,6 @@ export const SidebarDeleteItem: FC<SidebarDeleteItemProps> = ({
     models: setModels
   }
 
-  const handleDelete = async () => {
-    const deleteFunction = deleteFunctions[contentType]
-    const setStateFunction = stateUpdateFunctions[contentType]
-
-    if (!deleteFunction || !setStateFunction) return
-
-    await deleteFunction(item as any)
-
-    setStateFunction((prevItems: any) =>
-      prevItems.filter((prevItem: any) => prevItem.id !== item.id)
-    )
-
-    setShowDialog(false)
-  }
-
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === "Enter") {
       e.stopPropagation()
@@ -130,10 +115,6 @@ export const SidebarDeleteItem: FC<SidebarDeleteItemProps> = ({
         <DialogFooter>
           <Button variant="ghost" onClick={() => setShowDialog(false)}>
             Cancel
-          </Button>
-
-          <Button ref={buttonRef} variant="destructive" onClick={handleDelete}>
-            Delete
           </Button>
         </DialogFooter>
       </DialogContent>
