@@ -47,57 +47,11 @@ export const SidebarCreateButtons: FC<SidebarCreateButtonsProps> = ({
   }
 
   const getCreateFunction = () => {
-    /*  chat
-  mealplans
-  workouts
-  allergies
-  diets
-  macros
-  exclusions
-
-
-  */
     switch (contentType) {
       case "chats":
         return async () => {
           handleNewChat()
         }
-
-      case "presets":
-        return async () => {
-          setIsCreatingPreset(true)
-        }
-
-      case "prompts":
-        return async () => {
-          setIsCreatingPrompt(true)
-        }
-
-      case "files":
-        return async () => {
-          setIsCreatingFile(true)
-        }
-
-      case "collections":
-        return async () => {
-          setIsCreatingCollection(true)
-        }
-
-      case "assistants":
-        return async () => {
-          setIsCreatingAssistant(true)
-        }
-
-      case "tools":
-        return async () => {
-          setIsCreatingTool(true)
-        }
-
-      case "models":
-        return async () => {
-          setIsCreatingModel(true)
-        }
-
       default:
         break
     }
