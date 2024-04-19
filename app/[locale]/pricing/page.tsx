@@ -8,6 +8,8 @@ import { getErrorRedirect } from "@/utils/helpers"
 import { User } from "@supabase/supabase-js"
 import { useRouter, usePathname } from "next/navigation"
 import { useState } from "react"
+import { createClient } from "@/lib/supabase/server"
+import { cookies } from "next/headers"
 
 type Subscription = Tables<"subscriptions">
 type Product = Tables<"products">
@@ -30,14 +32,9 @@ interface Props {
 
 type BillingInterval = "lifetime" | "year" | "month"
 
-export default function Pricing({ user, products, subscription }: Props) {
-  const intervals = Array.from(
-    new Set(
-      products.flatMap(product =>
-        product?.prices?.map(price => price?.interval)
-      )
-    )
-  )
+export default async function Pricing() {
+  const supabase = createClient(cookies())
+
   const router = useRouter()
   const [billingInterval, setBillingInterval] =
     useState<BillingInterval>("month")
@@ -79,7 +76,36 @@ export default function Pricing({ user, products, subscription }: Props) {
     setPriceIdLoading(undefined)
   }
 
-  if (!products.length) {
+  const {
+    data: { user }
+  } = await supabase.auth.getUser()
+
+  const { data: subscription, error } = await supabase
+    .from("subscriptions")
+    .select("*, prices(*, products(*))")
+    .in("status", ["trialing", "active"])
+    .maybeSingle()
+
+  if (error) {
+    console.log(error)
+  }
+
+  const { data: products } = await supabase
+    .from("products")
+    .select("*, prices(*)")
+    .eq("active", true)
+    .eq("prices.active", true)
+    .order("metadata->index")
+    .order("unit_amount", { referencedTable: "prices" })
+
+  const intervals = Array.from(
+    new Set(
+      products?.flatMap(product =>
+        product?.prices?.map((price: any) => price?.interval)
+      )
+    )
+  )
+  if (!products?.length) {
     return (
       <section className="bg-black">
         <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-24 lg:px-8">
@@ -142,8 +168,9 @@ export default function Pricing({ user, products, subscription }: Props) {
           </div>
           <div className="mt-12 flex flex-wrap justify-center gap-6 space-y-4 sm:mt-16 sm:space-y-0 lg:mx-auto lg:max-w-4xl xl:mx-0 xl:max-w-none">
             {products.map(product => {
-              const price = product?.prices?.find(
-                price => price.interval === billingInterval
+              const price: any = product?.prices?.find(
+                (price: { interval: string }) =>
+                  price.interval === billingInterval
               )
               if (!price) return null
               const priceString = new Intl.NumberFormat("en-US", {
