@@ -5,8 +5,6 @@ import { ContentType } from "@/types"
 import { IconFolderPlus, IconPlus } from "@tabler/icons-react"
 import { FC, useContext, useState } from "react"
 import { Button } from "../ui/button"
-import { CreateAssistant } from "./items/assistants/create-assistant"
-import { CreateCollection } from "./items/collections/create-collection"
 import { CreateFile } from "./items/files/create-file"
 import { CreateModel } from "./items/models/create-model"
 import { CreatePreset } from "./items/presets/create-preset"
@@ -136,24 +134,6 @@ export const SidebarCreateButtons: FC<SidebarCreateButtonsProps> = ({
 
       {isCreatingFile && (
         <CreateFile isOpen={isCreatingFile} onOpenChange={setIsCreatingFile} />
-      )}
-
-      {isCreatingCollection && (
-        <CreateCollection
-          isOpen={isCreatingCollection}
-          onOpenChange={setIsCreatingCollection}
-        />
-      )}
-
-      {isCreatingAssistant && (
-        <CreateAssistant
-          isOpen={isCreatingAssistant}
-          onOpenChange={setIsCreatingAssistant}
-        />
-      )}
-
-      {isCreatingTool && (
-        <CreateTool isOpen={isCreatingTool} onOpenChange={setIsCreatingTool} />
       )}
 
       {isCreatingModel && (
