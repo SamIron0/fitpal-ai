@@ -1,4 +1,4 @@
-import { ModelIcon } from "@/components/models/model-icon"
+import { ModelIcon } from "@/components/model-icon"
 import { ChatSettingsForm } from "@/components/ui/chat-settings-form"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"

@@ -1,4 +1,4 @@
-import { ModelIcon } from "@/components/models/model-icon"
+import { ModelIcon } from "@/components/model-icon"
 import { WithTooltip } from "@/components/ui/with-tooltip"
 import { ChatbotUIContext } from "@/context/context"
 import { LLM_LIST } from "@/lib/models/llm/llm-list"
