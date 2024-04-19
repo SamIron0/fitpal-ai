@@ -109,7 +109,7 @@ export default function Offers({ user, products, subscription }: Props) {
     )
   } else {
     return (
-      <div className=" flex justify-center ">
+      <div className="mt-12 flex flex-wrap justify-center gap-6 space-y-4 sm:mt-16 sm:space-y-0 lg:mx-auto lg:max-w-4xl xl:mx-0 xl:max-w-none">
         {products.map(product => {
           const price = product?.prices?.find(
             price => price.interval === billingInterval
@@ -122,7 +122,7 @@ export default function Offers({ user, products, subscription }: Props) {
           }).format((price?.unit_amount || 0) / 100)
           return (
             <div key={product.id}>
-              <div className="py-24 sm:py-32">
+              <div className="bg-white py-24 sm:py-32">
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
                   <div className="mx-auto max-w-2xl sm:text-center">
                     <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
