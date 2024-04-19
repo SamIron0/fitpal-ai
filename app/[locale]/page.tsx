@@ -10,7 +10,7 @@ export default function HomePage() {
   const { theme } = useTheme()
 
   return (
-    <div className="flex w-full flex-col justify-center ">
+    <div className="flex w-full flex-col items-center justify-center ">
       <Navbar />
 
       <div className=" flex max-w-4xl flex-col items-center px-4 sm:px-6">
