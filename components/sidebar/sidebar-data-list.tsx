@@ -308,7 +308,10 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
           !subscription.id ? (
             <Calculator />
           ) : (
-            <Link className="mb-3 mt-4 flex  h-[36px] grow" href={"/pricing"}>
+            <Link
+              className="mb-3 mt-4 flex h-[36px] grow  bg-white px-3"
+              href={"/pricing"}
+            >
               Access Macro Calculator
             </Link>
           )
