@@ -8,15 +8,17 @@ import {
   DropdownMenuTrigger
 } from "../ui/dropdown-menu"
 import { Tabs, TabsList, TabsTrigger } from "../ui/tabs"
-import { GenderOption } from "./gender-option"
-interface GenderSelectProps {
-  onSelect: (gender: string) => void
-  selectedGender: string
+import { DropdownOption } from "./dropdown-option"
+interface DropDownSelectProps {
+  onSelect: (value: string) => void
+  selectedValue: any
+  values: any[]
 }
 
-export const GenderSelect: FC<GenderSelectProps> = ({
+export const DropDownSelect: FC<DropDownSelectProps> = ({
   onSelect,
-  selectedGender
+  selectedValue,
+  values
 }) => {
   const { profile, setProfile } = useContext(ChatbotUIContext)
 
@@ -24,8 +26,7 @@ export const GenderSelect: FC<GenderSelectProps> = ({
   const triggerRef = useRef<HTMLButtonElement>(null)
 
   const [isOpen, setIsOpen] = useState(false)
-  const [selected, setSelected] = useState(selectedGender)
-  const genders = ["male", "female"]
+  const [selected, setSelected] = useState(selectedValue)
   useEffect(() => {
     if (isOpen) {
       setTimeout(() => {
@@ -34,9 +35,9 @@ export const GenderSelect: FC<GenderSelectProps> = ({
     }
   }, [isOpen])
 
-  const handleSelectGender = (gender: string) => {
-    setSelected(gender)
-    onSelect(gender)
+  const handleSelectValue = (value: string) => {
+    setSelected(value)
+    onSelect(value)
     setIsOpen(false)
   }
   if (!profile) return null
@@ -81,11 +82,11 @@ export const GenderSelect: FC<GenderSelectProps> = ({
           style={{ width: triggerRef.current?.offsetWidth }}
           align="start"
         >
-          {genders.map(gender => (
-            <GenderOption
-              key={gender}
-              gender={gender}
-              onSelect={() => handleSelectGender(gender)}
+          {values.map(value => (
+            <DropdownOption
+              key={value}
+              value={value}
+              onSelect={() => handleSelectValue(value)}
             />
           ))}
         </DropdownMenuContent>

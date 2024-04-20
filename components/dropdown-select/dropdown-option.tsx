@@ -1,12 +1,15 @@
 import { FC } from "react"
 import { WithTooltip } from "../ui/with-tooltip"
 
-interface GenderOptionProps {
-  gender: string
+interface DropDownOptionProps {
+  value: string
   onSelect: () => void
 }
 
-export const GenderOption: FC<GenderOptionProps> = ({ gender, onSelect }) => {
+export const DropdownOption: FC<DropDownOptionProps> = ({
+  value,
+  onSelect
+}) => {
   return (
     <WithTooltip
       display={<></>}
@@ -17,7 +20,7 @@ export const GenderOption: FC<GenderOptionProps> = ({ gender, onSelect }) => {
           onClick={onSelect}
         >
           <div className="flex items-center space-x-2">
-            <div className="text-sm font-semibold">{gender}</div>
+            <div className="text-sm font-semibold">{value}</div>
           </div>
         </div>
       }
