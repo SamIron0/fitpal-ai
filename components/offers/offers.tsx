@@ -57,7 +57,7 @@ export default function Offers({ user, products, subscription }: Props) {
 
     if (!user) {
       setPriceIdLoading(undefined)
-      return router.push("/signin/signup")
+      return router.push("/login")
     }
 
     const { errorRedirect, sessionId } = await checkoutWithStripe(
@@ -109,7 +109,7 @@ export default function Offers({ user, products, subscription }: Props) {
     )
   } else {
     return (
-      <div className="mt-12 flex flex-wrap justify-center gap-6 space-y-4 sm:mt-16 sm:space-y-0 lg:mx-auto lg:max-w-4xl xl:mx-0 xl:max-w-none">
+      <div className="mt-12 flex w-full flex-wrap justify-center gap-6 space-y-4 sm:mt-16 sm:space-y-0 lg:mx-auto lg:max-w-4xl xl:mx-0 xl:max-w-none">
         {products.map(product => {
           const price = product?.prices?.find(
             price => price.interval === billingInterval
@@ -121,8 +121,8 @@ export default function Offers({ user, products, subscription }: Props) {
             minimumFractionDigits: 0
           }).format((price?.unit_amount || 0) / 100)
           return (
-            <div key={product.id}>
-              <div className="bg-white py-24 sm:py-32">
+            <div key={product.id} className="w-full">
+              <div className=" py-24">
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
                   <div className="mx-auto max-w-2xl sm:text-center">
                     <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
@@ -134,7 +134,7 @@ export default function Offers({ user, products, subscription }: Props) {
                       Explicabo id ut laborum.
                     </p>
                   </div>
-                  <div className="mx-auto mt-16 max-w-2xl rounded-3xl ring-1 ring-gray-200 sm:mt-20 lg:mx-0 lg:flex lg:max-w-none">
+                  <div className="mx-auto mt-16 rounded-3xl bg-white ring-1 ring-gray-200 sm:mt-20 lg:mx-0 lg:flex lg:max-w-none">
                     <div className="p-8 sm:p-10 lg:flex-auto">
                       <h3 className="text-2xl font-bold tracking-tight text-gray-900">
                         {" "}
@@ -175,12 +175,16 @@ export default function Offers({ user, products, subscription }: Props) {
                               /{billingInterval}
                             </span>
                           </p>
-                          <a
-                            href="#"
+                          <button
+                            onClick={() => handleStripeCheckout(price)}
                             className="mt-10 block w-full rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                           >
                             Get access
-                          </a>
+                          </button>
+                          <p className="mt-6 text-xs leading-5 text-gray-600">
+                            Invoices and receipts available for easy company
+                            reimbursement
+                          </p>
                         </div>
                       </div>
                     </div>
