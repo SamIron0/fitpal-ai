@@ -1,33 +1,20 @@
-import { Button } from "@/components/ui/button"
-import type { Tables } from "@/supabase/types"
-import { getStripe } from "@/utils/stripe/client"
-import { checkoutWithStripe } from "@/utils/stripe/server"
-import { getErrorRedirect } from "@/utils/helpers"
-import { User } from "@supabase/supabase-js"
-import { createClient } from "@/lib/supabase/server"
+import { createClient } from "@/lib/supabase/client"
 import { cookies } from "next/headers"
 import { Metadata } from "next"
 import Offers from "@/components/offers/offers"
+import { useContext } from "react"
+import { ChatbotUIContext } from "@/context/context"
 
 export const metadata: Metadata = {
   title: "Login"
 }
 
 export default async function Pricing() {
-  const supabase = createClient(cookies())
+  //const { subscription } = useContext(ChatbotUIContext)
+  const supabase = createClient()
   const {
     data: { user }
   } = await supabase.auth.getUser()
-
-  const { data: subscription, error } = await supabase
-    .from("subscriptions")
-    .select("*, prices(*, products(*))")
-    .in("status", ["trialing", "active"])
-    .maybeSingle()
-
-  if (error) {
-    console.log(error)
-  }
 
   const { data: products } = await supabase
     .from("products")
@@ -37,5 +24,5 @@ export default async function Pricing() {
     .order("metadata->index")
     .order("unit_amount", { referencedTable: "prices" })
 
-  return <Offers user={user} subscription={subscription} products={products} />
+  return <Offers user={user} products={products} />
 }
