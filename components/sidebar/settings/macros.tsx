@@ -68,6 +68,7 @@ export const Macros: FC<MacrosProps> = ({
         </Label>
 
         <Input
+          type="number"
           value={calories}
           onChange={e => setCalories(Number(e.target.value))}
         />

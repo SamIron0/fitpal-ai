@@ -2,6 +2,8 @@ import { Label } from "@/components/ui/label"
 import { Slider } from "@/components/ui/slider"
 import { useState } from "react"
 import { DropDownSelect } from "../dropdown-select/dropdown-select"
+import { Input } from "../ui/input"
+import { Button } from "../ui/button"
 
 export const Calculator = () => {
   const [gender, onChangeGender] = useState("male")
@@ -9,9 +11,18 @@ export const Calculator = () => {
   const [height, onChangeHeight] = useState(170)
   const [activity, onChangeActivity] = useState("sedentary")
   const [age, onChangeAge] = useState(25)
+  const handleCalculate = () => {
+    return
+  }
   return (
     <div>
-      <Label className="text-md mt-4" htmlFor="age">
+      <Button
+        className="mb-3 mt-4 flex  h-[36px] grow"
+        onClick={() => handleCalculate()}
+      >
+        Calculate{" "}
+      </Button>
+      <Label className="text-md mb-1 mt-4" htmlFor="age">
         Age
       </Label>
       <Slider
@@ -53,21 +64,11 @@ export const Calculator = () => {
       <Label className="text-md mt-4" htmlFor="age">
         Weight
       </Label>
-      <input
-        type="number"
-        id="numberInput"
-        value={weight}
-        onChange={() => {}}
-      />
+      <Input type="number" id="numberInput" name={"weight"} />
       <Label className="text-md mt-4" htmlFor="age">
         Height
       </Label>
-      <input
-        type="number"
-        id="numberInput"
-        value={height}
-        onChange={() => {}}
-      />
+      <Input type="number" id="numberInput" name={"height"} />
     </div>
   )
 }
