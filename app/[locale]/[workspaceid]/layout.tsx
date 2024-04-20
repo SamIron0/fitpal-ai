@@ -37,6 +37,7 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
   const {
     setChatSettings,
     setAssistants,
+    setSubscription,
     setAssistantImages,
     setChats,
     setSettings,
@@ -95,45 +96,21 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
   const fetchWorkspaceData = async (workspaceId: string) => {
     setLoading(true)
 
+    const { data: subscription, error } = await supabase
+      .from("subscriptions")
+      .select("*, prices(*, products(*))")
+      .in("status", ["trialing", "active"])
+      .maybeSingle()
+
+    if (error) {
+      console.log(error)
+    }
+    if (subscription) {
+      console.log(subscription)
+      const sub = setSubscription(subscription)
+    }
     const workspace = await getWorkspaceById(workspaceId)
     setSelectedWorkspace(workspace)
-
-    const assistantData = await getAssistantWorkspacesByWorkspaceId(workspaceId)
-    setAssistants(assistantData.assistants)
-
-    for (const assistant of assistantData.assistants) {
-      let url = ""
-
-      if (assistant.image_path) {
-        url = (await getAssistantImageFromStorage(assistant.image_path)) || ""
-      }
-
-      if (url) {
-        const response = await fetch(url)
-        const blob = await response.blob()
-        const base64 = await convertBlobToBase64(blob)
-
-        setAssistantImages(prev => [
-          ...prev,
-          {
-            assistantId: assistant.id,
-            path: assistant.image_path,
-            base64,
-            url
-          }
-        ])
-      } else {
-        setAssistantImages(prev => [
-          ...prev,
-          {
-            assistantId: assistant.id,
-            path: assistant.image_path,
-            base64: "",
-            url
-          }
-        ])
-      }
-    }
 
     const chats = await getChatsByWorkspaceId(workspaceId)
     setChats(chats)

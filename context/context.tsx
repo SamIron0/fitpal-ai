@@ -36,6 +36,8 @@ interface ChatbotUIContext {
   presets: Tables<"presets">[]
   setPresets: Dispatch<SetStateAction<Tables<"presets">[]>>
   prompts: Tables<"prompts">[]
+  subscription: Tables<"subscriptions">
+  setSubscription: Dispatch<SetStateAction<Tables<"subscriptions">>>
   calculator: Tables<"calculator">
   setCalculator: Dispatch<SetStateAction<Tables<"calculator">>>
   setPrompts: Dispatch<SetStateAction<Tables<"prompts">[]>>
@@ -168,7 +170,45 @@ export const ChatbotUIContext = createContext<ChatbotUIContext>({
     diet: "anything"
   },
   setSettings: () => {},
+
+  /*
+  cancel_at: string | null
+  cancel_at_period_end: boolean | null
+  canceled_at: string | null
+  created: string
+  current_period_end: string
+  current_period_start: string
+  ended_at: string | null
+  id: string
+  metadata: Json | null
+  price_id: string | null
+  quantity: number | null
+  status: Database["public"]["Enums"]["subscription_status"] | null
+  trial_end: string | null
+  trial_start: string | null
+  user_id: string
+*/
+
   files: [],
+  subscription: {
+    id: "",
+    user_id: "",
+    cancel_at: "",
+    cancel_at_period_end: false,
+    canceled_at: "",
+    created: "",
+    current_period_end: "",
+    current_period_start: "",
+    ended_at: "",
+    metadata: "",
+    price_id: "",
+    quantity: 0,
+    status: null,
+    trial_end: "",
+    trial_start: ""
+  },
+
+  setSubscription: () => {},
   calculator: {
     id: "",
     user_id: "",

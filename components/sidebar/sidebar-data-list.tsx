@@ -197,6 +197,7 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
 
   const dataWithFolders = data.filter(item => item.folder_id)
   const dataWithoutFolders = data.filter(item => item.folder_id === null)
+
   return (
     <>
       <div
