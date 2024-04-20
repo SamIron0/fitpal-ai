@@ -10,7 +10,7 @@ import { updateTool } from "@/db/tools"
 import { cn } from "@/lib/utils"
 import { Tables } from "@/supabase/types"
 import { ContentType, DataItemType, DataListType } from "@/types"
-
+import Link from "next/link"
 import { FC, useContext, useEffect, useRef, useState } from "react"
 import { Separator } from "../ui/separator"
 import { ChatItem } from "./items/chat/chat-item"
@@ -307,11 +307,13 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
           </>
         ) : contentType === "presets" ? (
           <Settings />
-        ) : contentType === "calculator" && subscription ? (
-          <Calculator />
-        ) : (
-          <Pricing />
-        )}
+        ) : contentType === "calculator" ? (
+          subscription ? (
+            <Calculator />
+          ) : (
+            <Link href={"/pricing"}>Try it out</Link>
+          )
+        ) : null}
       </div>
 
       <div
