@@ -20,7 +20,7 @@ import { PromptItem } from "./items/prompts/prompt-item"
 import { SidebarSearch } from "./sidebar-search"
 import { SidebarCreateButtons } from "./sidebar-create-buttons"
 import { Settings } from "./settings/settings"
-import { Calculator } from "./settings/calculator/calculator"
+import { Calculator } from "../calculator/calculator"
 import { updateCalculator } from "@/db/calculator"
 import Pricing from "@/app/[locale]/pricing/page"
 interface SidebarDataListProps {
