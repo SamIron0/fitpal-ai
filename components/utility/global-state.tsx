@@ -51,6 +51,9 @@ export const GlobalState: FC<GlobalStateProps> = ({ children }) => {
   const [calculator, setCalculator] = useState<Tables<"calculator">>(
     {} as Tables<"calculator">
   )
+  const [subscription, setSubscription] = useState<Tables<"subscriptions">>(
+    {} as Tables<"subscriptions">
+  )
   const [workspaces, setWorkspaces] = useState<Tables<"workspaces">[]>([])
   const [settings, setSettings] = useState<Tables<"settings">>(
     {} as Tables<"settings">
@@ -215,6 +218,8 @@ export const GlobalState: FC<GlobalStateProps> = ({ children }) => {
         collections,
         setCollections,
         chats,
+        subscription,
+        setSubscription,
         setChats,
         files,
         settings,

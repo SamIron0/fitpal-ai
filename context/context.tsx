@@ -36,7 +36,7 @@ interface ChatbotUIContext {
   presets: Tables<"presets">[]
   setPresets: Dispatch<SetStateAction<Tables<"presets">[]>>
   prompts: Tables<"prompts">[]
-  subscription: Tables<"subscriptions">
+  subscription: Tables<"subscriptions"> | null
   setSubscription: Dispatch<SetStateAction<Tables<"subscriptions">>>
   calculator: Tables<"calculator">
   setCalculator: Dispatch<SetStateAction<Tables<"calculator">>>
@@ -190,23 +190,7 @@ export const ChatbotUIContext = createContext<ChatbotUIContext>({
 */
 
   files: [],
-  subscription: {
-    id: "",
-    user_id: "",
-    cancel_at: "",
-    cancel_at_period_end: false,
-    canceled_at: "",
-    created: "",
-    current_period_end: "",
-    current_period_start: "",
-    ended_at: "",
-    metadata: "",
-    price_id: "",
-    quantity: 0,
-    status: null,
-    trial_end: "",
-    trial_start: ""
-  },
+  subscription: null,
 
   setSubscription: () => {},
   calculator: {

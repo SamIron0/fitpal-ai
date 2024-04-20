@@ -46,7 +46,8 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
     setCollections,
     setAssistants,
     setTools,
-    setModels
+    setModels,
+    subscription
   } = useContext(ChatbotUIContext)
 
   const divRef = useRef<HTMLDivElement>(null)
@@ -305,7 +306,7 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
           </>
         ) : contentType === "presets" ? (
           <Settings />
-        ) : contentType === "calculator" ? (
+        ) : contentType === "calculator" && subscription ? (
           <Calculator />
         ) : null}
       </div>
