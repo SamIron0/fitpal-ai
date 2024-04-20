@@ -1,6 +1,5 @@
 "use client"
 
-import { Button } from "../ui/button"
 import type { Tables } from "@/supabase/types"
 import { getStripe } from "@/utils/stripe/client"
 import { checkoutWithStripe } from "@/utils/stripe/server"

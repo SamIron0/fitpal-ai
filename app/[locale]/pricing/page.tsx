@@ -1,13 +1,8 @@
 import { createClient } from "@/lib/supabase/client"
 import { cookies } from "next/headers"
-import { Metadata } from "next"
 import Offers from "@/components/offers/offers"
 import { useContext } from "react"
 import { ChatbotUIContext } from "@/context/context"
-
-export const metadata: Metadata = {
-  title: "Login"
-}
 
 export default async function Pricing() {
   //const { subscription } = useContext(ChatbotUIContext)
