@@ -66,9 +66,6 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
       case "presets":
         return <PresetItem key={item.id} preset={item as Tables<"presets">} />
 
-      case "prompts":
-        return <PromptItem key={item.id} prompt={item as Tables<"prompts">} />
-
       default:
         return null
     }

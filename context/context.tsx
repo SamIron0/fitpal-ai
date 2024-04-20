@@ -38,7 +38,7 @@ interface ChatbotUIContext {
   prompts: Tables<"prompts">[]
   subscription: Tables<"subscriptions">
   setSubscription: Dispatch<SetStateAction<Tables<"subscriptions">>>
-  calculator: Tables<"calculator">
+  calculator: Tables<"calculator">[]
   setCalculator: Dispatch<SetStateAction<Tables<"calculator">>>
   setPrompts: Dispatch<SetStateAction<Tables<"prompts">[]>>
   tools: Tables<"tools">[]
@@ -191,16 +191,7 @@ export const ChatbotUIContext = createContext<ChatbotUIContext>({
   },
 
   setSubscription: () => {},
-  calculator: {
-    id: "",
-    user_id: "",
-    workspace_id: "",
-    weight: 0,
-    height: 0,
-    activity_level: 0,
-    age: 0,
-    gender: "male"
-  },
+  calculator: [],
   setCalculator: () => {},
   setFiles: () => {},
   folders: [],
