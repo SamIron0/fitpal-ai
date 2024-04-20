@@ -5,6 +5,8 @@ import { DropDownSelect } from "../dropdown-select/dropdown-select"
 
 export const Calculator = () => {
   const [gender, onChangeGender] = useState("male")
+  const [weight, onChangeWeight] = useState(70)
+  const [height, onChangeHeight] = useState(170)
   const [activity, onChangeActivity] = useState("sedentary")
   const [age, onChangeAge] = useState(25)
   return (
@@ -46,6 +48,25 @@ export const Calculator = () => {
           "Very active( sports 6-7 days/week)",
           "Extra active (very active and physical job)"
         ]}
+      />
+
+      <Label className="text-md mt-4" htmlFor="age">
+        Weight
+      </Label>
+      <input
+        type="number"
+        id="numberInput"
+        value={weight}
+        onChange={() => {}}
+      />
+      <Label className="text-md mt-4" htmlFor="age">
+        Height
+      </Label>
+      <input
+        type="number"
+        id="numberInput"
+        value={height}
+        onChange={() => {}}
       />
     </div>
   )

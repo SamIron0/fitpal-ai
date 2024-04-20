@@ -305,7 +305,7 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
         ) : contentType === "presets" ? (
           <Settings />
         ) : contentType === "calculator" ? (
-          subscription.id ? (
+          !subscription.id ? (
             <Calculator />
           ) : (
             <Link className="mb-3 mt-4 flex  h-[36px] grow" href={"/pricing"}>
