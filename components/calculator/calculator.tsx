@@ -61,11 +61,11 @@ export const Calculator = () => {
         ]}
       />
 
-      <Label className="text-md mt-4" htmlFor="age">
+      <Label className="text-md pt-4" htmlFor="weight">
         Weight
       </Label>
       <Input type="number" id="numberInput" name={"weight"} />
-      <Label className="text-md mt-4" htmlFor="age">
+      <Label className="text-md mt-4" htmlFor="height">
         Height
       </Label>
       <Input type="number" id="numberInput" name={"height"} />
