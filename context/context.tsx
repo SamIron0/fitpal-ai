@@ -38,7 +38,7 @@ interface ChatbotUIContext {
   prompts: Tables<"prompts">[]
   subscription: Tables<"subscriptions">
   setSubscription: Dispatch<SetStateAction<Tables<"subscriptions">>>
-  calculator: Tables<"calculator">[]
+  calculator: Tables<"calculator">
   setCalculator: Dispatch<SetStateAction<Tables<"calculator">>>
   setPrompts: Dispatch<SetStateAction<Tables<"prompts">[]>>
   tools: Tables<"tools">[]
@@ -191,7 +191,7 @@ export const ChatbotUIContext = createContext<ChatbotUIContext>({
   },
 
   setSubscription: () => {},
-  calculator: [],
+  calculator: {} as Tables<"calculator">,
   setCalculator: () => {},
   setFiles: () => {},
   folders: [],

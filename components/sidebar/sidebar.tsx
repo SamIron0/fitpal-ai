@@ -23,11 +23,15 @@ export const Sidebar: FC<SidebarProps> = ({ contentType, showSidebar }) => {
 
   const renderSidebarContent = (
     contentType: ContentType,
-    data: any[],
-    folders: Tables<"folders">[]
+    folders: Tables<"folders">[],
+    data?: any[]
   ) => {
     return (
-      <SidebarContent contentType={contentType} data={data} folders={folders} />
+      <SidebarContent
+        contentType={contentType}
+        data={data || []}
+        folders={folders}
+      />
     )
   }
 
@@ -46,17 +50,13 @@ export const Sidebar: FC<SidebarProps> = ({ contentType, showSidebar }) => {
         {(() => {
           switch (contentType) {
             case "chats":
-              return renderSidebarContent("chats", chats, chatFolders)
+              return renderSidebarContent("chats", chatFolders, chats)
 
             case "presets":
-              return renderSidebarContent("presets", presets, presetFolders)
+              return renderSidebarContent("presets", presetFolders, presets)
 
             case "calculator":
-              return renderSidebarContent(
-                "calculator",
-                calculator,
-                calculatorFolders
-              )
+              return renderSidebarContent("calculator", calculatorFolders)
 
             default:
               return null
