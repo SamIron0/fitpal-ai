@@ -22,6 +22,7 @@ import { SidebarCreateButtons } from "./sidebar-create-buttons"
 import { Settings } from "./settings/settings"
 import { Calculator } from "./settings/calculator/calculator"
 import { updateCalculator } from "@/db/calculator"
+import Pricing from "@/app/[locale]/pricing/page"
 interface SidebarDataListProps {
   contentType: ContentType
   data: DataListType
@@ -308,7 +309,9 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
           <Settings />
         ) : contentType === "calculator" && subscription ? (
           <Calculator />
-        ) : null}
+        ) : (
+          <Pricing />
+        )}
       </div>
 
       <div
