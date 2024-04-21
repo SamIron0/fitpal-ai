@@ -15,16 +15,19 @@ export const Calculator = () => {
     return
   }
   return (
-    <div>
+    <>
       <Button
         className="mb-3 mt-4 flex  h-[36px] grow"
         onClick={() => handleCalculate()}
       >
         Calculate{" "}
       </Button>
-      <Label className="text-md mb-1 mt-4" htmlFor="age">
-        Age
-      </Label>
+      <div className="flex">
+        <Label className="text-md mb-1 mt-4 pr-2" htmlFor="age">
+          Age:
+        </Label>
+        <p>{age}</p>
+      </div>
       <Slider
         value={[age]}
         onValueChange={values => {
@@ -69,6 +72,6 @@ export const Calculator = () => {
         Height
       </Label>
       <Input type="number" id="numberInput" name={"height"} />
-    </div>
+    </>
   )
 }
