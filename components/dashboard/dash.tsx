@@ -21,10 +21,12 @@ export default function Dash() {
       })
       //const data = result.data
       const res = result.data.body
-      //var data = JSON.parse(res)
+      var data = JSON.parse(res)
 
       console.log(res)
       console.log(res.name)
+      console.log(data)
+      console.log(data.name)
 
       const recipe: TablesInsert<"recipes"> = {
         id: uuidv4(),
