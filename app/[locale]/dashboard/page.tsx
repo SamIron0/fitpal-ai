@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/client"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import Dash from "@/components/dashboard/dash"
 
 export default async function Dashboard() {
   //const { subscription } = useContext(ChatbotUIContext)
@@ -12,17 +13,9 @@ export default async function Dashboard() {
     return
   }
   //const [url, setURL] = useState("")
-  const scrapeUrl = async () => {
-    //const url = formData.get("url")
-    // const res = await fetch(`/api/scrape?url=${url}`)
-    //const data = await res.json()
-    //console.log(url)
+
+  const scrapeUrl = async (url: string) => {
+    console.log(url)
   }
-  return (
-    <div className="flex h-screen w-full flex-col items-center justify-center">
-      {" "}
-      <Input onChange={() => {}} placeholder={"url"} />
-      <Button onClick={scrapeUrl}>Submit</Button>
-    </div>
-  )
+  return <Dash onScrape={url => scrapeUrl(url)} />
 }
