@@ -13,5 +13,6 @@ export async function POST(request: Request) {
     return new Response(JSON.stringify(res))
   } catch (error) {
     console.log(error)
+    return new Response(JSON.stringify({ error: error }))
   }
 }
