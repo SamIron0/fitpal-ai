@@ -23,23 +23,18 @@ export default function Dash() {
       const res = result.data.body
       var data = JSON.parse(res)
 
-      console.log(res)
-      console.log(res.name)
-      console.log(data)
-      console.log(data.name)
-
       const recipe: TablesInsert<"recipes"> = {
         id: uuidv4(),
-        name: res.name,
-        description: res.description,
-        ingredients: res.ingredients,
-        imgurl: res.imgurl,
-        protein: res.protein,
-        fats: res.fats,
-        carbs: res.carbs,
-        calories: res.calories,
-        instructions: res.instructions,
-        portions: res.portions
+        name: data.name,
+        description: data.description,
+        ingredients: data.ingredients,
+        imgurl: data.imgurl,
+        protein: data.protein,
+        fats: data.fats,
+        carbs: data.carbs,
+        calories: data.calories,
+        instructions: data.instructions,
+        portions: data.portions
       }
       // call api to create recipe
       var createRecipe = await fetch("api/create_recipe", {
