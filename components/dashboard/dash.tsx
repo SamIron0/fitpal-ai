@@ -17,9 +17,11 @@ export default function Dash() {
       var result = await axios.post(endpoint, {
         url: url
       })
-      const res = result.data
-      var data = JSON.parse(res)
-      console.log(data)
+      const data = result.data
+      const res = result.data.body
+      //var data = JSON.parse(res)
+      console.log(res)
+      console.log("data: ", data)
     } catch (error) {
       console.log(error)
     }
