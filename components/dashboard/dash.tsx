@@ -17,11 +17,18 @@ export default function Dash() {
       var result = await axios.post(endpoint, {
         url: url
       })
-      const data = result.data
+      //const data = result.data
       const res = result.data.body
       //var data = JSON.parse(res)
-      console.log(res)
-      console.log("data: ", data)
+      //      console.log(res)
+
+      // call api to create recipe
+      var createRecipe = await fetch("api/create_recipe", {
+        method: "POST",
+        body: JSON.stringify({ recipe: res })
+      })
+
+      console.log("recipe: ", createRecipe)
     } catch (error) {
       console.log(error)
     }

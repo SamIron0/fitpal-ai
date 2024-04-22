@@ -82,6 +82,84 @@ export type Database = {
           }
         ]
       }
+      recipes: {
+        Row: {
+          id: string
+          name: string | null
+          description: string | null
+          ingredients: string[] | null
+          cooking_time: string | null
+          imgurl: string | null
+          protein: number | null
+          fats: number | null
+          carbs: number | null
+          calories: number | null
+          instructions: string[] | null
+          portions: number | null
+        }
+        Insert: {
+          id: string
+          name?: string | null
+          description?: string | null
+          ingredients?: string[] | null
+          cooking_time?: string | null
+          imgurl?: string | null
+          protein?: number | null
+          fats?: number | null
+          carbs?: number | null
+          calories?: number | null
+          instructions?: string[] | null
+          portions?: number | null
+        }
+
+        Update: {
+          id?: string
+          name?: string | null
+          description?: string | null
+          ingredients?: string[] | null
+          cooking_time?: string | null
+          imgurl?: string | null
+          protein?: number | null
+          fats?: number | null
+          carbs?: number | null
+          calories?: number | null
+          instructions?: string[] | null
+          portions?: number | null
+        }
+      }
+      tags: {
+        Row: {
+          id: string
+          name: string | null
+          type: string | null
+        }
+        Insert: {
+          id?: string
+          name?: string | null
+          type?: string | null
+        }
+
+        Update: {
+          id?: string
+          name?: string | null
+          type?: string | null
+        }
+      }
+      recipe_tags: {
+        Row: {
+          recipe_id: string
+          tag_id: string
+        }
+        Insert: {
+          recipe_id: string
+          tag_id: string
+        }
+
+        Update: {
+          recipe_id?: string
+          tag_id?: string
+        }
+      }
       documents: {
         Row: {
           workspace_id: string
@@ -102,6 +180,7 @@ export type Database = {
           embedding?: number[]
         }
       }
+
       assistant_collections: {
         Row: {
           assistant_id: string
