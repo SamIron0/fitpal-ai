@@ -23,7 +23,7 @@ export default function ChatPage() {
             <ChatInput />
           </div>
           <div className="w-full pt-20">
-            <p className="text-semibold mb-5 text-lg">Recent Meals</p>
+            <p className="mb-5 text-xl font-semibold">Recent Meals</p>
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
               <div className="border-1 rounded-lg border-gray-300 bg-white p-2 text-black">
                 01
