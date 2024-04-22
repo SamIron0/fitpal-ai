@@ -9,9 +9,9 @@ export default async function Dashboard() {
   const {
     data: { user }
   } = await supabase.auth.getUser()
-  if (user?.id !== "cedf4e14-0575-466b-83bf-ce744196e023") {
+  /*if (user?.id !== "cedf4e14-0575-466b-83bf-ce744196e023") {
     return
-  }
+  }*/
   //const [url, setURL] = useState("")
 
   const scrapeUrl = async (url: string) => {
@@ -19,7 +19,6 @@ export default async function Dashboard() {
   }
   return (
     <div className="flex">
-      Enter URL:
       <Dash onScrape={url => scrapeUrl(url)} />
     </div>
   )
