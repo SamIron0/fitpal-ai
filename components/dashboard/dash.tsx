@@ -11,7 +11,7 @@ export default function Dash() {
   const [url, setURL] = useState("") // add this line
   const onScrapeUrl = async (url: string) => {
     var endpoint =
-      "https://3x077l0rol.execute-api.us-east-1.amazonaws.com/main/create-mealplan"
+      "https://69fd-2604-3d09-aa7a-95e0-6d93-2ab5-c773-e002.ngrok-free.app/scrape"
 
     try {
       var result = await axios.post(endpoint, {
