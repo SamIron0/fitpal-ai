@@ -5,9 +5,9 @@ import { Input } from "../ui/input"
 import { Button } from "../ui/button"
 
 interface Props {
-  onScrape: (url: string) => void
+  scrapeUrl: (url: string) => void
 }
-export default function Dash({ onScrape }: Props) {
+export default function Dash({ scrapeUrl }: Props) {
   const [url, setURL] = useState("") // add this line
 
   return (
@@ -18,7 +18,7 @@ export default function Dash({ onScrape }: Props) {
         onChange={e => setURL(e.target.value)}
         placeholder={"url"}
       />
-      <Button onClick={() => onScrape(url)}>Submit</Button>
+      <Button onClick={() => scrapeUrl(url)}>Submit</Button>
     </div>
   )
 }

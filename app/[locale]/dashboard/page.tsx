@@ -19,7 +19,7 @@ export default async function Dashboard() {
   }
   return (
     <div className="flex">
-      <Dash onScrape={url => scrapeUrl(url)} />
+      <Dash scrapeUrl={url => scrapeUrl(url)} />
     </div>
   )
 }
