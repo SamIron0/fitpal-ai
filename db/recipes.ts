@@ -7,7 +7,17 @@ export const createRecipe = async (recipes: any) => {
   const supabase = createClient(cookies())
   const { data, error } = await supabase.from("recipes").insert({
     id: uuidv4(),
-    ...recipes
+    name: recipes.name,
+    description: recipes.description,
+    ingredients: recipes.ingredients,
+    cooking_time: recipes.cooking_time,
+    imgurl: recipes.imgurl,
+    protein: recipes.protein,
+    fats: recipes.fats,
+    carbs: recipes.carbs,
+    calories: recipes.calories,
+    instructions: recipes.instructions,
+    portions: recipes.portions
   })
 
   if (error) {
