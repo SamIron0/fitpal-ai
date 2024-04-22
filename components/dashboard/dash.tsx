@@ -4,6 +4,8 @@ import { useState } from "react"
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
 import axios from "axios"
+import { TablesInsert } from "@/supabase/types"
+import { v4 as uuidv4 } from "uuid"
 interface Props {
   onScrapeUrl: (url: string) => void
 }
@@ -22,10 +24,23 @@ export default function Dash() {
       //var data = JSON.parse(res)
       //      console.log(res)
 
+      const recipe: TablesInsert<"recipes"> = {
+        id: uuidv4(),
+        name: res.name,
+        description: res.description,
+        ingredients: res.ingredients,
+        imgurl: res.imgurl,
+        protein: res.protein,
+        fats: res.fats,
+        carbs: res.carbs,
+        calories: res.calories,
+        instructions: res.instructions,
+        portions: res.portions
+      }
       // call api to create recipe
       var createRecipe = await fetch("api/create_recipe", {
         method: "POST",
-        body: JSON.stringify({ recipe: res })
+        body: JSON.stringify({ recipe: recipe })
       })
 
       console.log("recipe: ", createRecipe)
