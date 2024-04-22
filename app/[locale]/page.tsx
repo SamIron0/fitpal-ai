@@ -13,11 +13,11 @@ import { FC, useState } from "react"
 import { useSelectFileHandler } from "@/components/chat/chat-hooks/use-select-file-handler"
 import { CommandK } from "@/components/utility/command-k"
 
-interface DashboardProps {
+interface HomePageProps {
   children: React.ReactNode
 }
 
-export const Dashboard: FC<DashboardProps> = ({ children }) => {
+export default function HomePage({ children }: HomePageProps) {
   useHotkey("s", () => setShowSidebar(prevState => !prevState))
   const SIDEBAR_WIDTH = 350
   const pathname = usePathname()
