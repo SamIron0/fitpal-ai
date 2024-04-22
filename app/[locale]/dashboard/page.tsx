@@ -17,5 +17,10 @@ export default async function Dashboard() {
   const scrapeUrl = async (url: string) => {
     console.log(url)
   }
-  return <Dash onScrape={url => scrapeUrl(url)} />
+  return (
+    <div className="flex">
+      Enter URL:
+      <Dash onScrape={url => scrapeUrl(url)} />
+    </div>
+  )
 }
