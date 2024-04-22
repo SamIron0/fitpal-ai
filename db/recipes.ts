@@ -9,4 +9,9 @@ export const createRecipe = async (recipes: any) => {
     id: uuidv4(),
     ...recipes
   })
+
+  if (error) {
+    throw new Error(error.message)
+  }
+  return data
 }
