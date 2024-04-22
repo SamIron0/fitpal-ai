@@ -25,10 +25,6 @@ interface ChatInputProps {}
 export const ChatInput: FC<ChatInputProps> = ({}) => {
   const { t } = useTranslation()
 
-  useHotkey("l", () => {
-    handleFocusChatInput()
-  })
-
   const [isTyping, setIsTyping] = useState<boolean>(false)
 
   const {
@@ -50,10 +46,7 @@ export const ChatInput: FC<ChatInputProps> = ({}) => {
     setIsPromptPickerOpen,
     isFilePickerOpen,
     setFocusFile,
-    chatSettings,
-    selectedTools,
-    setSelectedTools,
-    assistantImages
+    chatSettings
   } = useContext(ChatbotUIContext)
 
   const {
@@ -64,8 +57,6 @@ export const ChatInput: FC<ChatInputProps> = ({}) => {
   } = useChatHandler()
 
   const { handleInputChange } = usePromptAndCommand()
-
-  const { filesToAccept, handleSelectDeviceFile } = useSelectFileHandler()
 
   const {
     setNewMessageContentToNextUserMessage,
@@ -140,27 +131,6 @@ export const ChatInput: FC<ChatInputProps> = ({}) => {
     }
   }
 
-  const handlePaste = (event: React.ClipboardEvent) => {
-    const imagesAllowed = LLM_LIST.find(
-      llm => llm.modelId === chatSettings?.model
-    )?.imageInput
-
-    const items = event.clipboardData.items
-    for (const item of items) {
-      if (item.type.indexOf("image") === 0) {
-        if (!imagesAllowed) {
-          toast.error(
-            `Images are not supported for this model. Use models like GPT-4 Vision instead.`
-          )
-          return
-        }
-        const file = item.getAsFile()
-        if (!file) return
-        handleSelectDeviceFile(file)
-      }
-    }
-  }
-
   return (
     <>
       <div className="flex flex-col flex-wrap justify-center gap-2">
@@ -183,7 +153,6 @@ export const ChatInput: FC<ChatInputProps> = ({}) => {
           minRows={1}
           maxRows={18}
           onKeyDown={handleKeyDown}
-          onPaste={handlePaste}
           onCompositionStart={() => setIsTyping(true)}
           onCompositionEnd={() => setIsTyping(false)}
         />
