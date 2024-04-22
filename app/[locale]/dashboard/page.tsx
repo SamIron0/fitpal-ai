@@ -14,12 +14,9 @@ export default async function Dashboard() {
   }*/
   //const [url, setURL] = useState("")
 
-  const handleScrapeUrl = async (url: string) => {
-    console.log(url)
-  }
   return (
     <div className="flex">
-      <Dash onScrapeUrl={handleScrapeUrl} />
+      <Dash />
     </div>
   )
 }

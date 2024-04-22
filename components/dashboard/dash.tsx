@@ -7,9 +7,11 @@ import { Button } from "../ui/button"
 interface Props {
   onScrapeUrl: (url: string) => void
 }
-export default function Dash({ onScrapeUrl }: Props) {
+export default function Dash() {
   const [url, setURL] = useState("") // add this line
-
+  const onScrapeUrl = async (url: string) => {
+    console.log(url)
+  }
   return (
     <div className="flex h-screen w-full flex-col items-center justify-center">
       {" "}
