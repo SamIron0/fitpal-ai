@@ -19,7 +19,7 @@ export default function ChatPage() {
             <Brand theme={theme === "dark" ? "dark" : "light"} />
           </div>
 
-          <div className="w-full max-w-md items-end px-2 pb-3 pt-0  sm:pb-8 sm:pt-5">
+          <div className="w-full max-w-md items-end  pb-3 pt-0  sm:pb-8 sm:pt-5">
             <ChatInput />
           </div>
           <div className="w-full pt-20">
