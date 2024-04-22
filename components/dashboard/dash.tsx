@@ -19,6 +19,7 @@ export default function Dash() {
         value={url}
         onChange={e => setURL(e.target.value)}
         placeholder={"url"}
+        style={{ fontSize: "16px" }}
       />
       <Button onClick={() => onScrapeUrl(url)}>Submit</Button>
     </div>
