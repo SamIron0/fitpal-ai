@@ -10,11 +10,12 @@ export const runtime: ServerRuntime = "edge"
 export async function POST(request: Request) {
   const json = await request.json()
   const { recipe } = json as {
-    recipe: Tables<"recipes">
+    recipe: any
   }
 
   try {
-    createRecipe(recipe)
+    const res = await createRecipe(recipe)
+    return new Response(JSON.stringify(res))
   } catch (error) {
     console.log(error)
   }
