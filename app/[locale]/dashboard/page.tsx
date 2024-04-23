@@ -1,7 +1,7 @@
 import { createClient } from "@/lib/supabase/client"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import Dash from "@/components/dashboard/dash"
+import Dash from "@/components/adminDashboard/dash"
 
 export default async function Dashboard() {
   //const { subscription } = useContext(ChatbotUIContext)

@@ -12,6 +12,10 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { FC, useState } from "react"
 import { useSelectFileHandler } from "@/components/chat/chat-hooks/use-select-file-handler"
 import { CommandK } from "@/components/utility/command-k"
+import Dashboard from "./dashboard/page"
+import { Brand } from "@/components/ui/brand"
+import { ChatInput } from "@/components/chat/chat-input"
+import { useTheme } from "next-themes"
 
 interface HomePageProps {
   children: React.ReactNode
@@ -64,67 +68,19 @@ export default function HomePage({ children }: HomePageProps) {
     setShowSidebar(prevState => !prevState)
     localStorage.setItem("showSidebar", String(!showSidebar))
   }
+  const { theme } = useTheme()
 
   return (
-    <div className="flex size-full">
-      <CommandK />
-
-      <div
-        className={cn(
-          "duration-200 dark:border-none " + (showSidebar ? "border-r-2" : "")
-        )}
-        style={{
-          // Sidebar
-          minWidth: showSidebar ? `${SIDEBAR_WIDTH}px` : "0px",
-          maxWidth: showSidebar ? `${SIDEBAR_WIDTH}px` : "0px",
-          width: showSidebar ? `${SIDEBAR_WIDTH}px` : "0px"
-        }}
-      >
-        {showSidebar && (
-          <Tabs
-            className="flex h-full"
-            value={contentType}
-            onValueChange={tabValue => {
-              setContentType(tabValue as ContentType)
-              router.replace(`${pathname}?tab=${tabValue}`)
-            }}
-          >
-            <SidebarSwitcher onContentTypeChange={setContentType} />
-
-            <Sidebar contentType={contentType} showSidebar={showSidebar} />
-          </Tabs>
-        )}
+    <div className="relative mt-32  flex h-full flex-col items-center px-4 sm:px-6">
+      <div className="top-50% left-50% -translate-x-50% -translate-y-50%  mb-9">
+        <Brand theme={theme === "dark" ? "dark" : "light"} />
       </div>
 
-      <div
-        className="bg-muted/50  relative  flex w-screen min-w-[90%] grow flex-col overflow-y-auto sm:min-w-fit"
-        onDrop={onFileDrop}
-        onDragOver={onDragOver}
-        onDragEnter={handleDragEnter}
-        onDragLeave={handleDragLeave}
-      >
-        {isDragging ? (
-          <div className="flex h-full items-center justify-center bg-black/50 text-2xl text-white">
-            drop file here
-          </div>
-        ) : (
-          children
-        )}
-
-        <Button
-          className={cn(
-            "absolute left-[4px] top-[50%] z-10 size-[32px] cursor-pointer"
-          )}
-          style={{
-            // marginLeft: showSidebar ? `${SIDEBAR_WIDTH}px` : "0px",
-            transform: showSidebar ? "rotate(180deg)" : "rotate(0deg)"
-          }}
-          variant="ghost"
-          size="icon"
-          onClick={handleToggleSidebar}
-        >
-          <IconChevronCompactRight size={24} />
-        </Button>
+      <div className="w-full max-w-md items-end  pb-3 pt-0  sm:pb-8 sm:pt-5">
+        <ChatInput />
+      </div>
+      <div className="w-full max-w-4xl pt-24">
+        <p className="mb-5 text-3xl font-semibold">Recent Meals</p>
       </div>
     </div>
   )
