@@ -17,11 +17,7 @@ import { Brand } from "@/components/ui/brand"
 import { ChatInput } from "@/components/chat/chat-input"
 import { useTheme } from "next-themes"
 
-interface HomePageProps {
-  children: React.ReactNode
-}
-
-export default function HomePage({ children }: HomePageProps) {
+export default function HomePage() {
   useHotkey("s", () => setShowSidebar(prevState => !prevState))
   const SIDEBAR_WIDTH = 350
   const pathname = usePathname()
