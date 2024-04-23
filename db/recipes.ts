@@ -37,10 +37,15 @@ export const createRecipe = async (
     if (data && data?.length > 0) {
       // const recipeArr: string[] = data[0].recipes
       data[0].recipes.push(recipes.id)
-      console.log("arr " + data[0].recipes)
       const { data: updateData, error: updateError } = await supabase
         .from("recipe_tags")
-        .update({ id: data[0].id, recipes: data[0].recipes })
+        .update({ recipes: data[0].recipes })
+        .eq("id", data[0].id)
+
+      if (updateError) {
+        throw new Error(updateError.message)
+      }
+      console.log("data: " + updateData)
     } else {
       const { data: insertData, error: insertError } = await supabase
         .from("recipe_tags")

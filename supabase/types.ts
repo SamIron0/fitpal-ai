@@ -127,37 +127,23 @@ export type Database = {
           portions?: number | null
         }
       }
-      tags: {
-        Row: {
-          id: string
-          name: string | null
-          type: string | null
-        }
-        Insert: {
-          id?: string
-          name?: string | null
-          type?: string | null
-        }
 
-        Update: {
-          id?: string
-          name?: string | null
-          type?: string | null
-        }
-      }
       recipe_tags: {
         Row: {
-          recipe_id: string
-          tag_id: string
+          id: string
+          name: string
+          recipes: string[]
         }
         Insert: {
-          recipe_id: string
-          tag_id: string
+          id: string
+          name: string
+          recipes?: string[]
         }
 
         Update: {
-          recipe_id?: string
-          tag_id?: string
+          id?: string
+          name?: string
+          recipes?: string[]
         }
       }
       documents: {
