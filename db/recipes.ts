@@ -34,6 +34,7 @@ export const createRecipe = async (
       .eq("name", tags[i])
 
     if (data && data?.length > 0) {
+      console.log("appending to " + data[0].id)
       const tagId = data[0].id // assuming id is the primary key
       const { data: updateData, error: updateError } = await supabase
         .from("recipe_tags")
