@@ -67,7 +67,7 @@ export const getRecipesWithTags = async (tags: string[]) => {
   for (var i = 0; i < tags.length; i++) {
     const { data: tagData, error } = await supabase
       .from("recipe_tags")
-      .select("id")
+      .select("recipes")
       .eq("name", tags[i])
       .single()
 
@@ -76,7 +76,7 @@ export const getRecipesWithTags = async (tags: string[]) => {
     }
 
     // append recipe id to recipeIds set
-    tagData.id.forEach((id: number) => recipeIds.add(id))
+    tagData.recipes.forEach((id: number) => recipeIds.add(id))
   }
 
   // retrieve recipes for each unique id
