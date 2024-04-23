@@ -9,14 +9,13 @@ import { useTheme } from "next-themes"
 import { useContext } from "react"
 
 export default async function ChatPage() {
-  const { chatMessages, isGenerating } = useContext(ChatbotUIContext)
+  const { generatedRecipes, isGenerating } = useContext(ChatbotUIContext)
   const { theme } = useTheme()
-  const tags = ["breakast"]
-  const recentRecipes = await fetch("api/recipe/recents", {
+  /* const recentRecipes = await fetch("api/recipe/recents", {
     method: "GET"
-  })
+  })*/
   //const res: TablesInsert<"recipes">[] = await recipes.json()
-  console.log(recentRecipes)
+  //console.log(recentRecipes)
 
   return (
     <div className="relative mt-32  flex h-full flex-col items-center px-4 sm:px-6">
@@ -55,9 +54,14 @@ export default async function ChatPage() {
             role="status"
             className="grid w-full max-w-4xl grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4"
           >
-            <div className="border-1 rounded-lg border-gray-300 bg-gray-600 p-2 py-10 text-black">
-              <img></img>
-            </div>
+            {generatedRecipes.map(recipe => (
+              <div
+                key={recipe.id}
+                className="border-1 rounded-lg border-gray-300 bg-gray-600 p-2 py-10 text-black"
+              >
+                {recipe.name}
+              </div>
+            ))}
           </div>
         </div>
       )}
