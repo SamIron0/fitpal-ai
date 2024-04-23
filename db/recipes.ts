@@ -28,3 +28,7 @@ export const createRecipe = async (recipes: TablesInsert<"recipes">) => {
   }
   return data
 }
+export const getRecipesWithTags = async (tags: string[]) => {
+  const supabase = createClient(cookies())
+  const { data, error } = await supabase.from("tags").select("*")
+}

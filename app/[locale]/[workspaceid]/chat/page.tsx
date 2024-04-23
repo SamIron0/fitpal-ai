@@ -1,15 +1,23 @@
 "use client"
 
 import { ChatInput } from "@/components/chat/chat-input"
-import { ChatUI } from "@/components/chat/chat-ui"
 import { Brand } from "@/components/ui/brand"
 import { ChatbotUIContext } from "@/context/context"
+import { TablesInsert } from "@/supabase/types"
+import axios from "axios"
 import { useTheme } from "next-themes"
 import { useContext } from "react"
 
-export default function ChatPage() {
+export default async function ChatPage() {
   const { chatMessages, isGenerating } = useContext(ChatbotUIContext)
   const { theme } = useTheme()
+  const tags = ["breakast"]
+  const recipes = await fetch("api/get_recipes", {
+    method: "POST",
+    body: JSON.stringify({ tags: tags })
+  })
+  //const res: TablesInsert<"recipes">[] = await recipes.json()
+  console.log(recipes)
 
   return (
     <div className="relative mt-32  flex h-full flex-col items-center px-4 sm:px-6">
@@ -43,7 +51,15 @@ export default function ChatPage() {
         </div>
       ) : (
         <div className="w-full max-w-4xl pt-24">
-          <p className="mb-5 text-3xl font-semibold">Recent Meals</p>
+          <p className="mb-5 text-3xl font-semibold">Best Results</p>
+          <div
+            role="status"
+            className="grid w-full max-w-4xl animate-pulse grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4"
+          >
+            <div className="border-1 rounded-lg border-gray-300 bg-gray-600 p-2 py-10 text-black">
+              <img></img>
+            </div>
+          </div>
         </div>
       )}
     </div>
