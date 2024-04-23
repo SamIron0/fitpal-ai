@@ -12,12 +12,11 @@ export default async function ChatPage() {
   const { chatMessages, isGenerating } = useContext(ChatbotUIContext)
   const { theme } = useTheme()
   const tags = ["breakast"]
-  const recipes = await fetch("api/recipe/get_recipes", {
-    method: "POST",
-    body: JSON.stringify({ tags: tags })
+  const recentRecipes = await fetch("api/recipe/recents", {
+    method: "GET"
   })
   //const res: TablesInsert<"recipes">[] = await recipes.json()
-  console.log(recipes)
+  console.log(recentRecipes)
 
   return (
     <div className="relative mt-32  flex h-full flex-col items-center px-4 sm:px-6">

@@ -27,109 +27,23 @@ export const ChatInput: FC<ChatInputProps> = ({}) => {
 
   const [isTyping, setIsTyping] = useState<boolean>(false)
 
-  const {
-    isAssistantPickerOpen,
-    focusAssistant,
-    setFocusAssistant,
-    userInput,
-    chatMessages,
-    isGenerating,
-    selectedPreset,
-    selectedAssistant,
-    focusPrompt,
-    setFocusPrompt,
-    focusFile,
-    focusTool,
-    setFocusTool,
-    isToolPickerOpen,
-    isPromptPickerOpen,
-    setIsPromptPickerOpen,
-    isFilePickerOpen,
-    setFocusFile,
-    chatSettings
-  } = useContext(ChatbotUIContext)
+  const { userInput, isGenerating } = useContext(ChatbotUIContext)
 
-  const {
-    chatInputRef,
-    handleSendMessage,
-    handleStopMessage,
-    handleFocusChatInput
-  } = useChatHandler()
-
-  const { handleInputChange } = usePromptAndCommand()
-
-  const {
-    setNewMessageContentToNextUserMessage,
-    setNewMessageContentToPreviousUserMessage
-  } = useChatHistoryHandler()
-
-  const fileInputRef = useRef<HTMLInputElement>(null)
-
-  useEffect(() => {
-    setTimeout(() => {
-      handleFocusChatInput()
-    }, 200) // FIX: hacky
-  }, [selectedPreset, selectedAssistant])
+  const { chatInputRef, handleStopMessage } = useChatHandler()
 
   const handleKeyDown = (event: React.KeyboardEvent) => {
     if (!isTyping && event.key === "Enter" && !event.shiftKey) {
       event.preventDefault()
-      setIsPromptPickerOpen(false)
-      handleSendMessage(userInput, chatMessages, false)
-    }
-
-    // Consolidate conditions to avoid TypeScript error
-    if (
-      isPromptPickerOpen ||
-      isFilePickerOpen ||
-      isToolPickerOpen ||
-      isAssistantPickerOpen
-    ) {
-      if (
-        event.key === "Tab" ||
-        event.key === "ArrowUp" ||
-        event.key === "ArrowDown"
-      ) {
-        event.preventDefault()
-        // Toggle focus based on picker type
-        if (isPromptPickerOpen) setFocusPrompt(!focusPrompt)
-        if (isFilePickerOpen) setFocusFile(!focusFile)
-        if (isToolPickerOpen) setFocusTool(!focusTool)
-        if (isAssistantPickerOpen) setFocusAssistant(!focusAssistant)
-      }
-    }
-
-    if (event.key === "ArrowUp" && event.shiftKey && event.ctrlKey) {
-      event.preventDefault()
-      setNewMessageContentToPreviousUserMessage()
-    }
-
-    if (event.key === "ArrowDown" && event.shiftKey && event.ctrlKey) {
-      event.preventDefault()
-      setNewMessageContentToNextUserMessage()
-    }
-
-    //use shift+ctrl+up and shift+ctrl+down to navigate through chat history
-    if (event.key === "ArrowUp" && event.shiftKey && event.ctrlKey) {
-      event.preventDefault()
-      setNewMessageContentToPreviousUserMessage()
-    }
-
-    if (event.key === "ArrowDown" && event.shiftKey && event.ctrlKey) {
-      event.preventDefault()
-      setNewMessageContentToNextUserMessage()
-    }
-
-    if (
-      isAssistantPickerOpen &&
-      (event.key === "Tab" ||
-        event.key === "ArrowUp" ||
-        event.key === "ArrowDown")
-    ) {
-      event.preventDefault()
-      setFocusAssistant(!focusAssistant)
+      generateMeals()
     }
   }
+  const generateMeals = async () => {
+    const recipes = await fetch("api/recipe/get_recipes", {
+      method: "POST",
+      body: JSON.stringify({ input: userInput })
+    })
+  }
+  const { handleInputChange } = usePromptAndCommand()
 
   return (
     <>
@@ -146,7 +60,7 @@ export const ChatInput: FC<ChatInputProps> = ({}) => {
           className="text-md flex w-full resize-none rounded-md border-none bg-transparent py-2 pl-3 pr-14 ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
           placeholder={t(
             // `Ask anything. Type "@" for assistants, "/" for prompts, "#" for files, and "!" for tools.`
-            `Ask anything fitness`
+            `Pasta dinner ideas`
           )}
           onValueChange={handleInputChange}
           value={userInput}
@@ -172,8 +86,7 @@ export const ChatInput: FC<ChatInputProps> = ({}) => {
               )}
               onClick={() => {
                 if (!userInput) return
-
-                handleSendMessage(userInput, chatMessages, false)
+                generateMeals()
               }}
               size={30}
             />

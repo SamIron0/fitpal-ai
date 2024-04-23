@@ -58,7 +58,41 @@ export const createRecipe = async (
   }
   return data
 }
+
 export const getRecipesWithTags = async (tags: string[]) => {
   const supabase = createClient(cookies())
-  const { data, error } = await supabase.from("tags").select("*")
+  const recipeIds: Set<number> = new Set() // use a Set to ensure uniqueness
+  const recipes: any[] = []
+
+  for (var i = 0; i < tags.length; i++) {
+    const { data: tagData, error } = await supabase
+      .from("recipe_tags")
+      .select("id")
+      .eq("name", tags[i])
+      .single()
+
+    if (error) {
+      throw new Error(error.message)
+    }
+
+    // append recipe id to recipeIds set
+    tagData.id.forEach((id: number) => recipeIds.add(id))
+  }
+
+  // retrieve recipes for each unique id
+  for (const id of recipeIds) {
+    const { data: recipeData, error } = await supabase
+      .from("recipes")
+      .select("*")
+      .eq("id", id)
+      .single()
+
+    if (error) {
+      throw new Error(error.message)
+    }
+
+    recipes.push(recipeData)
+  }
+
+  return recipes
 }

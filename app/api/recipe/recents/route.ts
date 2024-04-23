@@ -4,13 +4,12 @@ import { TablesInsert } from "@/supabase/types"
 import { Tags } from "@/types/tags"
 export const runtime: ServerRuntime = "edge"
 
-export async function POST(request: Request) {
+export async function GET(request: Request) {
   const json = await request.json()
-  const { input } = json as {
-    input: Tags[]
+  const { tags } = json as {
+    tags: Tags[]
   }
   try {
-    const tags = ["African", "dinner"]
     const res = await getRecipesWithTags(tags)
     return new Response(JSON.stringify(res))
   } catch (error) {
