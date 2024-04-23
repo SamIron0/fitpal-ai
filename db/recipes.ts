@@ -76,7 +76,7 @@ export const getRecipesWithTags = async (tags: string[]) => {
 
     // append recipe id to recipeIds set
 
-    if (tagData) {
+    if (tagData[0]) {
       tagData[0].recipes.forEach((id: number) => recipeIds.add(id))
     }
   }
