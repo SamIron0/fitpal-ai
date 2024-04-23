@@ -69,14 +69,16 @@ export const getRecipesWithTags = async (tags: string[]) => {
       .from("recipe_tags")
       .select("recipes")
       .eq("name", tags[i])
-      .single()
 
     if (error) {
       throw new Error(error.message)
     }
 
     // append recipe id to recipeIds set
-    tagData.recipes.forEach((id: number) => recipeIds.add(id))
+
+    if (tagData) {
+      tagData[0].recipes.forEach((id: number) => recipeIds.add(id))
+    }
   }
 
   // retrieve recipes for each unique id
