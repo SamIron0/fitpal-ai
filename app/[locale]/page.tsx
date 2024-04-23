@@ -54,7 +54,7 @@ export default async function ChatPage() {
             role="status"
             className="grid w-full max-w-4xl grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4"
           >
-            {generatedRecipes.map(recipe => (
+            {generatedRecipes?.map(recipe => (
               <div
                 key={recipe.id}
                 className="border-1 rounded-lg border-gray-300 bg-gray-600 p-2 py-10 text-black"
