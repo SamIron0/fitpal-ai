@@ -34,7 +34,8 @@ export default function Dash() {
         carbs: data.carbs,
         calories: data.calories,
         instructions: data.instructions,
-        portions: data.portions
+        portions: data.portions,
+        cooking_time: data.cooking_time
       }
       // call api to create recipe
       var createRecipe = await fetch("api/create_recipe", {
