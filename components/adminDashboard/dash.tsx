@@ -19,9 +19,10 @@ export default function Dash() {
         url: url
       })
       //const data = result.data
-      const res = result.data.body
-      var data = JSON.parse(res)
-
+      const data = result.data.body
+      //var res = JSON.parse(res)
+      console.log("data: ", data)
+      //console.log("res: ", res)
       const recipe: TablesInsert<"recipes"> = {
         id: uuidv4(),
         name: data.name,
