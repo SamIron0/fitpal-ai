@@ -31,7 +31,7 @@ export const ChatInput: FC<ChatInputProps> = ({}) => {
 
   const { chatInputRef, handleStopMessage } = useChatHandler()
   const generateMeals = async () => {
-    const recipes = await fetch("api/recipe/get_recipes", {
+    const recipes = await fetch("/api/recipe/get_recipes", {
       method: "POST",
       body: JSON.stringify({ input: userInput })
     })
