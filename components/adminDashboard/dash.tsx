@@ -41,12 +41,13 @@ export default function Dash() {
         cooking_time: data.cooking_time
       }
       toast.dismiss(toastId)
-      toast.loading("Creating Recipe")
+      const toastId2 = toast.loading("Creating Recipe")
       // call api to create recipe
       var createRecipe = await fetch("api/create_recipe", {
         method: "POST",
         body: JSON.stringify({ recipe: recipe, tags: data.tags })
       })
+      toast.dismiss(toastId)
 
       toast.success("Recipe Created!")
     } catch (error) {
