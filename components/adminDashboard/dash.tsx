@@ -38,7 +38,7 @@ export default function Dash() {
       // call api to create recipe
       var createRecipe = await fetch("api/create_recipe", {
         method: "POST",
-        body: JSON.stringify({ recipe: recipe })
+        body: JSON.stringify({ recipe: recipe, tags: data.tags })
       })
 
       console.log("recipe: ", createRecipe)
