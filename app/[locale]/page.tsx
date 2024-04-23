@@ -9,7 +9,8 @@ import { useTheme } from "next-themes"
 import { useContext } from "react"
 
 export default async function ChatPage() {
-  const { generatedRecipes, isGenerating } = useContext(ChatbotUIContext)
+  const { generatedRecipes, isGenerating, recentRecipes } =
+    useContext(ChatbotUIContext)
   const { theme } = useTheme()
   /* const recentRecipes = await fetch("api/recipe/recents", {
     method: "GET"
