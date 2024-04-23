@@ -27,7 +27,7 @@ export const ChatInput: FC<ChatInputProps> = ({}) => {
 
   const [isTyping, setIsTyping] = useState<boolean>(false)
 
-  const { userInput, isGenerating } = useContext(ChatbotUIContext)
+  const { userInput, isGenerating, setUserInput } = useContext(ChatbotUIContext)
 
   const { chatInputRef, handleStopMessage } = useChatHandler()
   const generateMeals = async () => {
@@ -36,8 +36,9 @@ export const ChatInput: FC<ChatInputProps> = ({}) => {
       body: JSON.stringify({ input: userInput })
     })
   }
-  const { handleInputChange } = usePromptAndCommand()
-
+  const handleInputChange = (value: string) => {
+    setUserInput(value)
+  }
   return (
     <>
       <div className="flex flex-col flex-wrap justify-center gap-2">
