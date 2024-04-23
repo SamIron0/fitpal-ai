@@ -6,6 +6,7 @@ import { Button } from "../ui/button"
 import axios from "axios"
 import { TablesInsert } from "@/supabase/types"
 import { v4 as uuidv4 } from "uuid"
+import { toast } from "sonner"
 interface Props {
   onScrapeUrl: (url: string) => void
 }
@@ -43,7 +44,7 @@ export default function Dash() {
         body: JSON.stringify({ recipe: recipe, tags: data.tags })
       })
 
-      //console.log("recipe: ", createRecipe)
+      toast.success("Recipe Created!")
     } catch (error) {
       console.log(error)
     }
