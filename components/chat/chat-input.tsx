@@ -27,14 +27,21 @@ export const ChatInput: FC<ChatInputProps> = ({}) => {
 
   const [isTyping, setIsTyping] = useState<boolean>(false)
 
-  const { userInput, isGenerating, setUserInput } = useContext(ChatbotUIContext)
+  const { userInput, isGenerating, setUserInput, setGeneratedRecipes } =
+    useContext(ChatbotUIContext)
 
   const { chatInputRef, handleStopMessage } = useChatHandler()
+
   const generateMeals = async () => {
     const recipes = await fetch("/api/recipe/get_recipes", {
       method: "POST",
       body: JSON.stringify({ input: userInput })
     })
+
+    if (!recipes.ok) {
+      console.error("Error retrieving:", recipes)
+    }
+    setGeneratedRecipes(await recipes.json())
   }
   const handleInputChange = (value: string) => {
     setUserInput(value)
