@@ -11,9 +11,10 @@ import { useContext } from "react"
 export default async function ChatPage() {
   const { generatedRecipes, isGenerating } = useContext(ChatbotUIContext)
   const { theme } = useTheme()
-  /* const recentRecipes = await fetch("api/recipe/recents", {
-    method: "GET"
-  })*/
+  const recentRecipes = await fetch("api/recipe/get_recipes", {
+    method: "POST",
+    body: JSON.stringify({ input: "" })
+  })
   //const res: TablesInsert<"recipes">[] = await recipes.json()
   //console.log(recentRecipes)
 
