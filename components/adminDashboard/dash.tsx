@@ -21,7 +21,7 @@ export default function Dash() {
       //const data = result.data
       const data = result.data.body
       //var res = JSON.parse(res)
-      console.log("data: ", data)
+      //console.log("data: ", data)
       //console.log("res: ", res)
       const recipe: TablesInsert<"recipes"> = {
         id: uuidv4(),
@@ -43,7 +43,7 @@ export default function Dash() {
         body: JSON.stringify({ recipe: recipe, tags: data.tags })
       })
 
-      console.log("recipe: ", createRecipe)
+      //console.log("recipe: ", createRecipe)
     } catch (error) {
       console.log(error)
     }

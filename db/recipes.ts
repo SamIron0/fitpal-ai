@@ -27,18 +27,21 @@ export const createRecipe = async (
     })
     .select("*")
 
+  const res = data ? [0] : null
   for (var i = 0; i < tags.length; i++) {
     const { data, error } = await supabase
       .from("recipe_tags")
-      .select("id")
+      .select("recipes,id")
       .eq("name", tags[i])
 
     if (data && data?.length > 0) {
-      console.log("appending to " + data[0].id)
+      const recipeArr: string[] = data[0].recipes
+      recipeArr.push(recipes.id)
+      console.log("arr " + recipeArr)
       const tagId = data[0].id // assuming id is the primary key
       const { data: updateData, error: updateError } = await supabase
         .from("recipe_tags")
-        .update({ id: tagId, recipes: { append: [recipes.id] } })
+        .update({ id: tagId, recipes: recipeArr })
     } else {
       const { data: insertData, error: insertError } = await supabase
         .from("recipe_tags")
