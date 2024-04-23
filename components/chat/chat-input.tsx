@@ -30,13 +30,6 @@ export const ChatInput: FC<ChatInputProps> = ({}) => {
   const { userInput, isGenerating } = useContext(ChatbotUIContext)
 
   const { chatInputRef, handleStopMessage } = useChatHandler()
-
-  const handleKeyDown = (event: React.KeyboardEvent) => {
-    if (!isTyping && event.key === "Enter" && !event.shiftKey) {
-      event.preventDefault()
-      generateMeals()
-    }
-  }
   const generateMeals = async () => {
     const recipes = await fetch("api/recipe/get_recipes", {
       method: "POST",
@@ -66,7 +59,6 @@ export const ChatInput: FC<ChatInputProps> = ({}) => {
           value={userInput}
           minRows={1}
           maxRows={18}
-          onKeyDown={handleKeyDown}
           onCompositionStart={() => setIsTyping(true)}
           onCompositionEnd={() => setIsTyping(false)}
         />
