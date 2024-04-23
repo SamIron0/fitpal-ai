@@ -76,12 +76,12 @@ export const Macros: FC<MacrosProps> = ({
 
       <div className="mt-8 space-y-3">
         <div className="mb-1  flex   items-center space-x-1">
-          <div className="text-muted-foreground text-sm font-semibold">
+          <div className="text-sm font-semibold text-muted-foreground">
             Protein:
           </div>
 
           <div className=" text-sm">{proteinInGram}g</div>
-          <div className="text-muted-foreground flex w-full justify-end text-sm">
+          <div className="flex w-full justify-end text-sm text-muted-foreground">
             {Math.round(protein)}%
           </div>
         </div>
@@ -98,12 +98,12 @@ export const Macros: FC<MacrosProps> = ({
       </div>
       <div className="mt-6 space-y-3">
         <div className="mb-1 flex  items-center  space-x-1">
-          <div className="text-muted-foreground text-sm font-semibold">
+          <div className="text-sm font-semibold text-muted-foreground">
             Carbs:
           </div>
 
           <div className=" text-sm">{carbsInGram}g</div>
-          <div className="text-muted-foreground flex w-full justify-end text-sm">
+          <div className="flex w-full justify-end text-sm text-muted-foreground">
             {Math.round(carbs)}%
           </div>
         </div>
@@ -120,12 +120,12 @@ export const Macros: FC<MacrosProps> = ({
       </div>
       <div className="mt-6 space-y-3">
         <div className="mb-1 flex  items-center  space-x-1">
-          <div className="text-muted-foreground text-sm font-semibold">
+          <div className="text-sm font-semibold text-muted-foreground">
             Fat:
           </div>
 
           <div className=" text-sm">{fatInGram}g</div>
-          <div className="text-muted-foreground flex w-full justify-end text-sm">
+          <div className="flex w-full justify-end text-sm text-muted-foreground">
             {Math.round(fat)}%
           </div>
         </div>
@@ -142,7 +142,7 @@ export const Macros: FC<MacrosProps> = ({
       </div>
       <div className="mt-5 space-y-3">
         <div className="mb-1 flex items-center  space-x-1">
-          <div className="text-muted-foreground  text-sm font-semibold">
+          <div className="text-sm  font-semibold text-muted-foreground">
             Workouts/week:
           </div>{" "}
           <div className=" text-sm">{workouts}</div>
