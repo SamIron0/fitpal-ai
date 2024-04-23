@@ -13,6 +13,8 @@ interface Props {
 export default function Dash() {
   const [url, setURL] = useState("") // add this line
   const onScrapeUrl = async (url: string) => {
+    const toastId = toast.loading("Scraping")
+
     var endpoint = "https://b7d4-37-19-212-70.ngrok-free.app/scrape"
 
     try {
@@ -38,6 +40,8 @@ export default function Dash() {
         portions: data.portions,
         cooking_time: data.cooking_time
       }
+      toast.dismiss(toastId)
+      toast.loading("Creating Recipe")
       // call api to create recipe
       var createRecipe = await fetch("api/create_recipe", {
         method: "POST",
