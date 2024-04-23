@@ -12,7 +12,7 @@ export default async function ChatPage() {
   const { chatMessages, isGenerating } = useContext(ChatbotUIContext)
   const { theme } = useTheme()
   const tags = ["breakast"]
-  const recipes = await fetch("api/get_recipes", {
+  const recipes = await fetch("api/recipe/get_recipes", {
     method: "POST",
     body: JSON.stringify({ tags: tags })
   })
