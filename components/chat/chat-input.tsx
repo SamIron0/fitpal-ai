@@ -134,7 +134,16 @@ export const ChatInput: FC<ChatInputProps> = ({}: ChatInputProps) => {
             />
           ) : (
             <Drawer>
-              <DrawerTrigger>Open</DrawerTrigger>
+              <DrawerTrigger>
+                {" "}
+                <IconSend
+                  className={cn(
+                    "rounded bg-primary p-1 text-secondary",
+                    !userInput ? "cursor-not-allowed opacity-50" : ""
+                  )}
+                  size={30}
+                />
+              </DrawerTrigger>
               <DrawerContent>
                 <DrawerHeader>
                   <DrawerTitle>Are you absolutely sure?</DrawerTitle>
