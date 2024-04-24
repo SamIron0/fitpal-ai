@@ -113,9 +113,7 @@ export const ChatInput: FC<ChatInputProps> = ({}: ChatInputProps) => {
             <IconSend
               className={cn(
                 "rounded bg-primary p-1 text-secondary",
-                !session || (session && !userInput)
-                  ? "cursor-not-allowed opacity-50"
-                  : ""
+                !session || !userInput ? "cursor-not-allowed opacity-50" : ""
               )}
               onClick={() => {
                 if (!userInput) {
