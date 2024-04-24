@@ -19,7 +19,7 @@ import { useChatHandler } from "./chat-hooks/use-chat-handler"
 import { useChatHistoryHandler } from "./chat-hooks/use-chat-history"
 import { usePromptAndCommand } from "./chat-hooks/use-prompt-and-command"
 import { useSelectFileHandler } from "./chat-hooks/use-select-file-handler"
-
+import { createClient } from "@/lib/supabase/client"
 interface ChatInputProps {}
 
 export const ChatInput: FC<ChatInputProps> = ({}) => {
@@ -36,8 +36,9 @@ export const ChatInput: FC<ChatInputProps> = ({}) => {
   } = useContext(ChatbotUIContext)
 
   const { chatInputRef, handleStopMessage } = useChatHandler()
-
   const generateMeals = async () => {
+    const supabase = createClient()
+
     setIsGenerating(true)
     const recipes = await fetch("/api/recipe/get_recipes", {
       method: "POST",
