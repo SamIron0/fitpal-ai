@@ -37,11 +37,11 @@ export const Settings: FC<SettingsProps> = () => {
     user_id: settings?.user_id
   }
   const handleSaveChanges = async (id: string, settings: any) => {
-    const toastId = toast.loading("Saving...")
     // update context
     if (!settings) {
       return
     }
+    const toastId = toast.loading("Saving...")
     setSettings(settings)
     // update thtee db
     await updateSettings(id, settings)
