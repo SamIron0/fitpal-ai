@@ -59,7 +59,8 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
     setChatImages,
     setNewMessageFiles,
     setNewMessageImages,
-    setShowFilesDisplay
+    setShowFilesDisplay,
+    isGenerating
   } = useContext(ChatbotUIContext)
 
   const [loading, setLoading] = useState(true)
@@ -77,7 +78,7 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
   }, [])
 
   const fetchWorkspaceData = async (workspaceId: string) => {
-    setLoading(true)
+    //!isGenerating ? setLoading(true) : null
 
     const { data: subscription, error } = await supabase
       .from("subscriptions")
