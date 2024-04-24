@@ -55,16 +55,12 @@ export const ChatInput: FC<ChatInputProps> = ({}: ChatInputProps) => {
     isGenerating,
     setIsGenerating,
     setUserInput,
-    setGeneratedRecipes,
-    setOpenDrawer
+    setGeneratedRecipes
   } = useContext(ChatbotUIContext)
 
   const { chatInputRef, handleStopMessage } = useChatHandler()
   const [input, setInput] = useState<string>("")
   const generateMeals = async () => {
-    if (session === null) {
-      setOpenDrawer(true)
-    }
     setIsGenerating(true)
     const recipes = await fetch("/api/recipe/get_recipes", {
       method: "POST",
