@@ -3,16 +3,23 @@
 import { ChatInput } from "@/components/chat/chat-input"
 import { Brand } from "@/components/ui/brand"
 import { ChatbotUIContext } from "@/context/context"
+import { supabase } from "@/lib/supabase/browser-client"
 import { TablesInsert } from "@/supabase/types"
 import axios from "axios"
 import { useTheme } from "next-themes"
-import { useContext } from "react"
+import { useContext, useEffect, useState } from "react"
 
 export default async function ChatPage() {
   const { generatedRecipes, isGenerating, recentRecipes } =
     useContext(ChatbotUIContext)
   const { theme } = useTheme()
-  /* const recentRecipes = await fetch("api/recipe/recents", {
+  const [session, setSession] = useState<any>(null)
+  useEffect(() => {
+    ;(async () => {
+      const session = (await supabase.auth.getSession()).data.session
+      setSession(session)
+    })()
+  }, []) /* const recentRecipes = await fetch("api/recipe/recents", {
     method: "GET"
   })*/
   //const res: TablesInsert<"recipes">[] = await recipes.json()
@@ -25,7 +32,7 @@ export default async function ChatPage() {
       </div>
 
       <div className="w-full max-w-md items-end  pb-3 pt-0  sm:pb-8 sm:pt-5">
-        <ChatInput />
+        <ChatInput session={session} />
       </div>
       {isGenerating ? (
         <div className="w-full max-w-4xl pt-24">
@@ -50,7 +57,7 @@ export default async function ChatPage() {
         </div>
       ) : (
         <div className="w-full max-w-4xl pt-24">
-          {generatedRecipes ? (
+          {generatedRecipes != undefined ? (
             <>
               <p className="mb-5 text-3xl font-semibold">Best Results</p>
               <div
