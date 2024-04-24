@@ -9,18 +9,11 @@ import axios from "axios"
 import { useTheme } from "next-themes"
 import { useContext, useEffect, useState } from "react"
 
-export default function ChatPage() {
+export default async function ChatPage() {
   const { generatedRecipes, isGenerating, recentRecipes } =
     useContext(ChatbotUIContext)
   const { theme } = useTheme()
-  const [session, setSession] = useState<any>(null)
-  useEffect(() => {
-    ;(async () => {
-      const session = await supabase.auth.getSession()
-      setSession(session)
-      console.log("sesh1: ", session)
-    })()
-  }, [])
+
   return (
     <div className="relative mt-32  flex h-full flex-col items-center px-4 sm:px-6">
       <div className="top-50% left-50% -translate-x-50% -translate-y-50%  mb-9">
@@ -28,7 +21,7 @@ export default function ChatPage() {
       </div>
 
       <div className="w-full max-w-md items-end  pb-3 pt-0  sm:pb-8 sm:pt-5">
-        <ChatInput session={session} />
+        <ChatInput />
       </div>
       {isGenerating ? (
         <div className="w-full max-w-4xl pt-24">
