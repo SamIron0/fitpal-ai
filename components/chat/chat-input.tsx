@@ -63,7 +63,7 @@ export const ChatInput: FC<ChatInputProps> = ({ session }: ChatInputProps) => {
   }
   const handleInputChange = (value: string) => {
     setInput(value)
-    //setUserInput(value)
+    setUserInput(value)
   }
   return (
     <>
