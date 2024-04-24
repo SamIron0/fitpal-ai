@@ -43,6 +43,7 @@ export const ChatInput: FC<ChatInputProps> = ({ session }: ChatInputProps) => {
   } = useContext(ChatbotUIContext)
 
   const { chatInputRef, handleStopMessage } = useChatHandler()
+  const [input, setInput] = useState<string>("")
   const generateMeals = async () => {
     if (!session) {
       router.push("/login")
@@ -61,7 +62,8 @@ export const ChatInput: FC<ChatInputProps> = ({ session }: ChatInputProps) => {
     setIsGenerating(false)
   }
   const handleInputChange = (value: string) => {
-    setUserInput(value)
+    setInput(value)
+    //setUserInput(value)
   }
   return (
     <>
@@ -81,7 +83,7 @@ export const ChatInput: FC<ChatInputProps> = ({ session }: ChatInputProps) => {
             `Pasta dinner ideas`
           )}
           onValueChange={handleInputChange}
-          value={userInput}
+          value={input}
           minRows={1}
           maxRows={18}
           onCompositionStart={() => setIsTyping(true)}
