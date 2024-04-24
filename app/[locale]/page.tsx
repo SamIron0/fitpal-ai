@@ -3,7 +3,7 @@
 import { ChatInput } from "@/components/chat/chat-input"
 import { Brand } from "@/components/ui/brand"
 import { ChatbotUIContext } from "@/context/context"
-import { createClient } from "@/lib/supabase/client"
+import { supabase } from "@/lib/supabase/browser-client"
 import { TablesInsert } from "@/supabase/types"
 import axios from "axios"
 import { useTheme } from "next-themes"
@@ -13,7 +13,7 @@ export default async function ChatPage() {
   const { generatedRecipes, isGenerating, recentRecipes } =
     useContext(ChatbotUIContext)
   const { theme } = useTheme()
-  const supabase = createClient()
+  //const supabase = createClient()
   const session = await supabase.auth.getSession()
   console.log("sesh: ", session)
 
