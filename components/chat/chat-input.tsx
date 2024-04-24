@@ -111,7 +111,7 @@ export const ChatInput: FC<ChatInputProps> = ({}: ChatInputProps) => {
           onCompositionEnd={() => setIsTyping(false)}
         />
 
-        <div className="absolute bottom-[14px] right-3 cursor-pointer hover:opacity-50">
+        <div className="absolute bottom-[14px] right-3 flex cursor-pointer justify-center hover:opacity-50">
           {isGenerating ? (
             <IconPlayerStopFilled
               className="animate-pulse rounded bg-transparent p-1 hover:bg-background"
@@ -134,7 +134,7 @@ export const ChatInput: FC<ChatInputProps> = ({}: ChatInputProps) => {
             />
           ) : (
             <Drawer>
-              <DrawerTrigger>
+              <DrawerTrigger className="flex items-center justify-center  ">
                 {" "}
                 <IconSend
                   className={cn(
