@@ -137,14 +137,8 @@ export const ChatInput: FC<ChatInputProps> = ({}: ChatInputProps) => {
               <DrawerTrigger className="flex items-center justify-center  ">
                 {" "}
                 <IconSend
-                  className={cn(
-                    "rounded bg-primary p-1 text-secondary",
-                    !userInput ? "cursor-not-allowed opacity-50" : ""
-                  )}
+                  className={cn("rounded bg-primary p-1 text-secondary")}
                   size={30}
-                  onClick={() => {
-                    generateMeals()
-                  }}
                 />
               </DrawerTrigger>
               <DrawerContent>
