@@ -38,7 +38,7 @@ export const Settings: FC<SettingsProps> = () => {
   }
   const handleSaveChanges = async (id: string, settings: any) => {
     // update context
-    if (!settings) {
+    if (settings.id === undefined || settings.id === "") {
       return
     }
     const toastId = toast.loading("Saving...")
