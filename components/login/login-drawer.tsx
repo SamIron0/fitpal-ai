@@ -34,11 +34,11 @@ export const LoginDrawer = ({ children, searchParams }: LoginDrawerProps) => {
         "Content-Type": "application/json"
       }
     })
-
+    console.log("res", res)
     if (res.ok) {
       const json = await res.json()
       const { homeWorkspace } = json
-
+      console.log(homeWorkspace)
       if (homeWorkspace) {
         router.push(`/${homeWorkspace.id}/chat`)
       }
