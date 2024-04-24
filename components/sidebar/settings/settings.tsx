@@ -8,7 +8,6 @@ import { Allergies } from "./allergies"
 import { updateSettings } from "@/db/settings"
 import { TablesUpdate } from "@/supabase/types"
 import { ChatbotUIContext } from "@/context/context"
-import { updateEmbeddings } from "./embeddings"
 
 interface SettingsProps {}
 export const Settings: FC<SettingsProps> = () => {
@@ -39,10 +38,12 @@ export const Settings: FC<SettingsProps> = () => {
   }
   const handleSaveChanges = async (id: string, settings: any) => {
     const toastId = toast.loading("Saving...")
-
-    if (settings !== undefined) {
-      setSettings(settings)
+    // update context
+    if (!settings) {
+      return
     }
+    setSettings(settings)
+    // update thtee db
     await updateSettings(id, settings)
     setChatSettings({
       includeWorkspaceInstructions:
@@ -55,13 +56,6 @@ export const Settings: FC<SettingsProps> = () => {
       embeddingsProvider: chatSettings?.embeddingsProvider || "openai",
       contextIsOutdated: true
     })
-
-    const embeddings = await updateEmbeddings(
-      "Settings",
-      JSON.stringify(settings),
-      settings.workspace_id || ""
-    )
-    console.log("embeddings:", embeddings)
     toast.remove(toastId)
     toast.success("Settings saved!")
   }
@@ -74,7 +68,7 @@ export const Settings: FC<SettingsProps> = () => {
       >
         Save Changes{" "}
       </Button>
-      <div className="text-muted-foreground mb-1 mt-4 text-sm font-semibold">
+      <div className="mb-1 mt-4 text-sm font-semibold text-muted-foreground">
         Diet
       </div>
       <DietSelect onSelect={setSelectedDiet} selectedDiet={selectedDiet} />
