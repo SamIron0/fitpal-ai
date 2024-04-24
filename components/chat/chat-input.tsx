@@ -44,8 +44,6 @@ export const ChatInput: FC<ChatInputProps> = ({}: ChatInputProps) => {
     getSession()
   }, []) // Run the effect only once, when the component mounts
 
-  const router = useRouter()
-
   const { t } = useTranslation()
 
   const [isTyping, setIsTyping] = useState<boolean>(false)
@@ -61,7 +59,9 @@ export const ChatInput: FC<ChatInputProps> = ({}: ChatInputProps) => {
   const { chatInputRef, handleStopMessage } = useChatHandler()
   const [input, setInput] = useState<string>("")
   const generateMeals = async () => {
-    if (!session) return
+    if (!session) {
+      console.error("No session")
+    }
     setIsGenerating(true)
     const recipes = await fetch("/api/recipe/get_recipes", {
       method: "POST",
