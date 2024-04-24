@@ -16,9 +16,9 @@ export default function ChatPage() {
   const [session, setSession] = useState<any>(null)
   useEffect(() => {
     ;(async () => {
-      const session = (await supabase.auth.getSession()).data.session
+      const session = await supabase.auth.getSession()
       setSession(session)
-      console.log(session)
+      console.log("sesh1: ", session)
     })()
   }, [])
   return (
