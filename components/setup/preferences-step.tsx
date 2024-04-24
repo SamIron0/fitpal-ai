@@ -31,7 +31,7 @@ export const PreferencesStep: FC<PreferencesStepProps> = ({
 
         <DietSelect onSelect={setDiet} selectedDiet={diet as DietProvider} />
       </div>
-      <div className="space-y-1 pb-2">
+      <div className="space-y-1 py-2">
         <Label className="mb-3 flex items-center">
           <div className="mr-2">Workouts: {"  "}</div>
           <div className="text-muted-foreground">{workouts} / week</div>
