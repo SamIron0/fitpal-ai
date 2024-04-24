@@ -21,6 +21,8 @@ import { usePromptAndCommand } from "./chat-hooks/use-prompt-and-command"
 import { useSelectFileHandler } from "./chat-hooks/use-select-file-handler"
 import { useRouter } from "next/navigation"
 import { createClient } from "@/lib/supabase/client"
+import { Drawer, DrawerClose, DrawerContent, DrawerTrigger } from "../ui/drawer"
+import { Button } from "react-day-picker"
 interface ChatInputProps {}
 
 export const ChatInput: FC<ChatInputProps> = ({}: ChatInputProps) => {
@@ -53,15 +55,15 @@ export const ChatInput: FC<ChatInputProps> = ({}: ChatInputProps) => {
     isGenerating,
     setIsGenerating,
     setUserInput,
-    setGeneratedRecipes
+    setGeneratedRecipes,
+    setOpenDrawer
   } = useContext(ChatbotUIContext)
 
   const { chatInputRef, handleStopMessage } = useChatHandler()
   const [input, setInput] = useState<string>("")
   const generateMeals = async () => {
     if (session === null) {
-      console.log("Session is null")
-      return
+      setOpenDrawer(true)
     }
     setIsGenerating(true)
     const recipes = await fetch("/api/recipe/get_recipes", {
@@ -112,19 +114,44 @@ export const ChatInput: FC<ChatInputProps> = ({}: ChatInputProps) => {
               size={30}
             />
           ) : (
-            <IconSend
-              className={cn(
-                "rounded bg-primary p-1 text-secondary",
-                session && !userInput ? "cursor-not-allowed opacity-50" : ""
-              )}
-              onClick={() => {
-                if (!userInput) {
-                  return
-                }
-                generateMeals()
-              }}
-              size={30}
-            />
+            <>
+              {session ? (
+                <IconSend
+                  className={cn(
+                    "rounded bg-primary p-1 text-secondary",
+                    !userInput ? "cursor-not-allowed opacity-50" : ""
+                  )}
+                  onClick={() => {
+                    if (!userInput) {
+                      return
+                    }
+                    generateMeals()
+                  }}
+                  size={30}
+                />
+              ) : (
+                <Drawer>
+                  <DrawerTrigger asChild>
+                    <IconSend
+                      className={cn(
+                        "rounded bg-primary p-1 text-secondary",
+                        !userInput ? "cursor-not-allowed opacity-50" : ""
+                      )}
+                      size={30}
+                    />{" "}
+                  </DrawerTrigger>
+                  <div className="flex  w-full items-center justify-center">
+                    <DrawerContent className="flex flex-col justify-center border-muted px-4">
+                      <DrawerClose className="flex w-full items-center justify-center">
+                        <Button className="mb-2 w-full max-w-md text-zinc-300 ">
+                          Cancel
+                        </Button>
+                      </DrawerClose>
+                    </DrawerContent>
+                  </div>
+                </Drawer>
+              )}{" "}
+            </>
           )}
         </div>
       </div>
