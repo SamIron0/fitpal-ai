@@ -19,10 +19,16 @@ import { useChatHandler } from "./chat-hooks/use-chat-handler"
 import { useChatHistoryHandler } from "./chat-hooks/use-chat-history"
 import { usePromptAndCommand } from "./chat-hooks/use-prompt-and-command"
 import { useSelectFileHandler } from "./chat-hooks/use-select-file-handler"
-import { createClient } from "@/lib/supabase/client"
-interface ChatInputProps {}
+import { useRouter } from "next/navigation"
+interface ChatInputProps {
+  session: any
+}
 
-export const ChatInput: FC<ChatInputProps> = ({}) => {
+export const ChatInput: FC<ChatInputProps> = ({ session }: ChatInputProps) => {
+  // const supabase = createClient()
+  // const session = (await supabase.auth.getSession()).data.session
+  const router = useRouter()
+
   const { t } = useTranslation()
 
   const [isTyping, setIsTyping] = useState<boolean>(false)
@@ -37,8 +43,9 @@ export const ChatInput: FC<ChatInputProps> = ({}) => {
 
   const { chatInputRef, handleStopMessage } = useChatHandler()
   const generateMeals = async () => {
-    const supabase = createClient()
-
+    if (!session) {
+      router.push("/login")
+    }
     setIsGenerating(true)
     const recipes = await fetch("/api/recipe/get_recipes", {
       method: "POST",
