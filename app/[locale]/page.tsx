@@ -14,24 +14,6 @@ export default async function ChatPage() {
   const { generatedRecipes, isGenerating, recentRecipes } =
     useContext(ChatbotUIContext)
   const { theme } = useTheme()
-  const supabase = createClient()
-  useEffect(() => {
-    async function getSession() {
-      const {
-        data: { session },
-        error
-      } = await supabase.auth.getSession()
-      if (error) {
-        console.error("Error getting session:", error)
-      } else {
-        console.log("Session2:", session)
-        // Do something with the session
-      }
-    }
-
-    getSession()
-  }, []) // Run the effect only once, when the component mounts
-
   return (
     <div className="relative mt-32  flex h-full flex-col items-center px-4 sm:px-6">
       <div className="top-50% left-50% -translate-x-50% -translate-y-50%  mb-9">

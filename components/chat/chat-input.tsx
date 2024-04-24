@@ -21,12 +21,11 @@ import { usePromptAndCommand } from "./chat-hooks/use-prompt-and-command"
 import { useSelectFileHandler } from "./chat-hooks/use-select-file-handler"
 import { useRouter } from "next/navigation"
 import { createClient } from "@/lib/supabase/client"
-interface ChatInputProps {
-  session?: any
-}
+interface ChatInputProps {}
 
 export const ChatInput: FC<ChatInputProps> = ({}: ChatInputProps) => {
   const supabase = createClient()
+  const [session, setSession] = useState<any>(null)
   useEffect(() => {
     async function getSession() {
       const {
@@ -36,7 +35,8 @@ export const ChatInput: FC<ChatInputProps> = ({}: ChatInputProps) => {
       if (error) {
         console.error("Error getting session:", error)
       } else {
-        console.log("Session2:", session)
+        console.log("Current session:", session)
+        setSession(session)
         // Do something with the session
       }
     }
@@ -113,7 +113,9 @@ export const ChatInput: FC<ChatInputProps> = ({}: ChatInputProps) => {
             <IconSend
               className={cn(
                 "rounded bg-primary p-1 text-secondary",
-                !userInput ? "cursor-not-allowed opacity-50" : ""
+                !session || (session && !userInput)
+                  ? "cursor-not-allowed opacity-50"
+                  : ""
               )}
               onClick={() => {
                 if (!userInput) {
