@@ -15,12 +15,14 @@ import { Brand } from "../ui/brand"
 import { Label } from "../ui/label"
 import { Input } from "../ui/input"
 import { SubmitButton } from "../ui/submit-button"
+import { useRouter } from "next/navigation"
 
 interface LoginDrawerProps {
   children?: React.ReactNode
   searchParams?: { message: string }
 }
 export const LoginDrawer = ({ children, searchParams }: LoginDrawerProps) => {
+  const router = useRouter()
   const signIn = async (formData: FormData) => {
     const res = await fetch("/api/login", {
       method: "POST",
@@ -35,8 +37,10 @@ export const LoginDrawer = ({ children, searchParams }: LoginDrawerProps) => {
 
     if (res.ok) {
       const json = await res.json()
-      const { session } = json
-      if (session) {
+      const { homeWorkspace } = json
+
+      if (homeWorkspace) {
+        router.push(`/${homeWorkspace.id}/chat`)
       }
     }
   }
