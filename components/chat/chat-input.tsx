@@ -20,18 +20,33 @@ import { useChatHistoryHandler } from "./chat-hooks/use-chat-history"
 import { usePromptAndCommand } from "./chat-hooks/use-prompt-and-command"
 import { useSelectFileHandler } from "./chat-hooks/use-select-file-handler"
 import { useRouter } from "next/navigation"
+import { createClient } from "@/lib/supabase/client"
 interface ChatInputProps {
   session?: any
 }
 
-export const ChatInput: FC<ChatInputProps> = ({ session }: ChatInputProps) => {
-  // const supabase = createClient()
-  // const session = (await supabase.auth.getSession()).data.session
+export const ChatInput: FC<ChatInputProps> = ({}: ChatInputProps) => {
+  const supabase = createClient()
+  useEffect(() => {
+    async function getSession() {
+      const {
+        data: { session },
+        error
+      } = await supabase.auth.getSession()
+      if (error) {
+        console.error("Error getting session:", error)
+      } else {
+        console.log("Session2:", session)
+        // Do something with the session
+      }
+    }
+
+    getSession()
+  }, []) // Run the effect only once, when the component mounts
 
   const router = useRouter()
 
   const { t } = useTranslation()
-  console.log("sesh2: ", session)
 
   const [isTyping, setIsTyping] = useState<boolean>(false)
 
@@ -98,10 +113,10 @@ export const ChatInput: FC<ChatInputProps> = ({ session }: ChatInputProps) => {
             <IconSend
               className={cn(
                 "rounded bg-primary p-1 text-secondary",
-                session && !userInput ? "cursor-not-allowed opacity-50" : ""
+                !userInput ? "cursor-not-allowed opacity-50" : ""
               )}
               onClick={() => {
-                if (session && !userInput) {
+                if (!userInput) {
                   return
                 }
                 generateMeals()
