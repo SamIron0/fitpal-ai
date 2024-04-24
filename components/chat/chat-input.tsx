@@ -99,9 +99,11 @@ export const ChatInput: FC<ChatInputProps> = ({ session }: ChatInputProps) => {
             />
           ) : (
             <IconSend
-              className={cn("rounded bg-primary p-1 text-secondary")}
+              className={cn(
+                "rounded bg-primary p-1 text-secondary",
+                session && !userInput ? "cursor-not-allowed opacity-50" : ""
+              )}
               onClick={() => {
-                if (!userInput) return
                 generateMeals()
               }}
               size={30}
