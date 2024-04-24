@@ -46,7 +46,7 @@ export default async function ChatPage() {
         </div>
       ) : (
         <div className="w-full max-w-4xl pt-24">
-          {generatedRecipes != undefined && generatedRecipes?.length > 0 ? (
+          {generatedRecipes[0].id != "" ? (
             <>
               <p className="mb-5 text-3xl font-semibold">Best Results</p>
               <div
