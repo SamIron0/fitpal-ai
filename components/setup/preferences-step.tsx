@@ -23,7 +23,7 @@ export const PreferencesStep: FC<PreferencesStepProps> = ({
   setWorkouts
 }) => {
   return (
-    <>
+    <div className="mb-4 flex flex-col">
       <div className=" space-y-1">
         <Label className="flex items-center">
           <div>Diet {"  "}</div>
@@ -59,6 +59,6 @@ export const PreferencesStep: FC<PreferencesStepProps> = ({
           className="text-[16px]"
         />
       </div>
-    </>
+    </div>
   )
 }

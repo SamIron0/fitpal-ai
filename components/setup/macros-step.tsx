@@ -68,8 +68,8 @@ export const MacrosStep: FC<MacrosStepProps> = ({
     setFatInGrams(Math.round((fat * 0.01 * calories) / 9))
   }
   return (
-    <>
-      <div className="space-y-1">
+    <div className="mb-4 flex flex-col">
+      <div className="space-y-1 ">
         <Label className="flex items-center">
           <div>Calories(kcal): </div>
         </Label>
@@ -140,6 +140,6 @@ export const MacrosStep: FC<MacrosStepProps> = ({
           step={1}
         />
       </div>
-    </>
+    </div>
   )
 }
