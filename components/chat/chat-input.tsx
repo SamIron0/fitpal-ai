@@ -31,7 +31,7 @@ import {
   DrawerTitle,
   DrawerTrigger
 } from "../ui/drawer"
-import { Button } from "react-day-picker"
+import { Button } from "../ui/button"
 interface ChatInputProps {}
 
 export const ChatInput: FC<ChatInputProps> = ({}: ChatInputProps) => {
