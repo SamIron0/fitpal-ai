@@ -6,8 +6,11 @@ import { createClient } from "@/lib/supabase/client"
 import { TablesInsert } from "@/supabase/types"
 import axios from "axios"
 import { useTheme } from "next-themes"
+import { useRouter } from "next/navigation"
+import { routeros } from "react-syntax-highlighter/dist/esm/styles/hljs"
 
 export default async function ChatPage() {
+  const router = useRouter()
   const { theme } = useTheme()
   const supabase = createClient()
 
@@ -31,6 +34,7 @@ export default async function ChatPage() {
 
   console.log("hws", homeWorkspace)
   if (homeWorkspace) {
+    router.push(`/${homeWorkspace.id}/chat`)
   }
 
   return (
