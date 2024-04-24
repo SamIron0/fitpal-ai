@@ -109,41 +109,30 @@ export const ChatInput: FC<ChatInputProps> = ({}: ChatInputProps) => {
               onClick={handleStopMessage}
               size={30}
             />
-          ) : session ? (
-            <IconSend
-              className={cn(
-                "rounded bg-primary p-1 text-secondary",
-                !userInput ? "cursor-not-allowed opacity-50" : ""
-              )}
-              onClick={() => {
-                if (!userInput) {
-                  return
-                }
-                generateMeals()
-              }}
-              size={30}
-            />
           ) : (
-            <Drawer>
-              <DrawerTrigger asChild>
-                <Button
-                  className={cn(
-                    "rounded bg-primary p-1 text-secondary",
-                    !userInput ? "cursor-not-allowed opacity-50" : ""
-                  )}
-                />{" "}
-              </DrawerTrigger>
-              <div className="flex  w-full items-center justify-center">
-                <DrawerContent className="flex flex-col justify-center border-muted px-4">
-                  <DrawerClose className="flex w-full items-center justify-center">
-                    <Button className="mb-2 w-full max-w-md text-zinc-300 ">
-                      Cancel
-                    </Button>
-                  </DrawerClose>
-                </DrawerContent>
-              </div>
-            </Drawer>
-          )}{" "}
+            session && (
+              <Drawer>
+                <DrawerTrigger asChild>
+                  <IconSend
+                    className={cn(
+                      "rounded bg-primary p-1 text-secondary",
+                      !userInput ? "cursor-not-allowed opacity-50" : ""
+                    )}
+                    size={30}
+                  />{" "}
+                </DrawerTrigger>
+                <div className="flex  w-full items-center justify-center">
+                  <DrawerContent className="flex flex-col justify-center border-muted px-4">
+                    <DrawerClose className="flex w-full items-center justify-center">
+                      <Button className="mb-2 w-full max-w-md text-zinc-300 ">
+                        Cancel
+                      </Button>
+                    </DrawerClose>
+                  </DrawerContent>
+                </div>
+              </Drawer>
+            )
+          )}
         </div>
       </div>
     </>
