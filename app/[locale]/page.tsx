@@ -14,12 +14,9 @@ export default async function ChatPage() {
     useContext(ChatbotUIContext)
   const { theme } = useTheme()
 
-  useEffect(() => {
-    ;(async () => {
-      const session = (await supabase.auth.getSession()).data.session
-      console.log("sesh: ", session)
-    })()
-  }, [])
+  const session = (await supabase.auth.getSession()).data.session
+  console.log("sesh: ", session)
+
   return (
     <div className="relative mt-32  flex h-full flex-col items-center px-4 sm:px-6">
       <div className="top-50% left-50% -translate-x-50% -translate-y-50%  mb-9">
