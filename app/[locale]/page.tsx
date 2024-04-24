@@ -9,7 +9,7 @@ import axios from "axios"
 import { useTheme } from "next-themes"
 import { useContext, useEffect, useState } from "react"
 
-export default function ChatPage() {
+export default async function ChatPage() {
   const { generatedRecipes, isGenerating, recentRecipes } =
     useContext(ChatbotUIContext)
   const { theme } = useTheme()
