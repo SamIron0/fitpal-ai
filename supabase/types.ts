@@ -351,6 +351,32 @@ export type Database = {
           }
         ]
       }
+      for_you: {
+        Row: {
+          id: string
+          userId: string | null
+          recipeIds: string[] | null
+        }
+        Insert: {
+          id?: string
+          userId?: string | null
+          recipeIds?: string[] | null
+        }
+        Update: {
+          id?: string
+          userId?: string | null
+          recipeIds?: string[] | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "for_you_user_id_fkey"
+            columns: ["userId"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
       assistants: {
         Row: {
           context_length: number

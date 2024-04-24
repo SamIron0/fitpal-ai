@@ -47,7 +47,7 @@ export default async function ChatPage() {
       </div>
 
       <div className="w-full max-w-4xl pt-24">
-        <p className="mb-5 text-3xl font-semibold">Recents</p>
+        <p className="mb-5 text-3xl font-semibold">For You</p>
         <div
           role="status"
           className="grid w-full max-w-4xl grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4"
