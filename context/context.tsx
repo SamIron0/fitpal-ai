@@ -17,6 +17,8 @@ interface ChatbotUIContext {
   // PROFILE STORE
   profile: Tables<"profiles"> | null
   setProfile: Dispatch<SetStateAction<Tables<"profiles"> | null>>
+  openDrawer: boolean
+  setOpenDrawer: Dispatch<SetStateAction<boolean>>
   generatedRecipes: Tables<"recipes">[]
   setGeneratedRecipes: Dispatch<SetStateAction<Tables<"recipes">[]>>
   recentRecipes: Tables<"recipes">[]
@@ -152,6 +154,8 @@ export const ChatbotUIContext = createContext<ChatbotUIContext>({
   // PROFILE STORE
   profile: null,
   setProfile: () => {},
+  openDrawer: false,
+  setOpenDrawer: () => {},
   generatedRecipes: [],
   setGeneratedRecipes: () => {},
   recentRecipes: [],
