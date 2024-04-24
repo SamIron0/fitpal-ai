@@ -1,3 +1,4 @@
+"use client"
 import { ChatInput } from "@/components/chat/chat-input"
 import { Brand } from "@/components/ui/brand"
 import { ChatbotUIContext } from "@/context/context"
