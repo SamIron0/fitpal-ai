@@ -16,6 +16,7 @@ export default async function ChatPage() {
     useContext(ChatbotUIContext)
   const { theme } = useTheme()
   const router = useRouter()
+  console.log("ws", selectedWorkspace)
   if (selectedWorkspace && selectedWorkspace.id) {
     router.push(`/${selectedWorkspace.id}/chat`)
   }
