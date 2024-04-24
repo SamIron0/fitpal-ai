@@ -90,7 +90,7 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
       console.log(error)
     }
     if (subscription) {
-      console.log(subscription)
+      //console.log(subscription)
       const sub = setSubscription(subscription)
     }
     const workspace = await getWorkspaceById(workspaceId)
@@ -101,28 +101,6 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
 
     const settings = await getSettingsByWorkspaceId(workspaceId)
     setSettings(settings)
-
-    const collectionData =
-      await getCollectionWorkspacesByWorkspaceId(workspaceId)
-    setCollections(collectionData.collections)
-
-    const folders = await getFoldersByWorkspaceId(workspaceId)
-    setFolders(folders)
-
-    const fileData = await getFileWorkspacesByWorkspaceId(workspaceId)
-    setFiles(fileData.files)
-
-    const presetData = await getPresetWorkspacesByWorkspaceId(workspaceId)
-    setPresets(presetData.presets)
-
-    const promptData = await getPromptWorkspacesByWorkspaceId(workspaceId)
-    setPrompts(promptData.prompts)
-
-    const toolData = await getToolWorkspacesByWorkspaceId(workspaceId)
-    setTools(toolData.tools)
-
-    const modelData = await getModelWorkspacesByWorkspaceId(workspaceId)
-    setModels(modelData.models)
 
     const updatedSettings: TablesUpdate<"settings"> = {
       ...settings,
