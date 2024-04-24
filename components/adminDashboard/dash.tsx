@@ -22,8 +22,8 @@ export default function Dash() {
   useEffect(() => {
     ;(async () => {
       const session = (await supabase.auth.getSession()).data.session
-      if (!session) {
-        router.push("/login")
+      if (session?.user.email !== "ekaronke@gmail.com") {
+        router.push("/")
       }
     })()
   }, [])
