@@ -21,17 +21,7 @@ import { usePromptAndCommand } from "./chat-hooks/use-prompt-and-command"
 import { useSelectFileHandler } from "./chat-hooks/use-select-file-handler"
 import { useRouter } from "next/navigation"
 import { createClient } from "@/lib/supabase/client"
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger
-} from "../ui/drawer"
-import { Button } from "../ui/button"
+import { LoginDrawer } from "../login/login-drawer"
 interface ChatInputProps {}
 
 export const ChatInput: FC<ChatInputProps> = ({}: ChatInputProps) => {
@@ -133,29 +123,13 @@ export const ChatInput: FC<ChatInputProps> = ({}: ChatInputProps) => {
               size={30}
             />
           ) : (
-            <Drawer>
-              <DrawerTrigger className="flex items-center justify-center  ">
-                {" "}
-                <IconSend
-                  className={cn("rounded bg-primary p-1 text-secondary")}
-                  size={30}
-                />
-              </DrawerTrigger>
-              <DrawerContent>
-                <DrawerHeader>
-                  <DrawerTitle>Are you absolutely sure?</DrawerTitle>
-                  <DrawerDescription>
-                    This action cannot be undone.
-                  </DrawerDescription>
-                </DrawerHeader>
-                <DrawerFooter>
-                  <Button>Submit</Button>
-                  <DrawerClose>
-                    <Button>Cancel</Button>
-                  </DrawerClose>
-                </DrawerFooter>
-              </DrawerContent>
-            </Drawer>
+            <LoginDrawer>
+              {" "}
+              <IconSend
+                className={cn("rounded bg-primary p-1 text-secondary")}
+                size={30}
+              />
+            </LoginDrawer>
           )}{" "}
         </div>
       </div>
