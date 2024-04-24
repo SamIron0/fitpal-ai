@@ -21,11 +21,7 @@ export default function Dash() {
       var result = await axios.post(endpoint, {
         url: url
       })
-      //const data = result.data
       const data = result.data.body
-      //var res = JSON.parse(res)
-      //console.log("data: ", data)
-      //console.log("res: ", res)
       const recipe: TablesInsert<"recipes"> = {
         id: uuidv4(),
         name: data.name,
@@ -38,7 +34,8 @@ export default function Dash() {
         calories: data.calories,
         instructions: data.instructions,
         portions: data.portions,
-        cooking_time: data.cooking_time
+        cooking_time: data.cooking_time,
+        url: url
       }
       toast.dismiss(toastId)
       const toastId2 = toast.loading("Creating Recipe")

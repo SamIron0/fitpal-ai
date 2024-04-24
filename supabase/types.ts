@@ -96,6 +96,7 @@ export type Database = {
           calories: number | null
           instructions: string[] | null
           portions: number | null
+          url: string
         }
         Insert: {
           id: string
@@ -110,6 +111,7 @@ export type Database = {
           calories?: number | null
           instructions?: string[] | null
           portions?: number | null
+          url?: string
         }
 
         Update: {
@@ -125,6 +127,7 @@ export type Database = {
           calories?: number | null
           instructions?: string[] | null
           portions?: number | null
+          url?: string
         }
       }
 
