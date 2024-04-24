@@ -142,6 +142,9 @@ export const ChatInput: FC<ChatInputProps> = ({}: ChatInputProps) => {
                     !userInput ? "cursor-not-allowed opacity-50" : ""
                   )}
                   size={30}
+                  onClick={() => {
+                    generateMeals()
+                  }}
                 />
               </DrawerTrigger>
               <DrawerContent>
