@@ -31,6 +31,7 @@ export const ChatInput: FC<ChatInputProps> = ({ session }: ChatInputProps) => {
   const router = useRouter()
 
   const { t } = useTranslation()
+  console.log(session)
 
   const [isTyping, setIsTyping] = useState<boolean>(false)
 

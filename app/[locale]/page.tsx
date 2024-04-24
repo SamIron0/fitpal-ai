@@ -20,12 +20,7 @@ export default function ChatPage() {
       setSession(session)
       console.log(session)
     })()
-  }, []) /* const recentRecipes = await fetch("api/recipe/recents", {
-    method: "GET"
-  })*/
-  //const res: TablesInsert<"recipes">[] = await recipes.json()
-  //console.log(recentRecipes)
-
+  }, [])
   return (
     <div className="relative mt-32  flex h-full flex-col items-center px-4 sm:px-6">
       <div className="top-50% left-50% -translate-x-50% -translate-y-50%  mb-9">
