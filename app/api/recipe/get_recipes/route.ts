@@ -25,7 +25,11 @@ export async function POST(request: Request) {
       }
     )
     const tags = await qTags.json()
+    console.log("tag: " + tags)
     console.log("tags1: " + JSON.parse(tags).tags)
+    if (!tags) {
+      return new Response(JSON.stringify({ error: "None" }))
+    }
     const res = await getRecipesWithTags(JSON.parse(tags).tags)
     return new Response(JSON.stringify(res))
   } catch (error) {
