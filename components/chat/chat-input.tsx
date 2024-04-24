@@ -36,7 +36,6 @@ export const ChatInput: FC<ChatInputProps> = ({}: ChatInputProps) => {
       if (error) {
         console.error("Error getting session:", error)
       } else {
-        console.log("Current session:", session)
         setSession(session)
         // Do something with the session
       }
