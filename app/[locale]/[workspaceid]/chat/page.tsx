@@ -58,11 +58,11 @@ export default function ChatPage() {
                 className="grid w-full max-w-4xl grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4"
               >
                 {generatedRecipes?.map(recipe => (
-                  <div
-                    key={recipe.id}
-                    className="border-1 rounded-lg border-gray-300 bg-gray-600 p-2 py-10 text-black"
-                  >
-                    {recipe.name}
+                  <div key={recipe.id} className="flex flex-col ">
+                    <div className="border-1 mb-2 rounded-lg border-gray-300 bg-gray-600 p-2 py-10 text-black">
+                      {" "}
+                    </div>
+                    <p className="text-md">{recipe.name}</p>
                   </div>
                 ))}
               </div>

@@ -1,4 +1,4 @@
-import { toast } from "react-hot-toast"
+import { toast } from "sonner"
 import { FC, useContext, useEffect, useState } from "react"
 import { Button } from "../../ui/button"
 import { DietSelect } from "../../diet/diet-select"
@@ -80,7 +80,7 @@ export const Settings: FC<SettingsProps> = () => {
       embeddingsProvider: chatSettings?.embeddingsProvider || "openai",
       contextIsOutdated: true
     })
-    toast.remove(toastId)
+    toast.dismiss(toastId)
     toast.success("Settings saved!")
   }
   return (
