@@ -104,6 +104,9 @@ export const ChatInput: FC<ChatInputProps> = ({ session }: ChatInputProps) => {
                 session && !userInput ? "cursor-not-allowed opacity-50" : ""
               )}
               onClick={() => {
+                if (session && !userInput) {
+                  return
+                }
                 generateMeals()
               }}
               size={30}
