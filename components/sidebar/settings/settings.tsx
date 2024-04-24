@@ -1,5 +1,5 @@
 import { toast } from "react-hot-toast"
-import { FC, useContext, useState } from "react"
+import { FC, useContext, useEffect, useState } from "react"
 import { Button } from "../../ui/button"
 import { DietSelect } from "../../diet/diet-select"
 import { Macros } from "./macros"
@@ -8,6 +8,8 @@ import { Allergies } from "./allergies"
 import { updateSettings } from "@/db/settings"
 import { TablesUpdate } from "@/supabase/types"
 import { ChatbotUIContext } from "@/context/context"
+import { LoginDrawer } from "@/components/login/login-drawer"
+import { createClient } from "@/lib/supabase/client"
 
 interface SettingsProps {}
 export const Settings: FC<SettingsProps> = () => {
@@ -21,6 +23,9 @@ export const Settings: FC<SettingsProps> = () => {
   const [allergies, setAllergies] = useState<string[]>(
     settings?.allergies || []
   )
+
+  const [session, setSession] = useState<any>(null)
+
   const { setChatSettings, chatSettings, setSettings } =
     useContext(ChatbotUIContext)
   //console.log("settings:", settings)
@@ -36,6 +41,25 @@ export const Settings: FC<SettingsProps> = () => {
     workspace_id: settings?.workspace_id,
     user_id: settings?.user_id
   }
+  const supabase = createClient()
+
+  useEffect(() => {
+    async function getSession() {
+      const {
+        data: { session },
+        error
+      } = await supabase.auth.getSession()
+      if (error) {
+        console.error("Error getting session:", error)
+      } else {
+        setSession(session)
+        // Do something with the session
+      }
+    }
+
+    getSession()
+  }, []) // Run the effect only once, when the component mounts
+
   const handleSaveChanges = async (id: string, settings: any) => {
     // update context
     if (settings.id === undefined || settings.id === "") {
@@ -61,13 +85,22 @@ export const Settings: FC<SettingsProps> = () => {
   }
   return (
     <>
-      <Button
-        className="mb-3 mt-4 flex  h-[36px] grow"
-        onClick={() => handleSaveChanges(settings.id, settingsUpdate)}
-        disabled={JSON.stringify(settings) === JSON.stringify(settingsUpdate)}
-      >
-        Save Changes{" "}
-      </Button>
+      {session ? (
+        <Button
+          className="mb-3 mt-4 flex  h-[36px] grow"
+          onClick={() => handleSaveChanges(settings.id, settingsUpdate)}
+          disabled={JSON.stringify(settings) === JSON.stringify(settingsUpdate)}
+        >
+          Save Changes{" "}
+        </Button>
+      ) : (
+        <LoginDrawer>
+          {" "}
+          <Button className="mb-3 mt-4 flex  h-[36px] grow">
+            Save Changes{" "}
+          </Button>
+        </LoginDrawer>
+      )}
       <div className="mb-1 mt-4 text-sm font-semibold text-muted-foreground">
         Diet
       </div>
