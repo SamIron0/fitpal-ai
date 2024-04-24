@@ -39,7 +39,7 @@ export const LoginDrawer = ({ children, searchParams }: LoginDrawerProps) => {
       console.log(json)
       //console.log(json.data)
       if (json) {
-        //router.push(`/${json.id}/chat`)
+        router.push(`/${json.id}/chat`)
         router.refresh()
       }
     }
