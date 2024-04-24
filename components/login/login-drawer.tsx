@@ -21,9 +21,29 @@ interface LoginDrawerProps {
   searchParams?: { message: string }
 }
 export const LoginDrawer = ({ children, searchParams }: LoginDrawerProps) => {
-  const signIn = async (formData: FormData) => {}
+  const signIn = async (formData: FormData) => {
+    const res = await fetch("/api/login", {
+      method: "POST",
+      body: JSON.stringify({
+        email: formData.get("email") as string,
+        password: formData.get("password") as string
+      }),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+
+    if (res.ok) {
+      const json = await res.json()
+      const { session } = json
+      if (session) {
+      }
+    }
+  }
 
   const signUp = async (formData: FormData) => {}
+
+  const handleResetPassword = async (formData: FormData) => {}
 
   return (
     <Drawer>
@@ -31,7 +51,7 @@ export const LoginDrawer = ({ children, searchParams }: LoginDrawerProps) => {
         {" "}
         {children}
       </DrawerTrigger>
-      <DrawerContent>
+      <DrawerContent className="flex flex-col items-center">
         <div className="flex w-full flex-1 flex-col justify-center gap-2 px-8 sm:max-w-md">
           <form
             className="flex w-full flex-1 flex-col justify-center gap-2 text-foreground animate-in"
@@ -77,12 +97,6 @@ export const LoginDrawer = ({ children, searchParams }: LoginDrawerProps) => {
             )}
           </form>
         </div>
-        <DrawerFooter>
-          <Button>Submit</Button>
-          <DrawerClose>
-            <Button>Cancel</Button>
-          </DrawerClose>
-        </DrawerFooter>
       </DrawerContent>
     </Drawer>
   )
