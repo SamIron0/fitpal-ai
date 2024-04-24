@@ -7,7 +7,6 @@ import { TablesInsert } from "@/supabase/types"
 import axios from "axios"
 import { useTheme } from "next-themes"
 import { useRouter } from "next/navigation"
-import { routeros } from "react-syntax-highlighter/dist/esm/styles/hljs"
 
 export default async function ChatPage() {
   const router = useRouter()
@@ -45,6 +44,14 @@ export default async function ChatPage() {
 
       <div className="w-full max-w-md items-end  pb-3 pt-0  sm:pb-8 sm:pt-5">
         <ChatInput />
+      </div>
+
+      <div className="w-full max-w-4xl pt-24">
+        <p className="mb-5 text-3xl font-semibold">Recents</p>
+        <div
+          role="status"
+          className="grid w-full max-w-4xl grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4"
+        ></div>
       </div>
     </div>
   )
