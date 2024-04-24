@@ -61,7 +61,7 @@ export const ChatInput: FC<ChatInputProps> = ({}: ChatInputProps) => {
   const { chatInputRef, handleStopMessage } = useChatHandler()
   const [input, setInput] = useState<string>("")
   const generateMeals = async () => {
-    if (!session) router.push("/login")
+    if (!session) return
     setIsGenerating(true)
     const recipes = await fetch("/api/recipe/get_recipes", {
       method: "POST",
