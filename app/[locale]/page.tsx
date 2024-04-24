@@ -5,8 +5,6 @@ import { createClient } from "@/lib/supabase/client"
 import { TablesInsert } from "@/supabase/types"
 import axios from "axios"
 import { useTheme } from "next-themes"
-import { cookies } from "next/headers"
-import { redirect } from "next/navigation"
 
 export default async function ChatPage() {
   const { theme } = useTheme()
@@ -32,7 +30,6 @@ export default async function ChatPage() {
 
   console.log("hws", homeWorkspace)
   if (homeWorkspace) {
-    redirect(`/${homeWorkspace.id}/chat`)
   }
 
   return (
