@@ -21,7 +21,16 @@ import { usePromptAndCommand } from "./chat-hooks/use-prompt-and-command"
 import { useSelectFileHandler } from "./chat-hooks/use-select-file-handler"
 import { useRouter } from "next/navigation"
 import { createClient } from "@/lib/supabase/client"
-import { Drawer, DrawerClose, DrawerContent, DrawerTrigger } from "../ui/drawer"
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger
+} from "../ui/drawer"
 import { Button } from "react-day-picker"
 interface ChatInputProps {}
 
@@ -109,30 +118,39 @@ export const ChatInput: FC<ChatInputProps> = ({}: ChatInputProps) => {
               onClick={handleStopMessage}
               size={30}
             />
+          ) : session ? (
+            <IconSend
+              className={cn(
+                "rounded bg-primary p-1 text-secondary",
+                !userInput ? "cursor-not-allowed opacity-50" : ""
+              )}
+              onClick={() => {
+                if (!userInput) {
+                  return
+                }
+                generateMeals()
+              }}
+              size={30}
+            />
           ) : (
-            session && (
-              <Drawer>
-                <DrawerTrigger asChild>
-                  <IconSend
-                    className={cn(
-                      "rounded bg-primary p-1 text-secondary",
-                      !userInput ? "cursor-not-allowed opacity-50" : ""
-                    )}
-                    size={30}
-                  />{" "}
-                </DrawerTrigger>
-                <div className="flex  w-full items-center justify-center">
-                  <DrawerContent className="flex flex-col justify-center border-muted px-4">
-                    <DrawerClose className="flex w-full items-center justify-center">
-                      <Button className="mb-2 w-full max-w-md text-zinc-300 ">
-                        Cancel
-                      </Button>
-                    </DrawerClose>
-                  </DrawerContent>
-                </div>
-              </Drawer>
-            )
-          )}
+            <Drawer>
+              <DrawerTrigger>Open</DrawerTrigger>
+              <DrawerContent>
+                <DrawerHeader>
+                  <DrawerTitle>Are you absolutely sure?</DrawerTitle>
+                  <DrawerDescription>
+                    This action cannot be undone.
+                  </DrawerDescription>
+                </DrawerHeader>
+                <DrawerFooter>
+                  <Button>Submit</Button>
+                  <DrawerClose>
+                    <Button>Cancel</Button>
+                  </DrawerClose>
+                </DrawerFooter>
+              </DrawerContent>
+            </Drawer>
+          )}{" "}
         </div>
       </div>
     </>
