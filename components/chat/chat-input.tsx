@@ -31,7 +31,7 @@ export const ChatInput: FC<ChatInputProps> = ({ session }: ChatInputProps) => {
   const router = useRouter()
 
   const { t } = useTranslation()
-  console.log("sesh1: ", session)
+  console.log("sesh2: ", session)
 
   const [isTyping, setIsTyping] = useState<boolean>(false)
 
