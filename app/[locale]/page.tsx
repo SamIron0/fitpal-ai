@@ -18,6 +18,7 @@ export default function ChatPage() {
     ;(async () => {
       const session = (await supabase.auth.getSession()).data.session
       setSession(session)
+      console.log(session)
     })()
   }, []) /* const recentRecipes = await fetch("api/recipe/recents", {
     method: "GET"
