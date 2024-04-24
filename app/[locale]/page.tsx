@@ -8,12 +8,17 @@ import { TablesInsert } from "@/supabase/types"
 import axios from "axios"
 import { useTheme } from "next-themes"
 import { cookies } from "next/headers"
+import { useRouter } from "next/navigation"
 import { useContext, useEffect, useState } from "react"
 
 export default async function ChatPage() {
-  const { generatedRecipes, isGenerating, recentRecipes } =
+  const { generatedRecipes, isGenerating, recentRecipes, selectedWorkspace } =
     useContext(ChatbotUIContext)
   const { theme } = useTheme()
+  const router = useRouter()
+  if (selectedWorkspace && selectedWorkspace.id) {
+    router.push(`/${selectedWorkspace.id}/chat`)
+  }
   return (
     <div className="relative mt-32  flex h-full flex-col items-center px-4 sm:px-6">
       <div className="top-50% left-50% -translate-x-50% -translate-y-50%  mb-9">

@@ -39,14 +39,23 @@ export const LoginDrawer = ({ children, searchParams }: LoginDrawerProps) => {
       console.log(json)
       //console.log(json.data)
       if (json) {
-        router.push(`/${json.id}/chat`)
         router.refresh()
       }
     }
   }
 
-  const signUp = async (formData: FormData) => {}
-
+  const signUp = async (formData: FormData) => {
+    const res = await fetch("/api/signup", {
+      method: "POST",
+      body: JSON.stringify({
+        email: formData.get("email") as string,
+        password: formData.get("password") as string
+      }),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+  }
   const handleResetPassword = async (formData: FormData) => {}
 
   return (

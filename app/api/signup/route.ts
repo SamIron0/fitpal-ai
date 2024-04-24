@@ -19,30 +19,20 @@ export async function POST(request: Request) {
     const cookieStore = cookies()
     const supabase = createClient(cookieStore)
 
-    const { data, error } = await supabase.auth.signInWithPassword({
+    const { error } = await supabase.auth.signUp({
       email,
-      password
+      password,
+      options: {
+        // USE IF YOU WANT TO SEND EMAIL VERIFICATION, ALSO CHANGE TOML FILE
+        // emailRedirectTo: `${origin}/auth/callback`
+      }
     })
 
     if (error) {
+      console.error(error)
       return redirect(`/login?message=${error.message}`)
     }
-
-    const { data: homeWorkspace, error: homeWorkspaceError } = await supabase
-      .from("workspaces")
-      .select("*")
-      .eq("user_id", data.user.id)
-      .eq("is_home", true)
-      .single()
-
-    if (!homeWorkspace) {
-      throw new Error(
-        homeWorkspaceError?.message || "An unexpected error occurred"
-      )
-    }
-
-    return redirect(`/${homeWorkspace.id}/chat`)
-    //return new Response(JSON.stringify("res"))
+    return new Response(JSON.stringify("signed up"))
   } catch (error) {
     console.log(error)
     return new Response(JSON.stringify({ error: error }))
