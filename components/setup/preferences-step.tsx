@@ -56,6 +56,7 @@ export const PreferencesStep: FC<PreferencesStepProps> = ({
           value={allergies}
           onChange={e => setAllergies(e.target.value.split(","))}
           placeholder="eg. milk, eggs, nuts"
+          className="text-[16px]"
         />
       </div>
     </>

@@ -78,6 +78,7 @@ export const MacrosStep: FC<MacrosStepProps> = ({
           value={calories}
           onChange={e => setCalories(Number(e.target.value))}
           placeholder="e.g 2000"
+          className="text-[16px]"
         />
       </div>
 

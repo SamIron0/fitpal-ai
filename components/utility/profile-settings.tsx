@@ -381,17 +381,6 @@ export const ProfileSettings: FC<ProfileSettingsProps> = ({}) => {
                   limit={PROFILE_USERNAME_MAX}
                 />
               </div>
-
-              <div className="space-y-1">
-                <Label>Chat Display Name</Label>
-
-                <Input
-                  placeholder="Chat display name..."
-                  value={displayName}
-                  onChange={e => setDisplayName(e.target.value)}
-                  maxLength={PROFILE_DISPLAY_NAME_MAX}
-                />
-              </div>
             </TabsContent>
           </Tabs>
         </div>

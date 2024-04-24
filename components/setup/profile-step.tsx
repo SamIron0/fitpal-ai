@@ -103,7 +103,7 @@ export const ProfileStep: FC<ProfileStepProps> = ({
 
         <div className="relative">
           <Input
-            className="pr-10"
+            className="pr-10 text-[16px]"
             placeholder="username"
             value={username}
             onChange={e => {
@@ -126,22 +126,6 @@ export const ProfileStep: FC<ProfileStepProps> = ({
         </div>
 
         <LimitDisplay used={username.length} limit={PROFILE_USERNAME_MAX} />
-      </div>
-
-      <div className="space-y-1">
-        <Label>Chat Display Name</Label>
-
-        <Input
-          placeholder="Your Name"
-          value={displayName}
-          onChange={e => onDisplayNameChange(e.target.value)}
-          maxLength={PROFILE_DISPLAY_NAME_MAX}
-        />
-
-        <LimitDisplay
-          used={displayName.length}
-          limit={PROFILE_DISPLAY_NAME_MAX}
-        />
       </div>
     </>
   )
