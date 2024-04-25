@@ -71,7 +71,7 @@ export default function Dash() {
     }
   }
   return (
-    <div className="flex h-screen w-full flex-col items-center justify-center p-4">
+    <div className="my-12 flex w-full flex-col items-center justify-center p-4">
       {" "}
       <Input
         value={url}
