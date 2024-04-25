@@ -32,7 +32,7 @@ export const MealDrawer = ({ children, recipe }: MealDrawerProps) => {
       </DrawerTrigger>
       <DrawerContent>
         <div className="flex h-[70vh] flex-col overflow-y-auto">
-          <div className="mt-8 flex w-full flex-col p-2 ">
+          <div className="mt-8 flex w-full flex-col p-6 ">
             <div className="w-full justify-end">
               <img
                 src={"/" + recipe.imgurl}
@@ -69,8 +69,8 @@ export const MealDrawer = ({ children, recipe }: MealDrawerProps) => {
                 ))}
               </ul>
             </div>
-            <div className="flex flex-row">
-              <h2 className="pt-3 text-2xl font-semibold">Nutrition Facts</h2>
+            <div className="flex flex-row pt-3">
+              <h2 className=" text-2xl font-semibold">Nutrition Facts</h2>
               <p className="text-md pl-1">(per serving)</p>
             </div>
             <div className="w-full space-y-2 pb-6">

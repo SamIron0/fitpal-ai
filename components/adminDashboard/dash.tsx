@@ -93,7 +93,6 @@ export default function Dash() {
               <li key={index}>{ingredient}</li>
             ))}{" "}
           </ul>
-          <div> imgurl:{createdRecipe.imgurl}</div>
           <div> protein:{createdRecipe.protein}</div>
           <div> fats:{createdRecipe.fats}</div>
           <div> carbs:{createdRecipe.carbs}</div>
