@@ -21,9 +21,10 @@ export const createRecipe = async (
       protein: recipes.protein,
       fats: recipes.fats,
       carbs: recipes.carbs,
-      calories: recipes.calories,
+      csalories: recipes.calories,
       instructions: recipes.instructions,
-      portions: recipes.portions
+      portions: recipes.portions,
+      url: recipes.url
     })
     .select("*")
 
