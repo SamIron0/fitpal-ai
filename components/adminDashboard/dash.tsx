@@ -12,11 +12,25 @@ import { useRouter } from "next/navigation"
 import { urlExists } from "@/db/recipes"
 interface Props {
   recipe?: TablesInsert<"recipes">
+  handleScrapeUrl: (url: string) => void
 }
-export default function Dash({ recipe }: Props) {
+export default function Dash({ recipe, handleScrapeUrl }: Props) {
+  const [url, setUrl] = useState("")
   return (
     <div className="my-12 flex w-full flex-col items-center p-4">
-      {" "}
+      <div className="flex w-full flex-1 flex-col justify-center gap-2 text-foreground animate-in">
+        <div className="my-12 flex w-full flex-col items-center p-4">
+          <Input
+            value={url}
+            onChange={e => setUrl(e.target.value)}
+            placeholder={"url"}
+            style={{ fontSize: "16px" }}
+          />
+          <Button onClick={() => handleScrapeUrl(url)} className="mt-6">
+            Scrape
+          </Button>
+        </div>
+      </div>
       {recipe ? (
         <div className="mt-8 flex w-full  max-w-3xl flex-col justify-center border-2 p-2">
           <div>Name:{recipe.name}</div>

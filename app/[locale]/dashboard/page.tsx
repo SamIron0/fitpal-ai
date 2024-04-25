@@ -9,6 +9,7 @@ import axios from "axios"
 import { TablesInsert } from "@/supabase/types"
 import { v4 as uuidv4 } from "uuid"
 import { cookies } from "next/headers"
+import { url } from "inspector"
 
 export default async function Dashboard() {
   const supabase = createClient(cookies())
@@ -22,11 +23,7 @@ export default async function Dashboard() {
     return redirect("/")
   }
 
-  const handleScrapeUrl = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault() // prevent default form submission
-    const formData = new FormData(event.target as HTMLFormElement)
-    const url = formData.get("url") as string
-
+  const handleScrapeUrl = async (url: string) => {
     if (!url) {
       toast.error("Please enter a valid URL")
       return
@@ -79,17 +76,5 @@ export default async function Dashboard() {
     }
   }
 
-  return (
-    <form
-      className="flex w-full flex-1 flex-col justify-center gap-2 text-foreground animate-in"
-      onSubmit={handleScrapeUrl}
-    >
-      <div className="my-12 flex w-full flex-col items-center p-4">
-        <Input name="url" placeholder={"url"} style={{ fontSize: "16px" }} />
-        <Button type="submit" className="mt-6">
-          Scrape
-        </Button>
-      </div>
-    </form>
-  )
+  return <Dash handleScrapeUrl={url => handleScrapeUrl(url)} />
 }
