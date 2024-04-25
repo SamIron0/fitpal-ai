@@ -61,7 +61,7 @@ export default function ChatPage() {
                   <div key={recipe.id} className="flex flex-col ">
                     {recipe.imgurl ? (
                       <img
-                        src={"/images/" + recipe.imgurl}
+                        src={"/" + recipe.imgurl}
                         className="h-24"
                         alt="logo"
                       >
