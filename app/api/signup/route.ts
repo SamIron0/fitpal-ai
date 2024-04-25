@@ -29,8 +29,23 @@ export async function POST(request: Request) {
     })
 
     if (error) {
-      console.error(error)
-      return redirect(`/login?message=${error.message}`)
+      return new Response(
+        JSON.stringify({
+          errors: [
+            {
+              status: "401",
+              title: "Authentication failed",
+              detail: error.message
+            }
+          ]
+        }),
+        {
+          status: 401,
+          headers: {
+            "Content-Type": "application/json"
+          }
+        }
+      )
     }
     return new Response(JSON.stringify("signed up"))
   } catch (error) {

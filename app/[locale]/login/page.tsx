@@ -9,6 +9,7 @@ import { get } from "@vercel/edge-config"
 import { Metadata } from "next"
 import { cookies, headers } from "next/headers"
 import { redirect } from "next/navigation"
+import { toast } from "sonner"
 
 export const metadata: Metadata = {
   title: "Login"
@@ -62,7 +63,8 @@ export default async function Login({
     })
 
     if (error) {
-      return redirect(`/login?message=${error.message}`)
+      toast.error(error.message)
+      return
     }
 
     const { data: homeWorkspace, error: homeWorkspaceError } = await supabase
@@ -123,8 +125,8 @@ export default async function Login({
     })
 
     if (error) {
-      console.error(error)
-      return redirect(`/login?message=${error.message}`)
+      toast.error(error.message)
+      return
     }
 
     return redirect("/setup")

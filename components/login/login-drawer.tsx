@@ -37,15 +37,16 @@ export const LoginDrawer = ({ children, searchParams }: LoginDrawerProps) => {
     })
     if (res.ok) {
       const json = await res.json()
-      //console.log(json)
-      //console.log(json.data)
       if (json) {
         router.refresh()
       }
       return
     } else {
       const error = await res.json()
-      toast.error(error.message)
+      console.log(error.error)
+      console.log("err", error)
+
+      toast.error(error.error.details)
     }
   }
 
