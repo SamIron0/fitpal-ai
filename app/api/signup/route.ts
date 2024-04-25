@@ -28,7 +28,7 @@ export async function POST(request: Request) {
       }
     })
 
-    console.log("sign", error)
+    //console.log("sign", error)
     if (error) {
       return new Response(
         JSON.stringify({
