@@ -25,14 +25,12 @@ export const MealDrawer = ({ children, recipe }: MealDrawerProps) => {
   const router = useRouter()
 
   return (
-    <>
-      <Drawer>
-        <DrawerTrigger className="flex items-center justify-center  ">
-          {" "}
-          {children}
-        </DrawerTrigger>
-        <DrawerContent className="flex flex-col items-center"></DrawerContent>
-      </Drawer>
-    </>
+    <Drawer>
+      <DrawerTrigger className="flex items-center justify-center  ">
+        {" "}
+        {children}
+      </DrawerTrigger>
+      <DrawerContent className="flex flex-col items-center"></DrawerContent>
+    </Drawer>
   )
 }
