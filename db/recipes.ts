@@ -108,7 +108,6 @@ export const urlExists = async (url: string) => {
     .from("recipes")
     .select("url")
     .eq("url", url)
-    .single()
   if (error) {
     throw new Error(error.message)
   }

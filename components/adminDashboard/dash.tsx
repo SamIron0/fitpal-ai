@@ -68,8 +68,11 @@ export default function Dash() {
       })
 
       if (createRecipeResponse.status === 200) {
+        toast.dismiss(toastId)
+        setRecipe(recipe)
         toast.success("Recipe scraped successfully")
       } else {
+        toast.dismiss(toastId)
         toast.error("Error scraping recipe")
       }
     } catch (error) {
@@ -88,13 +91,13 @@ export default function Dash() {
             placeholder={"url"}
             style={{ fontSize: "16px" }}
           />
-          <Button onClick={() => handleScrapeUrl(url)} className="mt-6">
+          <Button onClick={() => handleScrapeUrl(url)} className="mt-6 px-20">
             Scrape
           </Button>
         </div>
       </div>
       {recipe ? (
-        <div className="mt-8 flex w-full  max-w-3xl flex-col justify-center border-2 p-2">
+        <div className="mt-8 flex w-full max-w-3xl  flex-col justify-center rounded-md border-2 p-2">
           <div>Name:{recipe.name}</div>
           <div>Description: {recipe.description}</div>
           <ul>
