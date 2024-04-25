@@ -49,7 +49,7 @@ export default function ChatPage() {
           </div>
         </div>
       ) : (
-        <div className="w-full max-w-4xl pt-24">
+        <div className="w-full max-w-4xl py-24">
           {generatedRecipes[0] ? (
             <>
               <p className="mb-5 text-3xl font-semibold">Best Results</p>
