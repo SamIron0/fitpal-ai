@@ -64,9 +64,7 @@ export default function ChatPage() {
                         src={"/" + recipe.imgurl}
                         className="h-24"
                         alt="logo"
-                      >
-                        {" "}
-                      </img>
+                      />
                     ) : (
                       <div className="border-1 mb-2 rounded-lg border-gray-300 bg-gray-600 p-2 py-10 text-black"></div>
                     )}
