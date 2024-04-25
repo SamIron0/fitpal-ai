@@ -71,6 +71,7 @@ export const Macros: FC<MacrosProps> = ({
           type="number"
           value={calories}
           onChange={e => setCalories(Number(e.target.value))}
+          className="text-[16px]"
         />
       </div>
 

@@ -24,7 +24,7 @@ export const Allergies: FC<AllergiesProps> = ({
 
   return (
     <div className="mt-12 w-full">
-      <div className="text-muted-foreground  text-sm font-semibold">
+      <div className="text-sm  font-semibold text-muted-foreground">
         Allergies
       </div>
       <div className="mt-2 flex space-x-2">
@@ -33,6 +33,7 @@ export const Allergies: FC<AllergiesProps> = ({
           placeholder="start typing..."
           value={allergyInput}
           onChange={e => setAllergyInput(e.target.value)}
+          className="text-[16px]"
         />
 
         <Button onClick={() => addAllergy()} className="shrink-0">
