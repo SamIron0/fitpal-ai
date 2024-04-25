@@ -43,9 +43,10 @@ export const LoginDrawer = ({ children, searchParams }: LoginDrawerProps) => {
       return
     } else {
       const error = await res.json()
-      console.log(error.detals)
 
-      toast.error(error.details)
+      console.log(error[0].detail)
+      console.log(error[0])
+      toast.error(error[0].detail)
     }
   }
 
@@ -68,9 +69,9 @@ export const LoginDrawer = ({ children, searchParams }: LoginDrawerProps) => {
       return
     } else {
       const error = await res.json()
-      console.log(error.detals)
-
-      toast.error(error.details)
+      console.log(error[0].detail)
+      console.log(error[0])
+      toast.error(error[0].detail)
     }
   }
   const handleResetPassword = async (formData: FormData) => {}
