@@ -42,6 +42,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs"
 import { TextareaAutosize } from "../ui/textarea-autosize"
 import { WithTooltip } from "../ui/with-tooltip"
 import { ThemeSwitcher } from "./theme-switcher"
+import { LoginDrawer } from "../login/login-drawer"
 
 interface ProfileSettingsProps {}
 
@@ -140,89 +141,12 @@ export const ProfileSettings: FC<ProfileSettingsProps> = ({}) => {
       ...profile,
       display_name: displayName,
       username,
-      profile_context: profileInstructions,
-      image_url: profileImageUrl,
-      image_path: profileImagePath,
-      openai_api_key: openaiAPIKey,
-      openai_organization_id: openaiOrgID,
-      anthropic_api_key: anthropicAPIKey,
-      google_gemini_api_key: googleGeminiAPIKey,
-      mistral_api_key: mistralAPIKey,
-      groq_api_key: groqAPIKey,
-      perplexity_api_key: perplexityAPIKey,
-      use_azure_openai: useAzureOpenai,
-      azure_openai_api_key: azureOpenaiAPIKey,
-      azure_openai_endpoint: azureOpenaiEndpoint,
-      azure_openai_35_turbo_id: azureOpenai35TurboID,
-      azure_openai_45_turbo_id: azureOpenai45TurboID,
-      azure_openai_45_vision_id: azureOpenai45VisionID,
-      azure_openai_embeddings_id: azureEmbeddingsID,
-      openrouter_api_key: openrouterAPIKey
+      profile_context: profileInstructions
     })
 
     setProfile(updatedProfile)
 
     toast.success("Profile updated!")
-
-    const providers = [
-      "openai",
-      "google",
-      "azure",
-      "anthropic",
-      "mistral",
-      "groq",
-      "perplexity",
-      "openrouter"
-    ]
-
-    providers.forEach(async provider => {
-      let providerKey: keyof typeof profile
-
-      if (provider === "google") {
-        providerKey = "google_gemini_api_key"
-      } else if (provider === "azure") {
-        providerKey = "azure_openai_api_key"
-      } else {
-        providerKey = `${provider}_api_key` as keyof typeof profile
-      }
-
-      const models = LLM_LIST_MAP[provider]
-      const envKeyActive = envKeyMap[provider]
-
-      if (!envKeyActive) {
-        const hasApiKey = !!updatedProfile[providerKey]
-
-        if (provider === "openrouter") {
-          if (hasApiKey && availableOpenRouterModels.length === 0) {
-            const openrouterModels: OpenRouterLLM[] =
-              await fetchOpenRouterModels()
-            setAvailableOpenRouterModels(prev => {
-              const newModels = openrouterModels.filter(
-                model =>
-                  !prev.some(prevModel => prevModel.modelId === model.modelId)
-              )
-              return [...prev, ...newModels]
-            })
-          } else {
-            setAvailableOpenRouterModels([])
-          }
-        } else {
-          if (hasApiKey && Array.isArray(models)) {
-            setAvailableHostedModels(prev => {
-              const newModels = models.filter(
-                model =>
-                  !prev.some(prevModel => prevModel.modelId === model.modelId)
-              )
-              return [...prev, ...newModels]
-            })
-          } else if (!hasApiKey && Array.isArray(models)) {
-            setAvailableHostedModels(prev =>
-              prev.filter(model => !models.includes(model))
-            )
-          }
-        }
-      }
-    })
 
     setIsOpen(false)
   }
@@ -290,128 +214,124 @@ export const ProfileSettings: FC<ProfileSettingsProps> = ({}) => {
       buttonRef.current?.click()
     }
   }
-
-  if (!profile) return null
-
   return (
-    <Sheet open={isOpen} onOpenChange={setIsOpen}>
-      <SheetTrigger asChild>
-        {profile.image_url ? (
-          <Image
-            className="mt-2 size-[34px] cursor-pointer rounded hover:opacity-50"
-            src={profile.image_url + "?" + new Date().getTime()}
-            height={34}
-            width={34}
-            alt={"Image"}
-          />
-        ) : (
+    <>
+      {profile ? (
+        <Sheet open={isOpen} onOpenChange={setIsOpen}>
+          <SheetTrigger asChild>
+            {profile?.image_url ? (
+              <Image
+                className="mt-2 size-[34px] cursor-pointer rounded hover:opacity-50"
+                src={profile?.image_url + "?" + new Date().getTime()}
+                height={34}
+                width={34}
+                alt={"Image"}
+              />
+            ) : (
+              <Button size="icon" variant="ghost">
+                <IconUser size={SIDEBAR_ICON_SIZE} />
+              </Button>
+            )}
+          </SheetTrigger>
+
+          <SheetContent
+            className="flex flex-col justify-between"
+            side="left"
+            onKeyDown={handleKeyDown}
+          >
+            <div className="grow overflow-auto">
+              <SheetHeader>
+                <SheetTitle className="flex items-center justify-between space-x-2">
+                  <div>User Settings</div>
+
+                  <Button
+                    tabIndex={-1}
+                    className="text-xs"
+                    size="sm"
+                    onClick={handleSignOut}
+                  >
+                    <IconLogout className="mr-1" size={20} />
+                    Logout
+                  </Button>
+                </SheetTitle>
+              </SheetHeader>
+
+              <Tabs defaultValue="profile">
+                <TabsContent className="mt-4 space-y-4" value="profile">
+                  <div className="space-y-1">
+                    <div className="flex items-center space-x-2">
+                      <Label>Username</Label>
+
+                      <div className="text-xs">
+                        {username !== profile.username ? (
+                          usernameAvailable ? (
+                            <div className="text-green-500">AVAILABLE</div>
+                          ) : (
+                            <div className="text-red-500">UNAVAILABLE</div>
+                          )
+                        ) : null}
+                      </div>
+                    </div>
+
+                    <div className="relative">
+                      <Input
+                        className="pr-10"
+                        placeholder="Username..."
+                        value={username}
+                        onChange={e => {
+                          setUsername(e.target.value)
+                          checkUsernameAvailability(e.target.value)
+                        }}
+                        minLength={PROFILE_USERNAME_MIN}
+                        maxLength={PROFILE_USERNAME_MAX}
+                      />
+
+                      {username !== profile.username ? (
+                        <div className="absolute inset-y-0 right-0 flex items-center pr-3">
+                          {loadingUsername ? (
+                            <IconLoader2 className="animate-spin" />
+                          ) : usernameAvailable ? (
+                            <IconCircleCheckFilled className="text-green-500" />
+                          ) : (
+                            <IconCircleXFilled className="text-red-500" />
+                          )}
+                        </div>
+                      ) : null}
+                    </div>
+
+                    <LimitDisplay
+                      used={username.length}
+                      limit={PROFILE_USERNAME_MAX}
+                    />
+                  </div>
+                </TabsContent>
+              </Tabs>
+            </div>
+
+            <div className="mt-6 flex items-center">
+              <div className="flex items-center space-x-1">
+                <ThemeSwitcher />
+              </div>
+
+              <div className="ml-auto space-x-2">
+                <Button variant="ghost" onClick={() => setIsOpen(false)}>
+                  Cancel
+                </Button>
+
+                <Button ref={buttonRef} onClick={handleSave}>
+                  Save
+                </Button>
+              </div>
+            </div>
+          </SheetContent>
+        </Sheet>
+      ) : (
+        <LoginDrawer>
           <Button size="icon" variant="ghost">
             <IconUser size={SIDEBAR_ICON_SIZE} />
           </Button>
-        )}
-      </SheetTrigger>
-
-      <SheetContent
-        className="flex flex-col justify-between"
-        side="left"
-        onKeyDown={handleKeyDown}
-      >
-        <div className="grow overflow-auto">
-          <SheetHeader>
-            <SheetTitle className="flex items-center justify-between space-x-2">
-              <div>User Settings</div>
-
-              <Button
-                tabIndex={-1}
-                className="text-xs"
-                size="sm"
-                onClick={handleSignOut}
-              >
-                <IconLogout className="mr-1" size={20} />
-                Logout
-              </Button>
-            </SheetTitle>
-          </SheetHeader>
-
-          <Tabs defaultValue="profile">
-            <TabsContent className="mt-4 space-y-4" value="profile">
-              <div className="space-y-1">
-                <div className="flex items-center space-x-2">
-                  <Label>Username</Label>
-
-                  <div className="text-xs">
-                    {username !== profile.username ? (
-                      usernameAvailable ? (
-                        <div className="text-green-500">AVAILABLE</div>
-                      ) : (
-                        <div className="text-red-500">UNAVAILABLE</div>
-                      )
-                    ) : null}
-                  </div>
-                </div>
-
-                <div className="relative">
-                  <Input
-                    className="pr-10"
-                    placeholder="Username..."
-                    value={username}
-                    onChange={e => {
-                      setUsername(e.target.value)
-                      checkUsernameAvailability(e.target.value)
-                    }}
-                    minLength={PROFILE_USERNAME_MIN}
-                    maxLength={PROFILE_USERNAME_MAX}
-                  />
-
-                  {username !== profile.username ? (
-                    <div className="absolute inset-y-0 right-0 flex items-center pr-3">
-                      {loadingUsername ? (
-                        <IconLoader2 className="animate-spin" />
-                      ) : usernameAvailable ? (
-                        <IconCircleCheckFilled className="text-green-500" />
-                      ) : (
-                        <IconCircleXFilled className="text-red-500" />
-                      )}
-                    </div>
-                  ) : null}
-                </div>
-
-                <LimitDisplay
-                  used={username.length}
-                  limit={PROFILE_USERNAME_MAX}
-                />
-              </div>
-
-              <div className="space-y-1">
-                <Label>Chat Display Name</Label>
-
-                <Input
-                  placeholder="Chat display name..."
-                  value={displayName}
-                  onChange={e => setDisplayName(e.target.value)}
-                  maxLength={PROFILE_DISPLAY_NAME_MAX}
-                />
-              </div>
-            </TabsContent>
-          </Tabs>
-        </div>
-
-        <div className="mt-6 flex items-center">
-          <div className="flex items-center space-x-1">
-            <ThemeSwitcher />
-          </div>
-
-          <div className="ml-auto space-x-2">
-            <Button variant="ghost" onClick={() => setIsOpen(false)}>
-              Cancel
-            </Button>
-
-            <Button ref={buttonRef} onClick={handleSave}>
-              Save
-            </Button>
-          </div>
-        </div>
-      </SheetContent>
-    </Sheet>
+        </LoginDrawer>
+      )}
+    </>
   )
 }

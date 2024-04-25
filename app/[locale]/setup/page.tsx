@@ -184,7 +184,7 @@ export default function SetupPage() {
           <StepContainer
             stepDescription="Enter your macros(you can edit this later)."
             stepNum={currentStep}
-            stepTitle="Set your macros (optional)"
+            stepTitle="Set your macros"
             onShouldProceed={handleShouldProceed}
             showNextButton={true}
             showBackButton={true}

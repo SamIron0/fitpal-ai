@@ -164,7 +164,7 @@ export const handleHostedChat = async (
 
   let formattedMessages = []
   formattedMessages = await buildFinalMessages(payload, profile, chatImages)
-  const apiEndpoint = "/api/chat/custom"
+  const apiEndpoint = "/api/chat"
 
   const requestBody = {
     settings: settings,

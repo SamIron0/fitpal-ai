@@ -1,33 +1,93 @@
 "use client"
 
 import { ChatInput } from "@/components/chat/chat-input"
-import { ChatUI } from "@/components/chat/chat-ui"
+import { MealDrawer } from "@/components/meal/meal-drawer"
 import { Brand } from "@/components/ui/brand"
 import { ChatbotUIContext } from "@/context/context"
+import { TablesInsert } from "@/supabase/types"
+import axios from "axios"
 import { useTheme } from "next-themes"
 import { useContext } from "react"
 
 export default function ChatPage() {
-  const { chatMessages } = useContext(ChatbotUIContext)
+  const { generatedRecipes, isGenerating } = useContext(ChatbotUIContext)
   const { theme } = useTheme()
+  /*const recentRecipes = await fetch("api/recipe/get_recipes", {
+    method: "POST",
+    body: JSON.stringify({ input: "" })
+  })*/
+  //const res: TablesInsert<"recipes">[] = await recipes.json()
+  //console.log(recentRecipes)
 
   return (
-    <>
-      {chatMessages.length === 0 ? (
-        <div className="relative flex h-full flex-col items-center justify-center">
-          <div className="top-50% left-50% -translate-x-50% -translate-y-50% absolute mb-20">
-            <Brand theme={theme === "dark" ? "dark" : "light"} />
-          </div>
+    <div className="relative flex h-full flex-col items-center overflow-y-auto px-4 sm:px-6">
+      <div className="top-50% left-50%  -translate-x-50% -translate-y-50% mb-9  mt-32">
+        <Brand theme={theme === "dark" ? "dark" : "light"} />
+      </div>
 
-          <div className="flex grow flex-col items-center justify-center" />
+      <div className="w-full max-w-md items-end  pb-3 pt-0  sm:pb-8 sm:pt-5">
+        <ChatInput />
+      </div>
+      {isGenerating ? (
+        <div className="w-full max-w-4xl py-28">
+          <p className="mb-5 text-2xl font-semibold">Best Results</p>
 
-          <div className="w-full min-w-[300px] items-end px-2 pb-3 pt-0 sm:w-[600px] sm:pb-8 sm:pt-5 md:w-[700px] lg:w-[700px] xl:w-[800px]">
-            <ChatInput />
+          <div
+            role="status"
+            className="grid w-full max-w-4xl animate-pulse grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4"
+          >
+            <div className="border-1 rounded-lg border-gray-300 bg-gray-600 p-2 py-10 text-black"></div>
+            <div className="border-1 rounded-lg border-gray-300 bg-gray-600 p-2 py-10 text-black"></div>
+            <div className="border-1 rounded-lg border-gray-300 bg-gray-600 p-2 py-10 text-black"></div>
+            <div className="border-1 rounded-lg border-gray-300 bg-gray-600 p-2 py-10 text-black"></div>
+            <div className="border-1 rounded-lg border-gray-300 bg-gray-600 p-2 py-10 text-black"></div>
+
+            <div className="border-1 rounded-lg border-gray-300 bg-gray-600 p-2 py-10 text-black"></div>
+
+            <div className="border-1 rounded-lg border-gray-300 bg-gray-600 p-2 py-10 text-black"></div>
+
+            <div className="border-1 rounded-lg border-gray-300 bg-gray-600 p-2 py-10 text-black"></div>
           </div>
         </div>
       ) : (
-        <ChatUI />
+        <div className="w-full max-w-4xl py-28">
+          {generatedRecipes[0] ? (
+            <>
+              <p className="mb-5 text-3xl font-semibold">Best Results</p>
+              <div
+                role="status"
+                className="grid w-full max-w-4xl grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4"
+              >
+                {generatedRecipes?.map(recipe => (
+                  <MealDrawer key={recipe.id} recipe={recipe}>
+                    <div className="flex flex-col ">
+                      {recipe.imgurl ? (
+                        <img
+                          src={"/images/" + recipe.imgurl}
+                          className="border-1 mb-2 w-full rounded-lg border-gray-300 object-cover"
+                          alt={recipe.name || "Recipe Image"}
+                        />
+                      ) : (
+                        <div className="border-1 mb-2 rounded-lg border-gray-300 bg-gray-600 p-2 py-10 text-black"></div>
+                      )}
+
+                      <p className="text-md w-full text-left">{recipe.name}</p>
+                    </div>
+                  </MealDrawer>
+                ))}
+              </div>
+            </>
+          ) : (
+            <>
+              <p className="mb-5 text-3xl font-semibold">For You</p>
+              <div
+                role="status"
+                className="grid w-full max-w-4xl grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4"
+              ></div>
+            </>
+          )}
+        </div>
       )}
-    </>
+    </div>
   )
 }

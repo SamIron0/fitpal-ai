@@ -59,7 +59,8 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
     setChatImages,
     setNewMessageFiles,
     setNewMessageImages,
-    setShowFilesDisplay
+    setShowFilesDisplay,
+    isGenerating
   } = useContext(ChatbotUIContext)
 
   const [loading, setLoading] = useState(true)
@@ -76,25 +77,8 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
     })()
   }, [])
 
-  useEffect(() => {
-    ;(async () => await fetchWorkspaceData(workspaceId))()
-
-    setUserInput("")
-    setChatMessages([])
-    setSelectedChat(null)
-
-    setIsGenerating(false)
-    setFirstTokenReceived(false)
-
-    setChatFiles([])
-    setChatImages([])
-    setNewMessageFiles([])
-    setNewMessageImages([])
-    setShowFilesDisplay(false)
-  }, [workspaceId])
-
   const fetchWorkspaceData = async (workspaceId: string) => {
-    setLoading(true)
+    //!isGenerating ? setLoading(true) : null
 
     const { data: subscription, error } = await supabase
       .from("subscriptions")

@@ -13,19 +13,24 @@ interface SidebarProps {
 }
 
 export const Sidebar: FC<SidebarProps> = ({ contentType, showSidebar }) => {
-  const { folders, chats, presets, prompts } = useContext(ChatbotUIContext)
+  const { folders, chats, presets, calculator } = useContext(ChatbotUIContext)
 
-  const chatFolders = folders.filter(folder => folder.type === "chats")
   const presetFolders = folders.filter(folder => folder.type === "presets")
-  const promptFolders = folders.filter(folder => folder.type === "prompts")
+  const calculatorFolders = folders.filter(
+    folder => folder.type === "calculator"
+  )
 
   const renderSidebarContent = (
     contentType: ContentType,
-    data: any[],
-    folders: Tables<"folders">[]
+    folders: Tables<"folders">[],
+    data?: any[]
   ) => {
     return (
-      <SidebarContent contentType={contentType} data={data} folders={folders} />
+      <SidebarContent
+        contentType={contentType}
+        data={data || []}
+        folders={folders}
+      />
     )
   }
 
@@ -43,14 +48,11 @@ export const Sidebar: FC<SidebarProps> = ({ contentType, showSidebar }) => {
       <div className="flex h-full flex-col p-3">
         {(() => {
           switch (contentType) {
-            case "chats":
-              return renderSidebarContent("chats", chats, chatFolders)
-
             case "presets":
-              return renderSidebarContent("presets", presets, presetFolders)
+              return renderSidebarContent("presets", presetFolders, presets)
 
-            case "prompts":
-              return renderSidebarContent("prompts", prompts, promptFolders)
+            case "calculator":
+              return renderSidebarContent("calculator", calculatorFolders)
 
             default:
               return null

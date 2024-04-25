@@ -25,7 +25,7 @@ export const Dashboard: FC<DashboardProps> = ({ children }) => {
   const pathname = usePathname()
   const router = useRouter()
   const searchParams = useSearchParams()
-  const tabValue = searchParams.get("tab") || "chats"
+  const tabValue = searchParams.get("tab") || "presets"
 
   const { handleSelectDeviceFile } = useSelectFileHandler()
 
@@ -68,7 +68,7 @@ export const Dashboard: FC<DashboardProps> = ({ children }) => {
   }
 
   return (
-    <div className="flex size-full">
+    <div className="flex size-full h-screen overflow-y-hidden">
       <CommandK />
 
       <div
@@ -99,7 +99,7 @@ export const Dashboard: FC<DashboardProps> = ({ children }) => {
       </div>
 
       <div
-        className="bg-muted/50 relative flex w-screen min-w-[90%] grow flex-col sm:min-w-fit"
+        className="relative  flex  w-screen min-w-[90%] grow flex-col overflow-y-hidden bg-muted/50 sm:min-w-fit"
         onDrop={onFileDrop}
         onDragOver={onDragOver}
         onDragEnter={handleDragEnter}

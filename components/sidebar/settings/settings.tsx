@@ -1,5 +1,5 @@
-import { toast } from "react-hot-toast"
-import { FC, useContext, useState } from "react"
+import { toast } from "sonner"
+import { FC, useContext, useEffect, useState } from "react"
 import { Button } from "../../ui/button"
 import { DietSelect } from "../../diet/diet-select"
 import { Macros } from "./macros"
@@ -8,7 +8,8 @@ import { Allergies } from "./allergies"
 import { updateSettings } from "@/db/settings"
 import { TablesUpdate } from "@/supabase/types"
 import { ChatbotUIContext } from "@/context/context"
-import { updateEmbeddings } from "./embeddings"
+import { LoginDrawer } from "@/components/login/login-drawer"
+import { createClient } from "@/lib/supabase/client"
 
 interface SettingsProps {}
 export const Settings: FC<SettingsProps> = () => {
@@ -22,6 +23,9 @@ export const Settings: FC<SettingsProps> = () => {
   const [allergies, setAllergies] = useState<string[]>(
     settings?.allergies || []
   )
+
+  const [session, setSession] = useState<any>(null)
+
   const { setChatSettings, chatSettings, setSettings } =
     useContext(ChatbotUIContext)
   //console.log("settings:", settings)
@@ -37,12 +41,33 @@ export const Settings: FC<SettingsProps> = () => {
     workspace_id: settings?.workspace_id,
     user_id: settings?.user_id
   }
-  const handleSaveChanges = async (id: string, settings: any) => {
-    const toastId = toast.loading("Saving...")
+  const supabase = createClient()
 
-    if (settings !== undefined) {
-      setSettings(settings)
+  useEffect(() => {
+    async function getSession() {
+      const {
+        data: { session },
+        error
+      } = await supabase.auth.getSession()
+      if (error) {
+        console.error("Error getting session:", error)
+      } else {
+        setSession(session)
+        // Do something with the session
+      }
     }
+
+    getSession()
+  }, []) // Run the effect only once, when the component mounts
+
+  const handleSaveChanges = async (id: string, settings: any) => {
+    // update context
+    if (settings.id === undefined || settings.id === "") {
+      return
+    }
+    const toastId = toast.loading("Saving...")
+    setSettings(settings)
+    // update thtee db
     await updateSettings(id, settings)
     setChatSettings({
       includeWorkspaceInstructions:
@@ -55,26 +80,28 @@ export const Settings: FC<SettingsProps> = () => {
       embeddingsProvider: chatSettings?.embeddingsProvider || "openai",
       contextIsOutdated: true
     })
-
-    const embeddings = await updateEmbeddings(
-      "Settings",
-      JSON.stringify(settings),
-      settings.workspace_id || ""
-    )
-    console.log("embeddings:", embeddings)
-    toast.remove(toastId)
+    toast.dismiss(toastId)
     toast.success("Settings saved!")
   }
   return (
     <>
-      <Button
-        className="mb-3 mt-4 flex  h-[36px] grow"
-        onClick={() => handleSaveChanges(settings.id, settingsUpdate)}
-        disabled={JSON.stringify(settings) === JSON.stringify(settingsUpdate)}
-      >
-        Save Changes{" "}
-      </Button>
-      <div className="text-muted-foreground mb-1 mt-4 text-sm font-semibold">
+      {session ? (
+        <Button
+          className="mb-3 mt-4 flex  h-[36px] grow"
+          onClick={() => handleSaveChanges(settings.id, settingsUpdate)}
+          disabled={JSON.stringify(settings) === JSON.stringify(settingsUpdate)}
+        >
+          Save Changes{" "}
+        </Button>
+      ) : (
+        <LoginDrawer>
+          {" "}
+          <Button className="mb-3 mt-4 flex  h-[36px] grow">
+            Save Changes{" "}
+          </Button>
+        </LoginDrawer>
+      )}
+      <div className="mb-1 mt-4 text-sm font-semibold text-muted-foreground">
         Diet
       </div>
       <DietSelect onSelect={setSelectedDiet} selectedDiet={selectedDiet} />

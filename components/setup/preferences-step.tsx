@@ -23,7 +23,7 @@ export const PreferencesStep: FC<PreferencesStepProps> = ({
   setWorkouts
 }) => {
   return (
-    <>
+    <div className="mb-4 flex flex-col">
       <div className=" space-y-1">
         <Label className="flex items-center">
           <div>Diet {"  "}</div>
@@ -31,7 +31,7 @@ export const PreferencesStep: FC<PreferencesStepProps> = ({
 
         <DietSelect onSelect={setDiet} selectedDiet={diet as DietProvider} />
       </div>
-      <div className="space-y-1 pb-2">
+      <div className="space-y-1 py-2">
         <Label className="mb-3 flex items-center">
           <div className="mr-2">Workouts: {"  "}</div>
           <div className="text-muted-foreground">{workouts} / week</div>
@@ -56,8 +56,9 @@ export const PreferencesStep: FC<PreferencesStepProps> = ({
           value={allergies}
           onChange={e => setAllergies(e.target.value.split(","))}
           placeholder="eg. milk, eggs, nuts"
+          className="text-[16px]"
         />
       </div>
-    </>
+    </div>
   )
 }

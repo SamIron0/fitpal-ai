@@ -12,6 +12,7 @@ import { ReactNode } from "react"
 import "./globals.css"
 import ToasterProvider from "@/components/utility/toasterProvider"
 import { Analytics } from "@vercel/analytics/react"
+import { Dashboard } from "@/components/ui/dashboard"
 
 const inter = Inter({ subsets: ["latin"] })
 const APP_NAME = "Chatbot UI"
@@ -115,8 +116,12 @@ export default async function RootLayout({
             resources={resources}
           >
             <Toaster richColors position="top-center" duration={3000} />
-            <div className="bg-background text-foreground flex h-dvh flex-col items-center overflow-x-hidden">
-              {session ? <GlobalState>{children}</GlobalState> : children}
+            <div className="flex h-dvh flex-col items-center overflow-x-hidden bg-background text-foreground">
+              {session ? (
+                <GlobalState>{children}</GlobalState>
+              ) : (
+                <Dashboard>{children}</Dashboard>
+              )}
             </div>
           </TranslationsProvider>
         </Providers>

@@ -1,6 +1,5 @@
 "use client"
 
-import { Button } from "../ui/button"
 import type { Tables } from "@/supabase/types"
 import { getStripe } from "@/utils/stripe/client"
 import { checkoutWithStripe } from "@/utils/stripe/server"
@@ -11,12 +10,7 @@ import { useState } from "react"
 
 import { CheckIcon } from "@heroicons/react/20/solid"
 
-const includedFeatures = [
-  "Calculate your macros",
-  "Member resources",
-  "Entry to annual conference",
-  "Official member t-shirt"
-]
+const includedFeatures = ["Macro calculator", "24/7 support"]
 type Subscription = Tables<"subscriptions">
 type Product = Tables<"products">
 type Price = Tables<"prices">
@@ -33,12 +27,11 @@ interface SubscriptionWithProduct extends Subscription {
 interface Props {
   user: User | null | undefined
   products: ProductWithPrices[] | null
-  subscription: SubscriptionWithProduct | null
 }
 
 type BillingInterval = "lifetime" | "year" | "month"
 
-export default function Offers({ user, products, subscription }: Props) {
+export default function Offers({ user, products }: Props) {
   const intervals = Array.from(
     new Set(
       products?.flatMap(product =>

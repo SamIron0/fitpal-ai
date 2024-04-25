@@ -82,6 +82,73 @@ export type Database = {
           }
         ]
       }
+      recipes: {
+        Row: {
+          id: string
+          name: string | null
+          description: string | null
+          ingredients: string[] | null
+          cooking_time: string | null
+          imgurl: string | null
+          protein: number | null
+          fats: number | null
+          carbs: number | null
+          calories: number | null
+          instructions: string[] | null
+          portions: number | null
+          url: string
+        }
+        Insert: {
+          id: string
+          name?: string | null
+          description?: string | null
+          ingredients?: string[] | null
+          cooking_time?: string | null
+          imgurl?: string | null
+          protein?: number | null
+          fats?: number | null
+          carbs?: number | null
+          calories?: number | null
+          instructions?: string[] | null
+          portions?: number | null
+          url?: string
+        }
+
+        Update: {
+          id?: string
+          name?: string | null
+          description?: string | null
+          ingredients?: string[] | null
+          cooking_time?: string | null
+          imgurl?: string | null
+          protein?: number | null
+          fats?: number | null
+          carbs?: number | null
+          calories?: number | null
+          instructions?: string[] | null
+          portions?: number | null
+          url?: string
+        }
+      }
+
+      recipe_tags: {
+        Row: {
+          id: string
+          name: string
+          recipes: string[]
+        }
+        Insert: {
+          id: string
+          name: string
+          recipes?: string[]
+        }
+
+        Update: {
+          id?: string
+          name?: string
+          recipes?: string[]
+        }
+      }
       documents: {
         Row: {
           workspace_id: string
@@ -102,6 +169,7 @@ export type Database = {
           embedding?: number[]
         }
       }
+
       assistant_collections: {
         Row: {
           assistant_id: string
@@ -282,6 +350,32 @@ export type Database = {
             columns: ["workspace_id"]
             isOneToOne: false
             referencedRelation: "workspaces"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      for_you: {
+        Row: {
+          id: string
+          userId: string | null
+          recipeIds: string[] | null
+        }
+        Insert: {
+          id?: string
+          userId?: string | null
+          recipeIds?: string[] | null
+        }
+        Update: {
+          id?: string
+          userId?: string | null
+          recipeIds?: string[] | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "for_you_user_id_fkey"
+            columns: ["userId"]
+            isOneToOne: false
+            referencedRelation: "users"
             referencedColumns: ["id"]
           }
         ]

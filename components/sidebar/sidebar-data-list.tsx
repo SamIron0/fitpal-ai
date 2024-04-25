@@ -10,7 +10,7 @@ import { updateTool } from "@/db/tools"
 import { cn } from "@/lib/utils"
 import { Tables } from "@/supabase/types"
 import { ContentType, DataItemType, DataListType } from "@/types"
-
+import Link from "next/link"
 import { FC, useContext, useEffect, useRef, useState } from "react"
 import { Separator } from "../ui/separator"
 import { ChatItem } from "./items/chat/chat-item"
@@ -20,8 +20,9 @@ import { PromptItem } from "./items/prompts/prompt-item"
 import { SidebarSearch } from "./sidebar-search"
 import { SidebarCreateButtons } from "./sidebar-create-buttons"
 import { Settings } from "./settings/settings"
-import { Calculator } from "./settings/calculator/calculator"
+import { Calculator } from "../calculator/calculator"
 import { updateCalculator } from "@/db/calculator"
+import Pricing from "@/app/[locale]/pricing/page"
 interface SidebarDataListProps {
   contentType: ContentType
   data: DataListType
@@ -64,9 +65,6 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
 
       case "presets":
         return <PresetItem key={item.id} preset={item as Tables<"presets">} />
-
-      case "prompts":
-        return <PromptItem key={item.id} prompt={item as Tables<"prompts">} />
 
       default:
         return null
@@ -272,7 +270,7 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
                     return (
                       sortedData.length > 0 && (
                         <div key={dateCategory} className="pb-2">
-                          <div className="text-muted-foreground mb-1 text-sm font-bold">
+                          <div className="mb-1 text-sm font-bold text-muted-foreground">
                             {dateCategory}
                           </div>
 
@@ -306,8 +304,17 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
           </>
         ) : contentType === "presets" ? (
           <Settings />
-        ) : contentType === "calculator" && subscription ? (
-          <Calculator />
+        ) : contentType === "calculator" ? (
+          !subscription.id ? (
+            <Calculator />
+          ) : (
+            <Link
+              className="mb-3 mt-4 flex h-[36px] grow  bg-white px-3"
+              href={"/pricing"}
+            >
+              Access Macro Calculator
+            </Link>
+          )
         ) : null}
       </div>
 
