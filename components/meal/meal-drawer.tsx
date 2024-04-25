@@ -31,7 +31,7 @@ export const MealDrawer = ({ children, recipe }: MealDrawerProps) => {
         {children}
       </DrawerTrigger>
       <DrawerContent>
-        <div className="flex h-[90vh] flex-col overflow-y-auto">
+        <div className="flex h-[70vh] flex-col overflow-y-auto">
           <div className="mt-8 flex w-full flex-col p-2 ">
             <div className="w-full justify-end">
               <img
