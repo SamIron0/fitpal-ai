@@ -60,7 +60,7 @@ export const createRecipe = async (
 }
 
 export const getRecipesWithTags = async (tags: string[]) => {
-  console.log("tags2: " + tags)
+  //console.log("tags2: " + tags)
   const supabase = createClient(cookies())
   const recipeIds: Set<number> = new Set() // use a Set to ensure uniqueness
   const recipes: any[] = []

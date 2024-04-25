@@ -29,7 +29,7 @@ export default function ChatPage() {
       </div>
       {isGenerating ? (
         <div className="w-full max-w-4xl pt-24">
-          <p className="mb-5 text-3xl font-semibold">Recent Meals</p>
+          <p className="mb-5 text-3xl font-semibold">Best Results</p>
 
           <div
             role="status"
@@ -61,8 +61,9 @@ export default function ChatPage() {
                   <div key={recipe.id} className="flex flex-col ">
                     {recipe.imgurl ? (
                       <img
-                        src={recipe?.imgurl}
-                        className="border-1 mb-2 rounded-lg border-gray-300 bg-gray-600 p-2 py-10 text-black"
+                        src={"/images/" + recipe.imgurl}
+                        className="h-24"
+                        alt="logo"
                       >
                         {" "}
                       </img>
