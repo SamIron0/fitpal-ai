@@ -6,7 +6,7 @@ export const getGuestForYou = async () => {
   const { data: recipes, error } = await supabase
     .from("recipes")
     .select("*")
-    .order("RANDOM()")
+    //.order("RANDOM()")
     .limit(10)
   if (error) {
     throw error
