@@ -46,7 +46,7 @@ export const createRecipe = async (
       if (updateError) {
         throw new Error(updateError.message)
       }
-      console.log("data: " + updateData)
+      //console.log("data: " + updateData)
     } else {
       const { data: insertData, error: insertError } = await supabase
         .from("recipe_tags")

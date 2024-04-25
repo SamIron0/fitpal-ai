@@ -20,7 +20,6 @@ export default async function ChatPage() {
   if (error) {
     console.error("Error getting session:", error)
   } else {
-    console.log("Current session:", session)
     // Do something with the session
   }
 
@@ -31,7 +30,6 @@ export default async function ChatPage() {
     .eq("is_home", true)
     .single()
 
-  console.log("hws", homeWorkspace)
   if (homeWorkspace) {
     router.push(`/${homeWorkspace.id}/chat`)
   }
