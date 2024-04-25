@@ -81,18 +81,30 @@ export default function Dash() {
       />
       <Button onClick={() => onScrapeUrl(url)}>Submit</Button>
       {createdRecipe ? (
-        <div className="mt-8 flex w-full  max-w-3xl flex-col items-center justify-center border-2 p-2">
-          <div>{createdRecipe.name}</div>
-          <div>{createdRecipe.description}</div>
-          <div>{createdRecipe.ingredients}</div>
-          <div>{createdRecipe.imgurl}</div>
-          <div>{createdRecipe.protein}</div>
-          <div>{createdRecipe.fats}</div>
-          <div>{createdRecipe.carbs}</div>
-          <div>{createdRecipe.calories}</div>
-          <div>{createdRecipe.instructions}</div>
-          <div>{createdRecipe.portions}</div>
-          <div>{createdRecipe.cooking_time}</div>
+        <div className="mt-8 flex w-full  max-w-3xl flex-col justify-center border-2 p-2">
+          <div>Name:{createdRecipe.name}</div>
+          <div>Description: {createdRecipe.description}</div>
+          <ul>
+            {" "}
+            Ingredients:
+            {createdRecipe.ingredients?.map((ingredient, index) => (
+              <li key={index}>{ingredient}</li>
+            ))}{" "}
+          </ul>
+          <div> imgurl:{createdRecipe.imgurl}</div>
+          <div> protein:{createdRecipe.protein}</div>
+          <div> fats:{createdRecipe.fats}</div>
+          <div> carbs:{createdRecipe.carbs}</div>
+          <div> calories:{createdRecipe.calories}</div>
+          <ul>
+            {" "}
+            instructions:
+            {createdRecipe.instructions?.map((instruction, index) => (
+              <li key={index}>{instruction}</li>
+            ))}
+          </ul>
+          <div> portions:{createdRecipe.portions}</div>
+          <div> cooking_time:{createdRecipe.cooking_time}</div>
         </div>
       ) : null}{" "}
     </div>

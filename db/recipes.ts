@@ -21,7 +21,7 @@ export const createRecipe = async (
       protein: recipes.protein,
       fats: recipes.fats,
       carbs: recipes.carbs,
-      csalories: recipes.calories,
+      calories: recipes.calories,
       instructions: recipes.instructions,
       portions: recipes.portions,
       url: recipes.url
