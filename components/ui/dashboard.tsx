@@ -68,7 +68,7 @@ export const Dashboard: FC<DashboardProps> = ({ children }) => {
   }
 
   return (
-    <div className="flex size-full">
+    <div className="flex size-full h-screen overflow-y-hidden">
       <CommandK />
 
       <div
