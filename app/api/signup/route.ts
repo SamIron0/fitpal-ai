@@ -28,7 +28,7 @@ export async function POST(request: Request) {
       }
     })
 
-    console.log("sign", data)
+    console.log("sign", error)
     if (error) {
       return new Response(
         JSON.stringify({
@@ -45,8 +45,9 @@ export async function POST(request: Request) {
           }
         }
       )
+    } else {
+      return new Response(JSON.stringify("signed up"))
     }
-    return new Response(JSON.stringify("signed up"))
   } catch (error) {
     console.log(error)
     return new Response(JSON.stringify({ error: error }))

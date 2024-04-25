@@ -9,7 +9,6 @@ import { get } from "@vercel/edge-config"
 import { Metadata } from "next"
 import { cookies, headers } from "next/headers"
 import { redirect } from "next/navigation"
-import { toast } from "sonner"
 
 export const metadata: Metadata = {
   title: "Login"
@@ -63,8 +62,7 @@ export default async function Login({
     })
 
     if (error) {
-      toast.error(error.message)
-      return
+      return redirect(`/login?message=${error.message}`)
     }
 
     const { data: homeWorkspace, error: homeWorkspaceError } = await supabase
@@ -78,7 +76,6 @@ export default async function Login({
       throw new Error(
         homeWorkspaceError?.message || "An unexpected error occurred"
       )
-      return
     }
 
     return redirect(`/${homeWorkspace.id}/chat`)
@@ -126,8 +123,8 @@ export default async function Login({
     })
 
     if (error) {
-      toast.error(error.message)
-      return
+      console.error(error)
+      return redirect(`/login?message=${error.message}`)
     }
 
     return redirect("/setup")
@@ -156,7 +153,7 @@ export default async function Login({
   }
 
   return (
-    <div className="mx-auto flex w-full flex-1 flex-col justify-center gap-2 px-8 sm:max-w-md">
+    <div className="flex w-full flex-1 flex-col justify-center gap-2 px-8 sm:max-w-md">
       <form
         className="flex w-full flex-1 flex-col justify-center gap-2 text-foreground animate-in"
         action={signIn}

@@ -59,6 +59,7 @@ export const LoginDrawer = ({ children, searchParams }: LoginDrawerProps) => {
         "Content-Type": "application/json"
       }
     })
+    //error
     if (res.ok) {
       const json = await res.json()
       if (json) {
