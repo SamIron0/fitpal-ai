@@ -63,7 +63,7 @@ export default function ChatPage() {
                     <div className="flex flex-col ">
                       {recipe.imgurl ? (
                         <img
-                          src={"/" + recipe.imgurl}
+                          src={"/images/" + recipe.imgurl}
                           className="border-1 mb-2 w-full rounded-lg border-gray-300 object-cover"
                           alt={recipe.name || "Recipe Image"}
                         />

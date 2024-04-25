@@ -71,7 +71,7 @@ export default function Dash() {
     }
   }
   return (
-    <div className="my-12 flex w-full flex-col items-center justify-center p-4">
+    <div className="my-12 flex w-full flex-col items-center p-4">
       {" "}
       <Input
         value={url}
@@ -79,7 +79,9 @@ export default function Dash() {
         placeholder={"url"}
         style={{ fontSize: "16px" }}
       />
-      <Button onClick={() => onScrapeUrl(url)}>Submit</Button>
+      <Button className="mt-4 px-10" onClick={() => onScrapeUrl(url)}>
+        Submit
+      </Button>
       {createdRecipe ? (
         <div className="mt-8 flex w-full  max-w-3xl flex-col justify-center border-2 p-2">
           <div>Name:{createdRecipe.name}</div>
