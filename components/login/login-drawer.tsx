@@ -44,8 +44,6 @@ export const LoginDrawer = ({ children, searchParams }: LoginDrawerProps) => {
     } else {
       const error = await res.json()
       //console.log(error[0].detail)
-      console.log("1", error)
-      console.log("2", error.errors)
       toast.error(error.errors.detail)
     }
   }
@@ -64,14 +62,12 @@ export const LoginDrawer = ({ children, searchParams }: LoginDrawerProps) => {
     if (res.ok) {
       const json = await res.json()
       if (json) {
-        router.refresh()
+        router.push("/setup")
       }
       return
     } else {
       const error = await res.json()
       //console.log(error[0].detail)
-      console.log("1", error)
-      console.log("2", error.errors)
       toast.error(error.errors.detail)
     }
   }
