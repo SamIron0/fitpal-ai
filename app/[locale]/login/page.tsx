@@ -78,6 +78,7 @@ export default async function Login({
       throw new Error(
         homeWorkspaceError?.message || "An unexpected error occurred"
       )
+      return
     }
 
     return redirect(`/${homeWorkspace.id}/chat`)

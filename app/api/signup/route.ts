@@ -31,13 +31,11 @@ export async function POST(request: Request) {
     if (error) {
       return new Response(
         JSON.stringify({
-          errors: [
-            {
-              status: "401",
-              title: "Authentication failed",
-              detail: error.message
-            }
-          ]
+          errors: {
+            status: "401",
+            title: "Authentication failed",
+            detail: error.message
+          }
         }),
         {
           status: 401,
