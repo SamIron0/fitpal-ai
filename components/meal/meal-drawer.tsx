@@ -36,16 +36,16 @@ export const MealDrawer = ({ children, recipe }: MealDrawerProps) => {
             <div className="w-full justify-end">
               <img
                 src={"/" + recipe.imgurl}
-                className="w-xl mb-2 rounded-lg object-cover"
+                className="mb-2 w-1/2 rounded-lg object-cover"
                 alt={recipe.name || "Recipe Image"}
               />
             </div>
             <div className="w-full">
-              <p className="text-3xl font-semibold">{recipe.name}</p>
+              <p className="pb-3 text-3xl font-semibold">{recipe.name}</p>
               <p className="text-md">{recipe.description}</p>
             </div>
             <div className="w-full">
-              <p className="text-3xl font-semibold">Ingredients</p>
+              <p className="text- 2xl font-semibold">Ingredients</p>
               <div className="w-full">
                 {recipe.ingredients.map((ingredient: any, index: number) => (
                   <div
@@ -57,33 +57,35 @@ export const MealDrawer = ({ children, recipe }: MealDrawerProps) => {
                 ))}
               </div>
 
-              <h2 className="text-2xl font-semibold">Directions</h2>
-              <div className="w-full">
+              <h2 className="pt-3 text-2xl font-semibold">Directions</h2>
+              <ul className="w-full">
                 {recipe.instructions.map((direction: any, index: number) => (
-                  <div
+                  <li
                     key={index}
                     className="text-md flex w-full items-center justify-between"
                   >
-                    <p>{direction}</p>
-                  </div>
+                    {direction}
+                  </li>
                 ))}
-              </div>
+              </ul>
             </div>
-
-            <h2 className="text-2xl font-semibold">Nutritional Values</h2>
-            <div className="space-y- w-full">
+            <div className="flex flex-row">
+              <h2 className="pt-3 text-2xl font-semibold">Nutrition Facts</h2>
+              <p className="text-md pl-1">(per serving)</p>
+            </div>
+            <div className="w-full space-y-2 pb-6">
               <p className="text-md flex w-full items-center justify-between">
-                Protein: {recipe.protein}
+                Protein: {recipe.protein}g
               </p>
-              <p className="sp text-md flex w-full items-center justify-between">
-                Fat: {recipe.fat}
+              <p className=" text-md flex w-full items-center justify-between">
+                Fat: {recipe.fats}g
               </p>
               <p className="text-md flex w-full items-center justify-between">
-                Carbs: {recipe.carbs}
+                Carbs: {recipe.carbs}g
               </p>
             </div>
           </div>
-          <DrawerTrigger className="flex items-center justify-center  ">
+          <DrawerTrigger className="mb-6 flex items-center justify-center  ">
             {" "}
             <Button className="w-full" variant="outline">
               Close

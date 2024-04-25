@@ -64,14 +64,14 @@ export default function ChatPage() {
                       {recipe.imgurl ? (
                         <img
                           src={"/" + recipe.imgurl}
-                          className="mb-2 w-full rounded-lg object-cover"
+                          className="border-1 mb-2 w-full rounded-lg border-gray-300 object-cover"
                           alt={recipe.name || "Recipe Image"}
                         />
                       ) : (
                         <div className="border-1 mb-2 rounded-lg border-gray-300 bg-gray-600 p-2 py-10 text-black"></div>
                       )}
 
-                      <p className="text-md w-full">{recipe.name}</p>
+                      <p className="text-md w-full text-left">{recipe.name}</p>
                     </div>
                   </MealDrawer>
                 ))}
