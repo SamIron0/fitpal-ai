@@ -35,7 +35,7 @@ export const MealDrawer = ({ children, recipe }: MealDrawerProps) => {
           <div className="mt-8 flex w-full flex-col p-6 ">
             <div className="w-full justify-end">
               <img
-                src={"/" + recipe.imgurl}
+                src={"/images/" + recipe.imgurl}
                 className="mb-2 w-1/2 rounded-lg object-cover"
                 alt={recipe.name || "Recipe Image"}
               />
@@ -45,14 +45,14 @@ export const MealDrawer = ({ children, recipe }: MealDrawerProps) => {
               <p className="text-md">{recipe.description}</p>
             </div>
             <div className="w-full">
-              <p className="text- 2xl font-semibold">Ingredients</p>
+              <p className="text-2xl font-semibold">Ingredients</p>
               <div className="w-full">
                 {recipe.ingredients.map((ingredient: any, index: number) => (
                   <div
                     key={index}
                     className="text-md flex w-full items-center justify-between"
                   >
-                    <p>{ingredient}</p>
+                    <p>•{ingredient}</p>
                   </div>
                 ))}
               </div>
@@ -64,12 +64,12 @@ export const MealDrawer = ({ children, recipe }: MealDrawerProps) => {
                     key={index}
                     className="text-md flex w-full items-center justify-between"
                   >
-                    {direction}
+                    •{direction}
                   </li>
                 ))}
               </ul>
             </div>
-            <div className="flex flex-row pt-3">
+            <div className="flex flex-row items-center pt-3">
               <h2 className=" text-2xl font-semibold">Nutrition Facts</h2>
               <p className="text-md pl-1">(per serving)</p>
             </div>
@@ -85,7 +85,7 @@ export const MealDrawer = ({ children, recipe }: MealDrawerProps) => {
               </p>
             </div>
           </div>
-          <DrawerTrigger className="mb-6 flex items-center justify-center  ">
+          <DrawerTrigger className="mb-12 flex items-center justify-center p-6 ">
             {" "}
             <Button className="w-full" variant="outline">
               Close
