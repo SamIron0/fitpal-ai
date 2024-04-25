@@ -29,8 +29,8 @@ export default function ChatPage() {
         <ChatInput />
       </div>
       {isGenerating ? (
-        <div className="w-full max-w-4xl pt-24">
-          <p className="mb-5 text-3xl font-semibold">Best Results</p>
+        <div className="w-full max-w-4xl py-28">
+          <p className="mb-5 text-2xl font-semibold">Best Results</p>
 
           <div
             role="status"
@@ -50,7 +50,7 @@ export default function ChatPage() {
           </div>
         </div>
       ) : (
-        <div className="w-full max-w-4xl py-24">
+        <div className="w-full max-w-4xl py-28">
           {generatedRecipes[0] ? (
             <>
               <p className="mb-5 text-3xl font-semibold">Best Results</p>

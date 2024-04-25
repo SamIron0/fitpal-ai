@@ -30,7 +30,8 @@ export default function Dash() {
   const onScrapeUrl = async (url: string) => {
     const toastId = toast.loading("Scraping")
 
-    var endpoint = "https://b7d4-37-19-212-70.ngrok-free.app/scrape"
+    var endpoint =
+      " https://7a38-2604-3d09-aa7a-95e0-9ddf-5d76-dfb9-fa06.ngrok-free.app/scrape"
 
     try {
       var result = await axios.post(endpoint, {
