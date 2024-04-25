@@ -74,14 +74,15 @@ export const getRecipesWithTags = async (tags: string[]) => {
     if (error) {
       throw new Error(error.message)
     }
-
     // append recipe id to recipeIds set
 
     if (tagData && tagData[0]) {
       tagData[0].recipes.forEach((id: number) => recipeIds.add(id))
+      console.log("retrieved info for recipes: " + tagData[0].recipes)
     }
   }
 
+  console.log("retrieving recipes...")
   // retrieve recipes for each unique id
   for (const id of recipeIds) {
     const { data: recipeData, error } = await supabase
