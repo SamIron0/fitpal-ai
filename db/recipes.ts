@@ -101,3 +101,16 @@ export const getRecipesWithTags = async (tags: string[]) => {
 
   return recipes
 }
+
+export const urlExists = async (url: string) => {
+  const supabase = createClient(cookies())
+  const { data, error } = await supabase
+    .from("recipes")
+    .select("url")
+    .eq("url", url)
+    .single()
+  if (error) {
+    throw new Error(error.message)
+  }
+  return data === null
+}

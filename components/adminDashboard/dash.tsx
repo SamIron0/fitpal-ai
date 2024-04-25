@@ -9,6 +9,7 @@ import { v4 as uuidv4 } from "uuid"
 import { toast } from "sonner"
 import { createClient } from "@/lib/supabase/client"
 import { useRouter } from "next/navigation"
+import { urlExists } from "@/db/recipes"
 interface Props {
   onScrapeUrl: (url: string) => void
 }
@@ -28,6 +29,7 @@ export default function Dash() {
     })()
   }, [])
   const onScrapeUrl = async (url: string) => {
+    const status = await urlExists(url)
     const toastId = toast.loading("Scraping")
 
     var endpoint =
