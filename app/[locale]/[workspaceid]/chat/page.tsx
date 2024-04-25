@@ -71,7 +71,7 @@ export default function ChatPage() {
                         <div className="border-1 mb-2 rounded-lg border-gray-300 bg-gray-600 p-2 py-10 text-black"></div>
                       )}
 
-                      <p className="text-md">{recipe.name}</p>
+                      <p className="text-md w-full">{recipe.name}</p>
                     </div>
                   </MealDrawer>
                 ))}

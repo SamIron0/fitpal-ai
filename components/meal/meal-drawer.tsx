@@ -26,7 +26,7 @@ export const MealDrawer = ({ children, recipe }: MealDrawerProps) => {
 
   return (
     <Drawer>
-      <DrawerTrigger className="flex items-center justify-center  ">
+      <DrawerTrigger className="flex justify-center  ">
         {" "}
         {children}
       </DrawerTrigger>
