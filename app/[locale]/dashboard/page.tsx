@@ -11,35 +11,39 @@ import { v4 as uuidv4 } from "uuid"
 import { cookies } from "next/headers"
 
 export default async function Dashboard() {
-  //const { subscription } = useContext(ChatbotUIContext)
   const supabase = createClient(cookies())
   const {
     data: { user }
   } = await supabase.auth.getUser()
-
   const session = (await supabase.auth.getSession()).data.session
+
   if (session?.user.email !== "ekaronke@gmail.com") {
     console.log("session", session?.user.email)
     return redirect("/")
   }
 
-  const onScrapeUrl = async (formData: FormData) => {
+  const handleScrapeUrl = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault() // prevent default form submission
+    const formData = new FormData(event.target as HTMLFormElement)
     const url = formData.get("url") as string
-    const status = await urlExists(url)
-    if (status) {
-      toast.error("Invalid exists")
+
+    if (!url) {
+      toast.error("Please enter a valid URL")
       return
     }
-    const toastId = toast.loading("Scraping")
 
-    var endpoint =
-      " https://7a38-2604-3d09-aa7a-95e0-9ddf-5d76-dfb9-fa06.ngrok-free.app/scrape"
+    const status = await urlExists(url)
+    if (status) {
+      toast.error("Recipe already exists")
+      return
+    }
 
     try {
-      var result = await axios.post(endpoint, {
-        url: url
-      })
-      const data = result.data.body
+      const toastId = toast.loading("Scraping...")
+      const endpoint =
+        "https://7a38-2604-3d09-aa7a-95e0-9ddf-5d76-dfb9-fa06.ngrok-free.app/scrape"
+      const response = await axios.post(endpoint, { url })
+      const data = response.data.body
       const recipe: TablesInsert<"recipes"> = {
         id: uuidv4(),
         name: data.name,
@@ -55,29 +59,34 @@ export default async function Dashboard() {
         cooking_time: data.cooking_time,
         url: url
       }
-      toast.dismiss(toastId)
-      const toastId2 = toast.loading("Saving Recipe")
-      // call api to create recipe
-      var response = await fetch("api/recipe/create_recipe", {
+
+      const createRecipeResponse = await fetch("api/recipe/create_recipe", {
         method: "POST",
-        body: JSON.stringify({ recipe: recipe, tags: data.tags })
+        body: JSON.stringify({ recipe: recipe, tags: data.tags }),
+        headers: { "Content-Type": "application/json" }
       })
 
-      toast.dismiss(toastId2)
-
-      toast.success("Saving Created!")
+      if (createRecipeResponse.ok) {
+        toast.dismiss(toastId)
+        toast.success("Recipe saved successfully!")
+      } else {
+        toast.dismiss(toastId)
+        toast.error("Error saving recipe")
+      }
     } catch (error) {
       console.log(error)
+      toast.error("Error scraping recipe")
     }
   }
+
   return (
     <form
       className="flex w-full flex-1 flex-col justify-center gap-2 text-foreground animate-in"
-      action={onScrapeUrl}
+      onSubmit={handleScrapeUrl}
     >
       <div className="my-12 flex w-full flex-col items-center p-4">
         <Input name="url" placeholder={"url"} style={{ fontSize: "16px" }} />
-        <Button formAction={onScrapeUrl} className="mt-6">
+        <Button type="submit" className="mt-6">
           Scrape
         </Button>
       </div>
