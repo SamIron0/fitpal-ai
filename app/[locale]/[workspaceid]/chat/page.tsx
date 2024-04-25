@@ -59,8 +59,8 @@ export default function ChatPage() {
                 className="grid w-full max-w-4xl grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4"
               >
                 {generatedRecipes?.map(recipe => (
-                  <div key={recipe.id} className="flex flex-col ">
-                    <MealDrawer recipe={recipe}>
+                  <MealDrawer key={recipe.id} recipe={recipe}>
+                    <div className="flex flex-col ">
                       {recipe.imgurl ? (
                         <img
                           src={"/" + recipe.imgurl}
@@ -72,8 +72,8 @@ export default function ChatPage() {
                       )}
 
                       <p className="text-md">{recipe.name}</p>
-                    </MealDrawer>
-                  </div>
+                    </div>
+                  </MealDrawer>
                 ))}
               </div>
             </>
