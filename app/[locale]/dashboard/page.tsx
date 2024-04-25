@@ -66,7 +66,6 @@ export default async function Dashboard() {
       toast.dismiss(toastId2)
 
       toast.success("Saving Created!")
-      return <Dash recipe={recipe}></Dash>
     } catch (error) {
       console.log(error)
     }
@@ -81,7 +80,6 @@ export default async function Dashboard() {
         <Button formAction={onScrapeUrl} className="mt-6">
           Scrape
         </Button>
-        <Dash />
       </div>
     </form>
   )
