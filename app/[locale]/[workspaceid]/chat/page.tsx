@@ -62,7 +62,7 @@ export default function ChatPage() {
                     {recipe.imgurl ? (
                       <img
                         src={"/" + recipe.imgurl}
-                        className="size-24 rounded-full object-cover"
+                        className="h-28 w-[112px] rounded-full object-cover"
                         alt={recipe.name || "Recipe Image"}
                       />
                     ) : (
