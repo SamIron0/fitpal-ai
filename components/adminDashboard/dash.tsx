@@ -30,6 +30,10 @@ export default function Dash() {
   }, [])
   const onScrapeUrl = async (url: string) => {
     const status = await urlExists(url)
+    if (!status) {
+      toast.error("Invalid URL")
+      return
+    }
     const toastId = toast.loading("Scraping")
 
     var endpoint =
