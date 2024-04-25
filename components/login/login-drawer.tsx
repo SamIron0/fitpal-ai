@@ -16,6 +16,7 @@ import { Label } from "../ui/label"
 import { Input } from "../ui/input"
 import { SubmitButton } from "../ui/submit-button"
 import { useRouter } from "next/navigation"
+import { toast } from "sonner"
 
 interface LoginDrawerProps {
   children?: React.ReactNode
@@ -36,11 +37,15 @@ export const LoginDrawer = ({ children, searchParams }: LoginDrawerProps) => {
     })
     if (res.ok) {
       const json = await res.json()
-      console.log(json)
+      //console.log(json)
       //console.log(json.data)
       if (json) {
         router.refresh()
       }
+      return
+    } else {
+      const error = await res.json()
+      toast.error(error.message)
     }
   }
 

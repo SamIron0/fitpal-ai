@@ -25,7 +25,7 @@ export async function POST(request: Request) {
     })
 
     if (error) {
-      return redirect(`/login?message=${error.message}`)
+      return new Response(JSON.stringify({ error: error }))
     }
 
     const { data: homeWorkspace, error: homeWorkspaceError } = await supabase
@@ -36,14 +36,11 @@ export async function POST(request: Request) {
       .single()
 
     if (!homeWorkspace) {
-      throw new Error(
-        homeWorkspaceError?.message || "An unexpected error occurred"
-      )
+      return new Response(JSON.stringify({ error: homeWorkspaceError }))
     }
 
     return new Response(JSON.stringify(homeWorkspace))
   } catch (error) {
-    console.log(error)
     return new Response(JSON.stringify({ error: error }))
   }
 }
