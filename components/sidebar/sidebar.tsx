@@ -49,9 +49,6 @@ export const Sidebar: FC<SidebarProps> = ({ contentType, showSidebar }) => {
       <div className="flex h-full flex-col p-3">
         {(() => {
           switch (contentType) {
-            case "chats":
-              return renderSidebarContent("chats", chatFolders, chats)
-
             case "presets":
               return renderSidebarContent("presets", presetFolders, presets)
 
