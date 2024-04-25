@@ -59,9 +59,17 @@ export default function ChatPage() {
               >
                 {generatedRecipes?.map(recipe => (
                   <div key={recipe.id} className="flex flex-col ">
-                    <div className="border-1 mb-2 rounded-lg border-gray-300 bg-gray-600 p-2 py-10 text-black">
-                      {" "}
-                    </div>
+                    {recipe.imgurl ? (
+                      <img
+                        src={recipe?.imgurl}
+                        className="border-1 mb-2 rounded-lg border-gray-300 bg-gray-600 p-2 py-10 text-black"
+                      >
+                        {" "}
+                      </img>
+                    ) : (
+                      <div className="border-1 mb-2 rounded-lg border-gray-300 bg-gray-600 p-2 py-10 text-black"></div>
+                    )}
+
                     <p className="text-md">{recipe.name}</p>
                   </div>
                 ))}
