@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/client"
+import { createClient } from "@/lib/supabase/server"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import Dash from "@/components/adminDashboard/dash"
@@ -8,16 +8,18 @@ import { urlExists } from "@/db/recipes"
 import axios from "axios"
 import { TablesInsert } from "@/supabase/types"
 import { v4 as uuidv4 } from "uuid"
+import { cookies } from "next/headers"
 
 export default async function Dashboard() {
   //const { subscription } = useContext(ChatbotUIContext)
-  const supabase = createClient()
+  const supabase = createClient(cookies())
   const {
     data: { user }
   } = await supabase.auth.getUser()
 
   const session = (await supabase.auth.getSession()).data.session
   if (session?.user.email !== "ekaronke@gmail.com") {
+    console.log("session", session?.user.email)
     return redirect("/")
   }
 
