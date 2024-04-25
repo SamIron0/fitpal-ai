@@ -21,18 +21,16 @@ export default async function ChatPage() {
   if (error) {
     console.error("Error getting session:", error)
   } else {
-    // Do something with the session
-  }
+    const { data: homeWorkspace, error: homeWorkspaceError } = await supabase
+      .from("workspaces")
+      .select("*")
+      .eq("user_id", session?.user.id)
+      .eq("is_home", true)
+      .single()
 
-  const { data: homeWorkspace, error: homeWorkspaceError } = await supabase
-    .from("workspaces")
-    .select("*")
-    .eq("user_id", session?.user.id)
-    .eq("is_home", true)
-    .single()
-
-  if (homeWorkspace) {
-    router.push(`/${homeWorkspace.id}/chat`)
+    if (homeWorkspace) {
+      router.push(`/${homeWorkspace.id}/chat`)
+    } // Do something with the session
   }
   const recipes = await getGuestForYou()
   return (
