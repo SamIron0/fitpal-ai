@@ -20,8 +20,8 @@ export default function ChatPage() {
   //console.log(recentRecipes)
 
   return (
-    <div className="relative mt-32  flex h-full flex-col items-center px-4 sm:px-6">
-      <div className="top-50% left-50% -translate-x-50% -translate-y-50%  mb-9">
+    <div className="relative  flex h-full flex-col items-center px-4 sm:px-6">
+      <div className="top-50% left-50%  -translate-x-50% -translate-y-50% mb-9  mt-32">
         <Brand theme={theme === "dark" ? "dark" : "light"} />
       </div>
 

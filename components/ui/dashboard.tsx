@@ -99,7 +99,7 @@ export const Dashboard: FC<DashboardProps> = ({ children }) => {
       </div>
 
       <div
-        className="relative  flex  w-screen min-w-[90%] grow flex-col overflow-y-auto bg-muted/50 sm:min-w-fit"
+        className="relative  flex  w-screen min-w-[90%] grow flex-col overflow-y-hidden bg-muted/50 sm:min-w-fit"
         onDrop={onFileDrop}
         onDragOver={onDragOver}
         onDragEnter={handleDragEnter}
