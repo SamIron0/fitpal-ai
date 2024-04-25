@@ -1,6 +1,7 @@
 "use client"
 
 import { ChatInput } from "@/components/chat/chat-input"
+import { MealDrawer } from "@/components/meal/meal-drawer"
 import { Brand } from "@/components/ui/brand"
 import { ChatbotUIContext } from "@/context/context"
 import { TablesInsert } from "@/supabase/types"
@@ -58,19 +59,21 @@ export default function ChatPage() {
                 className="grid w-full max-w-4xl grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4"
               >
                 {generatedRecipes?.map(recipe => (
-                  <div key={recipe.id} className="flex flex-col ">
-                    {recipe.imgurl ? (
-                      <img
-                        src={"/" + recipe.imgurl}
-                        className="mb-2 w-full rounded-lg object-cover"
-                        alt={recipe.name || "Recipe Image"}
-                      />
-                    ) : (
-                      <div className="border-1 mb-2 rounded-lg border-gray-300 bg-gray-600 p-2 py-10 text-black"></div>
-                    )}
+                  <MealDrawer key={recipe.id} recipe={recipe}>
+                    <div key={recipe.id} className="flex flex-col ">
+                      {recipe.imgurl ? (
+                        <img
+                          src={"/" + recipe.imgurl}
+                          className="mb-2 w-full rounded-lg object-cover"
+                          alt={recipe.name || "Recipe Image"}
+                        />
+                      ) : (
+                        <div className="border-1 mb-2 rounded-lg border-gray-300 bg-gray-600 p-2 py-10 text-black"></div>
+                      )}
 
-                    <p className="text-md">{recipe.name}</p>
-                  </div>
+                      <p className="text-md">{recipe.name}</p>
+                    </div>
+                  </MealDrawer>
                 ))}
               </div>
             </>
