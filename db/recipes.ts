@@ -60,7 +60,7 @@ export const createRecipe = async (
   return data
 }
 
-export const getRecipesWithTags = async (tags: string[]) => {
+export const getRecipesByTags = async (tags: string[]) => {
   //console.log("tags2: " + tags)
   const supabase = createClient(cookies())
   const recipeIds: Set<number> = new Set() // use a Set to ensure uniqueness
@@ -88,16 +88,64 @@ export const getRecipesWithTags = async (tags: string[]) => {
   for (const id of recipeIds) {
     const { data: recipeData, error } = await supabase
       .from("recipes")
-      .select("*")
+      .select("id,imgurl,name")
       .eq("id", id)
       .single()
 
     if (error) {
       throw new Error(error.message)
     }
+    const result: TablesInsert<"recipes"> = {
+      id: recipeData.id,
+      name: recipeData.name,
+      imgurl: recipeData.imgurl,
+      description: null,
+      ingredients: null,
+      cooking_time: null,
+      protein: null,
+      fats: null,
+      carbs: null,
+      calories: null,
+      instructions: null,
+      portions: null,
+      url: null
+    }
 
-    recipes.push(recipeData)
+    recipes.push(result)
   }
 
   return recipes
+}
+
+export const getCompleteRecipeById = async (
+  recipe: TablesInsert<"recipes">
+) => {
+  const supabase = createClient(cookies())
+  const { data, error } = await supabase
+    .from("recipes")
+    .select(
+      "description,ingredients,cooking_time,protein,fats,carbs,calories,instructions,portions,url"
+    )
+    .eq("id", id)
+    .single()
+  if (error) {
+    throw new Error(error.message)
+  }
+  const result: TablesInsert<"recipes"> = {
+    id: recipe.id,
+    name: recipe.name,
+    description: data.description,
+    ingredients: data.ingredients,
+    cooking_time: data.cooking_time,
+    imgurl: recipe.imgurl,
+    protein: data.protein,
+    fats: data.fats,
+    carbs: data.carbs,
+    calories: data.calories,
+    instructions: data.instructions,
+    portions: data.portions,
+    url: data.url
+  }
+
+  return result
 }
