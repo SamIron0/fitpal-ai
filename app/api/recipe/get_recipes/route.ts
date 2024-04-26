@@ -13,7 +13,7 @@ export async function POST(request: Request) {
     //const tags = ["African", "dinner"]
 
     const qTags = await fetch(
-      "https://3x077l0rol.execute-api.us-east-1.amazonaws.com/main/create-mealplan",
+      "https://3x077l0rol.execute-api.us-east-1.amazonaws.com/main/tag",
       {
         method: "POST",
         headers: {
@@ -24,9 +24,11 @@ export async function POST(request: Request) {
         })
       }
     )
+    console.log("qtag: " + qTags)
     const tags = await qTags.json()
     console.log("tag: " + tags)
-    console.log("tags1: " + JSON.parse(tags).tags)
+    const tags1 = tags[0]
+    console.log("tags1: " + tags1)
     if (!JSON.parse(tags).tags && !JSON.parse(tags).tag) {
       return new Response(JSON.stringify({ error: "None" }))
     }
