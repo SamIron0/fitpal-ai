@@ -24,17 +24,12 @@ export async function POST(request: Request) {
         })
       }
     )
-    console.log("qtag: " + qTags)
-    const tags = await qTags.json()
-    console.log("tag: " + tags)
-    const tags1 = tags[0]
-    console.log("tags1: " + tags1)
-    if (!JSON.parse(tags).tags && !JSON.parse(tags).tag) {
+    const data = await qTags.json()
+    const tags = data[0]
+    if (!tags) {
       return new Response(JSON.stringify({ error: "None" }))
     }
-    const res = await getRecipesWithTags(
-      JSON.parse(tags).tags || JSON.parse(tags).tag
-    )
+    const res = await getRecipesWithTags(tags)
     return new Response(JSON.stringify(res))
   } catch (error) {
     console.log(error)
