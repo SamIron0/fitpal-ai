@@ -88,28 +88,29 @@ export const getRecipesByTags = async (tags: string[]) => {
       .from("recipes")
       .select("id,imgurl,name")
       .eq("id", id)
-      .single()
 
     if (error) {
       throw new Error(error.message)
     }
-    const result: TablesInsert<"recipes"> = {
-      id: recipeData.id,
-      name: recipeData.name,
-      imgurl: recipeData.imgurl,
-      description: null,
-      ingredients: null,
-      cooking_time: null,
-      protein: null,
-      fats: null,
-      carbs: null,
-      calories: null,
-      instructions: null,
-      portions: null,
-      url: null
-    }
+    if (recipeData[0]?.id) {
+      const result: TablesInsert<"recipes"> = {
+        id: recipeData[0].id,
+        name: recipeData[0].name,
+        imgurl: recipeData[0].imgurl,
+        description: null,
+        ingredients: null,
+        cooking_time: null,
+        protein: null,
+        fats: null,
+        carbs: null,
+        calories: null,
+        instructions: null,
+        portions: null,
+        url: null
+      }
 
-    recipes.push(result)
+      recipes.push(result)
+    }
   }
 
   return recipes
