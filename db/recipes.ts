@@ -1,6 +1,5 @@
 import { createClient } from "@/lib/supabase/server"
 import { TablesInsert } from "@/supabase/types"
-import { id } from "common-tags"
 import { cookies } from "next/headers"
 import { v4 as uuidv4 } from "uuid"
 
@@ -126,7 +125,7 @@ export const getCompleteRecipeById = async (
     .select(
       "description,ingredients,cooking_time,protein,fats,carbs,calories,instructions,portions,url"
     )
-    .eq("id", id)
+    .eq("id", recipe.id)
     .single()
   if (error) {
     throw new Error(error.message)
