@@ -112,24 +112,9 @@ export const getRecipesByTags = async (tags: string[]) => {
     }
   }
 
-  return recipes
+  return most_common_recipes(recipes)
 }
-/*
-def most_common_recipes(recipes_list):
-    recipe_count = {}
-    for recipe in recipes_list:
-        if recipe in recipe_count:
-            recipe_count[recipe] += 1
-        else:
-            recipe_count[recipe] = 1
 
-    sorted_recipes = sorted(recipe_count.items(), key=lambda x: x[1], reverse=True)
-
-    return [recipe for recipe, count in sorted_recipes]
-
-recipes_list = ["A", "B", "A", "C", "B", "B", "A", "D", "C", "C", "C"]
-*/
-//print(most_common_recipes(recipes_list))
 const most_common_recipes = (recipes_list: string[]) => {
   const recipe_count: { [key: string]: number } = {}
   for (let recipe of recipes_list) {
