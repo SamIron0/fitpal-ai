@@ -22,6 +22,8 @@ interface MealDrawerProps {
   recipe?: any
 }
 export const MealDrawer = ({ children, recipe }: MealDrawerProps) => {
+  //get full recipe
+
   const router = useRouter()
 
   return (

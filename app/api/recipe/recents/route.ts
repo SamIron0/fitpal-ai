@@ -1,5 +1,5 @@
 import { ServerRuntime } from "next"
-import { createRecipe, getRecipesWithTags } from "@/db/recipes"
+import { createRecipe, getRecipesByTags } from "@/db/recipes"
 import { TablesInsert } from "@/supabase/types"
 import { Tags } from "@/types/tags"
 export const runtime: ServerRuntime = "edge"
@@ -10,7 +10,7 @@ export async function GET(request: Request) {
     tags: Tags[]
   }
   try {
-    const res = await getRecipesWithTags(tags)
+    const res = await getRecipesByTags(tags)
     return new Response(JSON.stringify(res))
   } catch (error) {
     console.log(error)
