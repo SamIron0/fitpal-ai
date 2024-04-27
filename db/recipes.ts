@@ -1,14 +1,12 @@
-import { createClient } from "@/lib/supabase/server"
+import { createClient } from "@/lib/supabase/client"
 import { TablesInsert } from "@/supabase/types"
-import { id } from "common-tags"
-import { cookies } from "next/headers"
 import { v4 as uuidv4 } from "uuid"
 
 export const createRecipe = async (
   recipes: TablesInsert<"recipes">,
   tags: string[]
 ) => {
-  const supabase = createClient(cookies())
+  const supabase = createClient()
   const { data, error } = await supabase
     .from("recipes")
     .insert({
@@ -60,9 +58,9 @@ export const createRecipe = async (
   return data
 }
 
-export const getRecipesWithTags = async (tags: string[]) => {
+export const getRecipesByTags = async (tags: string[]) => {
   //console.log("tags2: " + tags)
-  const supabase = createClient(cookies())
+  const supabase = createClient()
   const recipeIds: Set<number> = new Set() // use a Set to ensure uniqueness
   const recipes: any[] = []
 
@@ -83,25 +81,70 @@ export const getRecipesWithTags = async (tags: string[]) => {
     }
   }
 
-  console.log("retrieving recipes...")
+  //console.log("retrieving recipes...")
   // retrieve recipes for each unique id
   for (const id of recipeIds) {
     const { data: recipeData, error } = await supabase
       .from("recipes")
-      .select("*")
+      .select("id,imgurl,name")
       .eq("id", id)
       .single()
 
     if (error) {
       throw new Error(error.message)
     }
+    const result: TablesInsert<"recipes"> = {
+      id: recipeData.id,
+      name: recipeData.name,
+      imgurl: recipeData.imgurl,
+      description: null,
+      ingredients: null,
+      cooking_time: null,
+      protein: null,
+      fats: null,
+      carbs: null,
+      calories: null,
+      instructions: null,
+      portions: null,
+      url: null
+    }
 
-    recipes.push(recipeData)
+    recipes.push(result)
   }
 
   return recipes
 }
 
+export const getCompleteRecipe = async (recipe: TablesInsert<"recipes">) => {
+  const supabase = createClient()
+  const { data, error } = await supabase
+    .from("recipes")
+    .select(
+      "description,ingredients,cooking_time,protein,fats,carbs,calories,instructions,portions,url"
+    )
+    .eq("id", recipe.id)
+    .single()
+  if (error) {
+    throw new Error(error.message)
+  }
+  const result: TablesInsert<"recipes"> = {
+    id: recipe.id,
+    name: recipe.name,
+    description: data.description,
+    ingredients: data.ingredients,
+    cooking_time: data.cooking_time,
+    imgurl: recipe.imgurl,
+    protein: data.protein,
+    fats: data.fats,
+    carbs: data.carbs,
+    calories: data.calories,
+    instructions: data.instructions,
+    portions: data.portions,
+    url: data.url
+  }
+
+  return result
+  
 export const urlExists = async (url: string) => {
   const supabase = createClient(cookies())
   const { data, error } = await supabase

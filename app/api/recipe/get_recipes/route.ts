@@ -1,5 +1,5 @@
 import { ServerRuntime } from "next"
-import { createRecipe, getRecipesWithTags } from "@/db/recipes"
+import { createRecipe, getRecipesByTags } from "@/db/recipes"
 import { TablesInsert } from "@/supabase/types"
 import { Tags } from "@/types/tags"
 export const runtime: ServerRuntime = "edge"
@@ -7,13 +7,13 @@ export const runtime: ServerRuntime = "edge"
 export async function POST(request: Request) {
   const json = await request.json()
   const { input } = json as {
-    input: Tags[]
+    input: string
   }
   try {
     //const tags = ["African", "dinner"]
 
     const qTags = await fetch(
-      "https://3x077l0rol.execute-api.us-east-1.amazonaws.com/main/create-mealplan",
+      "https://3x077l0rol.execute-api.us-east-1.amazonaws.com/main/tag",
       {
         method: "POST",
         headers: {
@@ -24,15 +24,13 @@ export async function POST(request: Request) {
         })
       }
     )
-    const tags = await qTags.json()
-    console.log("tag: " + tags)
-    console.log("tags1: " + JSON.parse(tags).tags)
-    if (!JSON.parse(tags).tags && !JSON.parse(tags).tag) {
+    const data = await qTags.json()
+    console.log("tags: " + input)
+
+    if (!data) {
       return new Response(JSON.stringify({ error: "None" }))
     }
-    const res = await getRecipesWithTags(
-      JSON.parse(tags).tags || JSON.parse(tags).tag
-    )
+    const res = await getRecipesByTags(data)
     return new Response(JSON.stringify(res))
   } catch (error) {
     console.log(error)
