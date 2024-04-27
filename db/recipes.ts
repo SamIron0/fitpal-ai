@@ -59,9 +59,9 @@ export const createRecipe = async (
 }
 
 export const getRecipesByTags = async (tags: string[]) => {
-  //console.log("tags2: " + tags)
+  console.log("tags: " + tags)
   const supabase = createClient()
-  const recipeIds: Set<number> = new Set() // use a Set to ensure uniqueness
+  const recipeIds: any[] = [] // use a Set to ensure uniqueness
   const recipes: any[] = []
 
   for (var i = 0; i < tags.length; i++) {
@@ -76,43 +76,59 @@ export const getRecipesByTags = async (tags: string[]) => {
     // append recipe id to recipeIds set
 
     if (tagData && tagData[0]) {
-      tagData[0].recipes.forEach((id: number) => recipeIds.add(id))
-      console.log("retrieved info for recipes: " + tagData[0].recipes)
+      tagData[0].recipes.forEach((id: number) => recipeIds.push(id))
     }
   }
+  const ids = most_common_recipes(recipeIds)
 
   //console.log("retrieving recipes...")
   // retrieve recipes for each unique id
-  for (const id of recipeIds) {
+  for (const id of ids) {
     const { data: recipeData, error } = await supabase
       .from("recipes")
       .select("id,imgurl,name")
       .eq("id", id)
-      .single()
 
     if (error) {
       throw new Error(error.message)
     }
-    const result: TablesInsert<"recipes"> = {
-      id: recipeData.id,
-      name: recipeData.name,
-      imgurl: recipeData.imgurl,
-      description: null,
-      ingredients: null,
-      cooking_time: null,
-      protein: null,
-      fats: null,
-      carbs: null,
-      calories: null,
-      instructions: null,
-      portions: null,
-      url: null
-    }
+    if (recipeData[0]?.id) {
+      const result: TablesInsert<"recipes"> = {
+        id: recipeData[0].id,
+        name: recipeData[0].name,
+        imgurl: recipeData[0].imgurl,
+        description: null,
+        ingredients: null,
+        cooking_time: null,
+        protein: null,
+        fats: null,
+        carbs: null,
+        calories: null,
+        instructions: null,
+        portions: null,
+        url: null
+      }
 
-    recipes.push(result)
+      recipes.push(result)
+    }
   }
 
   return recipes
+}
+const most_common_recipes = (recipes_list: string[]) => {
+  const recipe_count: { [key: string]: number } = {}
+  for (let recipe of recipes_list) {
+    if (recipe_count[recipe]) {
+      recipe_count[recipe] += 1
+    } else {
+      recipe_count[recipe] = 1
+    }
+  }
+  const sorted_recipes = Object.keys(recipe_count).sort(
+    (a, b) => recipe_count[b] - recipe_count[a]
+  )
+  console.log("sorted_recipes: " + sorted_recipes)
+  return sorted_recipes
 }
 
 export const getCompleteRecipe = async (recipe: TablesInsert<"recipes">) => {
