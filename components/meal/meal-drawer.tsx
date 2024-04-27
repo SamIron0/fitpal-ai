@@ -34,13 +34,14 @@ export const MealDrawer = ({ children, recipe, isOpen }: MealDrawerProps) => {
   const [updatedRecipe, setUpdatedRecipe] =
     useState<TablesInsert<"recipes">>(recipe)
   useEffect(() => {
-    console.log(recipe.id)
+    //console.log(recipe.id)
 
     if (isOpen !== recipe.id) return
     console.log("after", recipe.id)
+    console.log(isOpen)
     const getCompleteRecipe = async () => {
       const completeRecipe: TablesInsert<"recipes"> =
-        await getCompleteRecipeById(recipe.id)
+        await getCompleteRecipeById(isOpen)
       const updatedGeneratedRecipes = generatedRecipes.map(r =>
         r.id === recipe.id ? completeRecipe : r
       )
