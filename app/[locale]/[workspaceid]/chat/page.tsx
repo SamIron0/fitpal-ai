@@ -13,6 +13,10 @@ export default function ChatPage() {
   const { generatedRecipes, isGenerating } = useContext(ChatbotUIContext)
   const { theme } = useTheme()
   const [isOpen, setIsOpen] = useState("0")
+  const openDrawer = (id: string) => {
+    console.log(id)
+    setIsOpen(id)
+  }
   return (
     <div className="relative flex h-full flex-col items-center overflow-y-auto px-4 sm:px-6">
       <div className="top-50% left-50%  -translate-x-50% -translate-y-50% mb-9  mt-32">
@@ -53,24 +57,25 @@ export default function ChatPage() {
                 className="grid w-full max-w-4xl grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4"
               >
                 {generatedRecipes?.map(recipe => (
-                  <MealDrawer key={recipe.id} recipe={recipe} isOpen={isOpen}>
-                    <div
-                      className="flex flex-col "
-                      onClick={() => setIsOpen(recipe.id)}
-                    >
-                      {recipe.imgurl ? (
-                        <img
-                          src={"/images/" + recipe.imgurl}
-                          className="border-1 mb-2 w-full rounded-lg border-gray-300 object-cover"
-                          alt={recipe.name || "Recipe Image"}
-                        />
-                      ) : (
-                        <div className="border-1 mb-2 rounded-lg border-gray-300 bg-gray-600 p-2 py-10 text-black"></div>
-                      )}
+                  <div key={recipe.id} onClick={() => openDrawer(recipe.id)}>
+                    <MealDrawer recipe={recipe} isOpen={isOpen}>
+                      <div className="flex flex-col ">
+                        {recipe.imgurl ? (
+                          <img
+                            src={"/images/" + recipe.imgurl}
+                            className="border-1 mb-2 w-full rounded-lg border-gray-300 object-cover"
+                            alt={recipe.name || "Recipe Image"}
+                          />
+                        ) : (
+                          <div className="border-1 mb-2 rounded-lg border-gray-300 bg-gray-600 p-2 py-10 text-black"></div>
+                        )}
 
-                      <p className="text-md w-full text-left">{recipe.name}</p>
-                    </div>
-                  </MealDrawer>
+                        <p className="text-md w-full text-left">
+                          {recipe.name}
+                        </p>
+                      </div>
+                    </MealDrawer>
+                  </div>
                 ))}
               </div>
             </>
