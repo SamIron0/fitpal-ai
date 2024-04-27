@@ -7,18 +7,12 @@ import { ChatbotUIContext } from "@/context/context"
 import { TablesInsert } from "@/supabase/types"
 import axios from "axios"
 import { useTheme } from "next-themes"
-import { useContext } from "react"
+import { useContext, useState } from "react"
 
 export default function ChatPage() {
   const { generatedRecipes, isGenerating } = useContext(ChatbotUIContext)
   const { theme } = useTheme()
-  /*const recentRecipes = await fetch("api/recipe/get_recipes", {
-    method: "POST",
-    body: JSON.stringify({ input: "" })
-  })*/
-  //const res: TablesInsert<"recipes">[] = await recipes.json()
-  //console.log(recentRecipes)
-
+  const [isOpen, setIsOpen] = useState("0")
   return (
     <div className="relative flex h-full flex-col items-center overflow-y-auto px-4 sm:px-6">
       <div className="top-50% left-50%  -translate-x-50% -translate-y-50% mb-9  mt-32">
@@ -59,8 +53,11 @@ export default function ChatPage() {
                 className="grid w-full max-w-4xl grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4"
               >
                 {generatedRecipes?.map(recipe => (
-                  <MealDrawer key={recipe.id} recipe={recipe}>
-                    <div className="flex flex-col ">
+                  <MealDrawer key={recipe.id} recipe={recipe} isOpen={isOpen}>
+                    <div
+                      className="flex flex-col "
+                      onClick={() => setIsOpen(recipe.id)}
+                    >
                       {recipe.imgurl ? (
                         <img
                           src={"/images/" + recipe.imgurl}

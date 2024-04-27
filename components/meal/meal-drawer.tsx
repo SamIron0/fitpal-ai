@@ -25,13 +25,16 @@ import { TablesInsert } from "@/supabase/types"
 interface MealDrawerProps {
   children?: React.ReactNode
   recipe?: any
+  isOpen?: string
 }
-export const MealDrawer = ({ children, recipe }: MealDrawerProps) => {
+export const MealDrawer = ({ children, recipe, isOpen }: MealDrawerProps) => {
   //get full recipe
+
   const { generatedRecipes, setGeneratedRecipes } = useContext(ChatbotUIContext)
   const [updatedRecipe, setUpdatedRecipe] =
     useState<TablesInsert<"recipes">>(recipe)
   useEffect(() => {
+    if (isOpen !== recipe.id) return
     const getCompleteRecipe = async () => {
       const completeRecipe: TablesInsert<"recipes"> =
         await getCompleteRecipeById(recipe.id)
@@ -42,7 +45,7 @@ export const MealDrawer = ({ children, recipe }: MealDrawerProps) => {
       setUpdatedRecipe(completeRecipe)
     }
     getCompleteRecipe()
-  }, [])
+  }, [recipe])
 
   return (
     <Drawer>
