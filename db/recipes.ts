@@ -115,7 +115,6 @@ export const getRecipesByTags = async (tags: string[]) => {
 
   return recipes
 }
-
 const most_common_recipes = (recipes_list: string[]) => {
   const recipe_count: { [key: string]: number } = {}
   for (let recipe of recipes_list) {
@@ -125,9 +124,10 @@ const most_common_recipes = (recipes_list: string[]) => {
       recipe_count[recipe] = 1
     }
   }
-  const sorted_recipes = Object.entries(recipe_count).sort(
-    (a, b) => b[1] - a[1]
+  const sorted_recipes = Object.keys(recipe_count).sort(
+    (a, b) => recipe_count[b] - recipe_count[a]
   )
+  console.log("sorted_recipes: " + sorted_recipes)
   return sorted_recipes
 }
 
