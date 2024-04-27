@@ -18,7 +18,7 @@ import { Input } from "../ui/input"
 import { SubmitButton } from "../ui/submit-button"
 import { useRouter } from "next/navigation"
 import { useContext, useEffect, useState } from "react"
-import { getCompleteRecipeById } from "@/db/recipes"
+import { getCompleteRecipe } from "@/db/recipes"
 import { ChatbotUIContext } from "@/context/context"
 import { TablesInsert } from "@/supabase/types"
 
@@ -39,7 +39,7 @@ export const MealDrawer = ({ children, recipe, isOpen }: MealDrawerProps) => {
     if (isOpen !== recipe.id) return
     console.log("after", recipe.id)
     console.log(isOpen)
-    const getCompleteRecipe = async () => {
+    const getRecipe = async () => {
       const completeRecipe: TablesInsert<"recipes"> =
         await getCompleteRecipe(recipe)
       const updatedGeneratedRecipes = generatedRecipes.map(r =>
@@ -48,7 +48,7 @@ export const MealDrawer = ({ children, recipe, isOpen }: MealDrawerProps) => {
       setGeneratedRecipes(updatedGeneratedRecipes as any)
       setUpdatedRecipe(completeRecipe)
     }
-    getCompleteRecipe()
+    getRecipe()
   }, [isOpen])
 
   return (
