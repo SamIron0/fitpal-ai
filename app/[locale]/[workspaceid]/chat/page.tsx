@@ -14,7 +14,6 @@ export default function ChatPage() {
   const { theme } = useTheme()
   const [isOpen, setIsOpen] = useState("0")
   const openDrawer = (id: string) => {
-    console.log(id)
     setIsOpen(id)
   }
   return (

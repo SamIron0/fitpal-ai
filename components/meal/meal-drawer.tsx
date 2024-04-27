@@ -34,6 +34,8 @@ export const MealDrawer = ({ children, recipe, isOpen }: MealDrawerProps) => {
   const [updatedRecipe, setUpdatedRecipe] =
     useState<TablesInsert<"recipes">>(recipe)
   useEffect(() => {
+    console.log(recipe)
+
     if (isOpen !== recipe.id) return
     const getCompleteRecipe = async () => {
       const completeRecipe: TablesInsert<"recipes"> =
