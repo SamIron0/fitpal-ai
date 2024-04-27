@@ -39,10 +39,10 @@ export default function Dash() {
       toast.error("Please enter a valid URL")
       return
     }
+    const toastId = toast.loading("Scraping...")
     try {
-      const toastId = toast.loading("Scraping...")
       const endpoint =
-        "https://7a38-2604-3d09-aa7a-95e0-9ddf-5d76-dfb9-fa06.ngrok-free.app/scrape"
+        "https://46f5-2604-3d09-aa7a-95e0-5130-b4ed-87b7-557d.ngrok-free.app/scrape"
       const response = await axios.post(endpoint, { url })
       const data = response.data.body
       const recipe: TablesInsert<"recipes"> = {
@@ -77,6 +77,7 @@ export default function Dash() {
       }
     } catch (error) {
       console.log(error)
+      toast.dismiss(toastId)
       toast.error("Error scraping recipe in catch")
     }
   }
