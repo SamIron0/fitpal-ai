@@ -79,10 +79,11 @@ export const getRecipesByTags = async (tags: string[]) => {
       tagData[0].recipes.forEach((id: number) => recipeIds.push(id))
     }
   }
+  const ids = most_common_recipes(recipeIds)
 
   //console.log("retrieving recipes...")
   // retrieve recipes for each unique id
-  for (const id of recipeIds) {
+  for (const id of ids) {
     const { data: recipeData, error } = await supabase
       .from("recipes")
       .select("id,imgurl,name")
@@ -112,7 +113,7 @@ export const getRecipesByTags = async (tags: string[]) => {
     }
   }
 
-  return most_common_recipes(recipes)
+  return recipes
 }
 
 const most_common_recipes = (recipes_list: string[]) => {
