@@ -7,10 +7,11 @@ export const runtime: ServerRuntime = "edge"
 export async function POST(request: Request) {
   const json = await request.json()
   const { input } = json as {
-    input: Tags[]
+    input: string
   }
   try {
     //const tags = ["African", "dinner"]
+    console.log("input: " + input)
 
     const qTags = await fetch(
       "https://3x077l0rol.execute-api.us-east-1.amazonaws.com/main/tag",
