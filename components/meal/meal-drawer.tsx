@@ -45,7 +45,7 @@ export const MealDrawer = ({ children, recipe, isOpen }: MealDrawerProps) => {
       setUpdatedRecipe(completeRecipe)
     }
     getCompleteRecipe()
-  }, [recipe])
+  }, [isOpen])
 
   return (
     <Drawer>
