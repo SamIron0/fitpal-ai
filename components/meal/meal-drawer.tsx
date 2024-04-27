@@ -41,7 +41,7 @@ export const MealDrawer = ({ children, recipe, isOpen }: MealDrawerProps) => {
     console.log(isOpen)
     const getCompleteRecipe = async () => {
       const completeRecipe: TablesInsert<"recipes"> =
-        await getCompleteRecipeById(isOpen)
+        await getCompleteRecipe(recipe)
       const updatedGeneratedRecipes = generatedRecipes.map(r =>
         r.id === recipe.id ? completeRecipe : r
       )

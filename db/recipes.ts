@@ -115,9 +115,7 @@ export const getRecipesByTags = async (tags: string[]) => {
   return recipes
 }
 
-export const getCompleteRecipeById = async (
-  recipe: TablesInsert<"recipes">
-) => {
+export const getCompleteRecipe = async (recipe: TablesInsert<"recipes">) => {
   const supabase = createClient()
   const { data, error } = await supabase
     .from("recipes")
