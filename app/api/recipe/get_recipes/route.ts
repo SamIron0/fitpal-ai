@@ -11,7 +11,6 @@ export async function POST(request: Request) {
   }
   try {
     //const tags = ["African", "dinner"]
-    console.log("input: " + input)
 
     const qTags = await fetch(
       "https://3x077l0rol.execute-api.us-east-1.amazonaws.com/main/tag",
@@ -26,6 +25,8 @@ export async function POST(request: Request) {
       }
     )
     const data = await qTags.json()
+    console.log("tags: " + input)
+
     if (!data) {
       return new Response(JSON.stringify({ error: "None" }))
     }

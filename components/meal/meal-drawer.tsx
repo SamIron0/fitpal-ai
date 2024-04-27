@@ -61,7 +61,7 @@ export const MealDrawer = ({ children, recipe }: MealDrawerProps) => {
 
               <h2 className="pt-3 text-2xl font-semibold">Directions</h2>
               <ul className="w-full">
-                {recipe.instructions.map((direction: any, index: number) => (
+                {recipe?.instructions?.map((direction: any, index: number) => (
                   <li
                     key={index}
                     className="text-md flex w-full items-center justify-between"
