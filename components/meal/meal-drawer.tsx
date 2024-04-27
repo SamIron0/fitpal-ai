@@ -1,3 +1,4 @@
+"use client"
 import { IconSend } from "@tabler/icons-react"
 import { Button } from "../ui/button"
 import {
@@ -16,6 +17,10 @@ import { Label } from "../ui/label"
 import { Input } from "../ui/input"
 import { SubmitButton } from "../ui/submit-button"
 import { useRouter } from "next/navigation"
+import { useContext, useEffect } from "react"
+import { getCompleteRecipeById } from "@/db/recipes"
+import { ChatbotUIContext } from "@/context/context"
+import { TablesInsert } from "@/supabase/types"
 
 interface MealDrawerProps {
   children?: React.ReactNode
@@ -23,8 +28,19 @@ interface MealDrawerProps {
 }
 export const MealDrawer = ({ children, recipe }: MealDrawerProps) => {
   //get full recipe
+  const { generatedRecipes, setGeneratedRecipes } = useContext(ChatbotUIContext)
 
-  const router = useRouter()
+  useEffect(() => {
+    const getCompleteRecipe = async () => {
+      const completeRecipe: TablesInsert<"recipes"> =
+        await getCompleteRecipeById(recipe.id)
+      const updatedGeneratedRecipes = generatedRecipes.map(r =>
+        r.id === recipe.id ? completeRecipe : r
+      )
+      setGeneratedRecipes(updatedGeneratedRecipes as any)
+    }
+    getCompleteRecipe()
+  }, [])
 
   return (
     <Drawer>
