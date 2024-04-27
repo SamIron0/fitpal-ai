@@ -19,7 +19,7 @@ export async function POST(request: Request) {
     const cookieStore = cookies()
     const supabase = createClient(cookieStore)
 
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
@@ -28,11 +28,26 @@ export async function POST(request: Request) {
       }
     })
 
+    //console.log("sign", error)
     if (error) {
-      console.error(error)
-      return redirect(`/login?message=${error.message}`)
+      return new Response(
+        JSON.stringify({
+          errors: {
+            status: "401",
+            title: "Authentication failed",
+            detail: error.message
+          }
+        }),
+        {
+          status: 401,
+          headers: {
+            "Content-Type": "application/json"
+          }
+        }
+      )
+    } else {
+      return new Response(JSON.stringify("signed up"))
     }
-    return new Response(JSON.stringify("signed up"))
   } catch (error) {
     console.log(error)
     return new Response(JSON.stringify({ error: error }))

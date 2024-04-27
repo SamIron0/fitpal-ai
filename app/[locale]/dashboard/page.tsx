@@ -1,22 +1,17 @@
-import { createClient } from "@/lib/supabase/client"
+"use server"
+import { createClient } from "@/lib/supabase/server"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import Dash from "@/components/adminDashboard/dash"
+import { toast } from "sonner"
+import { redirect } from "next/navigation"
+import { urlExists } from "@/db/recipes"
+import axios from "axios"
+import { TablesInsert } from "@/supabase/types"
+import { v4 as uuidv4 } from "uuid"
+import { cookies } from "next/headers"
+import { url } from "inspector"
 
 export default async function Dashboard() {
-  //const { subscription } = useContext(ChatbotUIContext)
-  const supabase = createClient()
-  const {
-    data: { user }
-  } = await supabase.auth.getUser()
-  /*if (user?.id !== "cedf4e14-0575-466b-83bf-ce744196e023") {
-    return
-  }*/
-  //const [url, setURL] = useState("")
-
-  return (
-    <div className="flex">
-      <Dash />
-    </div>
-  )
+  return <Dash />
 }

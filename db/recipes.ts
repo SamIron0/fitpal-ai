@@ -144,4 +144,15 @@ export const getCompleteRecipe = async (recipe: TablesInsert<"recipes">) => {
   }
 
   return result
+  
+export const urlExists = async (url: string) => {
+  const supabase = createClient(cookies())
+  const { data, error } = await supabase
+    .from("recipes")
+    .select("url")
+    .eq("url", url)
+  if (error) {
+    throw new Error(error.message)
+  }
+  return data === null
 }

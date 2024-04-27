@@ -16,6 +16,7 @@ import { Label } from "../ui/label"
 import { Input } from "../ui/input"
 import { SubmitButton } from "../ui/submit-button"
 import { useRouter } from "next/navigation"
+import { toast } from "sonner"
 
 interface LoginDrawerProps {
   children?: React.ReactNode
@@ -36,11 +37,14 @@ export const LoginDrawer = ({ children, searchParams }: LoginDrawerProps) => {
     })
     if (res.ok) {
       const json = await res.json()
-      console.log(json)
-      //console.log(json.data)
       if (json) {
         router.refresh()
       }
+      return
+    } else {
+      const error = await res.json()
+      //console.log(error[0].detail)
+      toast.error(error.errors.detail)
     }
   }
 
@@ -55,6 +59,18 @@ export const LoginDrawer = ({ children, searchParams }: LoginDrawerProps) => {
         "Content-Type": "application/json"
       }
     })
+    //error
+    if (res.ok) {
+      const json = await res.json()
+      if (json) {
+        toast.success("Check your email to verify your account")
+      }
+      return
+    } else {
+      const error = await res.json()
+      //console.log(error[0].detail)
+      toast.error(error.errors.detail)
+    }
   }
   const handleResetPassword = async (formData: FormData) => {}
 

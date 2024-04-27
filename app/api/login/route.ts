@@ -25,7 +25,21 @@ export async function POST(request: Request) {
     })
 
     if (error) {
-      return redirect(`/login?message=${error.message}`)
+      return new Response(
+        JSON.stringify({
+          errors: {
+            status: "401",
+            title: "Authentication failed",
+            detail: error.message
+          }
+        }),
+        {
+          status: 401,
+          headers: {
+            "Content-Type": "application/json"
+          }
+        }
+      )
     }
 
     const { data: homeWorkspace, error: homeWorkspaceError } = await supabase
@@ -36,14 +50,27 @@ export async function POST(request: Request) {
       .single()
 
     if (!homeWorkspace) {
-      throw new Error(
-        homeWorkspaceError?.message || "An unexpected error occurred"
+      return new Response(
+        JSON.stringify({
+          errors: [
+            {
+              status: "404",
+              title: "Home workspace not found",
+              detail: homeWorkspaceError?.message
+            }
+          ]
+        }),
+        {
+          status: 404,
+          headers: {
+            "Content-Type": "application/json"
+          }
+        }
       )
     }
 
     return new Response(JSON.stringify(homeWorkspace))
   } catch (error) {
-    console.log(error)
     return new Response(JSON.stringify({ error: error }))
   }
 }

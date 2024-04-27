@@ -15,9 +15,9 @@ import { Analytics } from "@vercel/analytics/react"
 import { Dashboard } from "@/components/ui/dashboard"
 
 const inter = Inter({ subsets: ["latin"] })
-const APP_NAME = "Chatbot UI"
-const APP_DEFAULT_TITLE = "Chatbot UI"
-const APP_TITLE_TEMPLATE = "%s - Chatbot UI"
+const APP_NAME = "Fitpal AI"
+const APP_DEFAULT_TITLE = "Fitpal AI"
+const APP_TITLE_TEMPLATE = "%s - Fitpal AI"
 const APP_DESCRIPTION = "Chabot UI PWA!"
 
 interface RootLayoutProps {

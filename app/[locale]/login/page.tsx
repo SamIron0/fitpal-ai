@@ -9,6 +9,7 @@ import { get } from "@vercel/edge-config"
 import { Metadata } from "next"
 import { cookies, headers } from "next/headers"
 import { redirect } from "next/navigation"
+import { toast } from "sonner"
 
 export const metadata: Metadata = {
   title: "Login"
@@ -127,7 +128,7 @@ export default async function Login({
       return redirect(`/login?message=${error.message}`)
     }
 
-    return redirect("/setup")
+    toast.success("Check your email to verify your account")
 
     // USE IF YOU WANT TO SEND EMAIL VERIFICATION, ALSO CHANGE TOML FILE
     // return redirect("/login?message=Check email to continue sign in process")
@@ -164,7 +165,7 @@ export default async function Login({
           Email
         </Label>
         <Input
-          className="mb-3 rounded-md border bg-inherit px-4 py-2"
+          className="mb-3 rounded-md border bg-inherit px-4 py-2 text-[16px]"
           name="email"
           placeholder="you@example.com"
           required
@@ -174,7 +175,7 @@ export default async function Login({
           Password
         </Label>
         <Input
-          className="mb-6 rounded-md border bg-inherit px-4 py-2"
+          className="mb-6 rounded-md border bg-inherit px-4 py-2 text-[16px]"
           type="password"
           name="password"
           placeholder="••••••••"
