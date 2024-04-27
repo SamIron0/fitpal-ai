@@ -61,7 +61,7 @@ export const createRecipe = async (
 export const getRecipesByTags = async (tags: string[]) => {
   console.log("tags: " + tags)
   const supabase = createClient()
-  const recipeIds: Set<number> = new Set() // use a Set to ensure uniqueness
+  const recipeIds: any[] = [] // use a Set to ensure uniqueness
   const recipes: any[] = []
 
   for (var i = 0; i < tags.length; i++) {
@@ -76,7 +76,7 @@ export const getRecipesByTags = async (tags: string[]) => {
     // append recipe id to recipeIds set
 
     if (tagData && tagData[0]) {
-      tagData[0].recipes.forEach((id: number) => recipeIds.add(id))
+      tagData[0].recipes.forEach((id: number) => recipeIds.push(id))
     }
   }
 
@@ -113,6 +113,36 @@ export const getRecipesByTags = async (tags: string[]) => {
   }
 
   return recipes
+}
+/*
+def most_common_recipes(recipes_list):
+    recipe_count = {}
+    for recipe in recipes_list:
+        if recipe in recipe_count:
+            recipe_count[recipe] += 1
+        else:
+            recipe_count[recipe] = 1
+
+    sorted_recipes = sorted(recipe_count.items(), key=lambda x: x[1], reverse=True)
+
+    return [recipe for recipe, count in sorted_recipes]
+
+recipes_list = ["A", "B", "A", "C", "B", "B", "A", "D", "C", "C", "C"]
+*/
+//print(most_common_recipes(recipes_list))
+const most_common_recipes = (recipes_list: string[]) => {
+  const recipe_count: { [key: string]: number } = {}
+  for (let recipe of recipes_list) {
+    if (recipe_count[recipe]) {
+      recipe_count[recipe] += 1
+    } else {
+      recipe_count[recipe] = 1
+    }
+  }
+  const sorted_recipes = Object.entries(recipe_count).sort(
+    (a, b) => b[1] - a[1]
+  )
+  return sorted_recipes
 }
 
 export const getCompleteRecipe = async (recipe: TablesInsert<"recipes">) => {
