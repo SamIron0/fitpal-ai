@@ -1,13 +1,12 @@
-import { createClient } from "@/lib/supabase/server"
+import { createClient } from "@/lib/supabase/client"
 import { TablesInsert } from "@/supabase/types"
-import { cookies } from "next/headers"
 import { v4 as uuidv4 } from "uuid"
 
 export const createRecipe = async (
   recipes: TablesInsert<"recipes">,
   tags: string[]
 ) => {
-  const supabase = createClient(cookies())
+  const supabase = createClient()
   const { data, error } = await supabase
     .from("recipes")
     .insert({
@@ -61,7 +60,7 @@ export const createRecipe = async (
 
 export const getRecipesByTags = async (tags: string[]) => {
   //console.log("tags2: " + tags)
-  const supabase = createClient(cookies())
+  const supabase = createClient()
   const recipeIds: Set<number> = new Set() // use a Set to ensure uniqueness
   const recipes: any[] = []
 
@@ -119,7 +118,7 @@ export const getRecipesByTags = async (tags: string[]) => {
 export const getCompleteRecipeById = async (
   recipe: TablesInsert<"recipes">
 ) => {
-  const supabase = createClient(cookies())
+  const supabase = createClient()
   const { data, error } = await supabase
     .from("recipes")
     .select(
