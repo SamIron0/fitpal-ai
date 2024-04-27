@@ -26,8 +26,6 @@ export async function POST(request: Request) {
       }
     )
     const data = await qTags.json()
-    console.log("data: " + data)
-    console.log("data: " + data[0])
     if (!data) {
       return new Response(JSON.stringify({ error: "None" }))
     }

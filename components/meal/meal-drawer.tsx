@@ -49,7 +49,7 @@ export const MealDrawer = ({ children, recipe }: MealDrawerProps) => {
             <div className="w-full">
               <p className="text-2xl font-semibold">Ingredients</p>
               <div className="w-full">
-                {recipe.ingredients.map((ingredient: any, index: number) => (
+                {recipe?.ingredients?.map((ingredient: any, index: number) => (
                   <div
                     key={index}
                     className="text-md flex w-full items-center justify-between"
