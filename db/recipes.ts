@@ -170,5 +170,5 @@ export const urlExists = async (url: string) => {
   if (error) {
     throw new Error(error.message)
   }
-  return data[0].url === url
+  return data[0]?.url === url
 }
