@@ -116,6 +116,9 @@ export const MealDrawer = ({ children, recipe, isOpen }: MealDrawerProps) => {
               <p className="text-md flex w-full items-center justify-between">
                 Carbs: {updatedRecipe.carbs}g
               </p>
+              <p className="text-md flex w-full items-center justify-between">
+                Calories: {recipe.calories}kcal
+              </p>
             </div>
           </div>
           <DrawerTrigger className="mb-12 flex items-center justify-center p-6 ">
