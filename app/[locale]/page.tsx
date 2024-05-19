@@ -1,5 +1,6 @@
 "use client"
 import { ChatInput } from "@/components/chat/chat-input"
+import { LoginDrawer } from "@/components/login/login-drawer"
 import { Brand } from "@/components/ui/brand"
 import { ChatbotUIContext } from "@/context/context"
 import { getGuestForYou } from "@/db/for-you"
@@ -51,17 +52,19 @@ export default async function ChatPage() {
         >
           {recipes?.map(recipe => (
             <div key={recipe.name} className="flex flex-col ">
-              {recipe.imgurl ? (
-                <img
-                  src={"/images/" + recipe.imgurl}
-                  className="border-1 mb-2 w-full rounded-lg border-gray-300 object-cover"
-                  alt={recipe.name || "Recipe Image"}
-                />
-              ) : (
-                <div className="border-1 mb-2 h-48 rounded-lg border-gray-300 bg-gray-600 p-2 py-10 text-black"></div>
-              )}
+              <LoginDrawer>
+                {recipe.imgurl ? (
+                  <img
+                    src={"/images/" + recipe.imgurl}
+                    className="border-1 mb-2 w-full rounded-lg border-gray-300 object-cover"
+                    alt={recipe.name || "Recipe Image"}
+                  />
+                ) : (
+                  <div className="border-1 mb-2 h-48 rounded-lg border-gray-300 bg-gray-600 p-2 py-10 text-black"></div>
+                )}
 
-              <p className="text-md w-full text-left">{recipe.name}</p>
+                <p className="text-md w-full text-left">{recipe.name}</p>
+              </LoginDrawer>
             </div>
           ))}
         </div>
