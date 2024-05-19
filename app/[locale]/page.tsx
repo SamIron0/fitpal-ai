@@ -56,7 +56,7 @@ export default async function ChatPage() {
                 {recipe.imgurl ? (
                   <img
                     src={"/images/" + recipe.imgurl}
-                    className="border-1 mb-2 h-48 w-full rounded-lg border-gray-300 object-cover"
+                    className="border-1 mb-2 size-48 rounded-lg border-gray-300 object-cover"
                     alt={recipe.name || "Recipe Image"}
                   />
                 ) : (
