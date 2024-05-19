@@ -51,8 +51,8 @@ export default async function ChatPage() {
           className="grid w-full max-w-4xl grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4"
         >
           {recipes?.map(recipe => (
-            <div key={recipe.name} className="flex flex-col ">
-              <LoginDrawer>
+            <LoginDrawer key={recipe.name}>
+              <div className="flex flex-col ">
                 {recipe.imgurl ? (
                   <img
                     src={"/images/" + recipe.imgurl}
@@ -64,8 +64,8 @@ export default async function ChatPage() {
                 )}
 
                 <p className="text-md w-full text-left">{recipe.name}</p>
-              </LoginDrawer>
-            </div>
+              </div>
+            </LoginDrawer>
           ))}
         </div>
       </div>
