@@ -49,18 +49,7 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
     setTools,
     setModels,
     selectedWorkspace,
-    setSelectedWorkspace,
-    setSelectedChat,
-    setChatMessages,
-    setUserInput,
-    setIsGenerating,
-    setFirstTokenReceived,
-    setChatFiles,
-    setChatImages,
-    setNewMessageFiles,
-    setNewMessageImages,
-    setShowFilesDisplay,
-    isGenerating
+    setSelectedWorkspace
   } = useContext(ChatbotUIContext)
 
   const [loading, setLoading] = useState(true)
@@ -78,7 +67,13 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
   }, [])
 
   const fetchWorkspaceData = async (workspaceId: string) => {
-    //!isGenerating ? setLoading(true) : null
+    const workspace = await getWorkspaceById(workspaceId)
+    setSelectedWorkspace(workspace)
+
+    const settings = await getSettingsByWorkspaceId(workspaceId)
+    setSettings(settings)
+
+    /*!isGenerating ? setLoading(true) : null
 
     const { data: subscription, error } = await supabase
       .from("subscriptions")
@@ -93,14 +88,10 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
       console.log(subscription)
       const sub = setSubscription(subscription)
     }
-    const workspace = await getWorkspaceById(workspaceId)
-    setSelectedWorkspace(workspace)
-
+   
+    
     const chats = await getChatsByWorkspaceId(workspaceId)
     setChats(chats)
-
-    const settings = await getSettingsByWorkspaceId(workspaceId)
-    setSettings(settings)
 
     const collectionData =
       await getCollectionWorkspacesByWorkspaceId(workspaceId)
@@ -123,14 +114,7 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
 
     const modelData = await getModelWorkspacesByWorkspaceId(workspaceId)
     setModels(modelData.models)
-
-    const updatedSettings: TablesUpdate<"settings"> = {
-      ...settings,
-      protein: Math.round((settings.protein * 0.01 * settings.calories) / 4),
-      fat: Math.round((settings.fat * 0.01 * settings.calories) / 9),
-      carbs: Math.round((settings.carbs * 0.01 * settings.calories) / 4) //+ settings.carbs * 0.01 * settings.calories
-    }
-    const default_prompt = stripIndent`${oneLine`
+  const default_prompt = stripIndent`${oneLine`
     You are a very enthusiastic conversational fitness assistant who loves
     to help people! Given the following context about the user and all previous
     chat messages, continue the conversation.
@@ -152,6 +136,13 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
         (workspace?.embeddings_provider as "openai" | "local") || "openai",
       contextIsOutdated: false
     })
+    */
+    const updatedSettings: TablesUpdate<"settings"> = {
+      ...settings,
+      protein: Math.round((settings.protein * 0.01 * settings.calories) / 4),
+      fat: Math.round((settings.fat * 0.01 * settings.calories) / 9),
+      carbs: Math.round((settings.carbs * 0.01 * settings.calories) / 4) //+ settings.carbs * 0.01 * settings.calories
+    }
 
     setLoading(false)
   }
