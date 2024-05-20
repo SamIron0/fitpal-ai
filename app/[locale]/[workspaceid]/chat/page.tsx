@@ -60,11 +60,11 @@ export default async function ChatPage() {
                 {generatedRecipes?.map(recipe => (
                   <div key={recipe.id} onClick={() => openDrawer(recipe.id)}>
                     <MealDrawer recipe={recipe} isOpen={isOpen}>
-                      <div className="flex flex-col ">
+                      <div className="flex w-48 flex-col ">
                         {recipe.imgurl ? (
                           <img
                             src={"/images/" + recipe.imgurl}
-                            className="border-1 mb-2 w-full rounded-lg border-gray-300 object-cover"
+                            className="border-1 mb-2 h-48 w-full rounded-lg border-gray-300 object-cover"
                             alt={recipe.name || "Recipe Image"}
                           />
                         ) : (
