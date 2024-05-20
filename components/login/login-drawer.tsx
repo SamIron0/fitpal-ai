@@ -81,7 +81,7 @@ export const LoginDrawer = ({ children, searchParams }: LoginDrawerProps) => {
           {" "}
           {children}
         </DrawerTrigger>
-        <DrawerContent className="flex flex-col items-center">
+        <DrawerContent className="flex flex-col items-center focus:outline-none">
           <div className="mb-14 flex w-full flex-1 flex-col justify-center gap-2 px-8 py-10 sm:max-w-md">
             <form
               className="flex w-full flex-1 flex-col justify-center gap-2 text-foreground animate-in"
