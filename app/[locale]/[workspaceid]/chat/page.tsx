@@ -5,19 +5,25 @@ import { MealDrawer } from "@/components/meal/meal-drawer"
 import { Brand } from "@/components/ui/brand"
 import { ChatbotUIContext } from "@/context/context"
 import { getGuestForYou } from "@/db/for-you"
-import { TablesInsert } from "@/supabase/types"
+import { Tables, TablesInsert } from "@/supabase/types"
 import axios from "axios"
 import { useTheme } from "next-themes"
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 
-export default async function ChatPage() {
+export default function ChatPage() {
   const { generatedRecipes, isGenerating } = useContext(ChatbotUIContext)
+  const [forYou, setForYou] = useState<Tables<"recipes">[]>()
   const { theme } = useTheme()
   const [isOpen, setIsOpen] = useState("0")
   const openDrawer = (id: string) => {
     setIsOpen(id)
   }
-  const recipes = await getGuestForYou()
+  useEffect(() => {
+    const getRecipes = async () => {
+      const recipes = await getGuestForYou()
+      setForYou(recipes)
+    }
+  }, [])
   return (
     <div className="hide-scrollbar relative flex h-full flex-col items-center overflow-y-auto px-4 sm:px-6">
       <div className="top-50% left-50%  -translate-x-50% -translate-y-50% mb-9  mt-32">
@@ -87,7 +93,7 @@ export default async function ChatPage() {
                 role="status"
                 className="grid w-full max-w-4xl grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4"
               >
-                {recipes?.map(recipe => (
+                {forYou?.map(recipe => (
                   <div key={recipe.name} className="flex w-48 flex-col ">
                     {recipe.imgurl ? (
                       <img
