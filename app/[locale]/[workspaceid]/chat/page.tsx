@@ -5,8 +5,7 @@ import { MealDrawer } from "@/components/meal/meal-drawer"
 import { Brand } from "@/components/ui/brand"
 import { ChatbotUIContext } from "@/context/context"
 import { getGuestForYou } from "@/db/for-you"
-import { Tables, TablesInsert } from "@/supabase/types"
-import axios from "axios"
+import { Tables } from "@/supabase/types"
 import { useTheme } from "next-themes"
 import { useContext, useEffect, useState } from "react"
 
@@ -23,6 +22,7 @@ export default function ChatPage() {
       const recipes = await getGuestForYou()
       setForYou(recipes)
     }
+    getRecipes()
   }, [])
   return (
     <div className="hide-scrollbar relative flex h-full flex-col items-center overflow-y-auto px-4 sm:px-6">

@@ -18,7 +18,7 @@ const inter = Inter({ subsets: ["latin"] })
 const APP_NAME = "Fitpal AI"
 const APP_DEFAULT_TITLE = "Fitpal AI"
 const APP_TITLE_TEMPLATE = "%s - Fitpal AI"
-const APP_DESCRIPTION = "Chabot UI PWA!"
+const APP_DESCRIPTION = "Fitpal AI!"
 
 interface RootLayoutProps {
   children: ReactNode
@@ -67,8 +67,6 @@ export const viewport: Viewport = {
   themeColor: "#000000"
 }
 
-const i18nNamespaces = ["translation"]
-
 export default async function RootLayout({
   children,
   params: { locale }
@@ -86,8 +84,6 @@ export default async function RootLayout({
     }
   )
   const session = (await supabase.auth.getSession()).data.session
-
-  const { t, resources } = await initTranslations(locale, i18nNamespaces)
 
   return (
     <html lang="en" suppressHydrationWarning>
@@ -110,20 +106,14 @@ export default async function RootLayout({
       <body className={inter.className}>
         <ToasterProvider />
         <Providers attribute="class" defaultTheme="dark">
-          <TranslationsProvider
-            namespaces={i18nNamespaces}
-            locale={locale}
-            resources={resources}
-          >
-            <Toaster richColors position="top-center" duration={3000} />
-            <div className="flex h-dvh flex-col items-center overflow-x-hidden bg-background text-foreground">
-              {session ? (
-                <GlobalState>{children}</GlobalState>
-              ) : (
-                <Dashboard>{children}</Dashboard>
-              )}
-            </div>
-          </TranslationsProvider>
+          <Toaster richColors position="top-center" duration={3000} />
+          <div className="flex h-dvh flex-col items-center overflow-x-hidden bg-background text-foreground">
+            {session ? (
+              <GlobalState>{children}</GlobalState>
+            ) : (
+              <Dashboard>{children}</Dashboard>
+            )}
+          </div>
         </Providers>
         <Analytics />
       </body>
