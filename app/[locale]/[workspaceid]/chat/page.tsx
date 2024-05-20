@@ -94,18 +94,24 @@ export default function ChatPage() {
                 className="grid w-full max-w-4xl grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4"
               >
                 {forYou?.map(recipe => (
-                  <div key={recipe.name} className="flex w-48 flex-col ">
-                    {recipe.imgurl ? (
-                      <img
-                        src={"/images/" + recipe.imgurl}
-                        className="border-1 mb-2 h-48 rounded-lg border-gray-300 object-cover"
-                        alt={recipe.name || "Recipe Image"}
-                      />
-                    ) : (
-                      <div className="border-1 mb-2 h-48 rounded-lg border-gray-300 bg-gray-600 p-2 py-10 text-black"></div>
-                    )}
+                  <div
+                    key={recipe.name}
+                    className="flex w-48 flex-col "
+                    onClick={() => openDrawer(recipe.id)}
+                  >
+                    <MealDrawer recipe={recipe} isOpen={isOpen}>
+                      {recipe.imgurl ? (
+                        <img
+                          src={"/images/" + recipe.imgurl}
+                          className="border-1 mb-2 h-48 rounded-lg border-gray-300 object-cover"
+                          alt={recipe.name || "Recipe Image"}
+                        />
+                      ) : (
+                        <div className="border-1 mb-2 h-48 rounded-lg border-gray-300 bg-gray-600 p-2 py-10 text-black"></div>
+                      )}
 
-                    <p className="text-md w-full text-left">{recipe.name}</p>
+                      <p className="text-md w-full text-left">{recipe.name}</p>
+                    </MealDrawer>
                   </div>
                 ))}
               </div>
