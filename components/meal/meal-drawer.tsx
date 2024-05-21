@@ -71,7 +71,7 @@ export const MealDrawer = ({ children, recipe, isOpen }: MealDrawerProps) => {
               <p className="pb-3 text-3xl font-semibold">
                 {updatedRecipe.name}
               </p>
-              <p className="flex flex-row">
+              <p className="flex flex-row pb-3">
                 <p className="text-sm ">Portions: {updatedRecipe.portions}</p>
                 <p className="pl-5 text-sm">
                   Cooking Time: {updatedRecipe.cooking_time}
