@@ -63,7 +63,7 @@ export const MealDrawer = ({ children, recipe, isOpen }: MealDrawerProps) => {
             <div className="w-full justify-end">
               <img
                 src={"/images/" + updatedRecipe.imgurl}
-                className="mb-2 w-1/2 rounded-lg object-cover"
+                className="mb-2 w-1/2 rounded-lg border border-gray-300 object-cover md:w-1/3"
                 alt={updatedRecipe.name || "updatedRecipe Image"}
               />
             </div>
@@ -72,9 +72,7 @@ export const MealDrawer = ({ children, recipe, isOpen }: MealDrawerProps) => {
                 {updatedRecipe.name}
               </p>
               <p className="flex flex-row">
-                <p className="text-sm ">
-                  Portion Size: {updatedRecipe.portions}
-                </p>
+                <p className="text-sm ">Portions: {updatedRecipe.portions}</p>
                 <p className="pl-5 text-sm">
                   Cooking Time: {updatedRecipe.cooking_time}
                 </p>
