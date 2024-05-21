@@ -75,8 +75,8 @@ export const ChatInput: FC<ChatInputProps> = ({}: ChatInputProps) => {
   const { t } = useTranslation()
 
   const [isTyping, setIsTyping] = useState<boolean>(false)
-
-  const { chatInputRef, handleStopMessage } = useChatHandler()
+  const chatInputRef = useRef<HTMLInputElement>(null)
+  const { handleStopMessage } = useChatHandler()
   const [input, setInput] = useState<string>("")
   const generateMeals = async () => {
     setIsGenerating(true)
@@ -105,17 +105,15 @@ export const ChatInput: FC<ChatInputProps> = ({}: ChatInputProps) => {
         <div className="absolute bottom-[76px] left-0 max-h-[300px] w-full overflow-auto rounded-xl dark:border-none">
           <ChatCommandInput />
         </div>
-        <TextareaAutosize
-          textareaRef={chatInputRef}
+        <input
+          ref={chatInputRef}
           className="text-md min-w-3xl flex w-full resize-none rounded-md border-none bg-transparent py-2 pl-3 pr-14 ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
           placeholder={t(
             // `Ask anything. Type "@" for assistants, "/" for prompts, "#" for files, and "!" for tools.`
             `Asian Dinner ideas`
           )}
-          onValueChange={handleInputChange}
+          onChange={() => handleInputChange}
           value={input}
-          minRows={1}
-          maxRows={1}
           onCompositionStart={() => setIsTyping(true)}
           onCompositionEnd={() => setIsTyping(false)}
         />
