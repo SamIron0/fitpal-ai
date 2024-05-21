@@ -91,9 +91,10 @@ export const ChatInput: FC<ChatInputProps> = ({}: ChatInputProps) => {
     setGeneratedRecipes(await recipes.json())
     setIsGenerating(false)
   }
-  const handleInputChange = (value: string) => {
-    setInput(value)
-    setUserInput(value)
+  const handleInputChange = (event: any) => {
+    setInput(event.target.value)
+
+    setUserInput(event.target.value)
   }
   return (
     <>
@@ -112,7 +113,7 @@ export const ChatInput: FC<ChatInputProps> = ({}: ChatInputProps) => {
             // `Ask anything. Type "@" for assistants, "/" for prompts, "#" for files, and "!" for tools.`
             `Asian Dinner ideas`
           )}
-          onChange={() => handleInputChange}
+          onChange={handleInputChange}
           value={input}
           onCompositionStart={() => setIsTyping(true)}
           onCompositionEnd={() => setIsTyping(false)}
