@@ -24,6 +24,13 @@ export default function ChatPage() {
     }
     getRecipes()
   }, [])
+  const renderSkeleton = () => {
+    for (let n = 0; n <= 12; n++) {
+      return (
+        <div className="border-1  size-48 rounded-lg border-gray-300 bg-gray-600 p-2 py-10 text-black"></div>
+      )
+    }
+  }
   return (
     <div className="hide-scrollbar relative flex h-full flex-col items-center overflow-y-auto px-4 sm:px-6">
       <div className="top-50% left-50%  -translate-x-50% -translate-y-50% mb-9  mt-32">
@@ -41,17 +48,7 @@ export default function ChatPage() {
             role="status"
             className="grid w-full max-w-4xl animate-pulse grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4"
           >
-            <div className="border-1 rounded-lg border-gray-300 bg-gray-600 p-2 py-10 text-black"></div>
-            <div className="border-1 rounded-lg border-gray-300 bg-gray-600 p-2 py-10 text-black"></div>
-            <div className="border-1 rounded-lg border-gray-300 bg-gray-600 p-2 py-10 text-black"></div>
-            <div className="border-1 rounded-lg border-gray-300 bg-gray-600 p-2 py-10 text-black"></div>
-            <div className="border-1 rounded-lg border-gray-300 bg-gray-600 p-2 py-10 text-black"></div>
-
-            <div className="border-1 rounded-lg border-gray-300 bg-gray-600 p-2 py-10 text-black"></div>
-
-            <div className="border-1 rounded-lg border-gray-300 bg-gray-600 p-2 py-10 text-black"></div>
-
-            <div className="border-1 rounded-lg border-gray-300 bg-gray-600 p-2 py-10 text-black"></div>
+            {renderSkeleton()}
           </div>
         </div>
       ) : (
