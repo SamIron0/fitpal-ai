@@ -101,11 +101,11 @@ export default function ChatPage() {
                         {recipe.imgurl ? (
                           <img
                             src={"/images/" + recipe.imgurl}
-                            className="border-1 mb-2 h-48 rounded-lg border-gray-300 object-cover"
+                            className="mb-2 h-48 rounded-lg border  object-cover"
                             alt={recipe.name || "Recipe Image"}
                           />
                         ) : (
-                          <div className="border-1 mb-2 h-48 rounded-lg border-gray-300 bg-gray-600 p-2 py-10 text-black"></div>
+                          <div className="mb-2 h-48 rounded-lg border  bg-gray-600 p-2 py-10 text-black"></div>
                         )}
 
                         <p className="text-md w-full text-left">

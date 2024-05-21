@@ -63,7 +63,7 @@ export const MealDrawer = ({ children, recipe, isOpen }: MealDrawerProps) => {
             <div className="w-full justify-end">
               <img
                 src={"/images/" + updatedRecipe.imgurl}
-                className="mb-2 w-1/2 rounded-lg border border-gray-300 object-cover md:w-1/3"
+                className="mb-2 w-1/2 rounded-lg border object-cover md:w-1/3"
                 alt={updatedRecipe.name || "updatedRecipe Image"}
               />
             </div>
