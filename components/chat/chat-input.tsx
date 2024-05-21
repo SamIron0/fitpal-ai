@@ -43,8 +43,27 @@ export const ChatInput: FC<ChatInputProps> = ({}: ChatInputProps) => {
     }
 
     getSession()
+
+    const inputElement = chatInputRef.current
+    if (inputElement) {
+      inputElement.addEventListener("keydown", handleKeyDown)
+    }
+
+    // Clean up event listener on component unmount
+    return () => {
+      if (inputElement) {
+        inputElement.removeEventListener("keydown", handleKeyDown)
+      }
+    }
   }, []) // Run the effect only once, when the component mounts
 
+  const handleKeyDown = (event: any) => {
+    if (event.key === "Enter") {
+      if (userInput) {
+        generateMeals()
+      }
+    }
+  }
   const { t } = useTranslation()
 
   const [isTyping, setIsTyping] = useState<boolean>(false)
