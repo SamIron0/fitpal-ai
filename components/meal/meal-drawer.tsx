@@ -101,7 +101,7 @@ export const MealDrawer = ({ children, recipe, isOpen }: MealDrawerProps) => {
                       key={index}
                       className="text-md flex w-full items-center justify-between"
                     >
-                      •{direction}
+                      • {" " + direction}
                     </li>
                   )
                 )}
