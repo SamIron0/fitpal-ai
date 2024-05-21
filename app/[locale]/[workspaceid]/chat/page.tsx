@@ -100,17 +100,21 @@ export default function ChatPage() {
                     onClick={() => openDrawer(recipe.id)}
                   >
                     <MealDrawer recipe={recipe} isOpen={isOpen}>
-                      {recipe.imgurl ? (
-                        <img
-                          src={"/images/" + recipe.imgurl}
-                          className="border-1 mb-2 h-48 rounded-lg border-gray-300 object-cover"
-                          alt={recipe.name || "Recipe Image"}
-                        />
-                      ) : (
-                        <div className="border-1 mb-2 h-48 rounded-lg border-gray-300 bg-gray-600 p-2 py-10 text-black"></div>
-                      )}
+                      <div className="flex w-48 flex-col ">
+                        {recipe.imgurl ? (
+                          <img
+                            src={"/images/" + recipe.imgurl}
+                            className="border-1 mb-2 h-48 rounded-lg border-gray-300 object-cover"
+                            alt={recipe.name || "Recipe Image"}
+                          />
+                        ) : (
+                          <div className="border-1 mb-2 h-48 rounded-lg border-gray-300 bg-gray-600 p-2 py-10 text-black"></div>
+                        )}
 
-                      <p className="text-md w-full text-left">{recipe.name}</p>
+                        <p className="text-md w-full text-left">
+                          {recipe.name}
+                        </p>
+                      </div>{" "}
                     </MealDrawer>
                   </div>
                 ))}
