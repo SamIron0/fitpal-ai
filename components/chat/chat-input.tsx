@@ -115,7 +115,7 @@ export const ChatInput: FC<ChatInputProps> = ({}: ChatInputProps) => {
           onValueChange={handleInputChange}
           value={input}
           minRows={1}
-          maxRows={18}
+          maxRows={1}
           onCompositionStart={() => setIsTyping(true)}
           onCompositionEnd={() => setIsTyping(false)}
         />
