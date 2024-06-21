@@ -1,5 +1,5 @@
 import { ServerRuntime } from "next"
-import { createRecipe, getRecipesByTags } from "@/db/recipes"
+import { createRecipe, getRecipesByTags } from "@/db/admin"
 import { TablesInsert } from "@/supabase/types"
 import { Tags } from "@/types/tags"
 export const runtime: ServerRuntime = "edge"

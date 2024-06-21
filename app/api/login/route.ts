@@ -1,5 +1,5 @@
 import { ServerRuntime } from "next"
-import { createRecipe } from "@/db/recipes"
+import { createRecipe } from "@/db/admin"
 import { TablesInsert } from "@/supabase/types"
 import { cookies } from "next/headers"
 import { createClient } from "@/lib/supabase/server"

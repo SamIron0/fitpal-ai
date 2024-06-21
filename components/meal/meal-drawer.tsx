@@ -18,7 +18,7 @@ import { Input } from "../ui/input"
 import { SubmitButton } from "../ui/submit-button"
 import { useRouter } from "next/navigation"
 import { useContext, useEffect, useState } from "react"
-import { getCompleteRecipe } from "@/db/recipes"
+import { getCompleteRecipe } from "@/db/admin"
 import { ChatbotUIContext } from "@/context/context"
 import { TablesInsert } from "@/supabase/types"
 

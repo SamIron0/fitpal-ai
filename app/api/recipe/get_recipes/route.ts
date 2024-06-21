@@ -1,7 +1,5 @@
 import { ServerRuntime } from "next"
-import { createRecipe, getRecipesByTags } from "@/db/recipes"
-import { TablesInsert } from "@/supabase/types"
-import { Tags } from "@/types/tags"
+import { getRecipesByIds } from "@/db/admin"
 export const runtime: ServerRuntime = "edge"
 
 export async function POST(request: Request) {
@@ -10,17 +8,15 @@ export async function POST(request: Request) {
     input: string
   }
   try {
-    //const tags = ["African", "dinner"]
-
     const qTags = await fetch(
-      "https://3x077l0rol.execute-api.us-east-1.amazonaws.com/main/tag",
+      "https://fitpal-search-b708e98ab7d0.herokuapp.com/",
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          input
+          query: input
         })
       }
     )
@@ -29,7 +25,7 @@ export async function POST(request: Request) {
     if (!data) {
       return new Response(JSON.stringify({ error: "None" }))
     }
-    const res = await getRecipesByTags(data)
+    const res = await getRecipesByIds(data)
     return new Response(JSON.stringify(res))
   } catch (error) {
     console.log(error)
