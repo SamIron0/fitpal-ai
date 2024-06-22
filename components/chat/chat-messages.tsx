@@ -1,12 +1,12 @@
 import { useChatHandler } from "@/components/chat/chat-hooks/use-chat-handler"
-import { ChatbotUIContext } from "@/context/context"
+import { FitpalAIContext } from "@/context/context"
 import { Tables } from "@/supabase/types"
 import { FC, useContext, useState } from "react"
 
 interface ChatMessagesProps {}
 
 export const ChatMessages: FC<ChatMessagesProps> = ({}) => {
-  const { chatMessages, chatFileItems } = useContext(ChatbotUIContext)
+  const { chatMessages, chatFileItems } = useContext(FitpalAIContext)
 
   const { handleSendEdit } = useChatHandler()
 

@@ -3,14 +3,14 @@
 import { ChatInput } from "@/components/chat/chat-input"
 import { MealDrawer } from "@/components/meal/meal-drawer"
 import { Brand } from "@/components/ui/brand"
-import { ChatbotUIContext } from "@/context/context"
+import { FitpalAIContext } from "@/context/context"
 import { getGuestForYou } from "@/db/for-you"
 import { Tables } from "@/supabase/types"
 import { useTheme } from "next-themes"
 import { useContext, useEffect, useState } from "react"
 
 export default function ChatPage() {
-  const { generatedRecipes, isGenerating } = useContext(ChatbotUIContext)
+  const { generatedRecipes, isGenerating } = useContext(FitpalAIContext)
   const [forYou, setForYou] = useState<Tables<"recipes">[]>()
   const { theme } = useTheme()
   const [isOpen, setIsOpen] = useState("0")

@@ -1,4 +1,4 @@
-import { ChatbotUIContext } from "@/context/context"
+import { FitpalAIContext } from "@/context/context"
 import { DietProvider } from "@/types/diet"
 import { IconChevronDown } from "@tabler/icons-react"
 import { FC, useContext, useEffect, useRef, useState } from "react"
@@ -18,7 +18,7 @@ interface DietSelectProps {
 }
 
 export const DietSelect: FC<DietSelectProps> = ({ onSelect, selectedDiet }) => {
-  const { profile, setProfile } = useContext(ChatbotUIContext)
+  const { profile, setProfile } = useContext(FitpalAIContext)
 
   const inputRef = useRef<HTMLInputElement>(null)
   const triggerRef = useRef<HTMLButtonElement>(null)

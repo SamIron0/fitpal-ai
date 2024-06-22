@@ -1,4 +1,4 @@
-import { ChatbotUIContext } from "@/context/context"
+import { FitpalAIContext } from "@/context/context"
 import { Tables } from "@/supabase/types"
 import { IconChevronDown, IconCircleCheckFilled } from "@tabler/icons-react"
 import { FC, useContext, useEffect, useRef, useState } from "react"
@@ -19,7 +19,7 @@ export const AssignWorkspaces: FC<AssignWorkspaces> = ({
   selectedWorkspaces,
   onSelectWorkspace
 }) => {
-  const { workspaces } = useContext(ChatbotUIContext)
+  const { workspaces } = useContext(FitpalAIContext)
 
   const inputRef = useRef<HTMLInputElement>(null)
   const triggerRef = useRef<HTMLButtonElement>(null)

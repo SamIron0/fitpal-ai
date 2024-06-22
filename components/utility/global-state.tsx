@@ -2,7 +2,7 @@
 
 "use client"
 
-import { ChatbotUIContext } from "@/context/context"
+import { FitpalAIContext } from "@/context/context"
 import { getProfileByUserId } from "@/db/profile"
 import { getWorkspacesByUserId } from "@/db/workspaces"
 import { supabase } from "@/lib/supabase/browser-client"
@@ -154,7 +154,7 @@ export const GlobalState: FC<GlobalStateProps> = ({ children }) => {
   }
 
   return (
-    <ChatbotUIContext.Provider
+    <FitpalAIContext.Provider
       value={{
         // PROFILE STORE
         profile,
@@ -290,6 +290,6 @@ export const GlobalState: FC<GlobalStateProps> = ({ children }) => {
       }}
     >
       {children}
-    </ChatbotUIContext.Provider>
+    </FitpalAIContext.Provider>
   )
 }

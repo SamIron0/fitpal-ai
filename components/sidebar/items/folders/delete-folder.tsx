@@ -8,7 +8,7 @@ import {
   DialogTitle,
   DialogTrigger
 } from "@/components/ui/dialog"
-import { ChatbotUIContext } from "@/context/context"
+import { FitpalAIContext } from "@/context/context"
 import { deleteFolder } from "@/db/folders"
 import { supabase } from "@/lib/supabase/browser-client"
 import { Tables } from "@/supabase/types"
@@ -37,7 +37,7 @@ export const DeleteFolder: FC<DeleteFolderProps> = ({
     setTools,
     setModels,
     setCalculator
-  } = useContext(ChatbotUIContext)
+  } = useContext(FitpalAIContext)
 
   const buttonRef = useRef<HTMLButtonElement>(null)
 

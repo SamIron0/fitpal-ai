@@ -1,5 +1,5 @@
 "use client"
-import { ChatbotUIContext } from "@/context/context"
+import { FitpalAIContext } from "@/context/context"
 import useHotkey from "@/lib/hooks/use-hotkey"
 import { cn } from "@/lib/utils"
 import {
@@ -47,7 +47,7 @@ export const ChatInput: FC<ChatInputProps> = ({}: ChatInputProps) => {
     setIsGenerating,
     setUserInput,
     setGeneratedRecipes
-  } = useContext(ChatbotUIContext)
+  } = useContext(FitpalAIContext)
 
   useEffect(() => {
     const inputElement = chatInputRef.current

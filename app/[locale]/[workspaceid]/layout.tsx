@@ -1,7 +1,7 @@
 "use client"
 
 import { Dashboard } from "@/components/ui/dashboard"
-import { ChatbotUIContext } from "@/context/context"
+import { FitpalAIContext } from "@/context/context"
 import { getAssistantWorkspacesByWorkspaceId } from "@/db/assistants"
 import { getChatsByWorkspaceId } from "@/db/chats"
 
@@ -50,7 +50,7 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
     setModels,
     selectedWorkspace,
     setSelectedWorkspace
-  } = useContext(ChatbotUIContext)
+  } = useContext(FitpalAIContext)
 
   const [loading, setLoading] = useState(true)
 

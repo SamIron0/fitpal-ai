@@ -1,6 +1,6 @@
 import Loading from "@/app/[locale]/loading"
 import { useChatHandler } from "@/components/chat/chat-hooks/use-chat-handler"
-import { ChatbotUIContext } from "@/context/context"
+import { FitpalAIContext } from "@/context/context"
 import { getAssistantToolsByAssistantId } from "@/db/assistant-tools"
 import { getChatFilesByChatId } from "@/db/chat-files"
 import { getChatById } from "@/db/chats"
@@ -38,7 +38,7 @@ export const ChatUI: FC<ChatUIProps> = ({}) => {
     setShowFilesDisplay,
     setUseRetrieval,
     setSelectedTools
-  } = useContext(ChatbotUIContext)
+  } = useContext(FitpalAIContext)
 
   const { handleNewChat, handleFocusChatInput } = useChatHandler()
 

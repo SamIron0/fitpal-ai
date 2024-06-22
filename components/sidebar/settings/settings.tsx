@@ -7,13 +7,13 @@ import { DietProvider } from "@/types/diet"
 import { Allergies } from "./allergies"
 import { updateSettings } from "@/db/settings"
 import { TablesUpdate } from "@/supabase/types"
-import { ChatbotUIContext } from "@/context/context"
+import { FitpalAIContext } from "@/context/context"
 import { LoginDrawer } from "@/components/login/login-drawer"
 import { createClient } from "@/lib/supabase/client"
 
 interface SettingsProps {}
 export const Settings: FC<SettingsProps> = () => {
-  const { settings } = useContext(ChatbotUIContext)
+  const { settings } = useContext(FitpalAIContext)
   const [selectedDiet, setSelectedDiet] = useState<DietProvider>(settings?.diet)
   const [protein, setProtein] = useState(Math.round(settings?.protein) || 0)
   const [carbs, setCarbs] = useState(Math.round(settings?.carbs) || 0)
@@ -27,7 +27,7 @@ export const Settings: FC<SettingsProps> = () => {
   const [session, setSession] = useState<any>(null)
 
   const { setChatSettings, chatSettings, setSettings } =
-    useContext(ChatbotUIContext)
+    useContext(FitpalAIContext)
   //console.log("settings:", settings)
   const settingsUpdate: TablesUpdate<"settings"> = {
     id: settings?.id,

@@ -1,4 +1,4 @@
-import { ChatbotUIContext } from "@/context/context"
+import { FitpalAIContext } from "@/context/context"
 import { FC, useContext } from "react"
 import { AssistantPicker } from "./assistant-picker"
 import { usePromptAndCommand } from "./chat-hooks/use-prompt-and-command"
@@ -18,7 +18,7 @@ export const ChatCommandInput: FC<ChatCommandInputProps> = ({}) => {
     hashtagCommand,
     focusPrompt,
     focusFile
-  } = useContext(ChatbotUIContext)
+  } = useContext(FitpalAIContext)
 
   const { handleSelectUserFile, handleSelectUserCollection } =
     usePromptAndCommand()

@@ -1,4 +1,4 @@
-import { ChatbotUIContext } from "@/context/context"
+import { FitpalAIContext } from "@/context/context"
 import { updateAssistant } from "@/db/assistants"
 import { updateChat } from "@/db/chats"
 import { updateCollection } from "@/db/collections"
@@ -49,7 +49,7 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
     setTools,
     setModels,
     subscription
-  } = useContext(ChatbotUIContext)
+  } = useContext(FitpalAIContext)
 
   const divRef = useRef<HTMLDivElement>(null)
 

@@ -1,6 +1,6 @@
 import { ModelIcon } from "@/components/model-icon"
 import { WithTooltip } from "@/components/ui/with-tooltip"
-import { ChatbotUIContext } from "@/context/context"
+import { FitpalAIContext } from "@/context/context"
 import { cn } from "@/lib/utils"
 import { Tables } from "@/supabase/types"
 import { LLM } from "@/types"
@@ -22,7 +22,7 @@ export const ChatItem: FC<ChatItemProps> = ({ chat }) => {
     availableLocalModels,
     assistantImages,
     availableOpenRouterModels
-  } = useContext(ChatbotUIContext)
+  } = useContext(FitpalAIContext)
 
   const router = useRouter()
   const params = useParams()

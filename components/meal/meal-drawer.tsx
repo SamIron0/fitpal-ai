@@ -18,7 +18,7 @@ import { Input } from "../ui/input"
 import { SubmitButton } from "../ui/submit-button"
 import { useRouter } from "next/navigation"
 import { useContext, useEffect, useState } from "react"
-import { ChatbotUIContext } from "@/context/context"
+import { FitpalAIContext } from "@/context/context"
 import { TablesInsert } from "@/supabase/types"
 
 interface MealDrawerProps {
@@ -29,7 +29,7 @@ interface MealDrawerProps {
 export const MealDrawer = ({ children, recipe, isOpen }: MealDrawerProps) => {
   //get full recipe
 
-  const { generatedRecipes, setGeneratedRecipes } = useContext(ChatbotUIContext)
+  const { generatedRecipes, setGeneratedRecipes } = useContext(FitpalAIContext)
   const [updatedRecipe, setUpdatedRecipe] =
     useState<TablesInsert<"recipes">>(recipe)
   useEffect(() => {

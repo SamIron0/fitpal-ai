@@ -13,7 +13,7 @@ import { VALID_ENV_KEYS } from "@/types/valid-keys"
 import { Dispatch, SetStateAction, createContext } from "react"
 import { number } from "zod"
 
-interface ChatbotUIContext {
+interface FitpalAIContext {
   // PROFILE STORE
   profile: Tables<"profiles"> | null
   setProfile: Dispatch<SetStateAction<Tables<"profiles"> | null>>
@@ -148,7 +148,7 @@ interface ChatbotUIContext {
   setToolInUse: Dispatch<SetStateAction<string>>
 }
 
-export const ChatbotUIContext = createContext<ChatbotUIContext>({
+export const FitpalAIContext = createContext<FitpalAIContext>({
   // PROFILE STORE
   profile: null,
   setProfile: () => {},

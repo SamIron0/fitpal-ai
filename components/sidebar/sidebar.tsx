@@ -1,4 +1,4 @@
-import { ChatbotUIContext } from "@/context/context"
+import { FitpalAIContext } from "@/context/context"
 import { Tables } from "@/supabase/types"
 import { ContentType } from "@/types"
 import { FC, useContext } from "react"
@@ -13,7 +13,7 @@ interface SidebarProps {
 }
 
 export const Sidebar: FC<SidebarProps> = ({ contentType, showSidebar }) => {
-  const { folders, chats, presets, calculator } = useContext(ChatbotUIContext)
+  const { folders, chats, presets, calculator } = useContext(FitpalAIContext)
 
   const presetFolders = folders.filter(folder => folder.type === "presets")
   const calculatorFolders = folders.filter(

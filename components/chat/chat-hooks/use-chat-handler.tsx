@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from "uuid"
-import { ChatbotUIContext } from "@/context/context"
+import { FitpalAIContext } from "@/context/context"
 import { getAssistantCollectionsByAssistantId } from "@/db/assistant-collections"
 import { getAssistantFilesByAssistantId } from "@/db/assistant-files"
 import { getAssistantToolsByAssistantId } from "@/db/assistant-tools"
@@ -68,7 +68,7 @@ export const useChatHandler = () => {
     isFilePickerOpen,
     isToolPickerOpen,
     settings
-  } = useContext(ChatbotUIContext)
+  } = useContext(FitpalAIContext)
 
   const chatInputRef = useRef<HTMLTextAreaElement>(null)
 

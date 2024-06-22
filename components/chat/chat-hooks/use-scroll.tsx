@@ -1,4 +1,4 @@
-import { ChatbotUIContext } from "@/context/context"
+import { FitpalAIContext } from "@/context/context"
 import {
   type UIEventHandler,
   useCallback,
@@ -9,7 +9,7 @@ import {
 } from "react"
 
 export const useScroll = () => {
-  const { isGenerating, generatedRecipes } = useContext(ChatbotUIContext)
+  const { isGenerating, generatedRecipes } = useContext(FitpalAIContext)
 
   const messagesStartRef = useRef<HTMLDivElement>(null)
   const messagesEndRef = useRef<HTMLDivElement>(null)

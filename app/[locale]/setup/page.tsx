@@ -1,6 +1,6 @@
 "use client"
 
-import { ChatbotUIContext } from "@/context/context"
+import { FitpalAIContext } from "@/context/context"
 import { getProfileByUserId, updateProfile } from "@/db/profile"
 import {
   getHomeWorkspaceByUserId,
@@ -31,7 +31,7 @@ export default function SetupPage() {
     setAvailableHostedModels,
     setAvailableOpenRouterModels,
     setSettings
-  } = useContext(ChatbotUIContext)
+  } = useContext(FitpalAIContext)
 
   const router = useRouter()
 

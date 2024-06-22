@@ -2,7 +2,7 @@
 import { ChatInput } from "@/components/chat/chat-input"
 import { LoginDrawer } from "@/components/login/login-drawer"
 import { Brand } from "@/components/ui/brand"
-import { ChatbotUIContext } from "@/context/context"
+import { FitpalAIContext } from "@/context/context"
 import { getGuestForYou } from "@/db/for-you"
 import { createClient } from "@/lib/supabase/client"
 import { TablesInsert } from "@/supabase/types"
