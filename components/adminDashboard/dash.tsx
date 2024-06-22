@@ -39,39 +39,16 @@ export default function Dash() {
     const toastId = toast.loading("Scraping...")
     try {
       const endpoint =
-        "https://46f5-2604-3d09-aa7a-95e0-5130-b4ed-87b7-557d.ngrok-free.app/scrape"
+        "https://5c81-2604-3d09-a98a-7300-c954-a61f-824f-c03b.ngrok-free.app/scrape"
       const response = await axios.post(endpoint, { url })
       const data = response.data.body
-      const recipe: TablesInsert<"recipes"> = {
-        id: uuidv4(),
-        name: data.name,
-        description: data.description,
-        ingredients: data.ingredients,
-        imgurl: data.imgurl,
-        protein: data.protein,
-        fats: data.fats,
-        carbs: data.carbs,
-        calories: data.calories,
-        instructions: data.instructions,
-        portions: data.portions,
-        cooking_time: data.cooking_time,
-        url: url
+
+      if (data) {
+        setRecipe(data)
+        toast.success(data)
       }
 
-      const createRecipeResponse = await fetch("api/recipe/create_recipe", {
-        method: "POST",
-        body: JSON.stringify({ recipe: recipe, tags: data.tags, url: url }),
-        headers: { "Content-Type": "application/json" }
-      })
-
-      if (createRecipeResponse.status === 200) {
-        toast.dismiss(toastId)
-        setRecipe(recipe)
-        toast.success("Recipe scraped successfully")
-      } else {
-        toast.dismiss(toastId)
-        toast.error("Error scraping recipe")
-      }
+      toast.dismiss(toastId)
     } catch (error) {
       console.log(error)
       toast.dismiss(toastId)
