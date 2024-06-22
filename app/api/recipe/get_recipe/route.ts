@@ -1,5 +1,5 @@
 import { ServerRuntime } from "next"
-import { getRecipeById, getRecipesByIds } from "@/db/admin"
+import { getRecipeById } from "@/db/admin"
 export const runtime: ServerRuntime = "edge"
 
 export async function POST(request: Request) {
