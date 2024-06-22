@@ -59,7 +59,7 @@ export default function Dash() {
   return (
     <div className="my-12 flex w-full flex-col items-center p-4">
       <div className="flex w-full flex-1 flex-col justify-center gap-2 text-foreground animate-in">
-        <div className="my-12 flex w-full flex-col items-center p-4">
+        <div className="mx-auto my-12 flex w-full max-w-3xl flex-col items-center p-4">
           <Input
             value={url}
             onChange={e => setUrl(e.target.value)}
