@@ -11,7 +11,6 @@ import { Tables } from "@/supabase/types"
 import { ChatMessage, ChatPayload, LLMID, ModelProvider } from "@/types"
 import { useRouter } from "next/navigation"
 import { useContext, useEffect, useRef } from "react"
-import { LLM_LIST } from "../../../lib/models/llm/llm-list"
 import {
   createTempMessages,
   handleCreateChat,
@@ -207,28 +206,6 @@ export const useChatHandler = () => {
       const newAbortController = new AbortController()
       setAbortController(newAbortController)
 
-      const modelData = [
-        ...models.map(model => ({
-          modelId: model.model_id as LLMID,
-          modelName: model.name,
-          provider: "custom" as ModelProvider,
-          hostedId: model.id,
-          platformLink: "",
-          imageInput: false
-        })),
-        ...LLM_LIST,
-        ...availableLocalModels,
-        ...availableOpenRouterModels
-      ].find(llm => llm.modelId === chatSettings?.model)
-
-      validateChatSettings(
-        chatSettings,
-        modelData,
-        profile,
-        selectedWorkspace,
-        messageContent
-      )
-
       let currentChat = selectedChat ? { ...selectedChat } : null
 
       const b64Images = newMessageImages.map(image => image.base64)
@@ -312,22 +289,6 @@ export const useChatHandler = () => {
 
       let generatedText = ""
 
-      generatedText = await handleHostedChat(
-        payload,
-        profile!,
-        modelData!,
-        settings,
-        tempAssistantChatMessage,
-        isRegeneration,
-        newAbortController,
-        newMessageImages,
-        chatImages,
-        setIsGenerating,
-        setFirstTokenReceived,
-        setChatMessages,
-        setToolInUse
-      )
-
       if (!currentChat) {
         currentChat = await handleCreateChat(
           chatSettings!,
@@ -353,22 +314,6 @@ export const useChatHandler = () => {
           return updatedChats
         })
       }
-
-      await handleCreateMessages(
-        chatMessages,
-        currentChat,
-        profile!,
-        modelData!,
-        messageContent,
-        generatedText,
-        newMessageImages,
-        isRegeneration,
-        retrievedFileItems,
-        setChatMessages,
-        setChatFileItems,
-        setChatImages,
-        selectedAssistant
-      )
 
       setIsGenerating(false)
       setFirstTokenReceived(false)

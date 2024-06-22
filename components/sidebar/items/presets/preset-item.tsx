@@ -3,7 +3,6 @@ import { ChatSettingsForm } from "@/components/ui/chat-settings-form"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { PRESET_NAME_MAX } from "@/db/limits"
-import { LLM_LIST } from "@/lib/models/llm/llm-list"
 import { Tables } from "@/supabase/types"
 import { FC, useState } from "react"
 import { SidebarItem } from "../all/sidebar-display-item"
@@ -25,20 +24,12 @@ export const PresetItem: FC<PresetItemProps> = ({ preset }) => {
     includeWorkspaceInstructions: preset.include_workspace_instructions
   })
 
-  const modelDetails = LLM_LIST.find(model => model.modelId === preset.model)
-
   return (
     <SidebarItem
       item={preset}
       isTyping={isTyping}
       contentType="presets"
-      icon={
-        <ModelIcon
-          provider={modelDetails?.provider || "custom"}
-          height={30}
-          width={30}
-        />
-      }
+      icon={<ModelIcon provider={"custom"} height={30} width={30} />}
       updateState={{
         name,
         description,

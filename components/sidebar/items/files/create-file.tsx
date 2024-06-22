@@ -1,4 +1,3 @@
-import { ACCEPTED_FILE_TYPES } from "@/components/chat/chat-hooks/use-select-file-handler"
 import { SidebarCreateItem } from "@/components/sidebar/items/all/sidebar-create-item"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -55,16 +54,6 @@ export const CreateFile: FC<CreateFileProps> = ({ isOpen, onOpenChange }) => {
       onOpenChange={onOpenChange}
       renderInputs={() => (
         <>
-          <div className="space-y-1">
-            <Label>File</Label>
-
-            <Input
-              type="file"
-              onChange={handleSelectedFile}
-              accept={ACCEPTED_FILE_TYPES}
-            />
-          </div>
-
           <div className="space-y-1">
             <Label>Name</Label>
 
