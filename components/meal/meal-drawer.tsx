@@ -18,7 +18,6 @@ import { Input } from "../ui/input"
 import { SubmitButton } from "../ui/submit-button"
 import { useRouter } from "next/navigation"
 import { useContext, useEffect, useState } from "react"
-import { getCompleteRecipe } from "@/db/admin"
 import { ChatbotUIContext } from "@/context/context"
 import { TablesInsert } from "@/supabase/types"
 
@@ -40,8 +39,19 @@ export const MealDrawer = ({ children, recipe, isOpen }: MealDrawerProps) => {
     console.log("after", recipe.id)
     console.log(isOpen)
     const getRecipe = async () => {
-      const completeRecipe: TablesInsert<"recipes"> =
-        await getCompleteRecipe(recipe)
+      const completeRecipe: TablesInsert<"recipes"> = await fetch(
+        "api/recipe/get_recipe",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ id: recipe.id })
+        }
+      )
+        .then(res => res.json())
+        .catch(error => console.log(error))
+
       const updatedGeneratedRecipes = generatedRecipes.map(r =>
         r.id === recipe.id ? completeRecipe : r
       )

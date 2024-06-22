@@ -8,7 +8,6 @@ import { v4 as uuidv4 } from "uuid"
 import { toast } from "sonner"
 import { createClient } from "@/lib/supabase/client"
 import { useRouter } from "next/navigation"
-import { urlExists } from "@/db/admin"
 
 interface Props {}
 

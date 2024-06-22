@@ -89,46 +89,6 @@ const most_common_recipes = (recipes_list: string[]) => {
   return sorted_recipes
 }
 
-export const getCompleteRecipe = async (recipe: TablesInsert<"recipes">) => {
-  const { data, error } = await supabaseAdmin
-    .from("recipes")
-    .select(
-      "description,ingredients,cooking_time,protein,fats,carbs,calories,instructions,portions,url"
-    )
-    .eq("id", recipe.id)
-    .single()
-  if (error) {
-    throw new Error(error.message)
-  }
-  const result: TablesInsert<"recipes"> = {
-    id: recipe.id,
-    name: recipe.name,
-    description: data.description,
-    ingredients: data.ingredients,
-    cooking_time: data.cooking_time,
-    imgurl: recipe.imgurl,
-    protein: data.protein,
-    fats: data.fats,
-    carbs: data.carbs,
-    calories: data.calories,
-    instructions: data.instructions,
-    portions: data.portions,
-    url: data.url
-  }
-
-  return result
-}
-export const urlExists = async (url: string) => {
-  const { data, error } = await supabaseAdmin
-    .from("recipes")
-    .select("url")
-    .eq("url", url)
-  if (error) {
-    throw new Error(error.message)
-  }
-  return data[0]?.url === url
-}
-
 export const getRecipesByIds = async (ids: string[]) => {
   //console.log("tags: " + tags)
 
@@ -146,6 +106,20 @@ export const getRecipesByIds = async (ids: string[]) => {
     recipes.push(recipeData)
     // append recipe id to recipeIds set
   }
+  return recipes
+}
+
+export const getRecipeById = async (id: string) => {
+  const { data: recipeData, error } = await supabaseAdmin
+    .from("recipes")
+    .select("*")
+    .eq("id", id)
+    .single()
+  if (error) {
+    throw new Error(error.message)
+  }
+
+  return recipeData
 }
 
 const upsertProductRecord = async (product: Stripe.Product) => {
