@@ -71,51 +71,6 @@ export const ProfileSettings: FC<ProfileSettingsProps> = ({}) => {
     profile?.profile_context || ""
   )
 
-  const [useAzureOpenai, setUseAzureOpenai] = useState(
-    profile?.use_azure_openai
-  )
-  const [openaiAPIKey, setOpenaiAPIKey] = useState(
-    profile?.openai_api_key || ""
-  )
-  const [openaiOrgID, setOpenaiOrgID] = useState(
-    profile?.openai_organization_id || ""
-  )
-  const [azureOpenaiAPIKey, setAzureOpenaiAPIKey] = useState(
-    profile?.azure_openai_api_key || ""
-  )
-  const [azureOpenaiEndpoint, setAzureOpenaiEndpoint] = useState(
-    profile?.azure_openai_endpoint || ""
-  )
-  const [azureOpenai35TurboID, setAzureOpenai35TurboID] = useState(
-    profile?.azure_openai_35_turbo_id || ""
-  )
-  const [azureOpenai45TurboID, setAzureOpenai45TurboID] = useState(
-    profile?.azure_openai_45_turbo_id || ""
-  )
-  const [azureOpenai45VisionID, setAzureOpenai45VisionID] = useState(
-    profile?.azure_openai_45_vision_id || ""
-  )
-  const [azureEmbeddingsID, setAzureEmbeddingsID] = useState(
-    profile?.azure_openai_embeddings_id || ""
-  )
-  const [anthropicAPIKey, setAnthropicAPIKey] = useState(
-    profile?.anthropic_api_key || ""
-  )
-  const [googleGeminiAPIKey, setGoogleGeminiAPIKey] = useState(
-    profile?.google_gemini_api_key || ""
-  )
-  const [mistralAPIKey, setMistralAPIKey] = useState(
-    profile?.mistral_api_key || ""
-  )
-  const [groqAPIKey, setGroqAPIKey] = useState(profile?.groq_api_key || "")
-  const [perplexityAPIKey, setPerplexityAPIKey] = useState(
-    profile?.perplexity_api_key || ""
-  )
-
-  const [openrouterAPIKey, setOpenrouterAPIKey] = useState(
-    profile?.openrouter_api_key || ""
-  )
-
   const handleSignOut = async () => {
     await supabase.auth.signOut()
     router.push("/")
@@ -127,12 +82,6 @@ export const ProfileSettings: FC<ProfileSettingsProps> = ({}) => {
     if (!profile) return
     let profileImageUrl = profile.image_url
     let profileImagePath = ""
-
-    if (profileImageFile) {
-      const { path, url } = await uploadProfileImage(profile, profileImageFile)
-      profileImageUrl = url ?? profileImageUrl
-      profileImagePath = path
-    }
 
     const updatedProfile = await updateProfile(profile.id, {
       ...profile,
