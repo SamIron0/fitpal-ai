@@ -18,6 +18,34 @@ const supabaseAdmin = createClient<Database>(
   process.env.SUPABASE_SERVICE_ROLE_KEY || ""
 )
 
+export const getGuestForYou = async () => {
+  // get 10 random entries from table recipes
+  const { data: recipes, error } = await supabaseAdmin
+    .from("recipes")
+    .select("*")
+    //.order("RANDOM()")
+    .limit(10)
+  if (error) {
+    throw error
+  }
+
+  return recipes
+}
+
+export const getForYou = async (workspaceId: string) => {
+  // get 10 random entries from table recipes
+  const { data: recipes, error } = await supabaseAdmin
+    .from("recipes")
+    .select("*")
+    //.order("RANDOM()")
+    .limit(10)
+  if (error) {
+    throw error
+  }
+
+  return recipes
+}
+
 const most_common_recipes = (recipes_list: string[]) => {
   const recipe_count: { [key: string]: number } = {}
   for (let recipe of recipes_list) {
