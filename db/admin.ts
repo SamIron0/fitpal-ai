@@ -18,61 +18,6 @@ const supabaseAdmin = createClient<Database>(
   process.env.SUPABASE_SERVICE_ROLE_KEY || ""
 )
 
-export const createRecipe = async (
-  recipes: TablesInsert<"recipes">,
-  tags: string[]
-) => {
-  const { data, error } = await supabaseAdmin
-    .from("recipes")
-    .insert({
-      id: recipes.id || uuidv4(),
-      name: recipes.name,
-      description: recipes.description,
-      ingredients: recipes.ingredients,
-      cooking_time: recipes.cooking_time,
-      imgurl: recipes.imgurl,
-      protein: recipes.protein,
-      fats: recipes.fats,
-      carbs: recipes.carbs,
-      calories: recipes.calories,
-      instructions: recipes.instructions,
-      portions: recipes.portions,
-      url: recipes.url
-    })
-    .select("*")
-
-  const res = data ? [0] : null
-  for (var i = 0; i < tags.length; i++) {
-    const { data, error } = await supabaseAdmin
-      .from("recipe_tags")
-      .select("recipes,id")
-      .eq("name", tags[i])
-
-    if (data && data?.length > 0) {
-      // const recipeArr: string[] = data[0].recipes
-      data[0].recipes.push(recipes.id)
-      const { data: updateData, error: updateError } = await supabaseAdmin
-        .from("recipe_tags")
-        .update({ recipes: data[0].recipes })
-        .eq("id", data[0].id)
-
-      if (updateError) {
-        throw new Error(updateError.message)
-      }
-      //console.log("data: " + updateData)
-    } else {
-      const { data: insertData, error: insertError } = await supabaseAdmin
-        .from("recipe_tags")
-        .insert({ name: tags[i], id: uuidv4(), recipes: [recipes.id] })
-    }
-  }
-
-  if (error) {
-    throw new Error(error.message)
-  }
-  return data
-}
-
 const most_common_recipes = (recipes_list: string[]) => {
   const recipe_count: { [key: string]: number } = {}
   for (let recipe of recipes_list) {

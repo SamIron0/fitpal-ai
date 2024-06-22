@@ -131,24 +131,7 @@ export type Database = {
         }
       }
 
-      recipe_tags: {
-        Row: {
-          id: string
-          name: string
-          recipes: string[]
-        }
-        Insert: {
-          id: string
-          name: string
-          recipes?: string[]
-        }
-
-        Update: {
-          id?: string
-          name?: string
-          recipes?: string[]
-        }
-      }
+     
       documents: {
         Row: {
           workspace_id: string
