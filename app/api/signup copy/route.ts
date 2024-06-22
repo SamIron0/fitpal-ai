@@ -19,11 +19,16 @@ export async function POST(request: Request) {
     const cookieStore = cookies()
     const supabase = createClient(cookieStore)
 
-    const { data, error } = await supabase.auth.signInWithPassword({
+    const { data, error } = await supabase.auth.signUp({
       email,
-      password
+      password,
+      options: {
+        // USE IF YOU WANT TO SEND EMAIL VERIFICATION, ALSO CHANGE TOML FILE
+        // emailRedirectTo: `${origin}/auth/callback`
+      }
     })
 
+    //console.log("sign", error)
     if (error) {
       return new Response(
         JSON.stringify({
@@ -40,37 +45,11 @@ export async function POST(request: Request) {
           }
         }
       )
+    } else {
+      return new Response(JSON.stringify("signed up"))
     }
-
-    const { data: homeWorkspace, error: homeWorkspaceError } = await supabase
-      .from("workspaces")
-      .select("*")
-      .eq("user_id", data.user.id)
-      .eq("is_home", true)
-      .single()
-
-    if (!homeWorkspace) {
-      return new Response(
-        JSON.stringify({
-          errors: [
-            {
-              status: "404",
-              title: "Home workspace not found",
-              detail: homeWorkspaceError?.message
-            }
-          ]
-        }),
-        {
-          status: 404,
-          headers: {
-            "Content-Type": "application/json"
-          }
-        }
-      )
-    }
-
-    return new Response(JSON.stringify(homeWorkspace))
   } catch (error) {
+    console.log(error)
     return new Response(JSON.stringify({ error: error }))
   }
 }
