@@ -9,8 +9,6 @@ import { toast } from "sonner"
 import { createClient } from "@/lib/supabase/client"
 import { useRouter } from "next/navigation"
 
-interface Props {}
-
 export default function Dash() {
   const supabase = createClient()
   const router = useRouter()

@@ -89,26 +89,6 @@ const most_common_recipes = (recipes_list: string[]) => {
   return sorted_recipes
 }
 
-export const getRecipesByIds = async (ids: string[]) => {
-  //console.log("tags: " + tags)
-
-  const recipes: any[] = []
-
-  for (var i = 0; i < ids.length; i++) {
-    const { data: recipeData, error } = await supabaseAdmin
-      .from("recipes")
-      .select("*")
-      .eq("id", ids[i])
-      .single()
-    if (error) {
-      throw new Error(error.message)
-    }
-    recipes.push(recipeData)
-    // append recipe id to recipeIds set
-  }
-  return recipes
-}
-
 export const getRecipeById = async (id: string) => {
   const { data: recipeData, error } = await supabaseAdmin
     .from("recipes")
