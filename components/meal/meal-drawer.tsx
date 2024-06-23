@@ -38,7 +38,7 @@ export const MealDrawer = ({ children, recipe, isOpen }: MealDrawerProps) => {
     if (isOpen !== recipe.id) return
     const getRecipe = async () => {
       const completeRecipe: TablesInsert<"recipes"> = await fetch(
-        "api/recipe/get_recipe",
+        "https://www.fitpalai.com/api/recipe/get_recipe",
         {
           method: "POST",
           headers: {
