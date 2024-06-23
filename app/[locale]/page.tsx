@@ -45,7 +45,7 @@ export default async function ChatPage() {
         })
 
         const recipes = await data.json()
-        setRecipes(recipes)
+        setRecipes(recipes.for_you)
       }
       getForYou()
     } catch (error) {

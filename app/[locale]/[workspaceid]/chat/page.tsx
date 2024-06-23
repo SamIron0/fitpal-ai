@@ -26,8 +26,9 @@ export default function ChatPage() {
       })
 
       const data = await recipes.json()
-      setForYou(data)
+      setForYou(data.for_you)
     }
+
     getRecipes()
   }, [])
   const renderSkeleton = () => {
