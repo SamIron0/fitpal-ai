@@ -42,7 +42,7 @@ export const getForYou = async (workspaceId: string) => {
   if (error) {
     throw error
   }
-  console.log("recipes: " + recipes)
+  //console.log("recipes: " + recipes)
 
   return recipes
 }

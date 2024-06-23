@@ -13,13 +13,13 @@ export async function GET() {
     let for_you: Tables<"recipes">[] = []
     if (!session) {
       let for_you = await getGuestForYou()
+      return new Response(JSON.stringify({ for_you }))
     }
 
     if (session) {
       let for_you = await getForYou(session?.user.id)
+      return new Response(JSON.stringify({ for_you }))
     }
-
-    return new Response(JSON.stringify({ for_you }))
   } catch (error) {
     console.log(error)
     return new Response(JSON.stringify({ error: error }))
