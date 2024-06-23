@@ -21,7 +21,9 @@ export async function POST(request: Request) {
         })
       }
     )
-    const recipeIds = await data.json()
+    const responseData = await data.json()
+    console.log("response", responseData)
+    const recipeIds = responseData.result
 
     if (!recipeIds) {
       return new Response(JSON.stringify({ error: "None" }))
