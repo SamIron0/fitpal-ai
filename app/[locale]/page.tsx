@@ -3,16 +3,17 @@ import { ChatInput } from "@/components/chat/chat-input"
 import { LoginDrawer } from "@/components/login/login-drawer"
 import { Brand } from "@/components/ui/brand"
 import { FitpalAIContext } from "@/context/context"
-import { getGuestForYou } from "@/db/for-you"
 import { createClient } from "@/lib/supabase/client"
 import { TablesInsert } from "@/supabase/types"
 import axios from "axios"
 import { useTheme } from "next-themes"
 import { useRouter } from "next/navigation"
+import { useEffect, useState } from "react"
 
 export default async function ChatPage() {
   const router = useRouter()
   const { theme } = useTheme()
+  const [recipes, setRecipes] = useState<TablesInsert<"recipes">[]>([])
   const supabase = createClient()
 
   const {
@@ -33,7 +34,25 @@ export default async function ChatPage() {
       router.push(`/${homeWorkspace.id}/chat`)
     } // Do something with the session
   }
-  const recipes = await getGuestForYou()
+  useEffect(() => {
+    try {
+      const getForYou = async () => {
+        const data = await fetch("/api/for_you", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+
+        const recipes = await data.json()
+        setRecipes(recipes)
+      }
+      getForYou()
+    } catch (error) {
+      console.log(error)
+    }
+  }, [])
+
   return (
     <div className="hide-scrollbar w-fullrelative flex h-full flex-col items-center overflow-y-auto  px-4 sm:px-6">
       <div className="top-50% left-50%  -translate-x-50% -translate-y-50% mb-9  mt-32">

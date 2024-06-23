@@ -1,15 +1,10 @@
 import { ServerRuntime } from "next"
-import { getRecipeById } from "@/db/admin"
+import { getForYou, getGuestForYou, getRecipeById } from "@/db/admin"
 export const runtime: ServerRuntime = "edge"
 import { createClient } from "@/lib/supabase/server"
 import { cookies } from "next/headers"
-import { getForYou, getGuestForYou } from "@/db/for-you"
 import { Tables } from "@/supabase/types"
-export async function POST(request: Request) {
-  const json = await request.json()
-  const { id } = json as {
-    id: string
-  }
+export async function GET() {
   try {
     const cookieStore = cookies()
     const supabase = createClient(cookieStore)
