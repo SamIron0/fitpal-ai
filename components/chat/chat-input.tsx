@@ -77,7 +77,7 @@ export const ChatInput: FC<ChatInputProps> = ({}: ChatInputProps) => {
   const generateMeals = async () => {
     setIsGenerating(true)
     const recipes = await fetch(
-      "https://www.fitpalai.com/api/recipe/get_recipe",
+      "https://www.fitpalai.com/api/recipe/get_recipes",
       {
         method: "POST",
         body: JSON.stringify({ input: userInput })
