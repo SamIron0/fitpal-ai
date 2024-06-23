@@ -10,48 +10,49 @@ import { useTheme } from "next-themes"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
-export default async function ChatPage() {
+export default function ChatPage() {
   const router = useRouter()
   const { theme } = useTheme()
   const [recipes, setRecipes] = useState<TablesInsert<"recipes">[]>([])
   const supabase = createClient()
-
-  const {
-    data: { session },
-    error
-  } = await supabase.auth.getSession()
   useEffect(() => {
-    try {
-      if (session) {
-        const setWs = async () => {
-          const { data: homeWorkspace, error: homeWorkspaceError } =
-            await supabase
-              .from("workspaces")
-              .select("*")
-              .eq("user_id", session?.user.id)
-              .eq("is_home", true)
-              .single()
+    ;async () => {
+      const {
+        data: { session },
+        error
+      } = await supabase.auth.getSession()
+      try {
+        if (session) {
+          const setWs = async () => {
+            const { data: homeWorkspace, error: homeWorkspaceError } =
+              await supabase
+                .from("workspaces")
+                .select("*")
+                .eq("user_id", session?.user.id)
+                .eq("is_home", true)
+                .single()
 
-          if (homeWorkspace) {
-            router.push(`/${homeWorkspace.id}/chat`)
-          } // Do something with the session}
-        }
-        setWs()
-      }
-      const getForYou = async () => {
-        const data = await fetch("/api/for_you", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json"
+            if (homeWorkspace) {
+              router.push(`/${homeWorkspace.id}/chat`)
+            } // Do something with the session}
           }
-        })
+          setWs()
+        }
+        const getForYou = async () => {
+          const data = await fetch("/api/for_you", {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json"
+            }
+          })
 
-        const recipes = await data.json()
-        setRecipes(recipes.for_you)
+          const recipes = await data.json()
+          setRecipes(recipes.for_you)
+        }
+        getForYou()
+      } catch (error) {
+        console.error(error)
       }
-      getForYou()
-    } catch (error) {
-      console.error(error)
     }
   }, [])
 
