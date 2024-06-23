@@ -9,7 +9,7 @@ export async function POST(request: Request) {
   }
   try {
     const recipe = await getRecipeById(id)
-
+    console.log("recipe", recipe)
     if (!recipe) {
       return new Response(JSON.stringify({ error: "None" }))
     }
