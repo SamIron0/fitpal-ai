@@ -50,6 +50,7 @@ export default function ChatPage() {
       }
     }
 
+    fetchSession()
     const fetchForYou = async () => {
       try {
         const data = await fetch("/api/for_you", {
@@ -65,7 +66,6 @@ export default function ChatPage() {
       }
     }
 
-    fetchSession()
     fetchForYou()
   }, [router, supabase])
 
