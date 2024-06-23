@@ -39,7 +39,7 @@ export default function Dash() {
     const toastId = toast.loading("Scraping...")
     try {
       const endpoint =
-        "https://5c81-2604-3d09-a98a-7300-c954-a61f-824f-c03b.ngrok-free.app/scrape"
+        "https://85ab-2604-3d09-a98a-7300-2419-ade3-1c94-97cb.ngrok-free.app/scrape"
       const response = await axios.post(endpoint, { url })
       const data = response.data.body
 
