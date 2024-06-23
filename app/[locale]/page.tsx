@@ -20,22 +20,23 @@ export default async function ChatPage() {
     data: { session },
     error
   } = await supabase.auth.getSession()
-  if (error) {
-    console.error("Error getting session:", error)
-  } else {
+  useEffect(() => {
     try {
       if (session) {
-        const { data: homeWorkspace, error: homeWorkspaceError } =
-          await supabase
-            .from("workspaces")
-            .select("*")
-            .eq("user_id", session?.user.id)
-            .eq("is_home", true)
-            .single()
+        const setWs = async () => {
+          const { data: homeWorkspace, error: homeWorkspaceError } =
+            await supabase
+              .from("workspaces")
+              .select("*")
+              .eq("user_id", session?.user.id)
+              .eq("is_home", true)
+              .single()
 
-        if (homeWorkspace) {
-          router.push(`/${homeWorkspace.id}/chat`)
-        } // Do something with the session
+          if (homeWorkspace) {
+            router.push(`/${homeWorkspace.id}/chat`)
+          } // Do something with the session}
+        }
+        setWs()
       }
       const getForYou = async () => {
         const data = await fetch("/api/for_you", {
@@ -52,7 +53,7 @@ export default async function ChatPage() {
     } catch (error) {
       console.error(error)
     }
-  }
+  }, [])
 
   return (
     <div className="hide-scrollbar w-fullrelative flex h-full flex-col items-center overflow-y-auto  px-4 sm:px-6">
