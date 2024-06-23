@@ -76,10 +76,13 @@ export const ChatInput: FC<ChatInputProps> = ({}: ChatInputProps) => {
   const [input, setInput] = useState<string>("")
   const generateMeals = async () => {
     setIsGenerating(true)
-    const recipes = await fetch("/api/recipe/get_recipes", {
-      method: "POST",
-      body: JSON.stringify({ input: userInput })
-    })
+    const recipes = await fetch(
+      "https://www.fitpalai.com/api/recipe/get_recipes",
+      {
+        method: "POST",
+        body: JSON.stringify({ input: userInput })
+      }
+    )
 
     if (!recipes.ok) {
       console.error("Error retrieving:", recipes)

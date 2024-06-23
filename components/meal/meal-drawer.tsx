@@ -36,8 +36,6 @@ export const MealDrawer = ({ children, recipe, isOpen }: MealDrawerProps) => {
     //console.log(recipe.id)
 
     if (isOpen !== recipe.id) return
-    console.log("after", recipe.id)
-    console.log(isOpen)
     const getRecipe = async () => {
       const completeRecipe: TablesInsert<"recipes"> = await fetch(
         "api/recipe/get_recipe",
