@@ -63,10 +63,6 @@ export const Macros: FC<MacrosProps> = ({
   return (
     <>
       <div className="mt-6 space-y-1">
-        <Label className="flex items-center">
-          <div>Calories(kcal): </div>
-        </Label>
-
         <Input
           type="number"
           value={calories}

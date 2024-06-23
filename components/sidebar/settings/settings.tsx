@@ -105,31 +105,13 @@ export const Settings: FC<SettingsProps> = () => {
         Diet
       </div>
       <DietSelect onSelect={setSelectedDiet} selectedDiet={selectedDiet} />
-      <Macros
-        protein={protein}
-        setProtein={setProtein}
-        carbs={carbs}
-        setCarbs={setCarbs}
-        fat={fat}
-        calories={calories}
-        setCalories={setCalories}
-        setFat={setFat}
-        workouts={workouts}
-        setWorkouts={setWorkouts}
-      />
+
       <Allergies
         userAllergies={allergies}
         setUserAllergies={(allergies: string[]) => {
           setAllergies(allergies)
         }}
       />
-      <Button
-        className="mb-3 mt-12 flex  h-[36px] grow"
-        onClick={() => handleSaveChanges(settings.id, settingsUpdate)}
-        disabled={JSON.stringify(settings) === JSON.stringify(settingsUpdate)}
-      >
-        Save Changes{" "}
-      </Button>
     </>
   )
 }
