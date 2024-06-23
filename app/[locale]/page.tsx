@@ -10,51 +10,48 @@ import { useTheme } from "next-themes"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
-export default function ChatPage() {
+export default async function ChatPage() {
   const router = useRouter()
   const { theme } = useTheme()
   const [recipes, setRecipes] = useState<TablesInsert<"recipes">[]>([])
   const supabase = createClient()
-  useEffect(() => {
-    ;async () => {
-      const {
-        data: { session },
-        error
-      } = await supabase.auth.getSession()
-      try {
-        if (session) {
-          const setWs = async () => {
-            const { data: homeWorkspace, error: homeWorkspaceError } =
-              await supabase
-                .from("workspaces")
-                .select("*")
-                .eq("user_id", session?.user.id)
-                .eq("is_home", true)
-                .single()
 
-            if (homeWorkspace) {
-              router.push(`/${homeWorkspace.id}/chat`)
-            } // Do something with the session}
-          }
-          setWs()
-        }
-        const getForYou = async () => {
-          const data = await fetch("/api/for_you", {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json"
-            }
-          })
+  const {
+    data: { session },
+    error
+  } = await supabase.auth.getSession()
+  try {
+    if (session) {
+      const setWs = async () => {
+        const { data: homeWorkspace, error: homeWorkspaceError } =
+          await supabase
+            .from("workspaces")
+            .select("*")
+            .eq("user_id", session?.user.id)
+            .eq("is_home", true)
+            .single()
 
-          const recipes = await data.json()
-          setRecipes(recipes.for_you)
-        }
-        getForYou()
-      } catch (error) {
-        console.error(error)
+        if (homeWorkspace) {
+          router.push(`/${homeWorkspace.id}/chat`)
+        } // Do something with the session}
       }
+      setWs()
     }
-  }, [])
+    const getForYou = async () => {
+      const data = await fetch("/api/for_you", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+
+      const recipes = await data.json()
+      setRecipes(recipes.for_you)
+    }
+    getForYou()
+  } catch (error) {
+    console.error(error)
+  }
 
   return (
     <div className="hide-scrollbar w-fullrelative flex h-full flex-col items-center overflow-y-auto  px-4 sm:px-6">
