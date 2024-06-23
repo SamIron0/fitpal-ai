@@ -34,23 +34,7 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
   const params = useParams()
   const workspaceId = params.workspaceid as string
 
-  const {
-    setChatSettings,
-    setAssistants,
-    setSubscription,
-    setAssistantImages,
-    setChats,
-    setSettings,
-    setCollections,
-    setFolders,
-    setFiles,
-    setPresets,
-    setPrompts,
-    setTools,
-    setModels,
-    selectedWorkspace,
-    setSelectedWorkspace
-  } = useContext(FitpalAIContext)
+  const { setSelectedWorkspace, setSettings } = useContext(FitpalAIContext)
 
   const [loading, setLoading] = useState(true)
 
@@ -68,6 +52,8 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
 
   const fetchWorkspaceData = async (workspaceId: string) => {
     const workspace = await getWorkspaceById(workspaceId)
+    const settings = await getSettingsByWorkspaceId(workspaceId)
+    setSettings(settings)
     setSelectedWorkspace(workspace)
 
     setLoading(false)
