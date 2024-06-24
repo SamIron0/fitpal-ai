@@ -28,18 +28,7 @@ export const DietIcon: FC<DietIconProps> = ({
   const { theme } = useTheme()
 
   switch (provider as DietProvider) {
-    case "anything":
-      return (
-        <IoFastFoodOutline
-          className={cn(
-            "size-6 rounded-sm bg-white p-1 text-black",
-            props.className,
-            theme === "dark" ? "bg-white" : "border-DEFAULT border-black"
-          )}
-        />
-      )
-
-    case "paleo":
+    case "Paleo":
       return (
         <TbMeat
           className={cn(
@@ -50,7 +39,7 @@ export const DietIcon: FC<DietIconProps> = ({
         />
       )
 
-    case "vegan":
+    case "Vegan":
       return (
         <LuVegan
           className={cn(
@@ -60,7 +49,7 @@ export const DietIcon: FC<DietIconProps> = ({
           )}
         />
       )
-    case "gluten-free":
+    case "Gluten-free":
       return (
         <TbSalad
           className={cn(
@@ -70,7 +59,7 @@ export const DietIcon: FC<DietIconProps> = ({
           )}
         />
       )
-    case "ketogenic":
+    case "Ketogenic":
       return (
         <IoFishOutline
           className={cn(
@@ -80,7 +69,7 @@ export const DietIcon: FC<DietIconProps> = ({
           )}
         />
       )
-    case "pescatarian":
+    case "Pescatarian":
       return (
         <GiShrimp
           className={cn(
@@ -91,7 +80,7 @@ export const DietIcon: FC<DietIconProps> = ({
         />
       )
 
-    case "vegetarian":
+    case "Vegetarian":
       return (
         <GiBroccoli
           className={cn(
@@ -101,7 +90,7 @@ export const DietIcon: FC<DietIconProps> = ({
           )}
         />
       )
-    case "mediterranean":
+    case "Mediterranean":
       return (
         <GiGrapes
           className={cn(

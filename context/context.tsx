@@ -173,7 +173,7 @@ export const FitpalAIContext = createContext<FitpalAIContext>({
     calories: 0,
     workouts: 0,
     allergies: [],
-    diet: "anything"
+    diet: ""
   },
   setSettings: () => {},
 

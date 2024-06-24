@@ -46,7 +46,8 @@ export const ChatInput: FC<ChatInputProps> = ({}: ChatInputProps) => {
     isGenerating,
     setIsGenerating,
     setUserInput,
-    setGeneratedRecipes
+    setGeneratedRecipes,
+    settings
   } = useContext(FitpalAIContext)
 
   useEffect(() => {
@@ -80,7 +81,7 @@ export const ChatInput: FC<ChatInputProps> = ({}: ChatInputProps) => {
       "https://www.fitpalai.com/api/recipe/get_recipes",
       {
         method: "POST",
-        body: JSON.stringify({ input: userInput })
+        body: JSON.stringify({ input: userInput, diet: settings.diet })
       }
     )
 
@@ -109,7 +110,7 @@ export const ChatInput: FC<ChatInputProps> = ({}: ChatInputProps) => {
           ref={chatInputRef}
           className="text-md min-w-3xl flex w-full resize-none rounded-md border-none bg-transparent py-2 pl-3 pr-14 ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
           placeholder={t(
-            // `Ask anything. Type "@" for assistants, "/" for prompts, "#" for files, and "!" for tools.`
+            // `Ask Anything. Type "@" for assistants, "/" for prompts, "#" for files, and "!" for tools.`
             `Asian Dinner ideas`
           )}
           onChange={handleInputChange}

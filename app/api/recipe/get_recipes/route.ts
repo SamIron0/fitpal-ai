@@ -5,8 +5,9 @@ export const runtime: ServerRuntime = "edge"
 export async function POST(request: Request) {
   const json = await request.json()
   const recipes = []
-  const { input } = json as {
+  const { input, diet } = json as {
     input: string
+    diet: string
   }
   try {
     const data = await fetch(
@@ -17,12 +18,13 @@ export async function POST(request: Request) {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          query: input
+          query: input,
+          diet: diet
         })
       }
     )
     const responseData = await data.json()
-    console.log("response", responseData)
+    //console.log("response", responseData)
     const recipeIds = responseData.result
 
     if (!recipeIds) {
