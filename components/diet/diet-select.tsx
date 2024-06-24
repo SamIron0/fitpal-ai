@@ -29,7 +29,7 @@ export const DietSelect: FC<DietSelectProps> = ({ onSelect, selectedDiet }) => {
     "Paleo",
     "Vegan",
     "Gluten-free",
-    "ketogenic",
+    "Ketogenic",
     "Pescatarian",
     "Mediterranean",
     "Vegetarian"
