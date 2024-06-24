@@ -81,7 +81,11 @@ export const ChatInput: FC<ChatInputProps> = ({}: ChatInputProps) => {
       "https://www.fitpalai.com/api/recipe/get_recipes",
       {
         method: "POST",
-        body: JSON.stringify({ input: userInput, diet: settings.diet })
+        body: JSON.stringify({
+          input: userInput,
+          diet: settings.diet,
+          allergy: settings.allergies
+        })
       }
     )
 
