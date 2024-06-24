@@ -6,4 +6,4 @@ export type DietProvider =
   | "Gluten-free"
   | "Ketogenic"
   | "Pescatarian"
-  | ""
+  | "Anything"

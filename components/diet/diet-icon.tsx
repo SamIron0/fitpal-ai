@@ -28,6 +28,17 @@ export const DietIcon: FC<DietIconProps> = ({
   const { theme } = useTheme()
 
   switch (provider as DietProvider) {
+    case "Anything":
+      return (
+        <IoFastFoodOutline
+          className={cn(
+            "size-6 rounded-sm bg-white p-1 text-black",
+            props.className,
+            theme === "dark" ? "bg-white" : "border-DEFAULT border-black"
+          )}
+        />
+      )
+
     case "Paleo":
       return (
         <TbMeat
