@@ -36,11 +36,13 @@ export default function Dash() {
       toast.error("Please enter a valid URL")
       return
     }
+    const x = url
+    setUrl("")
     const toastId = toast.loading("Scraping...")
     try {
       const endpoint =
         "https://85ab-2604-3d09-a98a-7300-2419-ade3-1c94-97cb.ngrok-free.app/scrape"
-      const response = await axios.post(endpoint, { url })
+      const response = await axios.post(endpoint, { x })
       const data = response.data.body
 
       if (data) {
