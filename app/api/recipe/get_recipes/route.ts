@@ -26,7 +26,7 @@ export async function POST(request: Request) {
       }
     )
     const responseData = await data.json()
-    console.log("allergies", allergy)
+    // console.log("allergies", allergy)
     const recipeIds = responseData.result
 
     if (!recipeIds) {
