@@ -113,10 +113,7 @@ export const ChatInput: FC<ChatInputProps> = ({}: ChatInputProps) => {
         <input
           ref={chatInputRef}
           className="text-md min-w-3xl flex w-full resize-none rounded-md border-none bg-transparent py-2 pl-3 pr-14 ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
-          placeholder={t(
-            // `Ask Anything. Type "@" for assistants, "/" for prompts, "#" for files, and "!" for tools.`
-            `Asian Dinner ideas`
-          )}
+          placeholder={t(`Asian Dinner ideas`)}
           onChange={handleInputChange}
           value={input}
           onCompositionStart={() => setIsTyping(true)}
