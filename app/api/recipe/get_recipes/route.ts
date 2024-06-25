@@ -21,7 +21,7 @@ export async function POST(request: Request) {
         body: JSON.stringify({
           query: input,
           diet: diet,
-          allery: allergy
+          allergy: allergy
         })
       }
     )
