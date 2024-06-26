@@ -64,7 +64,7 @@ export default function ChatPage() {
         <div className="w-full max-w-4xl py-28">
           {generatedRecipes[0] ? (
             <>
-              <p className="mb-5 text-3xl font-semibold">Best Results</p>
+              <p className="mb-5 text-2xl font-semibold">Best Results</p>
               <div
                 role="status"
                 className="grid w-full max-w-4xl grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4"
@@ -93,8 +93,8 @@ export default function ChatPage() {
               </div>
             </>
           ) : (
-            <div className="w-full max-w-4xl py-28">
-              <p className="mb-5 text-3xl font-semibold">For You</p>
+            <div className="w-full max-w-4xl ">
+              <p className="mb-5 text-2xl font-semibold">For You</p>
               <div
                 role="status"
                 className="grid w-full max-w-4xl grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4"
