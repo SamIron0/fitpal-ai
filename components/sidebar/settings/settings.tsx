@@ -120,7 +120,7 @@ export const Settings: FC<SettingsProps> = () => {
       </div>
       <DataSelect
         data={allergens}
-        onSelect={onSetUser_allergies}
+        onSelect={(data: string) => setUser_allergies([data])}
         selectedData={user_allergies[0]}
       />
     </>
