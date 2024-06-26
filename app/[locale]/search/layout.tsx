@@ -47,6 +47,7 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
         const settings = await getSettingsByUserId(session.user.id)
         setSettings(settings)
       }
+      setLoading(false)
     })()
   }, [])
 
