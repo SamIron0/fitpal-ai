@@ -1,4 +1,5 @@
 "use client"
+
 import { IconSend } from "@tabler/icons-react"
 import { Button } from "../ui/button"
 import {
@@ -17,130 +18,124 @@ import { Label } from "../ui/label"
 import { Input } from "../ui/input"
 import { SubmitButton } from "../ui/submit-button"
 import { useRouter } from "next/navigation"
-import { useContext, useEffect, useState } from "react"
+import { useContext, useEffect, useState, ReactNode } from "react"
 import { FitpalAIContext } from "@/context/context"
-import { TablesInsert } from "@/supabase/types"
+import { Tables } from "@/supabase/types"
 
 interface MealDrawerProps {
-  children?: React.ReactNode
-  recipe?: any
+  children?: ReactNode
+  recipe: Tables<"recipes">
   isOpen?: string
 }
-export const MealDrawer = ({ children, recipe, isOpen }: MealDrawerProps) => {
-  //get full recipe
 
+const NutritionFacts: React.FC<{ updatedRecipe: Tables<"recipes"> }> = ({
+  updatedRecipe
+}) => (
+  <div className="w-full space-y-2 pb-6">
+    <p className="text-md flex w-full items-center justify-between">
+      Protein: {updatedRecipe.protein}g
+    </p>
+    <p className="text-md flex w-full items-center justify-between">
+      Fat: {updatedRecipe.fats}g
+    </p>
+    <p className="text-md flex w-full items-center justify-between">
+      Carbs: {updatedRecipe.carbs}g
+    </p>
+    <p className="text-md flex w-full items-center justify-between">
+      Calories: {updatedRecipe.calories}kcal
+    </p>
+  </div>
+)
+
+const IngredientsList: React.FC<{ ingredients: string[] | null }> = ({
+  ingredients
+}) => (
+  <div className="w-full">
+    {ingredients?.map((ingredient, index) => (
+      <div
+        key={index}
+        className="text-md flex w-full items-center justify-between"
+      >
+        <p>•{ingredient}</p>
+      </div>
+    ))}
+  </div>
+)
+
+const DirectionsList: React.FC<{ instructions: string[] | null }> = ({
+  instructions
+}) => (
+  <ul className="w-full">
+    {instructions?.map((direction, index) => (
+      <li
+        key={index}
+        className="text-md flex w-full items-center justify-between"
+      >
+        • {direction}
+      </li>
+    ))}
+  </ul>
+)
+
+const RecipeDetails: React.FC<{ updatedRecipe: Tables<"recipes"> }> = ({
+  updatedRecipe
+}) => (
+  <div className="w-full">
+    <p className="pb-3 text-3xl font-semibold">{updatedRecipe.name}</p>
+    <p className="flex flex-row pb-3">
+      <span className="text-sm">Portions: {updatedRecipe.portions}</span>
+      <span className="pl-5 text-sm">
+        Cooking Time: {updatedRecipe.cooking_time}
+      </span>
+    </p>
+    <div>
+      <p className="text-2xl font-semibold">Ingredients</p>
+      <IngredientsList ingredients={updatedRecipe.ingredients} />
+      <h2 className="pt-3 text-2xl font-semibold">Directions</h2>
+      <DirectionsList instructions={updatedRecipe.instructions} />
+    </div>
+    <div className="flex flex-row items-center pt-3">
+      <h2 className="text-2xl font-semibold">Nutrition Facts</h2>
+      <p className="text-md pl-1">(per serving)</p>
+    </div>
+    <NutritionFacts updatedRecipe={updatedRecipe} />
+  </div>
+)
+
+const MealDrawerContent: React.FC<{
+  updatedRecipe: Tables<"recipes">
+}> = ({ updatedRecipe }) => (
+  <div className="hide-scrollbar flex h-[70vh] flex-col overflow-y-auto">
+    <div className="mt-8 flex w-full flex-col p-6">
+      <div className="w-full justify-end">
+        <img
+          src={`/images/${updatedRecipe.imgurl}`}
+          className="mb-2 w-1/2 rounded-lg border object-cover md:w-1/3"
+          alt={updatedRecipe.name || "updatedRecipe Image"}
+        />
+      </div>
+      <RecipeDetails updatedRecipe={updatedRecipe} />
+    </div>
+    <DrawerTrigger className="mb-12 flex items-center justify-center p-6">
+      <Button className="w-full" variant="outline">
+        Close
+      </Button>
+    </DrawerTrigger>
+  </div>
+)
+
+export const MealDrawer: React.FC<MealDrawerProps> = ({
+  children,
+  recipe,
+  isOpen
+}) => {
   const { generatedRecipes, setGeneratedRecipes } = useContext(FitpalAIContext)
-  const [updatedRecipe, setUpdatedRecipe] =
-    useState<TablesInsert<"recipes">>(recipe)
-  useEffect(() => {
-    //console.log(recipe.id)
-
-    if (isOpen !== recipe.id) return
-    const getRecipe = async () => {
-      const completeRecipe: TablesInsert<"recipes"> = await fetch(
-        "https://www.fitpalai.com/api/recipe/get_recipe",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ id: recipe.id })
-        }
-      )
-        .then(res => res.json())
-        .catch(error => console.log(error))
-
-      const updatedGeneratedRecipes = generatedRecipes.map(r =>
-        r.id === recipe.id ? completeRecipe : r
-      )
-      setGeneratedRecipes(updatedGeneratedRecipes as any)
-      setUpdatedRecipe(completeRecipe)
-    }
-    getRecipe()
-  }, [isOpen])
 
   return (
     <Drawer>
-      <DrawerTrigger className="flex justify-center  ">
-        {" "}
-        {children}
-      </DrawerTrigger>
+      <DrawerTrigger className="flex justify-center">{children}</DrawerTrigger>
       <DrawerContent>
-        <div className="hide-scrollbar flex h-[70vh] flex-col overflow-y-auto">
-          <div className="mt-8 flex w-full flex-col p-6 ">
-            <div className="w-full justify-end">
-              <img
-                src={"/images/" + updatedRecipe.imgurl}
-                className="mb-2 w-1/2 rounded-lg border object-cover md:w-1/3"
-                alt={updatedRecipe.name || "updatedRecipe Image"}
-              />
-            </div>
-            <div className="w-full">
-              <p className="pb-3 text-3xl font-semibold">
-                {updatedRecipe.name}
-              </p>
-              <p className="flex flex-row pb-3">
-                <p className="text-sm ">Portions: {updatedRecipe.portions}</p>
-                <p className="pl-5 text-sm">
-                  Cooking Time: {updatedRecipe.cooking_time}
-                </p>
-              </p>
-            </div>
-            <div className="w-full">
-              <p className="text-2xl font-semibold">Ingredients</p>
-              <div className="w-full">
-                {updatedRecipe?.ingredients?.map(
-                  (ingredient: any, index: number) => (
-                    <div
-                      key={index}
-                      className="text-md flex w-full items-center justify-between"
-                    >
-                      <p>•{ingredient}</p>
-                    </div>
-                  )
-                )}
-              </div>
-
-              <h2 className="pt-3 text-2xl font-semibold">Directions</h2>
-              <ul className="w-full">
-                {updatedRecipe?.instructions?.map(
-                  (direction: any, index: number) => (
-                    <li
-                      key={index}
-                      className="text-md flex w-full items-center justify-between"
-                    >
-                      • {" " + direction}
-                    </li>
-                  )
-                )}
-              </ul>
-            </div>
-            <div className="flex flex-row items-center pt-3">
-              <h2 className=" text-2xl font-semibold">Nutrition Facts</h2>
-              <p className="text-md pl-1">(per serving)</p>
-            </div>
-            <div className="w-full space-y-2 pb-6">
-              <p className="text-md flex w-full items-center justify-between">
-                Protein: {updatedRecipe.protein}g
-              </p>
-              <p className=" text-md flex w-full items-center justify-between">
-                Fat: {updatedRecipe.fats}g
-              </p>
-              <p className="text-md flex w-full items-center justify-between">
-                Carbs: {updatedRecipe.carbs}g
-              </p>
-              <p className="text-md flex w-full items-center justify-between">
-                Calories: {recipe.calories}kcal
-              </p>
-            </div>
-          </div>
-          <DrawerTrigger className="mb-12 flex items-center justify-center p-6 ">
-            {" "}
-            <Button className="w-full" variant="outline">
-              Close
-            </Button>
-          </DrawerTrigger>
-        </div>
+        {recipe && <MealDrawerContent updatedRecipe={recipe} />}
       </DrawerContent>
     </Drawer>
   )
