@@ -1,7 +1,5 @@
-"use client"
-
-import { IconSend } from "@tabler/icons-react"
-import { Button } from "../ui/button"
+import React, { useContext } from "react"
+import { Button } from "@/components/ui/button"
 import {
   Drawer,
   DrawerClose,
@@ -11,116 +9,127 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger
-} from "../ui/drawer"
-import { cn } from "@/lib/utils"
-import { Brand } from "../ui/brand"
-import { Label } from "../ui/label"
-import { Input } from "../ui/input"
-import { SubmitButton } from "../ui/submit-button"
-import { useRouter } from "next/navigation"
-import { useContext, useEffect, useState, ReactNode } from "react"
+} from "@/components/ui/drawer"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle
+} from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { Separator } from "@/components/ui/separator"
 import { FitpalAIContext } from "@/context/context"
 import { Tables } from "@/supabase/types"
 
 interface MealDrawerProps {
-  children?: ReactNode
+  children?: React.ReactNode
   recipe: Tables<"recipes">
   isOpen?: string
 }
 
-const NutritionFacts: React.FC<{ updatedRecipe: Tables<"recipes"> }> = ({
-  updatedRecipe
+const NutritionFacts: React.FC<{ recipe: Tables<"recipes"> }> = ({
+  recipe
 }) => (
-  <div className="w-full space-y-2 pb-6">
-    <p className="text-md flex w-full items-center justify-between">
-      Protein: {updatedRecipe.protein}g
-    </p>
-    <p className="text-md flex w-full items-center justify-between">
-      Fat: {updatedRecipe.fats}g
-    </p>
-    <p className="text-md flex w-full items-center justify-between">
-      Carbs: {updatedRecipe.carbs}g
-    </p>
-    <p className="text-md flex w-full items-center justify-between">
-      Calories: {updatedRecipe.calories}kcal
-    </p>
+  <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+    {[
+      { label: "Protein", value: `${recipe.protein}g` },
+      { label: "Fat", value: `${recipe.fats}g` },
+      { label: "Carbs", value: `${recipe.carbs}g` },
+      { label: "Calories", value: `${recipe.calories}kcal` }
+    ].map(item => (
+      <Card key={item.label} className="bg-gray-50">
+        <CardContent className="p-4">
+          <p className="text-sm font-medium text-gray-500">{item.label}</p>
+          <p className="text-2xl font-bold">{item.value}</p>
+        </CardContent>
+      </Card>
+    ))}
   </div>
 )
 
 const IngredientsList: React.FC<{ ingredients: string[] | null }> = ({
   ingredients
 }) => (
-  <div className="w-full">
+  <ul className="list-inside list-disc space-y-2">
     {ingredients?.map((ingredient, index) => (
-      <div
-        key={index}
-        className="text-md flex w-full items-center justify-between"
-      >
-        <p>•{ingredient}</p>
-      </div>
-    ))}
-  </div>
-)
-
-const DirectionsList: React.FC<{ instructions: string[] | null }> = ({
-  instructions
-}) => (
-  <ul className="w-full">
-    {instructions?.map((direction, index) => (
-      <li
-        key={index}
-        className="text-md flex w-full items-center justify-between"
-      >
-        • {direction}
+      <li key={index} className="text-gray-700">
+        {ingredient}
       </li>
     ))}
   </ul>
 )
 
-const RecipeDetails: React.FC<{ updatedRecipe: Tables<"recipes"> }> = ({
-  updatedRecipe
+const DirectionsList: React.FC<{ instructions: string[] | null }> = ({
+  instructions
 }) => (
-  <div className="w-full">
-    <p className="pb-3 text-3xl font-semibold">{updatedRecipe.name}</p>
-    <p className="flex flex-row pb-3">
-      <span className="text-sm">Portions: {updatedRecipe.portions}</span>
-      <span className="pl-5 text-sm">
-        Cooking Time: {updatedRecipe.cooking_time}
-      </span>
-    </p>
+  <ol className="list-inside list-decimal space-y-4">
+    {instructions?.map((direction, index) => (
+      <li key={index} className="text-gray-700">
+        {direction}
+      </li>
+    ))}
+  </ol>
+)
+
+const RecipeDetails: React.FC<{ recipe: Tables<"recipes"> }> = ({ recipe }) => (
+  <div className="space-y-8">
     <div>
-      <p className="text-2xl font-semibold">Ingredients</p>
-      <IngredientsList ingredients={updatedRecipe.ingredients} />
-      <h2 className="pt-3 text-2xl font-semibold">Directions</h2>
-      <DirectionsList instructions={updatedRecipe.instructions} />
+      <h1 className="text-3xl font-bold text-gray-900">{recipe.name}</h1>
+      <div className="mt-2 flex space-x-4">
+        <Badge variant="secondary">Portions: {recipe.portions}</Badge>
+        <Badge variant="secondary">Time: {recipe.cooking_time}</Badge>
+      </div>
     </div>
-    <div className="flex flex-row items-center pt-3">
-      <h2 className="text-2xl font-semibold">Nutrition Facts</h2>
-      <p className="text-md pl-1">(per serving)</p>
-    </div>
-    <NutritionFacts updatedRecipe={updatedRecipe} />
+
+    <Card>
+      <CardHeader>
+        <CardTitle>Nutrition Facts</CardTitle>
+        <CardDescription>Per serving</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <NutritionFacts recipe={recipe} />
+      </CardContent>
+    </Card>
+
+    <Card>
+      <CardHeader>
+        <CardTitle>Ingredients</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <IngredientsList ingredients={recipe.ingredients} />
+      </CardContent>
+    </Card>
+
+    <Card>
+      <CardHeader>
+        <CardTitle>Directions</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <DirectionsList instructions={recipe.instructions} />
+      </CardContent>
+    </Card>
   </div>
 )
 
-const MealDrawerContent: React.FC<{
-  updatedRecipe: Tables<"recipes">
-}> = ({ updatedRecipe }) => (
-  <div className="hide-scrollbar flex h-[85vh] flex-col overflow-y-auto">
-    <div className="mt-8 flex w-full flex-col p-6">
-      <div className="w-full justify-end">
-        <img
-          src={`/images/${updatedRecipe.imgurl}`}
-          className="mb-2 w-1/2 rounded-lg border object-cover md:w-1/3"
-          alt={updatedRecipe.name || "updatedRecipe Image"}
-        />
-      </div>
-      <RecipeDetails updatedRecipe={updatedRecipe} />
+const MealDrawerContent: React.FC<{ recipe: Tables<"recipes"> }> = ({
+  recipe
+}) => (
+  <div className="flex flex-col space-y-6 overflow-y-auto pb-20">
+    <div className="relative h-64 w-full overflow-hidden rounded-t-lg">
+      <img
+        src={`/images/${recipe.imgurl}`}
+        className="absolute inset-0 size-full object-cover"
+        alt={recipe.name || "Recipe Image"}
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+      <h1 className="absolute bottom-4 left-4 text-4xl font-bold text-white">
+        {recipe.name}
+      </h1>
     </div>
-    <DrawerTrigger className="mb-12 flex items-center justify-center p-6">
-      <Button className="w-full" variant="outline">
-        Close
-      </Button>
-    </DrawerTrigger>
+    <div className="px-4 sm:px-6 lg:px-8">
+      <RecipeDetails recipe={recipe} />
+    </div>
   </div>
 )
 
@@ -133,9 +142,20 @@ export const MealDrawer: React.FC<MealDrawerProps> = ({
 
   return (
     <Drawer>
-      <DrawerTrigger className="flex justify-center">{children}</DrawerTrigger>
-      <DrawerContent>
-        {recipe && <MealDrawerContent updatedRecipe={recipe} />}
+      <DrawerTrigger asChild>{children}</DrawerTrigger>
+      <DrawerContent className="h-[90vh] sm:h-[85vh]">
+        <DrawerHeader className="sr-only">
+          <DrawerTitle>{recipe.name}</DrawerTitle>
+          <DrawerDescription>Recipe details</DrawerDescription>
+        </DrawerHeader>
+        {recipe && <MealDrawerContent recipe={recipe} />}
+        <DrawerFooter className="absolute inset-x-0 bottom-0 bg-white p-4">
+          <DrawerClose asChild>
+            <Button variant="outline" className="w-full">
+              Close
+            </Button>
+          </DrawerClose>
+        </DrawerFooter>
       </DrawerContent>
     </Drawer>
   )
