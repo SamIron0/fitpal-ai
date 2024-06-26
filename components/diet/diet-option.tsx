@@ -3,7 +3,7 @@ import { FC } from "react"
 import { DietIcon } from "./diet-icon"
 import { IconInfoCircle } from "@tabler/icons-react"
 import { WithTooltip } from "../ui/with-tooltip"
-import { DietProvider } from "@/types/diet"
+import { DietProvider } from "@/types/settings"
 
 interface DietOptionProps {
   diet: string

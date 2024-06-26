@@ -3,7 +3,7 @@ import { Label } from "@/components/ui/label"
 import { FC } from "react"
 import { Slider } from "../ui/slider"
 import { DietSelect } from "../diet/data-select"
-import { DietProvider } from "@/types/diet"
+import { DietProvider } from "@/types/settings"
 
 interface PreferencesStepProps {
   allergies: string[]

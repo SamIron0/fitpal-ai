@@ -19,7 +19,7 @@ import {
 } from "../../../components/setup/step-container"
 import { getSettingsById, updateSettings } from "@/db/settings"
 import { PreferencesStep } from "@/components/setup/preferences-step"
-import { DietProvider } from "@/types/diet"
+import { DietProvider } from "@/types/settings"
 
 export default function SetupPage() {
   const {

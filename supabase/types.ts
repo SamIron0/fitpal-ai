@@ -1,4 +1,4 @@
-import { DietProvider } from "@/types/diet"
+import { DietProvider } from "@/types/settings"
 
 export type Json =
   | string
@@ -62,7 +62,7 @@ export type Database = {
           calories: number
           allergies: string[]
           user_id: string
-          diet: DietProvider
+          diet: string
           workouts: number
           workspace_id: string
         }
@@ -74,7 +74,7 @@ export type Database = {
           calories: number
           allergies: string[]
           user_id: string
-          diet: DietProvider
+          diet: string
           workouts: number
           workspace_id: string
         }
@@ -86,7 +86,7 @@ export type Database = {
           calories?: number
           allergies?: string[]
           user_id?: string
-          diet?: DietProvider
+          diet?: string
           workouts?: number
           workspace_id?: string
         }
