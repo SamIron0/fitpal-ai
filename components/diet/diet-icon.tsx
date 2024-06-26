@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils"
-
+import { GiPeanut } from "react-icons/gi"
 import { IoFishOutline } from "react-icons/io5"
 import { MdOutlineEggAlt } from "react-icons/md"
 import { IoFastFoodOutline } from "react-icons/io5"
@@ -10,14 +10,14 @@ import { GiBroccoli } from "react-icons/gi"
 import { TbMeat } from "react-icons/tb"
 import { PiShrimpBold } from "react-icons/pi"
 import { LuVegan } from "react-icons/lu"
-import { DietProvider } from "@/types/diet"
+import { DietProvider } from "@/types/settings"
 import { IconSparkles } from "@tabler/icons-react"
 import { useTheme } from "next-themes"
 import Image from "next/image"
 import { FC, HTMLAttributes } from "react"
 
 interface DietIconProps extends HTMLAttributes<HTMLDivElement> {
-  provider: DietProvider
+  provider: string
 }
 
 export const DietIcon: FC<DietIconProps> = ({
@@ -27,7 +27,7 @@ export const DietIcon: FC<DietIconProps> = ({
 }) => {
   const { theme } = useTheme()
 
-  switch (provider as DietProvider) {
+  switch (provider as string) {
     case "Anything":
       return (
         <IoFastFoodOutline
@@ -38,7 +38,16 @@ export const DietIcon: FC<DietIconProps> = ({
           )}
         />
       )
-
+    case "Nuts":
+      return (
+        <GiPeanut
+          className={cn(
+            "size-6 rounded-sm bg-white p-1 text-black",
+            props.className,
+            theme === "dark" ? "bg-white" : "border-DEFAULT border-black"
+          )}
+        />
+      )
     case "Paleo":
       return (
         <TbMeat
