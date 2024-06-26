@@ -105,7 +105,7 @@ const RecipeDetails: React.FC<{ updatedRecipe: Tables<"recipes"> }> = ({
 const MealDrawerContent: React.FC<{
   updatedRecipe: Tables<"recipes">
 }> = ({ updatedRecipe }) => (
-  <div className="hide-scrollbar flex h-[70vh] flex-col overflow-y-auto">
+  <div className="hide-scrollbar flex h-[85vh] flex-col overflow-y-auto">
     <div className="mt-8 flex w-full flex-col p-6">
       <div className="w-full justify-end">
         <img
