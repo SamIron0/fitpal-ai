@@ -52,14 +52,6 @@ export type Database = {
           query?: string
           uid?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "queries_user_id_fkey"
-            columns: ["user_id"]
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          }
-        ]
       }
       settings: {
         Row: {
