@@ -46,7 +46,7 @@ export default async function Login({
       throw new Error(error.message)
     }
 
-    return redirect(`/${homeWorkspace.id}/chat`)
+    return redirect(`/${homeWorkspace.id}/search`)
   }
 
   const signIn = async (formData: FormData) => {
@@ -79,7 +79,7 @@ export default async function Login({
       )
     }
 
-    return redirect(`/${homeWorkspace.id}/chat`)
+    return redirect(`/${homeWorkspace.id}/search`)
   }
 
   const signUp = async (formData: FormData) => {

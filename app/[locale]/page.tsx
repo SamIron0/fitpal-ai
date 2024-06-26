@@ -41,7 +41,7 @@ export default function ChatPage() {
           }
 
           if (homeWorkspace) {
-            router.push(`/${homeWorkspace.id}/chat`)
+            router.push(`/${homeWorkspace.id}/search`)
           }
         }
         setWs()

@@ -3,7 +3,6 @@
 import { Dashboard } from "@/components/ui/dashboard"
 import { FitpalAIContext } from "@/context/context"
 import { getAssistantWorkspacesByWorkspaceId } from "@/db/assistants"
-import { getChatsByWorkspaceId } from "@/db/chats"
 
 import { getCollectionWorkspacesByWorkspaceId } from "@/db/collections"
 import { getFileWorkspacesByWorkspaceId } from "@/db/files"
