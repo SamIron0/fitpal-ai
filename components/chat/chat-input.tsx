@@ -100,6 +100,23 @@ export const ChatInput: FC<ChatInputProps> = ({}: ChatInputProps) => {
 
     setUserInput(event.target.value)
   }
+  const handleSuggestionClick = (caption: string) => () => {
+    setInput(caption)
+    setUserInput(caption)
+  }
+  function SuggestionPill({ icon, caption }: any) {
+    return (
+      <button
+        onClick={() => handleSuggestionClick(caption)}
+        className=" me-3 rounded-md border border-zinc-300 px-2.5 py-0.5 text-xs font-medium text-gray-400"
+      >
+        <div className="flex items-center">
+          {icon}
+          <p className="pl-0.5">{caption}</p>
+        </div>
+      </button>
+    )
+  }
   return (
     <>
       <div className="flex flex-col flex-wrap justify-center gap-2">
@@ -151,6 +168,12 @@ export const ChatInput: FC<ChatInputProps> = ({}: ChatInputProps) => {
             </LoginDrawer>
           )}{" "}
         </div>
+      </div>
+      <div className="w-full space-x-2 ">
+        <SuggestionPill icon={"🍜"} caption="Pasta ideas with chicken" />{" "}
+        <SuggestionPill icon={"🍜"} caption="Pasta ideas with chicken" />
+        <SuggestionPill icon={"🍜"} caption="Pasta ideas with chicken" />
+        <SuggestionPill icon={"🥓"} caption="Air fryer recipes for dinner" />
       </div>
     </>
   )
