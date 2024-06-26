@@ -92,7 +92,10 @@ export const Settings: FC<SettingsProps> = () => {
         <Button
           className="mb-3 mt-4 flex  h-[36px] grow"
           onClick={() => handleSaveChanges(settings.id, settingsUpdate)}
-          disabled={JSON.stringify(settings) === JSON.stringify(settingsUpdate)}
+          disabled={
+            settings.allergies === user_allergies &&
+            settings.diet === selectedDiet
+          }
         >
           Save Changes{" "}
         </Button>
