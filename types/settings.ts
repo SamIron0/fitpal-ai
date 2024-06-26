@@ -8,4 +8,4 @@ export type DietProvider =
   | "Pescatarian"
   | "Anything"
 
-export type AllergiesProvider = "Nuts" | "Anything"
+export type AllergiesProvider = "Nuts" | "None"

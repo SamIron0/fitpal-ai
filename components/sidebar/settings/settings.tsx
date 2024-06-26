@@ -55,7 +55,7 @@ export const Settings: FC<SettingsProps> = () => {
     "Mediterranean",
     "Vegetarian"
   ]
-  const allergens: AllergiesProvider[] = ["Nuts"]
+  const allergens: AllergiesProvider[] = ["Nuts", "None"]
   useEffect(() => {
     async function getSession() {
       const {
