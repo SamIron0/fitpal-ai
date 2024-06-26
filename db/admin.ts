@@ -62,6 +62,20 @@ const most_common_recipes = (recipes_list: string[]) => {
   console.log("sorted_recipes: " + sorted_recipes)
   return sorted_recipes
 }
+export const save_query = async (uid: string, query: string) => {
+  const { data: queryData, error } = await supabaseAdmin
+    .from("queries")
+    .insert({
+      id: uuidv4(),
+      query,
+      uid
+    })
+
+  if (error) {
+    throw new Error(error.message)
+  }
+  return queryData
+}
 
 export const getRecipeById = async (id: string) => {
   const { data: recipeData, error } = await supabaseAdmin

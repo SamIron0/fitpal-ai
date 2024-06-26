@@ -36,6 +36,31 @@ export type Database = {
   }
   public: {
     Tables: {
+      queries: {
+        Row: {
+          id: string
+          query: string
+          uid: string
+        }
+        Insert: {
+          id: string
+          query: string
+          uid: string
+        }
+        Update: {
+          id?: string
+          query?: string
+          uid?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "queries_user_id_fkey"
+            columns: ["user_id"]
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
       settings: {
         Row: {
           id: string
@@ -131,7 +156,6 @@ export type Database = {
         }
       }
 
-     
       documents: {
         Row: {
           workspace_id: string
