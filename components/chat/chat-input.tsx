@@ -107,12 +107,12 @@ export const ChatInput: FC<ChatInputProps> = ({}: ChatInputProps) => {
   function SuggestionPill({ icon, caption }: any) {
     return (
       <button
-        onClick={() => handleSuggestionClick(caption)}
-        className=" me-3 rounded-md border border-zinc-300 px-2.5 py-0.5 text-xs font-medium text-gray-400"
+        onClick={handleSuggestionClick(caption)}
+        className=" m-1 rounded-md border border-input px-2.5 py-0.5  text-xs font-medium text-gray-400"
       >
         <div className="flex items-center">
           {icon}
-          <p className="pl-0.5">{caption}</p>
+          <p className="pl-1">{caption}</p>
         </div>
       </button>
     )
@@ -169,7 +169,7 @@ export const ChatInput: FC<ChatInputProps> = ({}: ChatInputProps) => {
           )}{" "}
         </div>
       </div>
-      <div className="w-full space-x-2 ">
+      <div className="mt-3 grid w-full grid-cols-2">
         <SuggestionPill icon={"🍜"} caption="Pasta ideas with chicken" />{" "}
         <SuggestionPill icon={"🍜"} caption="Pasta ideas with chicken" />
         <SuggestionPill icon={"🍜"} caption="Pasta ideas with chicken" />
