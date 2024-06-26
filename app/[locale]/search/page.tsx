@@ -8,7 +8,7 @@ import { Tables } from "@/supabase/types"
 import { useTheme } from "next-themes"
 import { useContext, useEffect, useState } from "react"
 
-export default function ChatPage() {
+export default function SearchPage() {
   const { generatedRecipes, isGenerating } = useContext(FitpalAIContext)
   const [forYou, setForYou] = useState<Tables<"recipes">[]>()
   const { theme } = useTheme()

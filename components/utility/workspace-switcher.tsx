@@ -67,7 +67,7 @@ export const WorkspaceSwitcher: FC<WorkspaceSwitcherProps> = ({}) => {
     setSelectedWorkspace(createdWorkspace)
     setOpen(false)
 
-    return router.push(`/${createdWorkspace.id}/search`)
+    return router.push(`/search`)
   }
 
   const getWorkspaceName = (workspaceId: string) => {
@@ -86,7 +86,7 @@ export const WorkspaceSwitcher: FC<WorkspaceSwitcherProps> = ({}) => {
     setSelectedWorkspace(workspace)
     setOpen(false)
 
-    return router.push(`/${workspace.id}/search`)
+    return router.push(`/search`)
   }
 
   const workspaceImage = workspaceImages.find(
