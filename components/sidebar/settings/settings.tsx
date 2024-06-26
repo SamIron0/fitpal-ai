@@ -15,6 +15,7 @@ interface SettingsProps {}
 export const Settings: FC<SettingsProps> = () => {
   const { settings, setChatSettings, chatSettings, setSettings } =
     useContext(FitpalAIContext)
+
   const [selectedDiet, setSelectedDiet] = useState<DietProvider>(settings?.diet)
   const [protein, setProtein] = useState(Math.round(settings?.protein) || 0)
   const [carbs, setCarbs] = useState(Math.round(settings?.carbs) || 0)
@@ -68,17 +69,7 @@ export const Settings: FC<SettingsProps> = () => {
     setSettings(settings)
     // update thtee db
     await updateSettings(id, settings)
-    setChatSettings({
-      includeWorkspaceInstructions:
-        chatSettings?.includeWorkspaceInstructions || false,
-      includeProfileContext: chatSettings?.includeProfileContext || false,
-      contextLength: chatSettings?.contextLength || 4096,
-      temperature: chatSettings?.temperature || 0.7,
-      model: chatSettings?.model || "gpt-3.5-turbo",
-      prompt: chatSettings?.prompt || "",
-      embeddingsProvider: chatSettings?.embeddingsProvider || "openai",
-      contextIsOutdated: true
-    })
+
     toast.dismiss(toastId)
     toast.success("Settings saved!")
   }

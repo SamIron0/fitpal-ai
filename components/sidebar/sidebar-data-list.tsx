@@ -1,28 +1,27 @@
+import { FC, useContext, useEffect, useRef, useState } from "react"
+import Link from "next/link"
 import { FitpalAIContext } from "@/context/context"
+import { Tables } from "@/supabase/types"
+import { ContentType, DataItemType, DataListType } from "@/types"
 import { updateAssistant } from "@/db/assistants"
-import { updateChat } from "@/db/chats"
 import { updateCollection } from "@/db/collections"
 import { updateFile } from "@/db/files"
 import { updateModel } from "@/db/models"
-import { updatePreset } from "@/db/presets"
 import { updatePrompt } from "@/db/prompts"
 import { updateTool } from "@/db/tools"
+import { updateChat } from "@/db/chats"
+import { updateCalculator } from "@/db/calculator"
+import { updatePreset } from "@/db/presets"
 import { cn } from "@/lib/utils"
-import { Tables } from "@/supabase/types"
-import { ContentType, DataItemType, DataListType } from "@/types"
-import Link from "next/link"
-import { FC, useContext, useEffect, useRef, useState } from "react"
 import { Separator } from "../ui/separator"
 import { ChatItem } from "./items/chat/chat-item"
 import { Folder } from "./items/folders/folder-item"
 import { PresetItem } from "./items/presets/preset-item"
-import { PromptItem } from "./items/prompts/prompt-item"
 import { SidebarSearch } from "./sidebar-search"
 import { SidebarCreateButtons } from "./sidebar-create-buttons"
 import { Settings } from "./settings/settings"
 import { Calculator } from "../calculator/calculator"
-import { updateCalculator } from "@/db/calculator"
-import Pricing from "@/app/[locale]/pricing/page"
+
 interface SidebarDataListProps {
   contentType: ContentType
   data: DataListType
@@ -55,6 +54,7 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
 
   const [isOverflowing, setIsOverflowing] = useState(false)
   const [isDragOver, setIsDragOver] = useState(false)
+
   const getDataListComponent = (
     contentType: ContentType,
     item: DataItemType
@@ -62,10 +62,8 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
     switch (contentType) {
       case "chats":
         return <ChatItem key={item.id} chat={item as Tables<"chats">} />
-
       case "presets":
         return <PresetItem key={item.id} preset={item as Tables<"presets">} />
-
       default:
         return null
     }
@@ -144,9 +142,7 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
 
     if (!updateFunction || !setStateFunction) return
 
-    const updatedItem = await updateFunction(item.id, {
-      folder_id: folderId
-    })
+    const updatedItem = await updateFunction(item.id, { folder_id: folderId })
 
     setStateFunction((items: any) =>
       items.map((item: any) =>
@@ -175,14 +171,12 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault()
-
     const target = e.target as Element
 
     if (!target.closest("#folder")) {
       const itemId = e.dataTransfer.getData("text/plain")
       updateFolder(itemId, null)
     }
-
     setIsDragOver(false)
   }
 
@@ -204,7 +198,7 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
         className="mt-2 flex flex-col overflow-auto"
         onDrop={handleDrop}
       >
-        {contentType === "chats" ? (
+        {contentType === "chats" && (
           <>
             <div className="mt-2 flex items-center">
               <SidebarCreateButtons
@@ -222,16 +216,14 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
             </div>
             {data.length === 0 && (
               <div className="flex grow flex-col items-center justify-center">
-                <div className="text-centertext-muted-foreground p-8 text-lg italic">
+                <div className="p-8 text-center text-lg italic text-muted-foreground">
                   No {contentType}.
                 </div>
               </div>
             )}
             {(dataWithFolders.length > 0 || dataWithoutFolders.length > 0) && (
               <div
-                className={`h-full ${
-                  isOverflowing ? "w-[calc(100%-8px)]" : "w-full"
-                } space-y-2 pt-2 ${isOverflowing ? "mr-2" : ""}`}
+                className={`h-full ${isOverflowing ? "w-[calc(100%-8px)]" : "w-full"} space-y-2 pt-2 ${isOverflowing ? "mr-2" : ""}`}
               >
                 {folders.map(folder => (
                   <Folder
@@ -302,20 +294,19 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
               </div>
             )}
           </>
-        ) : contentType === "presets" ? (
-          <Settings />
-        ) : contentType === "calculator" ? (
-          !subscription.id ? (
+        )}
+        {contentType === "presets" && <Settings />}
+        {contentType === "calculator" &&
+          (!subscription.id ? (
             <Calculator />
           ) : (
             <Link
-              className="mb-3 mt-4 flex h-[36px] grow  bg-white px-3"
+              className="mb-3 mt-4 flex h-[36px] grow bg-white px-3"
               href={"/pricing"}
             >
               Access Macro Calculator
             </Link>
-          )
-        ) : null}
+          ))}
       </div>
 
       <div
