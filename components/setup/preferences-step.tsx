@@ -2,7 +2,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { FC } from "react"
 import { Slider } from "../ui/slider"
-import { DietSelect } from "../diet/data-select"
+import { DataSelect } from "../diet/data-select"
 import { DietProvider } from "@/types/settings"
 
 interface PreferencesStepProps {
@@ -29,7 +29,20 @@ export const PreferencesStep: FC<PreferencesStepProps> = ({
           <div>Diet {"  "}</div>
         </Label>
 
-        <DietSelect onSelect={setDiet} selectedDiet={diet as DietProvider} />
+        <DataSelect
+          data={[
+            "Anything",
+            "Paleo",
+            "Vegan",
+            "Gluten-free",
+            "Ketogenic",
+            "Pescatarian",
+            "Mediterranean",
+            "Vegetarian"
+          ]}
+          onSelect={setDiet}
+          selectedData={diet as DietProvider}
+        />
       </div>
       <div className="space-y-1 py-2">
         <Label className="mb-3 flex items-center">
