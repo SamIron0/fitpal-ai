@@ -51,7 +51,7 @@ export const PreferencesStep: FC<PreferencesStepProps> = ({
 
         <DataSelect
           data={["Nuts", "None"]}
-          onSelect={setAllergy}
+          onSelect={data => setAllergies([data])}
           selectedData={diet as AllergiesProvider}
         />
       </div>
