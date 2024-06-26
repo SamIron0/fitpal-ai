@@ -38,7 +38,7 @@ export const getForYou = async (workspaceId: string) => {
     .from("recipes")
     .select("*")
     //.order("RANDOM()")
-    .limit(10)
+    .limit(8)
   if (error) {
     throw error
   }
