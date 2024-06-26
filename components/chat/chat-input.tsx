@@ -108,7 +108,7 @@ export const ChatInput: FC<ChatInputProps> = ({}: ChatInputProps) => {
     return (
       <button
         onClick={handleSuggestionClick(caption)}
-        className=" m-1 rounded-md border border-input px-2.5 py-0.5  text-xs font-medium text-gray-400"
+        className=" m-1 rounded-md border border-input px-2.5 py-1.5  text-xs font-medium text-gray-400"
       >
         <div className="flex items-center">
           {icon}
@@ -170,10 +170,10 @@ export const ChatInput: FC<ChatInputProps> = ({}: ChatInputProps) => {
         </div>
       </div>
       <div className="mt-3 grid w-full grid-cols-2">
-        <SuggestionPill icon={"🍜"} caption="Pasta ideas with chicken" />{" "}
-        <SuggestionPill icon={"🍜"} caption="Pasta ideas with chicken" />
-        <SuggestionPill icon={"🍜"} caption="Pasta ideas with chicken" />
-        <SuggestionPill icon={"🥓"} caption="Air fryer recipes for dinner" />
+        <SuggestionPill icon={"🍜"} caption="Pasta with chicken" />{" "}
+        <SuggestionPill icon={"🍜"} caption="Garlic,onion,pork" />
+        <SuggestionPill icon={"🍜"} caption="Jambalaya" />
+        <SuggestionPill icon={"🥓"} caption="Breakfast with bacon" />
       </div>
     </>
   )
