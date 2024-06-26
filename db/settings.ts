@@ -15,11 +15,11 @@ export const getSettingsById = async (settingsId: string) => {
   return settings
 }
 
-export const getSettingsByWorkspaceId = async (workspaceId: string) => {
+export const getSettingsByUserId = async (uid: string) => {
   const { data: settings, error } = await supabase
     .from("settings")
     .select("*")
-    .eq("workspace_id", workspaceId)
+    .eq("user_id", uid)
   if (!settings) {
     throw new Error(error.message)
   }
