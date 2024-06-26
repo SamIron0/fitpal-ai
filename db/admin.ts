@@ -66,7 +66,7 @@ export const save_query = async (uid: string, query: string) => {
   const { data: queryData, error } = await supabaseAdmin
     .from("queries")
     .insert({
-      id: uid,
+      id: uuidv4(),
       query,
       uid
     })
