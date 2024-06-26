@@ -1,5 +1,6 @@
 import { FitpalAIContext } from "@/context/context"
-import { DietProvider } from "@/types/diet"
+import { DietProvider } from "@/types/settings"
+import { AllergiesProvider } from "@/types/settings"
 import { IconChevronDown } from "@tabler/icons-react"
 import { FC, useContext, useEffect, useRef, useState } from "react"
 import { Button } from "../ui/button"
@@ -12,29 +13,25 @@ import { Tabs, TabsList, TabsTrigger } from "../ui/tabs"
 import { DietIcon } from "./diet-icon"
 import { DietOption } from "./diet-option"
 
-interface DietSelectProps {
-  onSelect: (diet: DietProvider) => void
-  selectedDiet: DietProvider
+interface DataSelectProps {
+  onSelect: (data: DietProvider | AllergiesProvider) => void
+  data: DietProvider[] | AllergiesProvider[]
+  selectedData: string
 }
 
-export const DietSelect: FC<DietSelectProps> = ({ onSelect, selectedDiet }) => {
+export const DataSelect: FC<DataSelectProps> = ({
+  onSelect,
+  selectedData,
+  data
+}) => {
   const { profile, setProfile } = useContext(FitpalAIContext)
 
   const inputRef = useRef<HTMLInputElement>(null)
   const triggerRef = useRef<HTMLButtonElement>(null)
 
   const [isOpen, setIsOpen] = useState(false)
-  const [selected, setSelected] = useState<DietProvider>(selectedDiet)
-  const diets: DietProvider[] = [
-    "Anything",
-    "Paleo",
-    "Vegan",
-    "Gluten-free",
-    "Ketogenic",
-    "Pescatarian",
-    "Mediterranean",
-    "Vegetarian"
-  ]
+  const [selected, setSelected] = useState<string>(selectedData)
+
   useEffect(() => {
     if (isOpen) {
       setTimeout(() => {
@@ -43,9 +40,9 @@ export const DietSelect: FC<DietSelectProps> = ({ onSelect, selectedDiet }) => {
     }
   }, [isOpen])
 
-  const handleSelectDiet = (diet: DietProvider) => {
-    setSelected(diet)
-    onSelect(diet)
+  const handleSelectData = (data: DietProvider | AllergiesProvider) => {
+    setSelected(data)
+    onSelect(data)
     setIsOpen(false)
   }
   if (!profile) return null
@@ -91,11 +88,11 @@ export const DietSelect: FC<DietSelectProps> = ({ onSelect, selectedDiet }) => {
           style={{ width: triggerRef.current?.offsetWidth }}
           align="start"
         >
-          {diets.map(diet => (
+          {data.map(x_data => (
             <DietOption
-              key={diet}
-              diet={diet}
-              onSelect={() => handleSelectDiet(diet)}
+              key={x_data}
+              diet={x_data}
+              onSelect={() => handleSelectData(x_data)}
             />
           ))}
         </DropdownMenuContent>

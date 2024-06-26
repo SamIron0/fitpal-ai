@@ -7,3 +7,5 @@ export type DietProvider =
   | "Ketogenic"
   | "Pescatarian"
   | "Anything"
+
+export type AllergiesProvider = "Nuts" | "Anything"
