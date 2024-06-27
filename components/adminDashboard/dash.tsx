@@ -4,17 +4,10 @@ import { useEffect, useState } from "react"
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
 import axios from "axios"
-import { TablesInsert } from "@/supabase/types"
+import { Tables, TablesInsert } from "@/supabase/types"
 import { toast } from "sonner"
 import { createClient } from "@/lib/supabase/client"
 import { useRouter } from "next/navigation"
-
-interface Instruction {
-  name: string
-  instructions: string
-  imgUrl: string
-  time: string
-}
 
 export default function Dash() {
   const supabase = createClient()
@@ -26,43 +19,8 @@ export default function Dash() {
     TablesInsert<"recipes">[]
   >([])
   const [url, setUrl] = useState("")
-  const [data, setData] = useState<Instruction[]>([
-    {
-      name: "Cake",
-      instructions: "Bake for 30 mins",
-      imgUrl: "/api/placeholder/200/200",
-      time: "30 mins"
-    },
-    {
-      name: "Soup",
-      instructions: "Simmer for 1 hour",
-      imgUrl: "/api/placeholder/200/200",
-      time: "1 hour"
-    },
-    {
-      name: "Salad",
-      instructions: "Mix ingredients",
-      imgUrl: "/api/placeholder/200/200",
-      time: "10 mins"
-    },
-    {
-      name: "Steak",
-      instructions: "Grill for 5 mins each side",
-      imgUrl: "/api/placeholder/200/200",
-      time: "15 mins"
-    },
-    {
-      name: "Pasta",
-      instructions: "Boil for 8-10 mins",
-      imgUrl: "/api/placeholder/200/200",
-      time: "20 mins"
-    },
-    {
-      name: "Smoothie",
-      instructions: "Blend for 1 min",
-      imgUrl: "/api/placeholder/200/200",
-      time: "5 mins"
-    }
+  const [recipes, setRecipes] = useState<Tables<"recipes">[]>([
+    {} as Tables<"recipes">
   ])
 
   useEffect(() => {
@@ -80,28 +38,37 @@ export default function Dash() {
     checkUser()
   }, [router, supabase])
 
-  const handleScrapeUrl = async (url: string) => {
-    if (!url) {
+  const handleScrapeUrl = async (urlString: string) => {
+    if (!urlString) {
       toast.error("Please enter a valid URL")
       return
     }
+
     setUrl("")
+    const urls = urlString.split(",").map(url => url.trim())
     const toastId = toast.loading("Scraping...")
+
     try {
       const endpoint =
         "https://85ab-2604-3d09-a98a-7300-2419-ade3-1c94-97cb.ngrok-free.app/scrape"
-      const response = await axios.post(endpoint, { url })
-      const data = response.data.body
 
-      if (data) {
-        setScrapedRecipes([...scrapedRecipes, data])
-        toast.success("Recipe scraped successfully!")
-      }
+      await Promise.all(
+        urls.map(async url => {
+          const response = await axios.post(endpoint, { url })
+          const recipes = response.data.body
+
+          if (recipes) {
+            setScrapedRecipes(prev => [...prev, recipes])
+            toast.success(`Recipe from ${url} scraped successfully!`)
+          }
+        })
+      )
+
       toast.dismiss(toastId)
     } catch (error) {
       console.error(error)
       toast.dismiss(toastId)
-      toast.error("Error scraping recipe")
+      toast.error("Error scraping recipes")
     }
   }
 
@@ -109,9 +76,9 @@ export default function Dash() {
     e.preventDefault()
     const file = e.dataTransfer.files[0]
     if (file) {
-      const newInstructions = [...data]
-      newInstructions[index].imgUrl = file.name // Update with the name of the image
-      setData(newInstructions)
+      const newRecipes = [...recipes]
+      newRecipes[index].imgurl = file.name // Update with the name of the image
+      setRecipes(newRecipes)
       // Simulate image upload (to be implemented in the future)
       handleImageUpload(file)
     }
@@ -125,23 +92,23 @@ export default function Dash() {
 
   const handleSave = async () => {
     try {
-      // Simulate saving data and image uploads
-      console.log("Saving data:", data)
+      // Simulate saving recipes and image uploads
+      console.log("Saving recipes:", recipes)
       // In the future, upload images to the cloud here
     } catch (error) {
-      console.error("Error saving data:", error)
-      toast.error("Error saving data")
+      console.error("Error saving recipes:", error)
+      toast.error("Error saving recipes")
     }
   }
 
-  const updateInstruction = (
+  const updateData = <K extends keyof TablesInsert<"recipes">>(
     index: number,
-    key: keyof Instruction,
-    value: string
+    key: K,
+    value: TablesInsert<"recipes">[K]
   ) => {
-    const newInstructions = [...data]
-    newInstructions[index][key] = value
-    setData(newInstructions)
+    const newRecipes = [...recipes]
+    newRecipes[index][key] = value as any
+    setRecipes(newRecipes)
   }
 
   return (
@@ -197,20 +164,18 @@ export default function Dash() {
         </div>
 
         <div className="grid grid-cols-3 gap-4">
-          {data.map((instruction, index) => (
+          {recipes.map((recipe, index) => (
             <div
               key={index}
-              className="rounded bg-black p-4 text-card-foreground shadow"
+              className="rounded-md bg-black p-4 text-card-foreground shadow"
               onDrop={e => handleDrop(e, index)}
               onDragOver={e => e.preventDefault()}
             >
               <div className="mb-2 flex items-center justify-between">
                 <input
                   type="text"
-                  value={instruction.name}
-                  onChange={e =>
-                    updateInstruction(index, "name", e.target.value)
-                  }
+                  value={recipe.name}
+                  onChange={e => updateData(index, "name", e.target.value)}
                   className="w-2/3 rounded bg-input p-1 text-foreground"
                   placeholder="Name"
                 />
@@ -223,7 +188,7 @@ export default function Dash() {
                   stroke="currentColor"
                   className={
                     "size-6 " +
-                    (instruction.imgUrl ? "text-green-500" : "text-orange-500")
+                    (recipe.imgurl ? "text-green-500" : "text-orange-500")
                   }
                 >
                   <path
@@ -237,19 +202,17 @@ export default function Dash() {
               <div className="mb-2 flex items-center">
                 <input
                   type="text"
-                  value={instruction.time}
+                  value={recipe.cooking_time || ""}
                   onChange={e =>
-                    updateInstruction(index, "time", e.target.value)
+                    updateData(index, "cooking_time", e.target.value)
                   }
                   className="mr-2 w-1/2 rounded bg-input p-1 text-foreground"
                   placeholder="Time"
                 />
                 <input
                   type="text"
-                  value={instruction.imgUrl}
-                  onChange={e =>
-                    updateInstruction(index, "imgUrl", e.target.value)
-                  }
+                  value={recipe.imgurl || ""}
+                  onChange={e => updateData(index, "imgurl", e.target.value)}
                   className="w-1/2 rounded bg-input p-1 text-foreground"
                   placeholder="Image URL"
                 />

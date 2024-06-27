@@ -102,7 +102,7 @@ export type Database = {
       recipes: {
         Row: {
           id: string
-          name: string | null
+          name: string 
           description: string | null
           ingredients: string[] | null
           cooking_time: string | null
