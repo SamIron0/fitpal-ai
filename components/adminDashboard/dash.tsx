@@ -57,7 +57,26 @@ export default function Dash() {
             const response = await axios.post(endpoint, { url })
             const recipesData = response.data.body
             if (recipesData) {
-              setRecipes(prevRecipes => [...prevRecipes, recipesData])
+              setRecipes(prevRecipes => [
+                ...prevRecipes,
+                {
+                  id: recipesData.id,
+                  name: recipesData.title,
+                  imgurl: recipesData.image,
+                  cooking_time: recipesData.cooking_time,
+                  url: recipesData.url,
+                  ingredients: recipesData.ingredients,
+                  instructions: recipesData.instructions,
+                  protein: recipesData.protein,
+                  fats: recipesData.fats,
+                  carbs: recipesData.carbs,
+                  calories: recipesData.calories,
+                  allergies: recipesData.allergies,
+                  portions: recipesData.portions,
+                  servings: recipesData.servings,
+                  embedding: recipesData.embedding
+                }
+              ])
               toast.success(`Recipe from ${url} scraped successfully!`)
             }
           } catch (error) {
@@ -78,6 +97,7 @@ export default function Dash() {
   const handleDrop = async (e: DragEvent<HTMLDivElement>, index: number) => {
     e.preventDefault()
     const file = e.dataTransfer.files[0]
+    print(file)
     if (file) {
       const newRecipes = [...recipes]
       newRecipes[index].imgurl = file // Store the File object in recipes state

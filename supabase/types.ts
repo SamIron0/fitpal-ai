@@ -102,11 +102,11 @@ export type Database = {
       recipes: {
         Row: {
           id: string
-          name: string 
+          name: string
           description: string | null
           ingredients: string[] | null
           cooking_time: string | null
-          imgurl: string | null  | File
+          imgurl: string | null | File
           protein: number | null
           fats: number | null
           carbs: number | null
@@ -114,6 +114,7 @@ export type Database = {
           instructions: string[] | null
           portions: number | null
           url: string | null
+          embedding: number[]
         }
         Insert: {
           id: string
@@ -129,6 +130,7 @@ export type Database = {
           instructions?: string[] | null
           portions?: number | null
           url?: string | null
+          embedding?: number[] | null
         }
 
         Update: {
@@ -145,6 +147,7 @@ export type Database = {
           instructions?: string[] | null
           portions?: number | null
           url?: string | null
+          embedding?: number[] | null
         }
       }
 
