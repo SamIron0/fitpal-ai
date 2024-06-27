@@ -113,11 +113,11 @@ export default function SearchPage() {
           {generatedRecipes.length > 0 ? (
             renderRecipes(generatedRecipes, "Best Results")
           ) : (
-            <div className="w-full max-w-4xl py-28 ">
+            <div className="w-full max-w-4xl ">
               {forYou.length > 0 ? (
                 renderRecipes(forYou, "For You")
               ) : (
-                <div className="w-full max-w-4xl ">
+                <div className="w-full max-w-4xl py-28 ">
                   <p className="mb-5 text-2xl font-semibold">For You</p>
                   <div
                     role="status"
