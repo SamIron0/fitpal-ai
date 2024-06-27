@@ -105,7 +105,7 @@ const RecipeDetails: React.FC<{ recipe: Tables<"recipes"> }> = ({ recipe }) => (
       <CardHeader>
         <CardTitle>Directions</CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className="w-full max-w-2xl">
         <DirectionsList instructions={recipe.instructions} />
       </CardContent>
     </Card>
