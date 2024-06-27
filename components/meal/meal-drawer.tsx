@@ -36,7 +36,7 @@ const NutritionFacts: React.FC<{ recipe: Tables<"recipes"> }> = ({
       { label: "Protein", value: `${recipe.protein}g` },
       { label: "Fat", value: `${recipe.fats}g` },
       { label: "Carbs", value: `${recipe.carbs}g` },
-      { label: "Calories", value: `${recipe.calories}kcal` }
+      { label: "Calories", value: `${recipe.calories + " "}, kcal` }
     ].map(item => (
       <Card key={item.label} className="bg-black">
         <CardContent className="p-4">
