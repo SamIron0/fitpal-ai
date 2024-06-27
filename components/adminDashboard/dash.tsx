@@ -102,11 +102,9 @@ export default function Dash() {
     //console.log(file)
     if (file) {
       const newRecipes = [...recipes]
-      newRecipes[index].imgurl = file // Store the File object in recipes state
-
-      setRecipes(newRecipes)
-      setUpdatedRecipes(newRecipes)
-      //console.log("Updated recipes:", newRecipes[0])
+      //newRecipes[index].imgurl = file // Store the File object in recipes state
+      recipes[index].imgurl = file
+      console.log("Updated recipes:", newRecipes[0])
     }
   }
 
@@ -114,7 +112,7 @@ export default function Dash() {
     console.log("saving: " + updatedRecipes[0])
     try {
       await Promise.all(
-        updatedRecipes.map(async recipe => {
+        recipes.map(async recipe => {
           try {
             const res = await fetch("/api/recipe/save_recipe", {
               method: "POST",
