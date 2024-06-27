@@ -38,9 +38,9 @@ const NutritionFacts: React.FC<{ recipe: Tables<"recipes"> }> = ({
       { label: "Carbs", value: `${recipe.carbs}g` },
       { label: "Calories", value: `${recipe.calories}kcal` }
     ].map(item => (
-      <Card key={item.label} className="bg-gray-50">
+      <Card key={item.label} className="bg-black">
         <CardContent className="p-4">
-          <p className="text-sm font-medium text-gray-500">{item.label}</p>
+          <p className="text-sm font-medium text-zinc-500">{item.label}</p>
           <p className="text-2xl font-bold">{item.value}</p>
         </CardContent>
       </Card>
@@ -53,7 +53,7 @@ const IngredientsList: React.FC<{ ingredients: string[] | null }> = ({
 }) => (
   <ul className="list-inside list-disc space-y-2">
     {ingredients?.map((ingredient, index) => (
-      <li key={index} className="text-gray-700">
+      <li key={index} className="text-zinc-400">
         {ingredient}
       </li>
     ))}
@@ -65,7 +65,7 @@ const DirectionsList: React.FC<{ instructions: string[] | null }> = ({
 }) => (
   <ol className="list-inside list-decimal space-y-4">
     {instructions?.map((direction, index) => (
-      <li key={index} className="text-gray-700">
+      <li key={index} className="text-zinc-300">
         {direction}
       </li>
     ))}
@@ -75,7 +75,7 @@ const DirectionsList: React.FC<{ instructions: string[] | null }> = ({
 const RecipeDetails: React.FC<{ recipe: Tables<"recipes"> }> = ({ recipe }) => (
   <div className="space-y-8">
     <div>
-      <h1 className="text-3xl font-bold text-gray-900">{recipe.name}</h1>
+      <h1 className="text-3xl font-bold text-zinc-900">{recipe.name}</h1>
       <div className="mt-2 flex space-x-4">
         <Badge variant="secondary">Portions: {recipe.portions}</Badge>
         <Badge variant="secondary">Time: {recipe.cooking_time}</Badge>
@@ -143,7 +143,7 @@ export const MealDrawer: React.FC<MealDrawerProps> = ({
       <DrawerTrigger asChild>{children}</DrawerTrigger>
       <DrawerContent className="h-[90vh] sm:h-[85vh]">
         <DrawerHeader className="sr-only">
-          <DrawerTitle>{recipe.name}</DrawerTitle>
+          <DrawerTitle className="text-zinc-100">{recipe.name}</DrawerTitle>
           <DrawerDescription>Recipe details</DrawerDescription>
         </DrawerHeader>
         {recipe && <MealDrawerContent recipe={recipe} />}
