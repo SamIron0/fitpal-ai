@@ -138,8 +138,6 @@ export const MealDrawer: React.FC<MealDrawerProps> = ({
   recipe,
   isOpen
 }) => {
-  const { generatedRecipes, setGeneratedRecipes } = useContext(FitpalAIContext)
-
   return (
     <Drawer>
       <DrawerTrigger asChild>{children}</DrawerTrigger>

@@ -1,11 +1,14 @@
 "use client"
-
 import { ChatInput } from "@/components/chat/chat-input"
 import { MealDrawer } from "@/components/meal/meal-drawer"
 import { Brand } from "@/components/ui/brand"
 import { FitpalAIContext } from "@/context/context"
+import { getProfileByUserId } from "@/db/profile"
+import { getSettingsByUserId } from "@/db/settings"
+import { createClient } from "@/lib/supabase/client"
 import { Tables } from "@/supabase/types"
 import { useTheme } from "next-themes"
+import { useRouter } from "next/router"
 import { useContext, useEffect, useState } from "react"
 
 export default function SearchPage() {
@@ -16,8 +19,23 @@ export default function SearchPage() {
   const openDrawer = (id: string) => {
     setIsOpen(id)
   }
+  const { setSettings, setProfile } = useContext(FitpalAIContext)
+
+  const [loading, setLoading] = useState(true)
+  const supabase = createClient()
+  const router = useRouter()
   useEffect(() => {
-    const getRecipes = async () => {
+    ;(async () => {
+      const session = (await supabase.auth.getSession()).data.session
+
+      if (session) {
+        const profile = await getProfileByUserId(session.user.id)
+        const settings = await getSettingsByUserId(session.user.id)
+        setProfile(profile)
+        setSettings(settings)
+      }
+      setLoading(false)
+
       const recipes = await fetch("/api/for_you", {
         method: "GET",
         headers: {
@@ -27,10 +45,9 @@ export default function SearchPage() {
 
       const data = await recipes.json()
       setForYou(data.for_you)
-    }
-
-    getRecipes()
+    })()
   }, [])
+  useEffect(() => {}, [])
   const renderSkeleton = () => {
     return Array.from({ length: 13 }, (_, n) => (
       <div
