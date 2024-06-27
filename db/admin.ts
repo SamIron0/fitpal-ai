@@ -19,7 +19,7 @@ const supabaseAdmin = createClient<Database>(
 )
 
 export const saveRecipe = async (recipe: TablesInsert<"recipes">) => {
-  const { data, error } = await supabaseAdmin.from("recipes").insert([recipe])
+  const { data, error } = await supabaseAdmin.from("recipes").insert(recipe)
   if (error) {
     throw error
   }
