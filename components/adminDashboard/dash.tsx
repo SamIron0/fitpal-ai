@@ -61,7 +61,7 @@ export default function Dash() {
                 ...prevRecipes,
                 {
                   id: recipesData.id,
-                  name: recipesData.title,
+                  name: recipesData.name,
                   imgurl: recipesData.imgurl,
                   cooking_time: recipesData.cooking_time,
                   url: recipesData.url,
@@ -97,11 +97,13 @@ export default function Dash() {
   const handleDrop = async (e: DragEvent<HTMLDivElement>, index: number) => {
     e.preventDefault()
     const file = e.dataTransfer.files[0]
-    console.log(file)
+    //console.log(file)
     if (file) {
       const newRecipes = [...recipes]
       newRecipes[index].imgurl = file // Store the File object in recipes state
+
       setRecipes(newRecipes)
+      console.log("Updated recipes:", newRecipes[0])
     }
   }
 
