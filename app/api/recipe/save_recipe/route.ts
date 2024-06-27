@@ -16,7 +16,7 @@ export async function POST(request: Request) {
       // Upload image to Cloudinary if it's a File object
       recipe.imgurl = await uploadImage(recipe.imgurl)
     }
-
+    console.log("recipe", recipe.imgurl)
     const saveResult = await saveRecipe(recipe) // Save recipe to Supabase or your database
 
     return new Response(

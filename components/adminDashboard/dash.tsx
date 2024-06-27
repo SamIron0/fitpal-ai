@@ -90,7 +90,7 @@ export default function Dash() {
       await Promise.all(
         recipes.map(async recipe => {
           try {
-            const res = await fetch("/api/save_recipe", {
+            const res = await fetch("/api/recipe/save_recipe", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json"
