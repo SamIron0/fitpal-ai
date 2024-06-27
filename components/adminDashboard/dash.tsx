@@ -1,3 +1,4 @@
+"use client"
 import React, { useState, useEffect, DragEvent } from "react"
 import axios from "axios"
 import { toast } from "sonner"
