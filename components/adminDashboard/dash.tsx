@@ -62,7 +62,7 @@ export default function Dash() {
                 {
                   id: recipesData.id,
                   name: recipesData.title,
-                  imgurl: recipesData.image,
+                  imgurl: recipesData.imgurl,
                   cooking_time: recipesData.cooking_time,
                   url: recipesData.url,
                   ingredients: recipesData.ingredients,
