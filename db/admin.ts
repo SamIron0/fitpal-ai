@@ -18,6 +18,13 @@ const supabaseAdmin = createClient<Database>(
   process.env.SUPABASE_SERVICE_ROLE_KEY || ""
 )
 
+export const saveRecipe = async (recipe: TablesInsert<"recipes">) => {
+  const { data, error } = await supabaseAdmin.from("recipes").insert([recipe])
+  if (error) {
+    throw error
+  }
+  return data
+}
 export const getGuestForYou = async () => {
   // get 10 random entries from table recipes
   const { data: recipes, error } = await supabaseAdmin

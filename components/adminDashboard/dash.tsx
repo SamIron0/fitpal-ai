@@ -1,28 +1,35 @@
-"use client"
-
-import { useEffect, useState } from "react"
-import { Input } from "../ui/input"
-import { Button } from "../ui/button"
+import React, { useState, useEffect, DragEvent } from "react"
 import axios from "axios"
-import { Tables, TablesInsert } from "@/supabase/types"
 import { toast } from "sonner"
-import { createClient } from "@/lib/supabase/client"
 import { useRouter } from "next/navigation"
+import { createClient } from "@/lib/supabase/client"
+import { TablesInsert } from "@/supabase/types"
+import { uploadImage } from "@/lib/cloudinary" // Assuming you have a cloudinary.ts file for Cloudinary integration
+
+interface Recipe {
+  name: string
+  cooking_time: string
+  imgurl: string | File // Changed to accept File type for images
+}
 
 export default function Dash() {
   const supabase = createClient()
   const router = useRouter()
-  const [recipes, setRecipes] = useState<TablesInsert<"recipes">[]>([])
-  const [url, setUrl] = useState("")
+  const [recipes, setRecipes] = useState<Recipe[]>([])
+  const [url, setUrl] = useState<string>("")
 
   useEffect(() => {
     async function checkUser() {
-      const {
-        data: { user }
-      } = await supabase.auth.getUser()
-      const session = (await supabase.auth.getSession()).data.session
-
-      if (session?.user.email !== "ekaronke@gmail.com") {
+      try {
+        const {
+          data: { user },
+          error
+        } = await supabase.auth.getUser()
+        if (error || !user || user.email !== "ekaronke@gmail.com") {
+          router.push("/")
+        }
+      } catch (error) {
+        console.error("Error checking user:", error)
         router.push("/")
       }
     }
@@ -46,60 +53,97 @@ export default function Dash() {
 
       await Promise.all(
         urls.map(async url => {
-          const response = await axios.post(endpoint, { url })
-          const recipes = response.data.body
-          console.log(recipes)
-          if (recipes) {
-            setRecipes(prev => [...prev, recipes])
-            toast.success(`Recipe from ${url} scraped successfully!`)
+          try {
+            const response = await axios.post(endpoint, { url })
+            const recipesData = response.data.body
+            if (recipesData) {
+              setRecipes(prevRecipes => [...prevRecipes, recipesData])
+              toast.success(`Recipe from ${url} scraped successfully!`)
+            }
+          } catch (error) {
+            console.error("Error scraping recipe:", error)
+            toast.error(`Error scraping recipe from ${url}`)
           }
         })
       )
 
       toast.dismiss(toastId)
     } catch (error) {
-      console.error(error)
+      console.error("Error scraping recipes:", error)
       toast.dismiss(toastId)
       toast.error("Error scraping recipes")
     }
   }
 
-  const handleDrop = (e: React.DragEvent<HTMLDivElement>, index: number) => {
+  const handleDrop = async (e: DragEvent<HTMLDivElement>, index: number) => {
     e.preventDefault()
     const file = e.dataTransfer.files[0]
     if (file) {
       const newRecipes = [...recipes]
-      newRecipes[index].imgurl = file.name // Update with the name of the image
+      newRecipes[index].imgurl = file // Store the File object in recipes state
       setRecipes(newRecipes)
-      // Simulate image upload (to be implemented in the future)
-      handleImageUpload(file)
     }
-  }
-
-  const handleImageUpload = (file: File) => {
-    // Simulate image upload process
-    console.log("Uploading image:", file.name)
-    // In the future, upload the image to the cloud here
   }
 
   const handleSave = async () => {
     try {
-      // Simulate saving recipes and image uploads
-      console.log("Saving recipes:", recipes)
-      // In the future, upload images to the cloud here
+      const recipesToSave = await Promise.all(
+        recipes.map(async recipe => {
+          try {
+            if (recipe.imgurl instanceof File) {
+              // Upload image to Cloudinary only if it's a File object (not a string URL)
+              const imageUrl = await uploadImage(recipe.imgurl)
+              return { ...recipe, imgurl: imageUrl }
+            } else {
+              return recipe // If imgurl is already a string, no need to re-upload
+            }
+          } catch (error) {
+            console.error("Error uploading image or saving recipe:", error)
+            toast.error(
+              `Error uploading image or saving recipe: ${recipe.name}`
+            )
+            throw error
+          }
+        })
+      )
+
+      await Promise.all(
+        recipesToSave.map(async recipe => {
+          try {
+            const res = await fetch("/api/save_recipe", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({ recipe })
+            })
+
+            if (!res.ok) {
+              throw new Error(`Failed to save recipe: ${recipe.name}`)
+            }
+          } catch (error) {
+            console.error("Error saving recipe:", error)
+            toast.error(`Error saving recipe: ${recipe.name}`)
+            throw error
+          }
+        })
+      )
+
+      toast.success("Recipes saved successfully!")
+      setRecipes([])
     } catch (error) {
       console.error("Error saving recipes:", error)
       toast.error("Error saving recipes")
     }
   }
 
-  const updateData = <K extends keyof TablesInsert<"recipes">>(
+  const updateData = <K extends keyof Recipe>(
     index: number,
     key: K,
-    value: TablesInsert<"recipes">[K]
+    value: Recipe[K]
   ) => {
     const newRecipes = [...recipes]
-    newRecipes[index][key] = value as any
+    newRecipes[index][key] = value
     setRecipes(newRecipes)
   }
 
@@ -134,6 +178,7 @@ export default function Dash() {
             </svg>
           </button>
           <button
+            disabled={recipes.length === 0}
             onClick={handleSave}
             className="ml-4 flex items-center rounded-md bg-accent px-4 py-2 text-accent-foreground"
           >
@@ -180,7 +225,9 @@ export default function Dash() {
                   stroke="currentColor"
                   className={
                     "size-6 " +
-                    (recipe.imgurl ? "text-green-500" : "text-orange-500")
+                    (recipe.imgurl && recipe.cooking_time
+                      ? "text-green-500"
+                      : "text-orange-500")
                   }
                 >
                   <path
@@ -203,12 +250,30 @@ export default function Dash() {
                 />
                 <input
                   type="text"
-                  value={recipe.imgurl || ""}
+                  value={
+                    recipe.imgurl instanceof File
+                      ? recipe.imgurl.name
+                      : recipe.imgurl || ""
+                  }
                   onChange={e => updateData(index, "imgurl", e.target.value)}
                   className="w-1/2 rounded bg-input p-1 text-foreground"
                   placeholder="Image URL"
                 />
               </div>
+
+              {recipe.imgurl instanceof File && (
+                <span className="text-sm text-gray-500">
+                  Image will be uploaded on save
+                </span>
+              )}
+
+              {typeof recipe.imgurl === "string" && (
+                <img
+                  src={recipe.imgurl}
+                  alt="Recipe"
+                  className="mt-2 h-auto max-w-full rounded-md shadow-md"
+                />
+              )}
             </div>
           ))}
         </div>
