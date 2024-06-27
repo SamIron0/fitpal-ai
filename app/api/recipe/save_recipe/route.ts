@@ -4,15 +4,12 @@ import { NextApiRequest, NextApiResponse } from "next"
 import { saveRecipe } from "@/db/admin" // Assuming saveRecipe is your function to save to Supabase or your database
 import { uploadImage } from "@/lib/cloudinary" // Import the uploadImage function
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function POST(req: Request, res: NextApiResponse) {
   if (req.method !== "POST") {
     return res.status(405).json({ message: "Method Not Allowed" })
   }
 
-  const { recipe } = req.body
+  const { recipe } = await req.json()
 
   try {
     if (recipe.imgurl instanceof File) {
