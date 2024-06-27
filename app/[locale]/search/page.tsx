@@ -3,7 +3,6 @@ import { ChatInput } from "@/components/chat/chat-input"
 import { MealDrawer } from "@/components/meal/meal-drawer"
 import { Brand } from "@/components/ui/brand"
 import { FitpalAIContext } from "@/context/context"
-import { getProfileByUserId } from "@/db/profile"
 import { getSettingsByUserId } from "@/db/settings"
 import { createClient } from "@/lib/supabase/client"
 import { Tables } from "@/supabase/types"
@@ -19,7 +18,7 @@ export default function SearchPage() {
   const openDrawer = (id: string) => {
     setIsOpen(id)
   }
-  const { setSettings, setProfile } = useContext(FitpalAIContext)
+  const { setSettings } = useContext(FitpalAIContext)
 
   const [loading, setLoading] = useState(true)
   const supabase = createClient()
@@ -29,9 +28,7 @@ export default function SearchPage() {
       const session = (await supabase.auth.getSession()).data.session
 
       if (session) {
-        const profile = await getProfileByUserId(session.user.id)
         const settings = await getSettingsByUserId(session.user.id)
-        setProfile(profile)
         setSettings(settings)
       }
       setLoading(false)
@@ -47,7 +44,6 @@ export default function SearchPage() {
       setForYou(data.for_you)
     })()
   }, [])
-  useEffect(() => {}, [])
   const renderSkeleton = () => {
     return Array.from({ length: 13 }, (_, n) => (
       <div
@@ -148,7 +144,7 @@ export default function SearchPage() {
                   role="status"
                   className="grid w-full max-w-4xl animate-pulse grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4"
                 >
-                  renderSkeleton()
+                  {renderSkeleton()}
                 </div>
               )}
             </div>
