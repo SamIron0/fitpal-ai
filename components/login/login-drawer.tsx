@@ -76,7 +76,7 @@ export const LoginDrawer = ({ children, searchParams }: LoginDrawerProps) => {
 
   return (
     <>
-      <Drawer>
+      <Drawer className="focus:outline-none  ">
         <DrawerTrigger className="focus:outline-none  ">
           {" "}
           {children}
