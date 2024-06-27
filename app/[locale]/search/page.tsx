@@ -53,7 +53,7 @@ export default function SearchPage() {
   }
 
   const renderSkeleton = () => {
-    return Array.from({ length: 13 }, (_, n) => (
+    return Array.from({ length: 8 }, (_, n) => (
       <div
         key={n}
         className="border-1 size-48 rounded-lg border-gray-300 bg-input p-2 py-10 text-black"
@@ -62,7 +62,7 @@ export default function SearchPage() {
   }
 
   const renderRecipes = (recipes: Tables<"recipes">[], title: string) => (
-    <div className="w-full max-w-4xl py-28">
+    <div className="w-full max-w-4xl ">
       <p className="mb-5 text-2xl font-semibold">{title}</p>
       <div
         role="status"
@@ -113,16 +113,18 @@ export default function SearchPage() {
           {generatedRecipes.length > 0 ? (
             renderRecipes(generatedRecipes, "Best Results")
           ) : (
-            <div className="w-full max-w-4xl">
+            <div className="w-full max-w-4xl py-28 ">
               {forYou.length > 0 ? (
                 renderRecipes(forYou, "For You")
               ) : (
-                <div
-                  role="status"
-                  className="grid w-full  max-w-4xl animate-pulse grid-cols-2 gap-4 py-28 sm:grid-cols-3 lg:grid-cols-4"
-                >
+                <div className="w-full max-w-4xl ">
                   <p className="mb-5 text-2xl font-semibold">For You</p>
-                  {renderSkeleton()}
+                  <div
+                    role="status"
+                    className="grid w-full  max-w-4xl animate-pulse grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4"
+                  >
+                    {renderSkeleton()}
+                  </div>
                 </div>
               )}
             </div>
