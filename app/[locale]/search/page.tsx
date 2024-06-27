@@ -56,7 +56,7 @@ export default function SearchPage() {
     return Array.from({ length: 8 }, (_, n) => (
       <div
         key={n}
-        className="border-1 size-48 rounded-lg border-gray-300 bg-input p-2 py-10 text-black"
+        className="border-1 size-48 rounded-lg border-zinc-300 bg-input p-2 py-10 text-black"
       ></div>
     ))
   }
