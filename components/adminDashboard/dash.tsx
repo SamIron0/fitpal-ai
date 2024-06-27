@@ -4,7 +4,6 @@ import { Input } from "../ui/input"
 import { Button } from "../ui/button"
 import axios from "axios"
 import { TablesInsert } from "@/supabase/types"
-import { v4 as uuidv4 } from "uuid"
 import { toast } from "sonner"
 import { createClient } from "@/lib/supabase/client"
 import { useRouter } from "next/navigation"
@@ -12,7 +11,12 @@ import { useRouter } from "next/navigation"
 export default function Dash() {
   const supabase = createClient()
   const router = useRouter()
-  const [recipe, setRecipe] = useState({} as TablesInsert<"recipes">)
+  const [recipe, setRecipe] = useState<TablesInsert<"recipes">>(
+    {} as TablesInsert<"recipes">
+  )
+  const [scrapedRecipes, setScrapedRecipes] = useState<
+    TablesInsert<"recipes">[]
+  >([])
   const [url, setUrl] = useState("")
 
   useEffect(() => {
@@ -29,33 +33,51 @@ export default function Dash() {
     }
 
     checkUser()
-  }, [])
+  }, [router, supabase])
 
   const handleScrapeUrl = async (url: string) => {
     if (!url) {
       toast.error("Please enter a valid URL")
       return
     }
-    const x = url
     setUrl("")
     const toastId = toast.loading("Scraping...")
     try {
       const endpoint =
         "https://85ab-2604-3d09-a98a-7300-2419-ade3-1c94-97cb.ngrok-free.app/scrape"
-      const response = await axios.post(endpoint, { x })
+      const response = await axios.post(endpoint, { url })
       const data = response.data.body
 
       if (data) {
-        setRecipe(data)
-        toast.success(data)
+        setScrapedRecipes([...scrapedRecipes, data])
+        toast.success("Recipe scraped successfully!")
       }
 
       toast.dismiss(toastId)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       toast.dismiss(toastId)
-      toast.error("Error scraping recipe in catch")
+      toast.error("Error scraping recipe")
     }
+  }
+
+  const renderScrapedRecipes = () => {
+    return (
+      <div className="grid grid-cols-3 gap-4">
+        {scrapedRecipes.map((recipe, index) => (
+          <div key={index} className="rounded-lg border p-2">
+            <div>Name: {recipe.name}</div>
+            <ul>
+              Instructions:
+              {recipe.instructions?.map((instruction, instructionIndex) => (
+                <li key={instructionIndex}>{instruction}</li>
+              ))}
+            </ul>
+            <div>Cooking time: {recipe.cooking_time}</div>
+          </div>
+        ))}
+      </div>
+    )
   }
 
   return (
@@ -65,7 +87,7 @@ export default function Dash() {
           <Input
             value={url}
             onChange={e => setUrl(e.target.value)}
-            placeholder={"url"}
+            placeholder="URL"
             style={{ fontSize: "16px" }}
           />
           <Button onClick={() => handleScrapeUrl(url)} className="mt-6 px-20">
@@ -73,30 +95,11 @@ export default function Dash() {
           </Button>
         </div>
       </div>
-      {recipe ? (
-        <div className="mt-8 flex w-full max-w-3xl  flex-col justify-center rounded-md border-2 p-2">
-          <div>Name:{recipe.name}</div>
-          <div>Description: {recipe.description}</div>
-          <ul>
-            Ingredients:
-            {recipe.ingredients?.map((ingredient, index) => (
-              <li key={index}>{ingredient}</li>
-            ))}
-          </ul>
-          <div> protein:{recipe.protein}</div>
-          <div> fats:{recipe.fats}</div>
-          <div> carbs:{recipe.carbs}</div>
-          <div> calories:{recipe.calories}</div>
-          <ul>
-            instructions:
-            {recipe.instructions?.map((instruction, index) => (
-              <li key={index}>{instruction}</li>
-            ))}
-          </ul>
-          <div> portions:{recipe.portions}</div>
-          <div> cooking_time:{recipe.cooking_time}</div>
+      {scrapedRecipes.length > 0 && (
+        <div className="mt-8 flex w-full max-w-4xl flex-col justify-center rounded-md p-2">
+          {renderScrapedRecipes()}
         </div>
-      ) : null}
+      )}
     </div>
   )
 }
