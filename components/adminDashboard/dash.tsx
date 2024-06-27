@@ -165,7 +165,7 @@ export default function Dash() {
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="mr-2 size-6"
+              className="size-6"
             >
               <path
                 strokeLinecap="round"
@@ -200,7 +200,7 @@ export default function Dash() {
           {data.map((instruction, index) => (
             <div
               key={index}
-              className="rounded bg-card p-4 text-card-foreground shadow"
+              className="rounded bg-black p-4 text-card-foreground shadow"
               onDrop={e => handleDrop(e, index)}
               onDragOver={e => e.preventDefault()}
             >
@@ -222,7 +222,7 @@ export default function Dash() {
                   strokeWidth={1.5}
                   stroke="currentColor"
                   className={
-                    "size-20 " +
+                    "size-6 " +
                     (instruction.imgUrl ? "text-green-500" : "text-orange-500")
                   }
                 >
