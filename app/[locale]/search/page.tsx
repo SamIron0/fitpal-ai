@@ -56,7 +56,7 @@ export default function SearchPage() {
     return Array.from({ length: 13 }, (_, n) => (
       <div
         key={n}
-        className="border-1 size-48 rounded-lg border-gray-300 bg-input p-2 py-10 text-black"
+        className="border-1 size-48 rounded-lg border-zinc-300 bg-input p-2 py-10 text-black"
       ></div>
     ))
   }
@@ -114,14 +114,14 @@ export default function SearchPage() {
             renderRecipes(generatedRecipes, "Best Results")
           ) : (
             <div className="w-full max-w-4xl">
-              <p className="mb-5 text-2xl font-semibold">For You</p>
               {forYou.length > 0 ? (
                 renderRecipes(forYou, "For You")
               ) : (
                 <div
                   role="status"
-                  className="grid w-full max-w-4xl animate-pulse grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4"
+                  className="grid w-full  max-w-4xl animate-pulse grid-cols-2 gap-4 py-28 sm:grid-cols-3 lg:grid-cols-4"
                 >
+                  <p className="mb-5 text-2xl font-semibold">For You</p>
                   {renderSkeleton()}
                 </div>
               )}
