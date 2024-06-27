@@ -12,16 +12,8 @@ import { useRouter } from "next/navigation"
 export default function Dash() {
   const supabase = createClient()
   const router = useRouter()
-  const [recipe, setRecipe] = useState<TablesInsert<"recipes">>(
-    {} as TablesInsert<"recipes">
-  )
-  const [scrapedRecipes, setScrapedRecipes] = useState<
-    TablesInsert<"recipes">[]
-  >([])
+  const [recipes, setRecipes] = useState<TablesInsert<"recipes">[]>([])
   const [url, setUrl] = useState("")
-  const [recipes, setRecipes] = useState<Tables<"recipes">[]>([
-    {} as Tables<"recipes">
-  ])
 
   useEffect(() => {
     async function checkUser() {
@@ -56,9 +48,9 @@ export default function Dash() {
         urls.map(async url => {
           const response = await axios.post(endpoint, { url })
           const recipes = response.data.body
-
+          console.log(recipes)
           if (recipes) {
-            setScrapedRecipes(prev => [...prev, recipes])
+            setRecipes(prev => [...prev, recipes])
             toast.success(`Recipe from ${url} scraped successfully!`)
           }
         })
@@ -174,7 +166,7 @@ export default function Dash() {
               <div className="mb-2 flex items-center justify-between">
                 <input
                   type="text"
-                  value={recipe.name}
+                  value={recipe.name || ""}
                   onChange={e => updateData(index, "name", e.target.value)}
                   className="w-2/3 rounded bg-input p-1 text-foreground"
                   placeholder="Name"
