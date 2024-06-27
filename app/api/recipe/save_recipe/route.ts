@@ -1,22 +1,32 @@
-import { ServerRuntime } from "next"
-import { getRecipeById, save_query } from "@/db/admin"
-import { cookies } from "next/headers"
-import { createClient } from "@/lib/supabase/server"
-import { TablesInsert } from "@/supabase/types"
+// pages/api/save_recipe.ts
 
-export const runtime: ServerRuntime = "edge"
-import { saveRecipe } from "@/db/admin"
-export async function POST(request: Request) {
-  const json = await request.json()
-  const { recipe } = json as {
-    recipe: TablesInsert<"recipes">
+import { NextApiRequest, NextApiResponse } from "next"
+import { saveRecipe } from "@/db/admin" // Assuming saveRecipe is your function to save to Supabase or your database
+import { uploadImage } from "@/lib/cloudinary" // Import the uploadImage function
+
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  if (req.method !== "POST") {
+    return res.status(405).json({ message: "Method Not Allowed" })
   }
 
+  const { recipe } = req.body
+
   try {
-    const res = await saveRecipe(recipe)
-    return new Response(JSON.stringify(res))
+    if (recipe.imgurl instanceof File) {
+      // Upload image to Cloudinary if it's a File object
+      recipe.imgurl = await uploadImage(recipe.imgurl)
+    }
+
+    const saveResult = await saveRecipe(recipe) // Save recipe to Supabase or your database
+
+    res
+      .status(200)
+      .json({ message: "Recipe saved successfully", data: saveResult })
   } catch (error) {
-    console.log(error)
-    return new Response(JSON.stringify({ error: error }))
+    console.error("Error saving recipe:", error)
+    res.status(500).json({ message: "Failed to save recipe", error })
   }
 }
