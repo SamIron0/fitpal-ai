@@ -97,7 +97,7 @@ export default function Dash() {
   const handleDrop = async (e: DragEvent<HTMLDivElement>, index: number) => {
     e.preventDefault()
     const file = e.dataTransfer.files[0]
-    print(file)
+    console.log(file)
     if (file) {
       const newRecipes = [...recipes]
       newRecipes[index].imgurl = file // Store the File object in recipes state
