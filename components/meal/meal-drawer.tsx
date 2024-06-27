@@ -147,7 +147,7 @@ export const MealDrawer: React.FC<MealDrawerProps> = ({
           <DrawerDescription>Recipe details</DrawerDescription>
         </DrawerHeader>
         {recipe && <MealDrawerContent recipe={recipe} />}
-        <DrawerFooter className="absolute inset-x-0 bottom-0 bg-zinc-900 p-4">
+        <DrawerFooter className="absolute inset-x-0 bottom-0 bg-input p-4">
           <DrawerClose asChild>
             <Button variant="outline" className="w-full">
               Close
