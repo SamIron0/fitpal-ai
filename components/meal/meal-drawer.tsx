@@ -53,7 +53,7 @@ const IngredientsList: React.FC<{ ingredients: string[] | null }> = ({
 }) => (
   <ul className="list-inside list-disc space-y-2">
     {ingredients?.map((ingredient, index) => (
-      <li key={index} className="text-zinc-400">
+      <li key={index} className="text-zinc-200">
         {ingredient}
       </li>
     ))}
