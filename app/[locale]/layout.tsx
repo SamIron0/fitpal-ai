@@ -103,7 +103,7 @@ export default async function RootLayout({
           }}
         ></script>
       </head>
-      <body className={inter.className}>
+      <body className={inter.className + "bg-background"}>
         <ToasterProvider />
         <Providers attribute="class" defaultTheme="dark">
           <Toaster richColors position="top-center" duration={3000} />
