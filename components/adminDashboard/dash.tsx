@@ -105,7 +105,8 @@ export default function Dash() {
       newRecipes[index].imgurl = file // Store the File object in recipes state
 
       setRecipes(newRecipes)
-      console.log("Updated recipes:", newRecipes[0])
+      setUpdatedRecipes(newRecipes)
+      //console.log("Updated recipes:", newRecipes[0])
     }
   }
 
