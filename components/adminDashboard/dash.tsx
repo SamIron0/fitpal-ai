@@ -86,6 +86,7 @@ export default function Dash() {
   }
 
   const handleSave = async () => {
+    console.log("saving: " + recipes)
     try {
       await Promise.all(
         recipes.map(async recipe => {
