@@ -52,6 +52,45 @@ export default function Dash() {
         setScrapedRecipes([...scrapedRecipes, data])
         toast.success("Recipe scraped successfully!")
       }
+      //setDummyData
+      setData([
+        {
+          name: "Cake",
+          instructions: "Bake for 30 mins",
+          imgUrl: "/api/placeholder/200/200",
+          time: "30 mins"
+        },
+        {
+          name: "Soup",
+          instructions: "Simmer for 1 hour",
+          imgUrl: "/api/placeholder/200/200",
+          time: "1 hour"
+        },
+        {
+          name: "Salad",
+          instructions: "Mix ingredients",
+          imgUrl: "/api/placeholder/200/200",
+          time: "10 mins"
+        },
+        {
+          name: "Steak",
+          instructions: "Grill for 5 mins each side",
+          imgUrl: "/api/placeholder/200/200",
+          time: "15 mins"
+        },
+        {
+          name: "Pasta",
+          instructions: "Boil for 8-10 mins",
+          imgUrl: "/api/placeholder/200/200",
+          time: "20 mins"
+        },
+        {
+          name: "Smoothie",
+          instructions: "Blend for 1 min",
+          imgUrl: "/api/placeholder/200/200",
+          time: "5 mins"
+        }
+      ])
 
       toast.dismiss(toastId)
     } catch (error) {
@@ -60,46 +99,135 @@ export default function Dash() {
       toast.error("Error scraping recipe")
     }
   }
+  interface Instruction {
+    name: string
+    instructions: string
+    imgUrl: string
+    time: string
+  }
+  const [data, setData] = useState<Instruction[]>([])
 
-  const renderScrapedRecipes = () => {
-    return (
-      <div className="grid grid-cols-3 gap-4">
-        {scrapedRecipes.map((recipe, index) => (
-          <div key={index} className="rounded-lg border p-2">
-            <div>Name: {recipe.name}</div>
-            <ul>
-              Instructions:
-              {recipe.instructions?.map((instruction, instructionIndex) => (
-                <li key={instructionIndex}>{instruction}</li>
-              ))}
-            </ul>
-            <div>Cooking time: {recipe.cooking_time}</div>
-          </div>
-        ))}
-      </div>
-    )
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>, index: number) => {
+    e.preventDefault()
+    // In a real app, you'd handle file upload here
+    console.log(`Image dropped on box ${index}`)
   }
 
   return (
-    <div className="my-12 flex w-full flex-col items-center p-4">
-      <div className="flex w-full flex-1 flex-col justify-center gap-2 text-foreground animate-in">
-        <div className="mx-auto my-12 flex w-full max-w-3xl flex-col items-center p-4">
-          <Input
+    <div className="min-h-screen bg-background p-8 text-foreground">
+      <div className="mx-auto max-w-4xl">
+        <div className="mb-6 flex items-center">
+          <input
+            type="text"
             value={url}
             onChange={e => setUrl(e.target.value)}
             placeholder="URL"
-            style={{ fontSize: "16px" }}
+            className="max-w-2xl grow rounded-l-md border-r border-border bg-input p-2 text-foreground"
           />
-          <Button onClick={() => handleScrapeUrl(url)} className="mt-6 px-20">
-            Scrape
-          </Button>
+          <button className="rounded-r-md bg-primary p-2 text-primary-foreground">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="mr-2 size-20"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5"
+              />
+            </svg>
+          </button>
+          <button className="ml-4 flex items-center rounded-md bg-accent px-4 py-2 text-accent-foreground">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="mr-2 size-20"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 4.5v15m7.5-7.5h-15"
+              />
+            </svg>
+            Save
+          </button>
+        </div>
+
+        <div className="grid grid-cols-3 gap-4">
+          {data.map((instruction, index) => (
+            <div
+              key={index}
+              className="rounded bg-card p-4 text-card-foreground shadow"
+              onDrop={e => handleDrop(e, index)}
+              onDragOver={e => e.preventDefault()}
+            >
+              <div className="mb-2 flex items-center justify-between">
+                <input
+                  type="text"
+                  value={instruction.name}
+                  onChange={e => {
+                    const newInstructions = [...data]
+                    newInstructions[index].name = e.target.value
+                    setData(newInstructions)
+                  }}
+                  className="w-2/3 rounded bg-input p-1 text-foreground"
+                  placeholder="Name"
+                />
+
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className={
+                    "size-20 " + instruction.imgUrl
+                      ? "text-green-500"
+                      : "text-orange-500"
+                  }
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                  />
+                </svg>
+              </div>
+
+              <div className="mb-2 flex items-center">
+                <input
+                  type="text"
+                  value={instruction.time}
+                  onChange={e => {
+                    const newInstructions = [...data]
+                    newInstructions[index].time = e.target.value
+                    setData(newInstructions)
+                  }}
+                  className="mr-2 w-1/2 rounded bg-input p-1 text-foreground"
+                  placeholder="Time"
+                />
+                <input
+                  type="text"
+                  value={instruction.imgUrl}
+                  onChange={e => {
+                    const newInstructions = [...data]
+                    newInstructions[index].imgUrl = e.target.value
+                    setData(newInstructions)
+                  }}
+                  className="w-1/2 rounded bg-input p-1 text-foreground"
+                  placeholder="Image URL"
+                />
+              </div>
+            </div>
+          ))}
         </div>
       </div>
-      {scrapedRecipes.length > 0 && (
-        <div className="mt-8 flex w-full max-w-4xl flex-col justify-center rounded-md p-2">
-          {renderScrapedRecipes()}
-        </div>
-      )}
     </div>
   )
 }
