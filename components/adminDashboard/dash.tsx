@@ -16,6 +16,8 @@ export default function Dash() {
   const supabase = createClient()
   const router = useRouter()
   const [recipes, setRecipes] = useState<TablesInsert<"recipes">[]>([])
+  const [updatedRecipes, setUpdatedRecipes] =
+    useState<TablesInsert<"recipes">[]>(recipes)
   const [url, setUrl] = useState<string>("")
 
   useEffect(() => {
@@ -108,10 +110,10 @@ export default function Dash() {
   }
 
   const handleSave = async () => {
-    console.log("saving: " + recipes[0])
+    console.log("saving: " + updatedRecipes[0])
     try {
       await Promise.all(
-        recipes.map(async recipe => {
+        updatedRecipes.map(async recipe => {
           try {
             const res = await fetch("/api/recipe/save_recipe", {
               method: "POST",
@@ -149,6 +151,7 @@ export default function Dash() {
     const newRecipes = [...recipes]
     newRecipes[index][key] = value
     setRecipes(newRecipes)
+    setUpdatedRecipes(newRecipes)
   }
 
   return (
