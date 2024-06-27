@@ -62,7 +62,7 @@ export default function SearchPage() {
   }
 
   const renderRecipes = (recipes: Tables<"recipes">[], title: string) => (
-    <div className="w-full max-w-4xl ">
+    <div className="w-full max-w-4xl py-28">
       <p className="mb-5 text-2xl font-semibold">{title}</p>
       <div
         role="status"
