@@ -53,7 +53,7 @@ const IngredientsList: React.FC<{ ingredients: string[] | null }> = ({
 }) => (
   <ul className="list-inside list-disc space-y-2">
     {ingredients?.map((ingredient, index) => (
-      <li key={index} className="text-zinc-200">
+      <li key={index} className="text-zinc-100">
         {ingredient}
       </li>
     ))}
@@ -65,7 +65,7 @@ const DirectionsList: React.FC<{ instructions: string[] | null }> = ({
 }) => (
   <ol className="list-inside list-decimal space-y-4">
     {instructions?.map((direction, index) => (
-      <li key={index} className="text-zinc-300">
+      <li key={index} className="text-zinc-100">
         {direction}
       </li>
     ))}
@@ -75,7 +75,7 @@ const DirectionsList: React.FC<{ instructions: string[] | null }> = ({
 const RecipeDetails: React.FC<{ recipe: Tables<"recipes"> }> = ({ recipe }) => (
   <div className="space-y-8">
     <div>
-      <h1 className="text-3xl font-bold text-zinc-900">{recipe.name}</h1>
+      <h1 className="text-3xl font-bold text-zinc-100">{recipe.name}</h1>
       <div className="mt-2 flex space-x-4">
         <Badge variant="secondary">Portions: {recipe.portions}</Badge>
         <Badge variant="secondary">Time: {recipe.cooking_time}</Badge>
@@ -147,7 +147,7 @@ export const MealDrawer: React.FC<MealDrawerProps> = ({
           <DrawerDescription>Recipe details</DrawerDescription>
         </DrawerHeader>
         {recipe && <MealDrawerContent recipe={recipe} />}
-        <DrawerFooter className="absolute inset-x-0 bottom-0 bg-white p-4">
+        <DrawerFooter className="absolute inset-x-0 bottom-0 bg-zinc-900 p-4">
           <DrawerClose asChild>
             <Button variant="outline" className="w-full">
               Close
