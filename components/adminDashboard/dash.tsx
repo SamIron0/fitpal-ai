@@ -228,13 +228,6 @@ export default function Dash() {
                   className="mr-2 w-1/2 rounded bg-input p-1 text-foreground"
                   placeholder="Time"
                 />
-                <input
-                  type="text"
-                  value={recipe.imgurl || ""}
-                  onChange={e => updateData(index, "imgurl", e.target.value)}
-                  className="w-1/2 rounded bg-input p-1 text-foreground"
-                  placeholder="Image URL"
-                />
               </div>
 
               {typeof recipe.imgurl === "string" && (
