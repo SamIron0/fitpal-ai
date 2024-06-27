@@ -287,7 +287,7 @@ export const GlobalState: FC<GlobalStateProps> = ({ children }) => {
         setToolInUse
       }}
     >
-      <Dashboard>{children}</Dashboard>
+      {children}
     </FitpalAIContext.Provider>
   )
 }
