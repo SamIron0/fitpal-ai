@@ -1,4 +1,5 @@
 "use client"
+
 import { useEffect, useState } from "react"
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
@@ -7,6 +8,13 @@ import { TablesInsert } from "@/supabase/types"
 import { toast } from "sonner"
 import { createClient } from "@/lib/supabase/client"
 import { useRouter } from "next/navigation"
+
+interface Instruction {
+  name: string
+  instructions: string
+  imgUrl: string
+  time: string
+}
 
 export default function Dash() {
   const supabase = createClient()
@@ -18,6 +26,44 @@ export default function Dash() {
     TablesInsert<"recipes">[]
   >([])
   const [url, setUrl] = useState("")
+  const [data, setData] = useState<Instruction[]>([
+    {
+      name: "Cake",
+      instructions: "Bake for 30 mins",
+      imgUrl: "/api/placeholder/200/200",
+      time: "30 mins"
+    },
+    {
+      name: "Soup",
+      instructions: "Simmer for 1 hour",
+      imgUrl: "/api/placeholder/200/200",
+      time: "1 hour"
+    },
+    {
+      name: "Salad",
+      instructions: "Mix ingredients",
+      imgUrl: "/api/placeholder/200/200",
+      time: "10 mins"
+    },
+    {
+      name: "Steak",
+      instructions: "Grill for 5 mins each side",
+      imgUrl: "/api/placeholder/200/200",
+      time: "15 mins"
+    },
+    {
+      name: "Pasta",
+      instructions: "Boil for 8-10 mins",
+      imgUrl: "/api/placeholder/200/200",
+      time: "20 mins"
+    },
+    {
+      name: "Smoothie",
+      instructions: "Blend for 1 min",
+      imgUrl: "/api/placeholder/200/200",
+      time: "5 mins"
+    }
+  ])
 
   useEffect(() => {
     async function checkUser() {
@@ -27,7 +73,6 @@ export default function Dash() {
       const session = (await supabase.auth.getSession()).data.session
 
       if (session?.user.email !== "ekaronke@gmail.com") {
-        console.log("session", session?.user.email)
         router.push("/")
       }
     }
@@ -52,46 +97,6 @@ export default function Dash() {
         setScrapedRecipes([...scrapedRecipes, data])
         toast.success("Recipe scraped successfully!")
       }
-      //setDummyData
-      setData([
-        {
-          name: "Cake",
-          instructions: "Bake for 30 mins",
-          imgUrl: "/api/placeholder/200/200",
-          time: "30 mins"
-        },
-        {
-          name: "Soup",
-          instructions: "Simmer for 1 hour",
-          imgUrl: "/api/placeholder/200/200",
-          time: "1 hour"
-        },
-        {
-          name: "Salad",
-          instructions: "Mix ingredients",
-          imgUrl: "/api/placeholder/200/200",
-          time: "10 mins"
-        },
-        {
-          name: "Steak",
-          instructions: "Grill for 5 mins each side",
-          imgUrl: "/api/placeholder/200/200",
-          time: "15 mins"
-        },
-        {
-          name: "Pasta",
-          instructions: "Boil for 8-10 mins",
-          imgUrl: "/api/placeholder/200/200",
-          time: "20 mins"
-        },
-        {
-          name: "Smoothie",
-          instructions: "Blend for 1 min",
-          imgUrl: "/api/placeholder/200/200",
-          time: "5 mins"
-        }
-      ])
-
       toast.dismiss(toastId)
     } catch (error) {
       console.error(error)
@@ -99,18 +104,20 @@ export default function Dash() {
       toast.error("Error scraping recipe")
     }
   }
-  interface Instruction {
-    name: string
-    instructions: string
-    imgUrl: string
-    time: string
-  }
-  const [data, setData] = useState<Instruction[]>([])
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>, index: number) => {
     e.preventDefault()
-    // In a real app, you'd handle file upload here
     console.log(`Image dropped on box ${index}`)
+  }
+
+  const updateInstruction = (
+    index: number,
+    key: keyof Instruction,
+    value: string
+  ) => {
+    const newInstructions = [...data]
+    newInstructions[index][key] = value
+    setData(newInstructions)
   }
 
   return (
@@ -124,14 +131,17 @@ export default function Dash() {
             placeholder="URL"
             className="max-w-2xl grow rounded-l-md border-r border-border bg-input p-2 text-foreground"
           />
-          <button className="rounded-r-md bg-primary p-2 text-primary-foreground">
+          <button
+            onClick={() => handleScrapeUrl(url)}
+            className="rounded-r-md bg-primary p-2 text-primary-foreground"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="mr-2 size-20"
+              className="mr-2 size-6"
             >
               <path
                 strokeLinecap="round"
@@ -147,7 +157,7 @@ export default function Dash() {
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="mr-2 size-20"
+              className="mr-2 size-6"
             >
               <path
                 strokeLinecap="round"
@@ -171,11 +181,9 @@ export default function Dash() {
                 <input
                   type="text"
                   value={instruction.name}
-                  onChange={e => {
-                    const newInstructions = [...data]
-                    newInstructions[index].name = e.target.value
-                    setData(newInstructions)
-                  }}
+                  onChange={e =>
+                    updateInstruction(index, "name", e.target.value)
+                  }
                   className="w-2/3 rounded bg-input p-1 text-foreground"
                   placeholder="Name"
                 />
@@ -187,9 +195,8 @@ export default function Dash() {
                   strokeWidth={1.5}
                   stroke="currentColor"
                   className={
-                    "size-20 " + instruction.imgUrl
-                      ? "text-green-500"
-                      : "text-orange-500"
+                    "size-20 " +
+                    (instruction.imgUrl ? "text-green-500" : "text-orange-500")
                   }
                 >
                   <path
@@ -204,22 +211,18 @@ export default function Dash() {
                 <input
                   type="text"
                   value={instruction.time}
-                  onChange={e => {
-                    const newInstructions = [...data]
-                    newInstructions[index].time = e.target.value
-                    setData(newInstructions)
-                  }}
+                  onChange={e =>
+                    updateInstruction(index, "time", e.target.value)
+                  }
                   className="mr-2 w-1/2 rounded bg-input p-1 text-foreground"
                   placeholder="Time"
                 />
                 <input
                   type="text"
                   value={instruction.imgUrl}
-                  onChange={e => {
-                    const newInstructions = [...data]
-                    newInstructions[index].imgUrl = e.target.value
-                    setData(newInstructions)
-                  }}
+                  onChange={e =>
+                    updateInstruction(index, "imgUrl", e.target.value)
+                  }
                   className="w-1/2 rounded bg-input p-1 text-foreground"
                   placeholder="Image URL"
                 />
