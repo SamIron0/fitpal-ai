@@ -16,7 +16,7 @@ interface Recipe {
 export default function Dash() {
   const supabase = createClient()
   const router = useRouter()
-  const [recipes, setRecipes] = useState<Recipe[]>([])
+  const [recipes, setRecipes] = useState<TablesInsert<"recipes">[]>([])
   const [url, setUrl] = useState<string>("")
 
   useEffect(() => {
@@ -138,10 +138,10 @@ export default function Dash() {
     }
   }
 
-  const updateData = <K extends keyof Recipe>(
+  const updateData = <K extends keyof TablesInsert<"recipes">>(
     index: number,
     key: K,
-    value: Recipe[K]
+    value: TablesInsert<"recipes">[K]
   ) => {
     const newRecipes = [...recipes]
     newRecipes[index][key] = value
