@@ -107,7 +107,31 @@ export default function Dash() {
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>, index: number) => {
     e.preventDefault()
-    console.log(`Image dropped on box ${index}`)
+    const file = e.dataTransfer.files[0]
+    if (file) {
+      const newInstructions = [...data]
+      newInstructions[index].imgUrl = file.name // Update with the name of the image
+      setData(newInstructions)
+      // Simulate image upload (to be implemented in the future)
+      handleImageUpload(file)
+    }
+  }
+
+  const handleImageUpload = (file: File) => {
+    // Simulate image upload process
+    console.log("Uploading image:", file.name)
+    // In the future, upload the image to the cloud here
+  }
+
+  const handleSave = async () => {
+    try {
+      // Simulate saving data and image uploads
+      console.log("Saving data:", data)
+      // In the future, upload images to the cloud here
+    } catch (error) {
+      console.error("Error saving data:", error)
+      toast.error("Error saving data")
+    }
   }
 
   const updateInstruction = (
@@ -150,7 +174,10 @@ export default function Dash() {
               />
             </svg>
           </button>
-          <button className="ml-4 flex items-center rounded-md bg-accent px-4 py-2 text-accent-foreground">
+          <button
+            onClick={handleSave}
+            className="ml-4 flex items-center rounded-md bg-accent px-4 py-2 text-accent-foreground"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
