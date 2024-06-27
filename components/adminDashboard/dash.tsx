@@ -1,11 +1,9 @@
-"use client"
 import React, { useState, useEffect, DragEvent } from "react"
 import axios from "axios"
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
 import { createClient } from "@/lib/supabase/client"
 import { TablesInsert } from "@/supabase/types"
-import { uploadImage } from "@/lib/cloudinary" // Assuming you have a cloudinary.ts file for Cloudinary integration
 
 interface Recipe {
   name: string
@@ -88,28 +86,8 @@ export default function Dash() {
 
   const handleSave = async () => {
     try {
-      const recipesToSave = await Promise.all(
-        recipes.map(async recipe => {
-          try {
-            if (recipe.imgurl instanceof File) {
-              // Upload image to Cloudinary only if it's a File object (not a string URL)
-              const imageUrl = await uploadImage(recipe.imgurl)
-              return { ...recipe, imgurl: imageUrl }
-            } else {
-              return recipe // If imgurl is already a string, no need to re-upload
-            }
-          } catch (error) {
-            console.error("Error uploading image or saving recipe:", error)
-            toast.error(
-              `Error uploading image or saving recipe: ${recipe.name}`
-            )
-            throw error
-          }
-        })
-      )
-
       await Promise.all(
-        recipesToSave.map(async recipe => {
+        recipes.map(async recipe => {
           try {
             const res = await fetch("/api/save_recipe", {
               method: "POST",
@@ -122,6 +100,8 @@ export default function Dash() {
             if (!res.ok) {
               throw new Error(`Failed to save recipe: ${recipe.name}`)
             }
+
+            toast.success(`Recipe ${recipe.name} saved successfully!`)
           } catch (error) {
             console.error("Error saving recipe:", error)
             toast.error(`Error saving recipe: ${recipe.name}`)
@@ -130,7 +110,6 @@ export default function Dash() {
         })
       )
 
-      toast.success("Recipes saved successfully!")
       setRecipes([])
     } catch (error) {
       console.error("Error saving recipes:", error)
@@ -251,22 +230,12 @@ export default function Dash() {
                 />
                 <input
                   type="text"
-                  value={
-                    recipe.imgurl instanceof File
-                      ? recipe.imgurl.name
-                      : recipe.imgurl || ""
-                  }
+                  value={recipe.imgurl || ""}
                   onChange={e => updateData(index, "imgurl", e.target.value)}
                   className="w-1/2 rounded bg-input p-1 text-foreground"
                   placeholder="Image URL"
                 />
               </div>
-
-              {recipe.imgurl instanceof File && (
-                <span className="text-sm text-gray-500">
-                  Image will be uploaded on save
-                </span>
-              )}
 
               {typeof recipe.imgurl === "string" && (
                 <img
