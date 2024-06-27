@@ -8,7 +8,7 @@ import { getSettingsByUserId } from "@/db/settings"
 import { createClient } from "@/lib/supabase/client"
 import { Tables } from "@/supabase/types"
 import { useTheme } from "next-themes"
-import { useRouter } from "next/router"
+import { useRouter } from "next/navigation"
 import { useContext, useEffect, useState } from "react"
 
 export default function SearchPage() {
