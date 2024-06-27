@@ -36,7 +36,7 @@ const NutritionFacts: React.FC<{ recipe: Tables<"recipes"> }> = ({
       { label: "Protein", value: `${recipe.protein}g` },
       { label: "Fat", value: `${recipe.fats}g` },
       { label: "Carbs", value: `${recipe.carbs}g` },
-      { label: "Calories", value: `${recipe.calories + " "}, kcal` }
+      { label: "Calories", value: `${recipe.calories} kcal` }
     ].map(item => (
       <Card key={item.label} className="bg-black">
         <CardContent className="p-4">
@@ -147,7 +147,7 @@ export const MealDrawer: React.FC<MealDrawerProps> = ({
           <DrawerDescription>Recipe details</DrawerDescription>
         </DrawerHeader>
         {recipe && <MealDrawerContent recipe={recipe} />}
-        <DrawerFooter className="absolute inset-x-0 bottom-0 bg-input p-4">
+        <DrawerFooter className="absolute inset-x-0 bottom-0 bg-background p-4">
           <DrawerClose asChild>
             <Button variant="outline" className="w-full">
               Close
