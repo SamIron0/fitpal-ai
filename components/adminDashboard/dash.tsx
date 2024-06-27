@@ -104,12 +104,12 @@ export default function Dash() {
       const newRecipes = [...recipes]
       //newRecipes[index].imgurl = file // Store the File object in recipes state
       recipes[index].imgurl = file
-      console.log("Updated recipes:", newRecipes[0])
+      console.log("Updated recipes:", recipes[0])
     }
   }
 
   const handleSave = async () => {
-    console.log("saving: " + updatedRecipes[0])
+    console.log("saving: " + recipes[0])
     try {
       await Promise.all(
         recipes.map(async recipe => {
