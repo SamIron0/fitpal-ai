@@ -110,8 +110,8 @@ export default function Dash() {
   }
 
   const uploadToCloudinary = async (file: File) => {
-    console.log(process.env.CLOUDINARY_CLOUD_NAME)
-    const url = `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload`
+    //console.log(process.env.CLOUDINARY_CLOUD_NAME)
+    const url = `https://api.cloudinary.com/v1_1/ddhg7gunr/image/upload`
     const formData = new FormData()
 
     formData.append("file", file)
