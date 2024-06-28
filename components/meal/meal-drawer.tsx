@@ -78,7 +78,7 @@ const RecipeDetails: React.FC<{ recipe: Tables<"recipes"> }> = ({ recipe }) => (
       <h1 className="text-3xl font-bold text-zinc-100">{recipe.name}</h1>
       <div className="mt-2 flex space-x-4">
         <Badge variant="secondary">Portions: {recipe.portions}</Badge>
-        <Badge variant="secondary">Time: {recipe.cooking_time}</Badge>
+        <Badge variant="secondary">Time: {recipe.total_time}</Badge>
       </div>
     </div>
 
