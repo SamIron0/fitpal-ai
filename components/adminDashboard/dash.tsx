@@ -93,6 +93,7 @@ export default function Dash() {
       toast.dismiss(toastId)
       toast.error("Error scraping recipes")
     }
+    return
   }
 
   const handleDrop = async (e: DragEvent<HTMLDivElement>, index: number) => {
