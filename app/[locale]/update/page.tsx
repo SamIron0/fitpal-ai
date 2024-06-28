@@ -14,20 +14,19 @@ export default function Update() {
   useEffect(() => {
     const get_recipes = async () => {
       try {
-        const res = await fetch("api/recipe/get_all_recipes", {
+        const all_recipes = await fetch("api/recipe/get_all_recipes", {
           method: "GET",
           headers: {
             "Content-Type": "application/json"
           }
         })
 
-        if (!res.ok) {
+        if (!all_recipes.ok) {
           throw new Error(`Failed to get recipes`)
         }
 
-        const data = await res.json()
-        console.log(data)
-        setRecipes(data)
+        console.log(await all_recipes.json())
+        setRecipes(await all_recipes.json())
       } catch (error) {
         console.error("Error fetching recipes:", error)
         toast.error("Error fetching recipes")
