@@ -25,8 +25,6 @@ export default function Update() {
           throw new Error(`Failed to get recipes`)
         }
 
-        console.log(await all_recipes.json())
-
         setRecipes(await all_recipes.json())
       } catch (error) {
         console.error("Error fetching recipes:", error)
