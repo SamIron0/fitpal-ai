@@ -95,7 +95,7 @@ export default function Update() {
     const id = toast.loading("Updating...")
     try {
       await Promise.all(
-        recipes.map(async recipe => {
+        recipes?.map(async recipe => {
           if (recipe.imgurl instanceof File) {
             try {
               const url = await uploadToCloudinary(recipe.imgurl)
@@ -204,7 +204,7 @@ export default function Update() {
         </div>
 
         <div className="grid grid-cols-3 gap-4">
-          {recipes.map((recipe, index) => (
+          {recipes?.map((recipe, index) => (
             <div
               key={index}
               className="rounded-md bg-black p-4 text-card-foreground shadow"
