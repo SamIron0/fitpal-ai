@@ -57,6 +57,7 @@ export default function Dash() {
             const response = await axios.post(endpoint, { url })
             const recipesData = response.data.body
             if (recipesData && recipesData.id) {
+              console.log("Scraped recipe:", recipesData)
               setRecipes(prevRecipes => [
                 ...prevRecipes,
                 {
