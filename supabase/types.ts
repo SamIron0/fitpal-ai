@@ -115,7 +115,7 @@ export type Database = {
           fats: number | null
           carbs: number | null
           servings: string | null
-          cooking_method: string[] | null
+          cooking_method: string[]
           course_type: string[] | null
           allergies: string[] | null
           url: string | null
