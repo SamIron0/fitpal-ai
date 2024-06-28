@@ -253,7 +253,6 @@ export default function Dash() {
                   className="w-2/3 rounded bg-input p-1 text-foreground"
                   placeholder="Name"
                 />
-
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -270,7 +269,7 @@ export default function Dash() {
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                    d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1-18 0Z"
                   />
                 </svg>
               </div>
@@ -285,6 +284,17 @@ export default function Dash() {
                   className="mr-2 w-1/2 rounded bg-input p-1 text-foreground"
                   placeholder="Time"
                 />
+              </div>
+
+              <div className="mb-2 flex flex-col items-start">
+                {recipe.instructions?.map((instruction, instructionIndex) => (
+                  <div
+                    key={instructionIndex}
+                    className="mb-1 w-full rounded bg-input p-1 text-foreground"
+                  >
+                    {instruction}
+                  </div>
+                ))}
               </div>
 
               {typeof recipe.imgurl === "string" && (
