@@ -56,7 +56,7 @@ export default function Dash() {
           try {
             const response = await axios.post(endpoint, { url })
             const recipesData = response.data.body
-            if (recipesData) {
+            if (recipesData && recipesData.id) {
               setRecipes(prevRecipes => [
                 ...prevRecipes,
                 {
