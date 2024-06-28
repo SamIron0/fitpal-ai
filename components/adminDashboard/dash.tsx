@@ -16,8 +16,6 @@ export default function Dash() {
   const supabase = createClient()
   const router = useRouter()
   const [recipes, setRecipes] = useState<TablesInsert<"recipes">[]>([])
-  const [updatedRecipes, setUpdatedRecipes] =
-    useState<TablesInsert<"recipes">[]>(recipes)
   const [url, setUrl] = useState<string>("")
 
   useEffect(() => {
@@ -99,22 +97,23 @@ export default function Dash() {
   const handleDrop = async (e: DragEvent<HTMLDivElement>, index: number) => {
     e.preventDefault()
     const file = e.dataTransfer.files[0]
-    //console.log(file)
     if (file) {
       const newRecipes = [...recipes]
-      newRecipes[index].imgurl = file // Store the File object in recipes state
-      //recipes[index].imgurl = file
-      setUpdatedRecipes(newRecipes)
+      newRecipes[index] = {
+        ...newRecipes[index],
+        imgurl: file
+      }
+      setRecipes(newRecipes)
       console.log("Updated recipes:", newRecipes[0])
     }
     return
   }
 
   const handleSave = async () => {
-    console.log("saving: " + updatedRecipes[0])
+    console.log("saving: ", recipes[0])
     try {
       await Promise.all(
-        updatedRecipes.map(async recipe => {
+        recipes.map(async recipe => {
           try {
             const res = await fetch("/api/recipe/save_recipe", {
               method: "POST",
@@ -152,7 +151,6 @@ export default function Dash() {
     const newRecipes = [...recipes]
     newRecipes[index][key] = value
     setRecipes(newRecipes)
-    setUpdatedRecipes(newRecipes)
   }
 
   return (
