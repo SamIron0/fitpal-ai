@@ -105,7 +105,7 @@ export type Database = {
           name: string
           description: string | null
           ingredients: string[] | null
-          cooking_time: string | null
+          total_time: string | null
           imgurl: string | null | File
           protein: number | null
           fats: number | null
@@ -121,7 +121,7 @@ export type Database = {
           name?: string | null
           description?: string | null
           ingredients?: string[] | null
-          cooking_time?: string | null
+          total_time?: string | null
           imgurl?: string | null | File
           protein?: number | null
           fats?: number | null
@@ -138,7 +138,7 @@ export type Database = {
           name?: string | null
           description?: string | null
           ingredients?: string[] | null
-          cooking_time?: string | null
+          total_time?: string | null
           imgurl?: string | null | File
           protein?: number | null
           fats?: number | null

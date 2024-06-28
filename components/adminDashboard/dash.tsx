@@ -8,7 +8,7 @@ import { TablesInsert } from "@/supabase/types"
 
 interface Recipe {
   name: string
-  cooking_time: string
+  total_time: string
   imgurl: string | File // Changed to accept File type for images
 }
 
@@ -63,7 +63,7 @@ export default function Dash() {
                   id: recipesData.id,
                   name: recipesData.name,
                   imgurl: recipesData.imgurl,
-                  cooking_time: recipesData.cooking_time,
+                  total_time: recipesData.total_time,
                   url: recipesData.url,
                   ingredients: recipesData.ingredients,
                   instructions: recipesData.instructions,
@@ -262,7 +262,7 @@ export default function Dash() {
                   stroke="currentColor"
                   className={
                     "size-6 " +
-                    (recipe.imgurl && recipe.cooking_time
+                    (recipe.imgurl && recipe.total_time
                       ? "text-green-500"
                       : "text-orange-500")
                   }
@@ -278,9 +278,9 @@ export default function Dash() {
               <div className="mb-2 flex items-center">
                 <input
                   type="text"
-                  value={recipe.cooking_time || ""}
+                  value={recipe.total_time || ""}
                   onChange={e =>
-                    updateData(index, "cooking_time", e.target.value)
+                    updateData(index, "total_time", e.target.value)
                   }
                   className="mr-2 w-1/2 rounded bg-input p-1 text-foreground"
                   placeholder="Time"
