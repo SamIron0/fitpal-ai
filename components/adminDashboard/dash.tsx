@@ -57,7 +57,6 @@ export default function Dash() {
             const response = await axios.post(endpoint, { url })
             const recipesData = response.data.body
             if (recipesData && recipesData.id) {
-              console.log("Scraped recipe:", recipesData)
               setRecipes(prevRecipes => [
                 ...prevRecipes,
                 {
@@ -75,7 +74,12 @@ export default function Dash() {
                   allergies: recipesData.allergies,
                   portions: recipesData.portions,
                   servings: recipesData.servings,
-                  embedding: recipesData.embedding
+                  embedding: recipesData.embedding,
+                  cooking_method: recipesData.cooking_method,
+                  course_type: recipesData.course_type,
+                  cuisine_type: recipesData.cuisine_type,
+                  dietary_restrictions: recipesData.dietary_restrictions,
+                  meal_type: recipesData.meal_type
                 }
               ])
               toast.success(`Recipe from ${url} scraped successfully!`)
