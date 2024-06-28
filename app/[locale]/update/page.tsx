@@ -26,6 +26,10 @@ export default function Update() {
         }
 
         console.log(await all_recipes.json())
+        const x = await all_recipes.json()
+        console.log(x["all_recipes"])
+        console.log(await all_recipes.json())
+
         setRecipes(await all_recipes.json())
       } catch (error) {
         console.error("Error fetching recipes:", error)
