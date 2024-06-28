@@ -109,11 +109,42 @@ export default function Dash() {
     return
   }
 
+  const uploadToCloudinary = async (file: File) => {
+    const url = `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload`
+    const formData = new FormData()
+
+    formData.append("file", file)
+    formData.append("upload_preset", "YOUR_UPLOAD_PRESET")
+
+    const res = await fetch(url, {
+      method: "POST",
+      body: formData
+    })
+
+    if (!res.ok) {
+      throw new Error("Failed to upload file to Cloudinary")
+    }
+
+    const data = await res.json()
+    return data.secure_url // URL of the uploaded image
+  }
   const handleSave = async () => {
     console.log("saving: ", recipes[0])
+
     try {
       await Promise.all(
         recipes.map(async recipe => {
+          if (recipe.imgurl instanceof File) {
+            try {
+              const url = await uploadToCloudinary(recipe.imgurl)
+              recipe.imgurl = url // Replace File object with Cloudinary URL
+            } catch (error) {
+              console.error("Error uploading file:", error)
+              toast.error(`Error uploading file for recipe: ${recipe.name}`)
+              throw error
+            }
+          }
+
           try {
             const res = await fetch("/api/recipe/save_recipe", {
               method: "POST",
@@ -142,7 +173,6 @@ export default function Dash() {
       toast.error("Error saving recipes")
     }
   }
-
   const updateData = <K extends keyof TablesInsert<"recipes">>(
     index: number,
     key: K,
