@@ -21,7 +21,7 @@ export async function GET() {
     }
     let all_recipes = await getAllRecipes()
 
-    return new Response(JSON.stringify({ all_recipes }))
+    return new Response(JSON.stringify(all_recipes))
   } catch (error) {
     console.log(error)
     return new Response(JSON.stringify({ error: error }))
