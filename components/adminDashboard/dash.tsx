@@ -286,17 +286,6 @@ export default function Dash() {
                   placeholder="Time"
                 />
               </div>
-              <div className="mb-2 flex items-center">
-                <input
-                  type="text"
-                  value={recipe.total_time || ""}
-                  onChange={e =>
-                    updateData(index, "total_time", e.target.value)
-                  }
-                  className="mr-2 w-1/2 rounded bg-input p-1 text-foreground"
-                  placeholder="Time"
-                />
-              </div>
 
               {typeof recipe.imgurl === "string" && (
                 <img

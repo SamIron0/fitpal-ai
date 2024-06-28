@@ -75,7 +75,7 @@ export default function SearchPage() {
               <div className="flex w-48 flex-col">
                 {recipe.imgurl ? (
                   <img
-                    src={`/images/${recipe.imgurl}`}
+                    src={`${recipe.imgurl}`}
                     className="border-1 mb-2 h-48 w-full rounded-lg border-input object-cover"
                     alt={recipe.name || "Recipe Image"}
                   />
