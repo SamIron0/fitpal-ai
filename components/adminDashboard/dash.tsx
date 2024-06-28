@@ -114,7 +114,7 @@ export default function Dash() {
     const formData = new FormData()
 
     formData.append("file", file)
-    formData.append("upload_preset", "YOUR_UPLOAD_PRESET")
+    formData.append("upload_preset", "ml_default")
 
     const res = await fetch(url, {
       method: "POST",
