@@ -54,20 +54,15 @@ export const getForYou = async (workspaceId: string) => {
   return recipes
 }
 
-const most_common_recipes = (recipes_list: string[]) => {
-  const recipe_count: { [key: string]: number } = {}
-  for (let recipe of recipes_list) {
-    if (recipe_count[recipe]) {
-      recipe_count[recipe] += 1
-    } else {
-      recipe_count[recipe] = 1
-    }
+export const getAllRecipes = async () => {
+  const { data: recipes, error } = await supabaseAdmin
+    .from("recipes")
+    .select("*")
+
+  if (error) {
+    throw new Error(error.message)
   }
-  const sorted_recipes = Object.keys(recipe_count).sort(
-    (a, b) => recipe_count[b] - recipe_count[a]
-  )
-  console.log("sorted_recipes: " + sorted_recipes)
-  return sorted_recipes
+  return recipes
 }
 export const save_query = async (uid: string, query: string) => {
   const { data: queryData, error } = await supabaseAdmin
