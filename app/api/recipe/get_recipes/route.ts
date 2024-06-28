@@ -26,7 +26,7 @@ export async function POST(request: Request) {
 
     // Run save_query and Heroku call in parallel
     const saveQueryPromise = save_query(uid, input)
-    const herokuPromise = fetch("https://fitpal-search.onrender.com", {
+    const herokuPromise = fetch("https://fitpal-search.onrender.com/search", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
