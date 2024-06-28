@@ -102,52 +102,72 @@ export type Database = {
       recipes: {
         Row: {
           id: string
-          name: string
-          description: string | null
+          name: string | null
+          instructions: string[] | null
+          portions: number | null
+          meal_type: string[] | null
           ingredients: string[] | null
+          dietary_restrictions: string[] | null
+          cuisine_type: string[] | null
           total_time: string | null
-          imgurl: string | null | File
+          calories: number | null
           protein: number | null
           fats: number | null
           carbs: number | null
-          calories: number | null
-          instructions: string[] | null
-          portions: number | null
+          servings: string | null
+          cooking_method: string[] | null
+          course_type: string[] | null
+          allergies: string[] | null
           url: string | null
+          imgurl: string | null | File
           embedding: number[]
+          created_at: string | null
         }
         Insert: {
           id: string
           name?: string | null
-          description?: string | null
+          instructions?: string[] | null
+          portions?: number | null
+          meal_type?: string[] | null
           ingredients?: string[] | null
+          dietary_restrictions?: string[] | null
+          cuisine_type?: string[] | null
           total_time?: string | null
-          imgurl?: string | null | File
+          calories?: number | null
           protein?: number | null
           fats?: number | null
           carbs?: number | null
-          calories?: number | null
-          instructions?: string[] | null
-          portions?: number | null
+          servings?: string | null
+          cooking_method?: string[] | null
+          course_type?: string[] | null
+          allergies?: string[] | null
           url?: string | null
+          imgurl?: string | null | File
           embedding?: number[] | null
+          created_at?: string | null
         }
-
         Update: {
           id?: string
           name?: string | null
-          description?: string | null
+          instructions?: string[] | null
+          portions?: number | null
+          meal_type?: string[] | null
           ingredients?: string[] | null
+          dietary_restrictions?: string[] | null
+          cuisine_type?: string[] | null
           total_time?: string | null
-          imgurl?: string | null | File
+          calories?: number | null
           protein?: number | null
           fats?: number | null
           carbs?: number | null
-          calories?: number | null
-          instructions?: string[] | null
-          portions?: number | null
+          servings?: string | null
+          cooking_method?: string[] | null
+          course_type?: string[] | null
+          allergies?: string[] | null
           url?: string | null
+          imgurl?: string | null | File
           embedding?: number[] | null
+          created_at?: string | null
         }
       }
 

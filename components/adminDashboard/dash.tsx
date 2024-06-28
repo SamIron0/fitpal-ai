@@ -131,7 +131,7 @@ export default function Dash() {
   }
   const handleSave = async () => {
     console.log("saving: ", recipes[0])
-
+    const id = toast.loading("Saving")
     try {
       await Promise.all(
         recipes.map(async recipe => {
@@ -140,6 +140,7 @@ export default function Dash() {
               const url = await uploadToCloudinary(recipe.imgurl)
               recipe.imgurl = url // Replace File object with Cloudinary URL
             } catch (error) {
+              toast.dismiss(id)
               console.error("Error uploading file:", error)
               toast.error(`Error uploading file for recipe: ${recipe.name}`)
               throw error
@@ -158,9 +159,11 @@ export default function Dash() {
             if (!res.ok) {
               throw new Error(`Failed to save recipe: ${recipe.name}`)
             }
-
+            toast.dismiss(id)
             toast.success(`Recipe ${recipe.name} saved successfully!`)
           } catch (error) {
+            toast.dismiss(id)
+
             console.error("Error saving recipe:", error)
             toast.error(`Error saving recipe: ${recipe.name}`)
             throw error
@@ -170,6 +173,8 @@ export default function Dash() {
 
       setRecipes([])
     } catch (error) {
+      toast.dismiss(id)
+
       console.error("Error saving recipes:", error)
       toast.error("Error saving recipes")
     }
