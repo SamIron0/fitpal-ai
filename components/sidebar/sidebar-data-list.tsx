@@ -13,11 +13,7 @@ import { updateChat } from "@/db/chats"
 import { updateCalculator } from "@/db/calculator"
 import { updatePreset } from "@/db/presets"
 import { cn } from "@/lib/utils"
-import { Separator } from "../ui/separator"
-import { ChatItem } from "./items/chat/chat-item"
-import { SidebarSearch } from "./sidebar-search"
 import { Settings } from "./settings/settings"
-import { Calculator } from "../calculator/calculator"
 
 interface SidebarDataListProps {
   contentType: ContentType
@@ -49,59 +45,7 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
 
   const divRef = useRef<HTMLDivElement>(null)
 
-  const [isOverflowing, setIsOverflowing] = useState(false)
   const [isDragOver, setIsDragOver] = useState(false)
-
-  const getDataListComponent = (
-    contentType: ContentType,
-    item: DataItemType
-  ) => {
-    switch (contentType) {
-      case "chats":
-        return <ChatItem key={item.id} chat={item as Tables<"chats">} />
-      default:
-        return null
-    }
-  }
-
-  const getSortedData = (
-    data: any,
-    dateCategory: "Today" | "Yesterday" | "Previous Week" | "Older"
-  ) => {
-    const now = new Date()
-    const todayStart = new Date(now.setHours(0, 0, 0, 0))
-    const yesterdayStart = new Date(
-      new Date().setDate(todayStart.getDate() - 1)
-    )
-    const oneWeekAgoStart = new Date(
-      new Date().setDate(todayStart.getDate() - 7)
-    )
-
-    return data
-      .filter((item: any) => {
-        const itemDate = new Date(item.updated_at || item.created_at)
-        switch (dateCategory) {
-          case "Today":
-            return itemDate >= todayStart
-          case "Yesterday":
-            return itemDate >= yesterdayStart && itemDate < todayStart
-          case "Previous Week":
-            return itemDate >= oneWeekAgoStart && itemDate < yesterdayStart
-          case "Older":
-            return itemDate < oneWeekAgoStart
-          default:
-            return true
-        }
-      })
-      .sort(
-        (
-          a: { updated_at: string; created_at: string },
-          b: { updated_at: string; created_at: string }
-        ) =>
-          new Date(b.updated_at || b.created_at).getTime() -
-          new Date(a.updated_at || a.created_at).getTime()
-      )
-  }
 
   const updateFunctions = {
     chats: updateChat,
@@ -173,17 +117,6 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
     }
     setIsDragOver(false)
   }
-
-  useEffect(() => {
-    if (divRef.current) {
-      setIsOverflowing(
-        divRef.current.scrollHeight > divRef.current.clientHeight
-      )
-    }
-  }, [data])
-
-  const dataWithFolders = data.filter(item => item.folder_id)
-  const dataWithoutFolders = data.filter(item => item.folder_id === null)
 
   return (
     <>

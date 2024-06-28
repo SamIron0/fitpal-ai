@@ -4,7 +4,6 @@ import { ContentType } from "@/types"
 import { FC, useContext } from "react"
 import { SIDEBAR_WIDTH } from "../ui/dashboard"
 import { TabsContent } from "../ui/tabs"
-import { WorkspaceSettings } from "../workspace/workspace-settings"
 import { SidebarContent } from "./sidebar-content"
 
 interface SidebarProps {
@@ -50,9 +49,6 @@ export const Sidebar: FC<SidebarProps> = ({ contentType, showSidebar }) => {
           switch (contentType) {
             case "presets":
               return renderSidebarContent("presets", presetFolders, presets)
-
-            case "calculator":
-              return renderSidebarContent("calculator", calculatorFolders)
 
             default:
               return null
