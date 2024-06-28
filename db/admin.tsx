@@ -19,12 +19,41 @@ const supabaseAdmin = createClient<Database>(
 )
 
 export const saveRecipe = async (recipe: TablesInsert<"recipes">) => {
-  const { data, error } = await supabaseAdmin.from("recipes").insert(recipe)
-  if (error) {
-    throw error
+  // Check if the recipe already exists by looking for a unique identifier (e.g., id)
+  const { data: existingRecipe, error: fetchError } = await supabaseAdmin
+    .from("recipes")
+    .select("*")
+    .eq("id", recipe.id)
+    .single()
+
+  if (fetchError && fetchError.code !== "PGRST116") {
+    throw fetchError
   }
-  return data
+
+  if (existingRecipe) {
+    // If the recipe exists, update it
+    const { data: updatedRecipe, error: updateError } = await supabaseAdmin
+      .from("recipes")
+      .update(recipe)
+      .eq("id", recipe.id)
+
+    if (updateError) {
+      throw updateError
+    }
+    return updatedRecipe
+  } else {
+    // If the recipe does not exist, insert it
+    const { data: newRecipe, error: insertError } = await supabaseAdmin
+      .from("recipes")
+      .insert(recipe)
+
+    if (insertError) {
+      throw insertError
+    }
+    return newRecipe
+  }
 }
+
 export const getGuestForYou = async () => {
   // get 10 random entries from table recipes
   const { data: recipes, error } = await supabaseAdmin
