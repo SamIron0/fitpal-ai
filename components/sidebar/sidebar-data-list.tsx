@@ -16,9 +16,7 @@ import { cn } from "@/lib/utils"
 import { Separator } from "../ui/separator"
 import { ChatItem } from "./items/chat/chat-item"
 import { Folder } from "./items/folders/folder-item"
-import { PresetItem } from "./items/presets/preset-item"
 import { SidebarSearch } from "./sidebar-search"
-import { SidebarCreateButtons } from "./sidebar-create-buttons"
 import { Settings } from "./settings/settings"
 import { Calculator } from "../calculator/calculator"
 
@@ -62,8 +60,6 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
     switch (contentType) {
       case "chats":
         return <ChatItem key={item.id} chat={item as Tables<"chats">} />
-      case "presets":
-        return <PresetItem key={item.id} preset={item as Tables<"presets">} />
       default:
         return null
     }
@@ -131,7 +127,6 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
     tools: setTools,
     models: setModels
   }
-
   const updateFolder = async (itemId: string, folderId: string | null) => {
     const item: any = data.find(item => item.id === itemId)
 
