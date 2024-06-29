@@ -67,18 +67,30 @@ export const getGuestForYou = async () => {
 
   return recipes
 }
+export const getForYou = async (uid: string) => {
+  const { data: user, error: profileError } = await supabaseAdmin
+    .from("settings")
+    .select("allergies,diet")
+    .eq("id", uid)
+    .single() // Use .single() to get a single user object instead of an array
 
-export const getForYou = async (workspaceId: string) => {
-  // get 10 random entries from table recipes
-  const { data: recipes, error } = await supabaseAdmin
+  if (profileError) {
+    throw profileError
+  }
+
+  const { allergies, diet } = user
+
+  // Fetch 10 random recipes, excluding those that match any of the user's allergies or diet restrictions
+  const { data: recipes, error: recipesError } = await supabaseAdmin
     .from("recipes")
     .select("*")
-    //.order("RANDOM()")
+    .not("allergies", "overlaps", allergies) // Exclude recipes with matching allergies
+    .not("diet", "overlaps", diet) // Exclude recipes with matching diet restrictions
     .limit(8)
-  if (error) {
-    throw error
+
+  if (recipesError) {
+    throw recipesError
   }
-  //console.log("recipes: " + recipes)
 
   return recipes
 }
