@@ -48,6 +48,15 @@ const NutritionFacts: React.FC<{ recipe: Tables<"recipes"> }> = ({
   </div>
 )
 
+const convertTime = (totalMinutes: number) => {
+  const hours = Math.floor(totalMinutes / 60)
+  const minutes = totalMinutes % 60
+  if (hours > 0) {
+    return `${hours} hr ${minutes} min`
+  } else {
+    return `${minutes} min`
+  }
+}
 const IngredientsList: React.FC<{ ingredients: string[] | null }> = ({
   ingredients
 }) => (
@@ -78,7 +87,9 @@ const RecipeDetails: React.FC<{ recipe: Tables<"recipes"> }> = ({ recipe }) => (
       <h1 className="text-3xl font-bold text-zinc-100">{recipe.name}</h1>
       <div className="mt-2 flex space-x-4">
         <Badge variant="secondary">Portions: {recipe.portions}</Badge>
-        <Badge variant="secondary">Time: {recipe.total_time}</Badge>
+        <Badge variant="secondary">
+          Time: {convertTime(recipe.total_time as unknown as number)}
+        </Badge>
       </div>
     </div>
 
