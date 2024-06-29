@@ -250,6 +250,14 @@ export default function Update() {
                   placeholder="Time"
                 />
               </div>
+              <div className="mb-2 flex items-center">
+                <input
+                  type="text"
+                  value={recipe.url || ""}
+                  className="mr-2 w-1/2 rounded bg-input p-1 text-foreground"
+                  placeholder="example.com"
+                />
+              </div>
 
               {typeof recipe.imgurl === "string" && (
                 <img
