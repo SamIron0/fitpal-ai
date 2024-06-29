@@ -67,32 +67,50 @@ export const getGuestForYou = async () => {
 
   return recipes
 }
+
 export const getForYou = async (uid: string) => {
-  const { data: user, error: profileError } = await supabaseAdmin
+  const { data: settings, error: settingsError } = await supabaseAdmin
     .from("settings")
     .select("allergies,diet")
     .eq("id", uid)
-    .single() // Use .single() to get a single user object instead of an array
 
-  if (profileError) {
-    throw profileError
+  if (settingsError) {
+    throw settingsError
   }
 
-  const { allergies, diet } = user
-
-  // Fetch 10 random recipes, excluding those that match any of the user's allergies or diet restrictions
+  const res = []
+  // get 10 random entries from table recipes
   const { data: recipes, error: recipesError } = await supabaseAdmin
     .from("recipes")
     .select("*")
-    .not("allergies", "overlaps", allergies) // Exclude recipes with matching allergies
-    .not("diet", "overlaps", diet) // Exclude recipes with matching diet restrictions
     .limit(8)
-
   if (recipesError) {
     throw recipesError
   }
+  if (settings[0].diet !== "Anything") {
+    for (let i = 0; i < recipes.length; i++) {
+      if (recipes[i].dietary_restrictions?.includes(settings[0].diet)) {
+        res.push(recipes[i])
+      }
+    }
+  }
 
-  return recipes
+  if (settings[0].allergies.length > 0) {
+    for (let i = 0; i < recipes.length; i++) {
+      //push to res if recipe does not contain any of the allergies
+      if (
+        !recipes[i].allergies?.some(allergy =>
+          settings[0].allergies.includes(allergy)
+        )
+      ) {
+        res.push(recipes[i])
+      }
+    }
+  }
+
+  const randomRecipes = res.sort(() => Math.random() - 0.5)
+
+  return randomRecipes
 }
 
 export const getAllRecipes = async () => {
