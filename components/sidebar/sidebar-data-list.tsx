@@ -41,7 +41,6 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
     setModels,
     subscription
   } = useContext(FitpalAIContext)
-
   const divRef = useRef<HTMLDivElement>(null)
 
   const [isDragOver, setIsDragOver] = useState(false)

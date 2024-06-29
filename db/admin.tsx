@@ -87,28 +87,8 @@ export const getForYou = async (uid: string) => {
   if (recipesError) {
     throw recipesError
   }
-  if (settings[0].diet !== "Anything") {
-    for (let i = 0; i < recipes.length; i++) {
-      if (recipes[i].dietary_restrictions?.includes(settings[0].diet)) {
-        res.push(recipes[i])
-      }
-    }
-  }
 
-  if (settings[0].allergies.length > 0) {
-    for (let i = 0; i < recipes.length; i++) {
-      //push to res if recipe does not contain any of the allergies
-      if (
-        !recipes[i].allergies?.some(allergy =>
-          settings[0].allergies.includes(allergy)
-        )
-      ) {
-        res.push(recipes[i])
-      }
-    }
-  }
-
-  const randomRecipes = res.sort(() => Math.random() - 0.5)
+  const randomRecipes = recipes.sort(() => Math.random() - 0.5)
 
   return randomRecipes
 }
