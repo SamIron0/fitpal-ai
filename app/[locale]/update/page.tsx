@@ -258,14 +258,6 @@ export default function Update() {
                   placeholder="example.com"
                 />
               </div>
-
-              {typeof recipe.imgurl === "string" && (
-                <img
-                  src={recipe.imgurl}
-                  alt="Recipe"
-                  className="mt-2 h-auto max-w-full rounded-md shadow-md"
-                />
-              )}
             </div>
           ))}
         </div>
