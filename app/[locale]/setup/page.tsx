@@ -132,7 +132,6 @@ export default function SetupPage() {
     // There will always be a home workspace
     setSelectedWorkspace(homeWorkspace!)
     setWorkspaces(workspaces)
-
     return router.push(`/search`)
   }
 
