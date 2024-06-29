@@ -97,7 +97,7 @@ export const ChatInput: FC<ChatInputProps> = ({}: ChatInputProps) => {
         className=" m-1 rounded-md  border border-input px-2.5 py-1.5  text-xs font-medium text-gray-400 shadow-sm hover:bg-input focus:outline-none "
       >
         <div className="flex items-center">
-          {icon}
+          <span className="mr-1 text-md">{icon}</span>
           <p className="pl-1">{caption}</p>
         </div>
       </button>
@@ -150,8 +150,8 @@ export const ChatInput: FC<ChatInputProps> = ({}: ChatInputProps) => {
       </div>
       <div className="mt-3 grid w-full grid-cols-2">
         <SuggestionPill icon={"🍜"} caption="Pasta with chicken" />{" "}
-        <SuggestionPill icon={"🍜"} caption="Garlic,onion,pork" />
-        <SuggestionPill icon={"🍜"} caption="Jambalaya" />
+        <SuggestionPill icon={"🧄"} caption="Garlic,onion,pork" />
+        <SuggestionPill icon={"🥘"} caption="Jambalaya" />
         <SuggestionPill icon={"🥓"} caption="Breakfast with bacon" />
       </div>
     </>
