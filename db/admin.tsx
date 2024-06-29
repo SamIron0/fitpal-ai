@@ -92,7 +92,6 @@ export const getForYou = async (uid: string) => {
 
   return randomRecipes
 }
-
 export const getAllRecipes = async () => {
   const { data: recipes, error } = await supabaseAdmin
     .from("recipes")
