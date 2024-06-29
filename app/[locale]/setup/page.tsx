@@ -133,7 +133,7 @@ export default function SetupPage() {
     setSelectedWorkspace(homeWorkspace!)
     setWorkspaces(workspaces)
 
-    return router.push(`/${homeWorkspace?.id}/search`)
+    return router.push(`/search`)
   }
 
   const renderStep = (stepNum: number) => {
