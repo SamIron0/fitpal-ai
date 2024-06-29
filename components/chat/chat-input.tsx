@@ -94,11 +94,11 @@ export const ChatInput: FC<ChatInputProps> = ({}: ChatInputProps) => {
     return (
       <button
         onClick={handleSuggestionClick(caption)}
-        className=" m-1 rounded-md  border border-input px-2.5 py-1.5  text-xs font-medium text-gray-400 shadow-sm hover:bg-input focus:outline-none "
+        className=" m-1 rounded-md  border border-input px-2.5 py-1.5  font-medium text-gray-400 shadow-sm hover:bg-input focus:outline-none "
       >
         <div className="flex items-center">
           <span className="mr-1 text-md">{icon}</span>
-          <p className="pl-1">{caption}</p>
+          <p className="pl-1 text-xs ">{caption}</p>
         </div>
       </button>
     )
