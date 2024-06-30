@@ -127,17 +127,6 @@ const MealDrawerContent: React.FC<{ recipe: Tables<"recipes"> }> = ({
   recipe
 }) => (
   <div className="flex flex-col space-y-6 overflow-y-auto pb-20">
-    <div className="relative h-64 w-full overflow-hidden rounded-t-lg">
-      <img
-        src={`${recipe.imgurl}`}
-        className="absolute inset-0 size-full object-cover"
-        alt={recipe.name || "Recipe Image"}
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-      <h1 className="absolute bottom-4 left-4 text-4xl font-bold text-white">
-        {recipe.name}
-      </h1>
-    </div>
     <div className="px-4 sm:px-6 lg:px-8 ">
       <RecipeDetails recipe={recipe} />
     </div>
