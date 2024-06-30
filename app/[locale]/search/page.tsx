@@ -92,48 +92,51 @@ export default function SearchPage() {
   )
 
   return (
-    <Dashboard>
-      <div className="hide-scrollbar relative flex size-full flex-col items-center overflow-y-auto px-4 sm:px-6">
-        <div className="top-50% left-50% -translate-x-50% -translate-y-50% mb-9 mt-32 lg:mt-24">
-          <Brand theme={theme === "dark" ? "dark" : "light"} />
-        </div>
-        <div className="w-full max-w-md items-end pb-3 pt-0 sm:pb-8 sm:pt-5 lg:max-w-xl">
-          <ChatInput />
-        </div>
-        {isGenerating ? (
-          <div className="w-full max-w-4xl py-28">
-            <p className="mb-5 text-2xl font-semibold">Best Results</p>
-            <div
-              role="status"
-              className="grid w-full max-w-4xl animate-pulse grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4"
-            >
-              {renderSkeleton()}
-            </div>
+      <Dashboard>
+        <div className="hide-scrollbar relative flex size-full flex-col items-center overflow-y-auto px-4 sm:px-6">
+          <div className="top-50% left-50% -translate-x-50% -translate-y-50% mb-9 mt-32 lg:mt-24">
+            <Brand theme={theme === "dark" ? "dark" : "light"} />
           </div>
-        ) : (
-          <>
-            {generatedRecipes.length > 0 ? (
-              renderRecipes(generatedRecipes, "Best Results")
-            ) : (
-              <div className="w-full max-w-4xl ">
-                {forYou.length > 0 ? (
-                  renderRecipes(forYou, "For You")
-                ) : (
-                  <div className="w-full max-w-4xl py-28 ">
-                    <p className="mb-5 text-2xl font-semibold">For You</p>
-                    <div
-                      role="status"
-                      className="grid w-full  max-w-4xl animate-pulse grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4"
-                    >
-                      {renderSkeleton()}
-                    </div>
-                  </div>
-                )}
+          <div className="w-full max-w-md items-end pb-3 pt-0 sm:pb-8 sm:pt-5 lg:max-w-xl">
+            <h1>Find Recipes from Ingredients You Have</h1>
+            <p>Welcome to YourWebsite! Enter the ingredients you have, and we'll help you find delicious recipes in no time. Whether you have chicken, pasta, or veggies, we've got you covered.</p>
+            <ChatInput />
+          </div>
+          {isGenerating ? (
+            <div className="w-full max-w-4xl py-28">
+              <p className="mb-5 text-2xl font-semibold">Best Results</p>
+              <div
+                role="status"
+                className="grid w-full max-w-4xl animate-pulse grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4"
+              >
+                {renderSkeleton()}
               </div>
-            )}
-          </>
-        )}
-      </div>
-    </Dashboard>
+            </div>
+          ) : (
+            <>
+              {generatedRecipes.length > 0 ? (
+                renderRecipes(generatedRecipes, "Best Results")
+              ) : (
+                <div className="w-full max-w-4xl ">
+                  {forYou.length > 0 ? (
+                    renderRecipes(forYou, "For You")
+                  ) : (
+                    <div className="w-full max-w-4xl py-28 ">
+                      <p className="mb-5 text-2xl font-semibold">For You</p>
+                      <div
+                        role="status"
+                        className="grid w-full  max-w-4xl animate-pulse grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4"
+                      >
+                        {renderSkeleton()}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+            </>
+          )}
+        </div>
+      </Dashboard>
+        
   )
 }
