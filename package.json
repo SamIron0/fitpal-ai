@@ -3,12 +3,6 @@
   "version": "2.0.0",
   "private": true,
   "scripts": {
-    "chat": "supabase start && npm run db-types && npm run dev",
-    "restart": "supabase stop && npm run chat",
-    "update": "git pull origin main && npm run db-migrate && npm run db-types",
-    "prepare": "husky install",
-    "clean": "npm run lint:fix && npm run format:write",
-    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -23,7 +17,9 @@
     "db-types": "supabase gen types typescript --local > supabase/types.ts",
     "db-pull": "supabase db remote commit",
     "db-push": "supabase db push",
-    "test": "jest"
+    "test": "jest",
+    "postbuild": "npm run update-sitemap"
+
   },
   "dependencies": {
     "@apidevtools/json-schema-ref-parser": "^11.1.0",
