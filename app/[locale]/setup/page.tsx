@@ -71,10 +71,8 @@ export default function SetupPage() {
         if (!profile.has_onboarded) {
           setLoading(false)
         } else {
-          const homeWorkspaceId = await getHomeWorkspaceByUserId(
-            session.user.id
-          )
-          return router.push(`/${homeWorkspaceId}/search`)
+         
+          return router.push(`/search`)
         }
       }
     })()
