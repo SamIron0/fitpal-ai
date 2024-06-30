@@ -12,7 +12,6 @@ import { getSettingsByUserId } from "@/db/settings"
 import { createClient } from "@/lib/supabase/client"
 import { Tables } from "@/supabase/types"
 import { Dashboard } from "@/components/ui/dashboard"
-import "@/path/to/styles.css" // Import the CSS file
 
 export default function SearchPage() {
   const { generatedRecipes, isGenerating, setSettings } =
