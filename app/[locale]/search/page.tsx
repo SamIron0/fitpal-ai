@@ -132,9 +132,9 @@ export default function SearchPage() {
             Find Recipes from Ingredients You Have
           </h1>
           <p className="visually-hidden">
-            Welcome to FitpalAI! Enter the ingredients you have, and we'll help
+            Welcome to FitpalAI! Enter the ingredients you have, and we will help
             you find delicious recipes in no time. Whether you have chicken,
-            pasta, or veggies, we've got you covered.
+            pasta, or veggies, we have got you covered.
           </p>
           <ChatInput />
         </div>
