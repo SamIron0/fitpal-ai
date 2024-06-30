@@ -47,11 +47,6 @@ export default function SetupPage() {
   const [carbs, setCarbs] = useState(50)
   const [fat, setFat] = useState(25)
   const [calories, setCalories] = useState(2505)
-  const [height, setHeight] = useState(0)
-  const [weight, setWeight] = useState(0)
-  const [age, setAge] = useState(0)
-  const [gender, setGender] = useState("")
-  const [activityLevel, setActivityLevel] = useState(0)
   const [workouts, setWorkouts] = useState(0)
   const [allergies, setAllergies] = useState<string[]>([])
   const [diet, setDiet] = useState("")
@@ -71,7 +66,6 @@ export default function SetupPage() {
         if (!profile.has_onboarded) {
           setLoading(false)
         } else {
-         
           return router.push(`/search`)
         }
       }
@@ -124,12 +118,6 @@ export default function SetupPage() {
 
     setProfile(updatedProfile)
 
-    const workspaces = await getWorkspacesByUserId(profile.user_id)
-    const homeWorkspace = workspaces.find(w => w.is_home)
-
-    // There will always be a home workspace
-    setSelectedWorkspace(homeWorkspace!)
-    setWorkspaces(workspaces)
     return router.push(`/search`)
   }
 
