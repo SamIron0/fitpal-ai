@@ -12,17 +12,7 @@ import { getSettingsByUserId } from "@/db/settings"
 import { createClient } from "@/lib/supabase/client"
 import { Tables } from "@/supabase/types"
 import { Dashboard } from "@/components/ui/dashboard"
-
-const visuallyHiddenStyle = {
-  position: "absolute",
-  width: "1px",
-  height: "1px",
-  padding: 0,
-  margin: "-1px",
-  overflow: "hidden",
-  clip: "rect(0, 0, 0, 0)",
-  border: 0
-}
+import "@/path/to/styles.css" // Import the CSS file
 
 export default function SearchPage() {
   const { generatedRecipes, isGenerating, setSettings } =
@@ -76,7 +66,7 @@ export default function SearchPage() {
 
   const renderRecipes = (recipes: Tables<"recipes">[], title: string) => (
     <div className="w-full max-w-4xl py-28">
-      <p className="mb-5 text-2xl font-semibold">{title}</p>
+      <h2 className="mb-5 text-2xl font-semibold">{title}</h2>
       <div
         role="status"
         className="grid w-full max-w-4xl grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4"
@@ -106,7 +96,7 @@ export default function SearchPage() {
   return (
     <Dashboard>
       <Head>
-        <title>Find Recipes from Ingredients | YourWebsite</title>
+        <title>FitpalAI | Find Recipes from Ingredients</title>
         <meta
           name="description"
           content="Discover delicious recipes from ingredients you have. Just enter what you have, and get personalized recipe suggestions."
@@ -115,25 +105,43 @@ export default function SearchPage() {
           name="keywords"
           content="recipes, ingredients, cooking, meals, personalized recipes"
         />
+        <meta
+          property="og:title"
+          content="Find Recipes from Ingredients | FitpalAI"
+        />
+        <meta
+          property="og:description"
+          content="Discover delicious recipes from ingredients you have. Just enter what you have, and get personalized recipe suggestions."
+        />
+        <meta property="og:url" content="https://fitpalai.com/search" />
+        <meta property="og:type" content="website" />
+        <meta
+          name="twitter:title"
+          content="Find Recipes from Ingredients | FitpalAI"
+        />
+        <meta
+          name="twitter:description"
+          content="Discover delicious recipes from ingredients you have. Just enter what you have, and get personalized recipe suggestions."
+        />
       </Head>
       <div className="hide-scrollbar relative flex size-full flex-col items-center overflow-y-auto px-4 sm:px-6">
         <div className="top-50% left-50% -translate-x-50% -translate-y-50% mb-9 mt-32 lg:mt-24">
           <Brand theme={theme === "dark" ? "dark" : "light"} />
         </div>
         <div className="w-full max-w-md items-end pb-3 pt-0 sm:pb-8 sm:pt-5 lg:max-w-xl">
-          <h1 className="visuallyHiddenStyle">
+          <h1 className="visually-hidden">
             Find Recipes from Ingredients You Have
           </h1>
-          <p className="visuallyHiddenStyle">
-            Welcome to YourWebsite! Enter the ingredients you have, and we'll
-            help you find delicious recipes in no time. Whether you have
-            chicken, pasta, or veggies, we've got you covered.
+          <p className="visually-hidden">
+            Welcome to FitpalAI! Enter the ingredients you have, and we'll help
+            you find delicious recipes in no time. Whether you have chicken,
+            pasta, or veggies, we've got you covered.
           </p>
           <ChatInput />
         </div>
         {isGenerating ? (
           <div className="w-full max-w-4xl py-28">
-            <p className="mb-5 text-2xl font-semibold">Best Results</p>
+            <h2 className="mb-5 text-2xl font-semibold">Best Results</h2>
             <div
               role="status"
               className="grid w-full max-w-4xl animate-pulse grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4"
@@ -146,15 +154,15 @@ export default function SearchPage() {
             {generatedRecipes.length > 0 ? (
               renderRecipes(generatedRecipes, "Best Results")
             ) : (
-              <div className="w-full max-w-4xl ">
+              <div className="w-full max-w-4xl">
                 {forYou.length > 0 ? (
                   renderRecipes(forYou, "For You")
                 ) : (
-                  <div className="w-full max-w-4xl py-28 ">
-                    <p className="mb-5 text-2xl font-semibold">For You</p>
+                  <div className="w-full max-w-4xl py-28">
+                    <h2 className="mb-5 text-2xl font-semibold">For You</h2>
                     <div
                       role="status"
-                      className="grid w-full  max-w-4xl animate-pulse grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4"
+                      className="grid w-full max-w-4xl animate-pulse grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4"
                     >
                       {renderSkeleton()}
                     </div>
