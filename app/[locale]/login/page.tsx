@@ -35,18 +35,7 @@ export default async function Login({
   const session = (await supabase.auth.getSession()).data.session
 
   if (session) {
-    const { data: homeWorkspace, error } = await supabase
-      .from("workspaces")
-      .select("*")
-      .eq("user_id", session.user.id)
-      .eq("is_home", true)
-      .single()
-
-    if (!homeWorkspace) {
-      throw new Error(error.message)
-    }
-
-    return redirect(`/${homeWorkspace.id}/search`)
+    return redirect(`/search`)
   }
 
   const signIn = async (formData: FormData) => {
@@ -66,20 +55,7 @@ export default async function Login({
       return redirect(`/login?message=${error.message}`)
     }
 
-    const { data: homeWorkspace, error: homeWorkspaceError } = await supabase
-      .from("workspaces")
-      .select("*")
-      .eq("user_id", data.user.id)
-      .eq("is_home", true)
-      .single()
-
-    if (!homeWorkspace) {
-      throw new Error(
-        homeWorkspaceError?.message || "An unexpected error occurred"
-      )
-    }
-
-    return redirect(`/${homeWorkspace.id}/search`)
+    return redirect(`/search`)
   }
 
   const signUp = async (formData: FormData) => {
