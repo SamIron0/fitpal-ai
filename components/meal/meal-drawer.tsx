@@ -18,8 +18,6 @@ import {
   CardTitle
 } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Separator } from "@/components/ui/separator"
-import { FitpalAIContext } from "@/context/context"
 import { Tables } from "@/supabase/types"
 
 interface MealDrawerProps {
@@ -27,7 +25,6 @@ interface MealDrawerProps {
   recipe: Tables<"recipes">
   isOpen?: string
 }
-
 const NutritionFacts: React.FC<{ recipe: Tables<"recipes"> }> = ({
   recipe
 }) => (
@@ -84,7 +81,7 @@ const DirectionsList: React.FC<{ instructions: string[] | null }> = ({
 const RecipeDetails: React.FC<{ recipe: Tables<"recipes"> }> = ({ recipe }) => (
   <div className="space-y-8">
     <div>
-      <h1 className="text-3xl font-bold text-zinc-100">{recipe.name}</h1>
+      <h1 className="text-3xl mt-6 font-bold text-zinc-100">{recipe.name}</h1>
       <div className="mt-2 flex space-x-4">
         <Badge variant="secondary">Portions: {recipe.portions}</Badge>
         <Badge variant="secondary">
@@ -127,7 +124,7 @@ const MealDrawerContent: React.FC<{ recipe: Tables<"recipes"> }> = ({
   recipe
 }) => (
   <div className="flex flex-col space-y-6 overflow-y-auto pb-20">
-    <div className="px-4 sm:px-6 lg:px-8 ">
+    <div className="px-4 max-w-3xl mx-auto  sm:px-6 lg:px-8 ">
       <RecipeDetails recipe={recipe} />
     </div>
   </div>
@@ -149,7 +146,7 @@ export const MealDrawer: React.FC<MealDrawerProps> = ({
         {recipe && <MealDrawerContent recipe={recipe} />}
         <DrawerFooter className="absolute inset-x-0 bottom-0 bg-background p-4">
           <DrawerClose asChild>
-            <Button variant="outline" className="w-full">
+            <Button variant="outline" className="w-full max-w-3xl mx-auto ">
               Close
             </Button>
           </DrawerClose>
