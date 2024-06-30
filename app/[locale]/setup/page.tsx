@@ -159,41 +159,7 @@ export default function SetupPage() {
           </StepContainer>
         )
 
-      // API Step
       case 2:
-        return (
-          <StepContainer
-            stepDescription="Enter your macros(you can edit this later)."
-            stepNum={currentStep}
-            stepTitle="Set your macros"
-            onShouldProceed={handleShouldProceed}
-            showNextButton={true}
-            showBackButton={true}
-          >
-            <MacrosStep
-              protein={protein}
-              setProtein={setProtein}
-              carbs={carbs}
-              setCarbs={setCarbs}
-              fat={fat}
-              setFat={setFat}
-              calories={calories}
-              setCalories={setCalories}
-              height={height}
-              setHeight={setHeight}
-              weight={weight}
-              setWeight={setWeight}
-              age={age}
-              setAge={setAge}
-              gender={gender}
-              setGender={setGender}
-              activityLevel={activityLevel}
-              setActivityLevel={setActivityLevel}
-            />
-          </StepContainer>
-        )
-
-      case 3:
         return (
           <StepContainer
             stepDescription="Enter your preferences!"
@@ -213,7 +179,7 @@ export default function SetupPage() {
             />
           </StepContainer>
         )
-      case 4:
+      case 3:
         return (
           <StepContainer
             stepDescription="You are all set up!"
