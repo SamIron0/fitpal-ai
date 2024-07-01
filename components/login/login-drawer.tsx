@@ -63,7 +63,8 @@ export const LoginDrawer = ({ children, searchParams }: LoginDrawerProps) => {
     if (res.ok) {
       const json = await res.json()
       if (json) {
-        toast.success("Check your email to verify your account")
+        //toast.success("Check your email to verify your account")
+        signIn(formData)
       }
       return
     } else {
