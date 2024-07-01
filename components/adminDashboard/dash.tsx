@@ -49,7 +49,7 @@ export default function Dash() {
 
     try {
       const endpoint =
-        "https://4dc5-2604-3d09-a98a-7300-80e2-251f-9958-b972.ngrok-free.app/scrape"
+        "https://a583-2604-3d09-a98a-7300-c167-2c58-eead-f1bd.ngrok-free.app/scrape"
 
       await Promise.all(
         urls.map(async url => {
