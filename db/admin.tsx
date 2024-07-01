@@ -54,6 +54,20 @@ export const saveRecipe = async (recipe: TablesInsert<"recipes">) => {
   }
 }
 
+export const deleteRecipe = async (recipe: TablesInsert<"recipes">) => {
+  // Check if the recipe already exists by looking for a unique identifier (e.g., id)
+  const { data: deletedRecipe, error: fetchError } = await supabaseAdmin
+    .from("recipes")
+    .delete()
+    .eq("id", recipe.id)
+
+  if (fetchError && fetchError.code !== "PGRST116") {
+    throw fetchError
+  }
+
+  return deletedRecipe
+}
+
 export const getGuestForYou = async () => {
   // get 10 random entries from table recipes
   const { data: recipes, error } = await supabaseAdmin
