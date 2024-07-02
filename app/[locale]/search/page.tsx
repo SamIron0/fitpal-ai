@@ -73,7 +73,9 @@ export default function SearchPage() {
       >
         {recipes.map(recipe => (
           <div key={recipe.id} onClick={() => openDrawer(recipe.id)}>
-            <RecipeCard recipe={recipe} />
+            <RecipeDrawer recipe={recipe} isOpen={isOpen}>
+              <RecipeCard recipe={recipe} />
+            </RecipeDrawer>
           </div>
         ))}
       </div>
