@@ -6,6 +6,8 @@ import { FC, useContext, useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { createClient } from "@/lib/supabase/client"
 import { LoginDrawer } from "../login/login-drawer"
+import { v4 as uuidv4 } from "uuid"
+
 interface ChatInputProps {}
 
 export const ChatInput: FC<ChatInputProps> = ({}: ChatInputProps) => {

@@ -17,9 +17,6 @@ import { Input } from "../ui/input"
 import { SubmitButton } from "../ui/submit-button"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
-import { supabase } from "@/lib/supabase/browser-client"
-import { useEffect } from "react"
-import { v4 as uuidv4 } from "uuid"
 interface LoginDrawerProps {
   input?: string
   children?: React.ReactNode
