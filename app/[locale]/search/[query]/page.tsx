@@ -10,6 +10,7 @@ export default async function ResultPage({ params }: { params: { query: string }
   const session=(await supabase.auth.getSession()).data.session
   let settings: Tables<"settings">={} as Tables<"settings">
   if (session) {
+    console.log('session',session)
     let settings = await getSettingsById(session.user.id)
   }
   const herokuPromise = await fetch("https://fitpal-search.onrender.com/search", {
