@@ -45,6 +45,31 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
           placeholder="Recipe Name"
         />
         <div className="ml-2 flex items-center space-x-2">
+          <div
+            className="rounded-full "
+            title={
+              recipe.imgurl && recipe.total_time ? "Complete" : "Incomplete"
+            }
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className={`h-8 w-8 ${
+                recipe.imgurl && recipe.total_time
+                  ? "text-green-500"
+                  : "text-orange-500"
+              }`}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+              />
+            </svg>
+          </div>
           <AlertDialog>
             <AlertDialogTrigger>
               <button
@@ -71,40 +96,15 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
             <AlertDialogContent>
               <AlertDialogHeader>
                 <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                
               </AlertDialogHeader>
               <AlertDialogFooter>
                 <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <AlertDialogAction onClick={() => deleteRecipe(index)}>Continue</AlertDialogAction>
+                <AlertDialogAction onClick={() => deleteRecipe(index)}>
+                  Continue
+                </AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
-
-          <div
-            className="rounded-full "
-            title={
-              recipe.imgurl && recipe.total_time ? "Complete" : "Incomplete"
-            }
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className={`h-8 w-8 ${
-                recipe.imgurl && recipe.total_time
-                  ? "text-green-500"
-                  : "text-orange-500"
-              }`}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-              />
-            </svg>
-          </div>
         </div>
       </div>
 
