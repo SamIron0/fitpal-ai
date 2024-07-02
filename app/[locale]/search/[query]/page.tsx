@@ -5,12 +5,12 @@ import { Tables } from "@/supabase/types"
 import { cookies } from "next/headers"
 
 export default async function ResultPage({ params }: { params: { query: string } }) {
-  console.log('query',params.query)
+  //console.log('query',params.query)
   const supabase = createClient(cookies())
-  const session=await supabase.auth.getSession()
+  const session=(await supabase.auth.getSession()).data.session
   let settings: Tables<"settings">={} as Tables<"settings">
   if (session) {
-    let settings = await getSettingsById(session.data.session?.user.id as string)
+    let settings = await getSettingsById(session.user.id)
   }
   const herokuPromise = await fetch("https://fitpal-search.onrender.com/search", {
     method: "POST",
