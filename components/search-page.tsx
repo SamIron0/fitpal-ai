@@ -10,31 +10,20 @@ import { useRouter } from "next/navigation"
 import { ChatInput } from "./chat/chat-input"
 import { MealDrawer } from "./meal/meal-drawer"
 import { Clock } from "lucide-react"
+import { convertTime } from "@/utils/helpers"
 
 interface SearchPageProps {
-    for_you: Tables<"recipes">[]
+  for_you: Tables<"recipes">[]
 }
-const SearchPage = ({for_you}: SearchPageProps) => {
+const SearchPage = ({ for_you }: SearchPageProps) => {
   const { generatedRecipes, isGenerating, setSettings } =
     useContext(FitpalAIContext)
   const [forYou, setForYou] = useState<Tables<"recipes">[]>(for_you)
   const { theme } = useTheme()
   const [isOpen, setIsOpen] = useState<string>("0")
-  const [loading, setLoading] = useState(true)
-  const supabase = createClient()
-  const router = useRouter()
 
   const openDrawer = (id: string) => {
     setIsOpen(id)
-  }
-  const convertTime = (totalMinutes: number) => {
-    const hours = Math.floor(totalMinutes / 60)
-    const minutes = totalMinutes % 60
-    if (hours > 0) {
-      return `${hours} hr ${minutes} min`
-    } else {
-      return `${minutes} min`
-    }
   }
 
   const renderSkeleton = () => {
@@ -82,55 +71,55 @@ const SearchPage = ({for_you}: SearchPageProps) => {
   )
 
   return (
-     <div className="hide-scrollbar relative flex size-full flex-col items-center overflow-y-auto px-4 sm:px-6">
-        <div className="top-50% left-50% -translate-x-50% -translate-y-50% mb-9 mt-32 lg:mt-24">
-          <Brand theme={theme === "dark" ? "dark" : "light"} />
-        </div>
-        <div className="w-full max-w-md items-end pb-3 pt-0 sm:pb-8 sm:pt-5 lg:max-w-xl">
-          <h1 className="visually-hidden">
-            Find Recipes from Ingredients You Have
-          </h1>
-          <p className="visually-hidden">
-            Welcome to FitpalAI! Enter the ingredients you have, and we will
-            help you find delicious recipes in no time. Whether you have
-            chicken, pasta, or veggies, we have got you covered.
-          </p>
-          <ChatInput />
-        </div>
-        {isGenerating ? (
-          <div className="w-full max-w-4xl py-28">
-            <h2 className="mb-5 text-2xl font-semibold">Best Results</h2>
-            <div
-              role="status"
-              className="grid w-full max-w-4xl animate-pulse grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4"
-            >
-              {renderSkeleton()}
-            </div>
-          </div>
-        ) : (
-          <>
-            {generatedRecipes.length > 0 ? (
-              renderRecipes(generatedRecipes, "Best Results")
-            ) : (
-              <div className="w-full max-w-4xl">
-                {forYou.length > 0 ? (
-                  renderRecipes(forYou, "For You")
-                ) : (
-                  <div className="w-full max-w-4xl py-28">
-                    <h2 className="mb-5 text-2xl font-semibold">For You</h2>
-                    <div
-                      role="status"
-                      className="grid w-full max-w-4xl animate-pulse grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4"
-                    >
-                      {renderSkeleton()}
-                    </div>
-                  </div>
-                )}
-              </div>
-            )}
-          </>
-        )}
+    <div className="hide-scrollbar relative flex size-full flex-col items-center overflow-y-auto px-4 sm:px-6">
+      <div className="top-50% left-50% -translate-x-50% -translate-y-50% mb-9 mt-32 lg:mt-24">
+        <Brand theme={theme === "dark" ? "dark" : "light"} />
       </div>
+      <div className="w-full max-w-md items-end pb-3 pt-0 sm:pb-8 sm:pt-5 lg:max-w-xl">
+        <h1 className="visually-hidden">
+          Find Recipes from Ingredients You Have
+        </h1>
+        <p className="visually-hidden">
+          Welcome to FitpalAI! Enter the ingredients you have, and we will help
+          you find delicious recipes in no time. Whether you have chicken,
+          pasta, or veggies, we have got you covered.
+        </p>
+        <ChatInput />
+      </div>
+      {isGenerating ? (
+        <div className="w-full max-w-4xl py-28">
+          <h2 className="mb-5 text-2xl font-semibold">Best Results</h2>
+          <div
+            role="status"
+            className="grid w-full max-w-4xl animate-pulse grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4"
+          >
+            {renderSkeleton()}
+          </div>
+        </div>
+      ) : (
+        <>
+          {generatedRecipes.length > 0 ? (
+            renderRecipes(generatedRecipes, "Best Results")
+          ) : (
+            <div className="w-full max-w-4xl">
+              {forYou.length > 0 ? (
+                renderRecipes(forYou, "For You")
+              ) : (
+                <div className="w-full max-w-4xl py-28">
+                  <h2 className="mb-5 text-2xl font-semibold">For You</h2>
+                  <div
+                    role="status"
+                    className="grid w-full max-w-4xl animate-pulse grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4"
+                  >
+                    {renderSkeleton()}
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+        </>
+      )}
+    </div>
   )
 }
 export default SearchPage
