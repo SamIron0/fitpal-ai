@@ -23,6 +23,7 @@ const convertTime = (totalMinutes: number) => {
     return `${minutes} min`
   }
 }
+
 export default function SearchPage() {
   const { generatedRecipes, isGenerating, setSettings } =
     useContext(FitpalAIContext)
