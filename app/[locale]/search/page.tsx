@@ -98,7 +98,7 @@ export default function SearchPage() {
         <title>FitpalAI | Find Recipes from Ingredients</title>
         <meta
           name="description"
-          content="Discover delicious recipes from ingredients you have. Just enter what you have, and get personalized recipe suggestions."
+          content="Find curated recipes by entering your ingredients into our AI-powered search engine. You can now search deeper into the recipes beyond just ingredients."
         />
         <meta
           name="keywords"
@@ -110,7 +110,7 @@ export default function SearchPage() {
         />
         <meta
           property="og:description"
-          content="Discover delicious recipes from ingredients you have. Just enter what you have, and get personalized recipe suggestions."
+          content="Find curated recipes by entering your ingredients into our AI-powered search engine. You can now search deeper into the recipes beyond just ingredients."
         />
         <meta property="og:url" content="https://fitpalai.com/search" />
         <meta property="og:type" content="website" />
@@ -120,7 +120,7 @@ export default function SearchPage() {
         />
         <meta
           name="twitter:description"
-          content="Discover delicious recipes from ingredients you have. Just enter what you have, and get personalized recipe suggestions."
+          content="Find curated recipes by entering your ingredients into our AI-powered search engine. You can now search deeper into the recipes beyond just ingredients."
         />
       </Head>
       <div className="hide-scrollbar relative flex size-full flex-col items-center overflow-y-auto px-4 sm:px-6">
@@ -132,9 +132,9 @@ export default function SearchPage() {
             Find Recipes from Ingredients You Have
           </h1>
           <p className="visually-hidden">
-            Welcome to FitpalAI! Enter the ingredients you have, and we will help
-            you find delicious recipes in no time. Whether you have chicken,
-            pasta, or veggies, we have got you covered.
+            Welcome to FitpalAI! Enter the ingredients you have, and we will
+            help you find delicious recipes in no time. Whether you have
+            chicken, pasta, or veggies, we have got you covered.
           </p>
           <ChatInput />
         </div>
