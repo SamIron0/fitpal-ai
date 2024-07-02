@@ -5,6 +5,7 @@ import { Tables } from "@/supabase/types"
 import { cookies } from "next/headers"
 
 export default async function ResultPage({ params }: { params: { query: string } }) {
+  console.log(params.query)
   const supabase = createClient(cookies())
   const session=await supabase.auth.getSession()
   let settings: Tables<"settings">={} as Tables<"settings">
