@@ -21,6 +21,7 @@ import { VALID_ENV_KEYS } from "@/types/valid-keys"
 import { useRouter } from "next/navigation"
 import { FC, useEffect, useState } from "react"
 import { Dashboard } from "../ui/dashboard"
+import { getSettingsByUserId } from "@/db/settings"
 
 interface GlobalStateProps {
   children: React.ReactNode
@@ -142,7 +143,8 @@ export const GlobalState: FC<GlobalStateProps> = ({ children }) => {
 
       const profile = await getProfileByUserId(user.id)
       setProfile(profile)
-
+      const settings = await getSettingsByUserId(session.user.id)
+      setSettings(settings)
       if (!profile.has_onboarded) {
         return router.push("/setup")
       }
