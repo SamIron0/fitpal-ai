@@ -10,7 +10,7 @@ import { v4 as uuidv4 } from "uuid"
 
 interface SearchInputProps {}
 
-export const SearchInput: FC<ChatInputProps> = ({}: SearchInputProps) => {
+export const SearchInput: FC<SearchInputProps> = ({}: SearchInputProps) => {
   const supabase = createClient()
   const [session, setSession] = useState<any>(null)
   useEffect(() => {
