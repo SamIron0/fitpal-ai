@@ -12,6 +12,7 @@ import { getSettingsByUserId } from "@/db/settings"
 import { createClient } from "@/lib/supabase/client"
 import { Tables } from "@/supabase/types"
 import { Dashboard } from "@/components/ui/dashboard"
+import { RecipeCard } from "@/components/recipe/recipe-card"
 
 export default function SearchPage() {
   const { generatedRecipes, isGenerating, setSettings } =
@@ -73,18 +74,7 @@ export default function SearchPage() {
         {recipes.map(recipe => (
           <div key={recipe.id} onClick={() => openDrawer(recipe.id)}>
             <MealDrawer recipe={recipe} isOpen={isOpen}>
-              <div className="flex w-48 flex-col">
-                {recipe.imgurl ? (
-                  <img
-                    src={`${recipe.imgurl}`}
-                    className="border-1 mb-2 h-48 w-full rounded-lg border-input object-cover"
-                    alt={recipe.name || "Recipe Image"}
-                  />
-                ) : (
-                  <div className="border-1 mb-2 h-48 rounded-lg border-input bg-input p-2 py-10 text-black"></div>
-                )}
-                <p className="text-md w-full text-left">{recipe.name}</p>
-              </div>
+              <RecipeCard recipe={recipe}/>
             </MealDrawer>
           </div>
         ))}
@@ -95,7 +85,6 @@ export default function SearchPage() {
   return (
     <Dashboard>
       <Head>
-        <title>FitpalAI | Find Recipes from Ingredients</title>
         <meta
           name="description"
           content="Find curated recipes by entering your ingredients into our AI-powered search engine. You can now search deeper into the recipes beyond just ingredients."
