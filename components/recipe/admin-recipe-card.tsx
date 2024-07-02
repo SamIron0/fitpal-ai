@@ -23,7 +23,7 @@ interface AdminRecipeCardProps {
   handleDrop: (e: React.DragEvent<HTMLDivElement>, index: number) => void
 }
 
-const AdminRecipeCard: React.FC<RecipeCardProps> = ({
+const AdminRecipeCard: React.FC<AdminRecipeCardProps> = ({
   recipe,
   index,
   updateData,
