@@ -12,8 +12,16 @@ import { getSettingsByUserId } from "@/db/settings"
 import { createClient } from "@/lib/supabase/client"
 import { Tables } from "@/supabase/types"
 import { Dashboard } from "@/components/ui/dashboard"
-import { RecipeCard } from "@/components/recipe/recipe-card"
 
+const convertTime = (totalMinutes: number) => {
+  const hours = Math.floor(totalMinutes / 60)
+  const minutes = totalMinutes % 60
+  if (hours > 0) {
+    return `${hours} hr ${minutes} min`
+  } else {
+    return `${minutes} min`
+  }
+}
 export default function SearchPage() {
   const { generatedRecipes, isGenerating, setSettings } =
     useContext(FitpalAIContext)
@@ -74,7 +82,18 @@ export default function SearchPage() {
         {recipes.map(recipe => (
           <div key={recipe.id} onClick={() => openDrawer(recipe.id)}>
             <MealDrawer recipe={recipe} isOpen={isOpen}>
-              <RecipeCard recipe={recipe}/>
+              <div className="flex w-48 flex-col">
+                {recipe.imgurl ? (
+                  <img
+                    src={`${recipe.imgurl}`}
+                    className="border-1 mb-2 h-48 w-full rounded-lg border-input object-cover"
+                    alt={recipe.name || "Recipe Image"}
+                  />
+                ) : (
+                  <div className="border-1 mb-2 h-48 rounded-lg border-input bg-input p-2 py-10 text-black"></div>
+                )}
+                <p className="text-md w-full text-left">{recipe.name}</p>
+              </div>{" "}
             </MealDrawer>
           </div>
         ))}
