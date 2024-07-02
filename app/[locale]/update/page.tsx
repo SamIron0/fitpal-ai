@@ -154,7 +154,7 @@ export default function Update() {
   const deleteRecipe = async (index: number) => {
     const recipe = recipes[index]
     try {
-      const response = await fetch("api/deleteRecipe", {
+      const response = await fetch("api/recipe/delete_recipe", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
