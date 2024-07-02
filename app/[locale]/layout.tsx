@@ -94,6 +94,7 @@ export default async function RootLayout({
         <meta name="application-name" content={APP_NAME} />
         <meta name="apple-mobile-web-app-title" content={APP_DEFAULT_TITLE} />
         <meta name="theme-color" content={"#000000"} />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
 
         <script
           async
