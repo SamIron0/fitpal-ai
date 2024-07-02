@@ -5,29 +5,23 @@ import { IconPlayerStopFilled, IconSend } from "@tabler/icons-react"
 import { FC, useContext, useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { createClient } from "@/lib/supabase/client"
-import { useSearchParams, useRouter } from "next/navigation"
+import { useRouter } from "next/navigation"
 import { LoginDrawer } from "../login/login-drawer"
 import { v4 as uuidv4 } from "uuid"
-
+import { useParams } from "next/navigation"
 interface SearchInputProps {}
 
 export const SearchInput: FC<SearchInputProps> = ({}: SearchInputProps) => {
   const supabase = createClient()
+  const params = useParams()
   const router = useRouter()
-  const searchParams = useSearchParams()
   const [session, setSession] = useState<any>(null)
   const [input, setInput] = useState<string>("")
   const chatInputRef = useRef<HTMLInputElement>(null)
   const { t } = useTranslation()
   const [isTyping, setIsTyping] = useState<boolean>(false)
-  const {
-    userInput,
-    isGenerating,
-    setIsGenerating,
-    setUserInput,
-    setGeneratedRecipes,
-    settings
-  } = useContext(FitpalAIContext)
+  const { isGenerating, setIsGenerating, setGeneratedRecipes, settings } =
+    useContext(FitpalAIContext)
 
   useEffect(() => {
     async function getSession() {
@@ -46,13 +40,13 @@ export const SearchInput: FC<SearchInputProps> = ({}: SearchInputProps) => {
   }, [])
 
   useEffect(() => {
-    const query = searchParams.get("q")
-    if (query) {
+    if (params.query) {
+      // if type of params is string then set else set input to params[0]
+      const query = typeof params.query === "string" ? params.query : params.query[0]
       setInput(query)
-      setUserInput(query)
       generateMeals(query)
     }
-  }, [searchParams])
+  }, [params])
 
   useEffect(() => {
     const inputElement = chatInputRef.current
@@ -74,7 +68,7 @@ export const SearchInput: FC<SearchInputProps> = ({}: SearchInputProps) => {
     }
   }
 
-  const generateMeals = async (queryInput: string = userInput) => {
+  const generateMeals = async (queryInput: string = input) => {
     setIsGenerating(true)
     const recipes = await fetch(
       "https://www.fitpalai.com/api/recipe/get_recipes",
@@ -97,12 +91,10 @@ export const SearchInput: FC<SearchInputProps> = ({}: SearchInputProps) => {
 
   const handleInputChange = (event: any) => {
     setInput(event.target.value)
-    setUserInput(event.target.value)
   }
 
   const handleSuggestionClick = (caption: string) => () => {
     setInput(caption)
-    setUserInput(caption)
   }
 
   function SuggestionPill({ icon, caption }: any) {
