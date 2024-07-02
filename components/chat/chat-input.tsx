@@ -138,7 +138,7 @@ export const ChatInput: FC<ChatInputProps> = ({}: ChatInputProps) => {
               size={30}
             />
           ) : (
-            <LoginDrawer>
+            <LoginDrawer input={input}>
               {" "}
               <IconSend
                 className={cn("rounded bg-primary p-1 text-secondary")}

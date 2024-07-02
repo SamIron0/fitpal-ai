@@ -17,12 +17,19 @@ import { Input } from "../ui/input"
 import { SubmitButton } from "../ui/submit-button"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
-
+import { supabase } from "@/lib/supabase/browser-client"
+import { useEffect } from "react"
+import { v4 as uuidv4 } from "uuid"
 interface LoginDrawerProps {
+  input?: string
   children?: React.ReactNode
   searchParams?: { message: string }
 }
-export const LoginDrawer = ({ children, searchParams }: LoginDrawerProps) => {
+export const LoginDrawer = ({
+  input,
+  children,
+  searchParams
+}: LoginDrawerProps) => {
   const router = useRouter()
   const signIn = async (formData: FormData) => {
     const res = await fetch("/api/login", {
@@ -74,7 +81,16 @@ export const LoginDrawer = ({ children, searchParams }: LoginDrawerProps) => {
     }
   }
   const handleResetPassword = async (formData: FormData) => {}
-
+  useEffect(() => {
+    try {
+      const res = supabase.from("search_button_clicks").insert({
+        id: uuidv4(),
+        query: input || ""
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  },[])
   return (
     <>
       <Drawer>
