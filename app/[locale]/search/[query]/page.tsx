@@ -1,3 +1,3 @@
-export default function Page({ params }: { params: { slug: string } }) {
-  return <div>My Post: {params.slug}</div>
+export default function Page({ params }: { params: { query: string } }) {
+  return <div>My Post: {params.query}</div>
 }

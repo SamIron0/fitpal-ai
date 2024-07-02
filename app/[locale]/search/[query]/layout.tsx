@@ -4,4 +4,6 @@ interface ResultLayoutProps {
   children: ReactNode
 }
 
-export default function ResultLayout({ children }: ResultLayoutProps) {}
+export default function ResultLayout({ children }: ResultLayoutProps) {
+  return <>{children}</>
+}
