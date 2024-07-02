@@ -64,12 +64,12 @@ export const SearchInput: FC<SearchInputProps> = ({}: SearchInputProps) => {
         inputElement.removeEventListener("keydown", handleKeyDown)
       }
     }
-  }, [userInput])
+  }, [input])
 
   const handleKeyDown = (event: any) => {
     if (event.key === "Enter") {
-      if (userInput) {
-        generateMeals(userInput)
+      if (input) {
+        generateMeals(input)
       }
     }
   }
@@ -161,11 +161,11 @@ export const SearchInput: FC<SearchInputProps> = ({}: SearchInputProps) => {
                 !input ? "cursor-not-allowed opacity-50" : ""
               )}
               onClick={() => {
-                if (!userInput) {
+                if (!input) {
                   return
                 }
                 generateMeals()
-                updateURL(userInput)
+                updateURL(input)
               }}
               size={30}
             />
