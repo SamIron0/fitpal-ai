@@ -1,21 +1,22 @@
 "use client"
 import Head from "next/head"
+import { useContext, useState } from "react"
+import { useRouter } from "next/navigation"
+import { useTheme } from "next-themes"
+import { Clock, Search } from "lucide-react"
+
 import { Brand } from "./ui/brand"
 import { Tables } from "@/supabase/types"
-import { useContext, useState } from "react"
 import { createClient } from "@/lib/supabase/client"
-import { useTheme } from "next-themes"
 import { FitpalAIContext } from "@/context/context"
-import { useRouter } from "next/navigation"
 import { SearchInput } from "./search/search-input"
 import { MealDrawer } from "./meal/meal-drawer"
-import { Clock } from "lucide-react"
 import { convertTime } from "@/utils/helpers"
-import { Search } from "lucide-react"
 
 interface SearchPageProps {
   for_you: Tables<"recipes">[]
 }
+
 const SearchPage = ({ for_you }: SearchPageProps) => {
   const { generatedRecipes, isGenerating, setSettings } =
     useContext(FitpalAIContext)
@@ -23,34 +24,32 @@ const SearchPage = ({ for_you }: SearchPageProps) => {
   const { theme } = useTheme()
   const [isOpen, setIsOpen] = useState<string>("0")
   const [noresults, setNoResults] = useState(false)
+
   const openDrawer = (id: string) => {
     setIsOpen(id)
   }
 
-  const renderSkeleton = () => {
-    return Array.from({ length: 8 }, (_, n) => (
+  const renderSkeleton = () =>
+    Array.from({ length: 8 }, (_, n) => (
       <div
         key={n}
         className="border-1 size-48 rounded-lg border-zinc-300 bg-input p-2 py-10 text-black"
       ></div>
     ))
-  }
 
-  const NoResultsFound = () => {
-    return (
-      <div className="flex  max-w-4xl py-28 flex-col items-center justify-center w-full text-zinc-100">
-        <Search size={64} className="text-zinc-400 mb-4" />
-        <h2 className="text-2xl font-bold mb-2">No Results Found</h2>
-        <p className="text-center mb-4">
-          We couldn&apos;t find any recipes matching your search.
-        </p>
-        <p className="text-center text-sm text-zinc-400">
-          Try adjusting your search terms or browse our categories for
-          inspiration.
-        </p>
-      </div>
-    )
-  }
+  const NoResultsFound = () => (
+    <div className="flex max-w-4xl py-28 flex-col items-center justify-center w-full text-zinc-100">
+      <Search size={64} className="text-zinc-400 mb-4" />
+      <h2 className="text-2xl font-bold mb-2">No Results Found</h2>
+      <p className="text-center mb-4">
+        We couldn&apos;t find any recipes matching your search.
+      </p>
+      <p className="text-center text-sm text-zinc-400">
+        Try adjusting your search terms or browse our categories for
+        inspiration.
+      </p>
+    </div>
+  )
 
   const renderRecipes = (recipes: Tables<"recipes">[], title: string) => (
     <div className="w-full max-w-4xl py-28">
@@ -75,7 +74,7 @@ const SearchPage = ({ for_you }: SearchPageProps) => {
                 <p className="text-md w-full text-left">{recipe.name}</p>
                 <div className="flex w-full text-xs font-light mt-1 items-center text-zinc-400">
                   <Clock className="w-4 h-4 mr-2" />
-                  <p className="  text-left">
+                  <p className="text-left">
                     {convertTime(recipe.total_time as unknown as number)}
                   </p>
                 </div>
@@ -114,7 +113,7 @@ const SearchPage = ({ for_you }: SearchPageProps) => {
           </div>
         </div>
       ) : noresults ? (
-        <>{NoResultsFound}</>
+        <>{NoResultsFound()}</>
       ) : generatedRecipes.length > 0 ? (
         renderRecipes(generatedRecipes, "Best Results")
       ) : (
@@ -137,4 +136,5 @@ const SearchPage = ({ for_you }: SearchPageProps) => {
     </div>
   )
 }
+
 export default SearchPage
