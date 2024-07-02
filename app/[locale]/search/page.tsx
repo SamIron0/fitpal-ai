@@ -13,6 +13,7 @@ export default async function Search() {
   } = await supabase.auth.getSession()
   let forYou: Tables<"recipes">[] = []
 
+  
   if (session) {
     forYou = await getForYou(session?.user.id)
   } else {
