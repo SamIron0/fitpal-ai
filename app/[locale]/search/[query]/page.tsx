@@ -27,23 +27,10 @@ export default async function ResultPage({ params }: { params: { query: string }
     })
   }).then(data => data.json())
 
-  const [responseData] = await Promise.all([herokuPromise])
-  const recipeIds = responseData.result
-
-  // Fetch recipes in parallel
-  const recipePromises = recipeIds?.map((recipeId: string) =>
-    getRecipeById(recipeId)
-  )
-  const recipes = await Promise.all(recipePromises)
-
+    console.log('heroku',herokuPromise)
   return (
     <div>
       hi
-      {recipes?.map((recipe: any) => (
-        <div key={recipe.id}>
-          <h1>{recipe.title}</h1>
-          <p>{recipe.description}</p>
-        </div>
-      ))}
+     
     </div>
   )}
