@@ -5,7 +5,7 @@ import { IconPlayerStopFilled, IconSend } from "@tabler/icons-react"
 import { FC, useContext, useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { createClient } from "@/lib/supabase/client"
-import { useRouter } from "next/router"
+import { useSearchParams, useRouter } from "next/navigation"
 import { LoginDrawer } from "../login/login-drawer"
 import { v4 as uuidv4 } from "uuid"
 
@@ -14,6 +14,7 @@ interface SearchInputProps {}
 export const SearchInput: FC<SearchInputProps> = ({}: SearchInputProps) => {
   const supabase = createClient()
   const router = useRouter()
+  const searchParams = useSearchParams()
   const [session, setSession] = useState<any>(null)
   const [input, setInput] = useState<string>("")
   const chatInputRef = useRef<HTMLInputElement>(null)
@@ -38,7 +39,6 @@ export const SearchInput: FC<SearchInputProps> = ({}: SearchInputProps) => {
         console.error("Error getting session:", error)
       } else {
         setSession(session)
-        // Do something with the session
       }
     }
 
@@ -46,13 +46,13 @@ export const SearchInput: FC<SearchInputProps> = ({}: SearchInputProps) => {
   }, [])
 
   useEffect(() => {
-    if (router.query.q) {
-      const queryInput = router.query.q as string
-      setInput(queryInput)
-      setUserInput(queryInput)
-      generateMeals(queryInput)
+    const query = searchParams.get("q")
+    if (query) {
+      setInput(query)
+      setUserInput(query)
+      generateMeals(query)
     }
-  }, [router.query.q])
+  }, [searchParams])
 
   useEffect(() => {
     const inputElement = chatInputRef.current
@@ -130,6 +130,10 @@ export const SearchInput: FC<SearchInputProps> = ({}: SearchInputProps) => {
     }
   }
 
+  const updateURL = (query: string) => {
+    router.push(`/?q=${query}`)
+  }
+
   return (
     <>
       <div className="relative mt-3 flex min-h-[60px] w-full items-center justify-center rounded-xl border-2 border-input">
@@ -161,7 +165,7 @@ export const SearchInput: FC<SearchInputProps> = ({}: SearchInputProps) => {
                   return
                 }
                 generateMeals()
-                router.push(`/?q=${userInput}`, undefined, { shallow: true })
+                updateURL(userInput)
               }}
               size={30}
             />
@@ -170,7 +174,7 @@ export const SearchInput: FC<SearchInputProps> = ({}: SearchInputProps) => {
               <IconSend
                 onClick={() => {
                   registerClick()
-                  router.push(`/?q=${input}`, undefined, { shallow: true })
+                  updateURL(input)
                 }}
                 className={cn("rounded bg-primary p-1 text-secondary")}
                 size={30}
