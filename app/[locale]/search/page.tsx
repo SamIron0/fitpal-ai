@@ -24,7 +24,7 @@ export default async function Search() {
       <Head>
         <meta
           name="description"
-          content="Find curated recipes by entering your ingredients into our AI-powered search engine. You can now search deeper into the recipes beyond just ingredients."
+          content="Find curated recipes by entering your ingredients into our AI-powered search engine. You can now search deeper into recipes beyond just ingredients."
         />
         <meta
           name="keywords"
@@ -36,7 +36,7 @@ export default async function Search() {
         />
         <meta
           property="og:description"
-          content="Find curated recipes by entering your ingredients into our AI-powered search engine. You can now search deeper into the recipes beyond just ingredients."
+          content="Find curated recipes by entering your ingredients into our AI-powered search engine. You can now search deeper into recipes beyond just ingredients."
         />
         <meta property="og:url" content="https://fitpalai.com/search" />
         <meta property="og:type" content="website" />
@@ -46,7 +46,7 @@ export default async function Search() {
         />
         <meta
           name="twitter:description"
-          content="Find curated recipes by entering your ingredients into our AI-powered search engine. You can now search deeper into the recipes beyond just ingredients."
+          content="Find curated recipes by entering your ingredients into our AI-powered search engine. You can now search deeper into recipes beyond just ingredients."
         />
       </Head>
 

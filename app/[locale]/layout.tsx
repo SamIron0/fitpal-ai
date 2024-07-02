@@ -18,7 +18,8 @@ const inter = Inter({ subsets: ["latin"] })
 const APP_NAME = "Fitpal AI"
 const APP_DEFAULT_TITLE = "Fitpal AI"
 const APP_TITLE_TEMPLATE = "%s - Fitpal AI"
-const APP_DESCRIPTION = "Fitpal AI!"
+const APP_DESCRIPTION =
+  "Find curated recipes by entering your ingredients into our AI-powered search engine. You can now search deeper into the recipes beyond just ingredients."
 
 interface RootLayoutProps {
   children: ReactNode
@@ -88,6 +89,12 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <title>{APP_DEFAULT_TITLE}</title>
+        <meta name="description" content={APP_DESCRIPTION} />
+        <meta name="application-name" content={APP_NAME} />
+        <meta name="apple-mobile-web-app-title" content={APP_DEFAULT_TITLE} />
+        <meta name="theme-color" content={"#000000"} />
+
         <script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-DM7XC7YDQT"
