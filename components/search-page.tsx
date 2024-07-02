@@ -38,7 +38,7 @@ const SearchPage = ({ for_you }: SearchPageProps) => {
 
   const NoResultsFound = () => {
     return (
-      <div className="flex flex-col items-center justify-center w-full text-zinc-100">
+      <div className="flex  max-w-4xl py-28 flex-col items-center justify-center w-full text-zinc-100">
         <Search size={64} className="text-zinc-400 mb-4" />
         <h2 className="text-2xl font-bold mb-2">No Results Found</h2>
         <p className="text-center mb-4">
