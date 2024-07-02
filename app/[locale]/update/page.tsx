@@ -11,6 +11,7 @@ export default function Update() {
   const router = useRouter()
   const [recipes, setRecipes] = useState<TablesInsert<"recipes">[]>([])
   const [url, setUrl] = useState<string>("")
+
   useEffect(() => {
     const get_recipes = async () => {
       try {
@@ -88,6 +89,7 @@ export default function Update() {
     const data = await res.json()
     return data.secure_url // URL of the uploaded image
   }
+
   const handleSave = async () => {
     console.log("updating: ", recipes[0])
     const id = toast.loading("Updating...")
@@ -138,6 +140,7 @@ export default function Update() {
       toast.error("Error saving recipes")
     }
   }
+
   const updateData = <K extends keyof TablesInsert<"recipes">>(
     index: number,
     key: K,
@@ -146,6 +149,26 @@ export default function Update() {
     const newRecipes = [...recipes]
     newRecipes[index][key] = value
     setRecipes(newRecipes)
+  }
+
+  const deleteRecipe = async (index: number) => {
+    const recipe = recipes[index]
+    try {
+      const response = await fetch("api/deleteRecipe", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ recipe })
+      })
+      if (response.ok) {
+        setRecipes(prevRecipes => prevRecipes.filter((_, i) => i !== index))
+      } else {
+        console.error("Failed to delete recipe")
+      }
+    } catch (error) {
+      console.error("Error:", error)
+    }
   }
 
   return (
@@ -205,7 +228,7 @@ export default function Update() {
           {recipes?.map((recipe, index) => (
             <div
               key={index}
-              className="rounded-md bg-black p-4 text-card-foreground shadow"
+              className="relative rounded-md bg-black p-4 text-card-foreground shadow"
               onDrop={e => handleDrop(e, index)}
               onDragOver={e => e.preventDefault()}
             >
@@ -217,7 +240,25 @@ export default function Update() {
                   className="w-2/3 rounded bg-input p-1 text-foreground"
                   placeholder="Name"
                 />
-
+                <button
+                  onClick={() => deleteRecipe(index)}
+                  className="absolute top-2 right-2 p-1 text-red-600 hover:text-red-800"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="size-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -234,7 +275,7 @@ export default function Update() {
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                    d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
                   />
                 </svg>
               </div>

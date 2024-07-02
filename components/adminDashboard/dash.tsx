@@ -195,6 +195,11 @@ export default function Dash() {
     setRecipes(newRecipes)
   }
 
+  const deleteRecipe = (index: number) => {
+    const newRecipes = recipes.filter((_, i) => i !== index)
+    setRecipes(newRecipes)
+  }
+
   return (
     <div className="min-h-screen w-full bg-background p-8 text-foreground">
       <div className="mx-auto max-w-4xl">
@@ -252,7 +257,7 @@ export default function Dash() {
           {recipes.map((recipe, index) => (
             <div
               key={index}
-              className="rounded-md bg-black p-4 text-card-foreground shadow"
+              className="relative rounded-md bg-black p-4 text-card-foreground shadow"
               onDrop={e => handleDrop(e, index)}
               onDragOver={e => e.preventDefault()}
             >
@@ -264,7 +269,25 @@ export default function Dash() {
                   className="w-2/3 rounded bg-input p-1 text-foreground"
                   placeholder="Name"
                 />
-
+                <button
+                  onClick={() => deleteRecipe(index)}
+                  className="absolute top-2 right-2 p-1 text-red-600 hover:text-red-800"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="size-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
