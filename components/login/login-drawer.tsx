@@ -17,12 +17,16 @@ import { Input } from "../ui/input"
 import { SubmitButton } from "../ui/submit-button"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
-
 interface LoginDrawerProps {
+  input?: string
   children?: React.ReactNode
   searchParams?: { message: string }
 }
-export const LoginDrawer = ({ children, searchParams }: LoginDrawerProps) => {
+export const LoginDrawer = ({
+  input,
+  children,
+  searchParams
+}: LoginDrawerProps) => {
   const router = useRouter()
   const signIn = async (formData: FormData) => {
     const res = await fetch("/api/login", {
@@ -78,7 +82,7 @@ export const LoginDrawer = ({ children, searchParams }: LoginDrawerProps) => {
   return (
     <>
       <Drawer>
-        <DrawerTrigger className="focus:outline-none  ">
+        <DrawerTrigger  className="focus:outline-none  ">
           {" "}
           {children}
         </DrawerTrigger>

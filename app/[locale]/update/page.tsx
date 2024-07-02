@@ -5,7 +5,7 @@ import { toast } from "sonner"
 import { useRouter } from "next/navigation"
 import { createClient } from "@/lib/supabase/client"
 import { TablesInsert } from "@/supabase/types"
-import RecipeCard from "@/components/RecipeCard"
+import AdminRecipeCard from "@/components/recipe/admin-recipe-card"
 export default function Update() {
   const supabase = createClient()
   const router = useRouter()
@@ -227,7 +227,7 @@ export default function Update() {
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {recipes?.map((recipe, index) => (
-            <RecipeCard
+            <AdminRecipeCard
               key={index}
               recipe={recipe}
               index={index}

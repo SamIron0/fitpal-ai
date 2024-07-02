@@ -99,6 +99,20 @@ export type Database = {
           }
         ]
       }
+      search_button_clicks: {
+        Row: {
+          id: string
+          query: string
+        }
+        Insert: {
+          id: string
+          query: string
+        }
+        Update: {
+          id?: string
+          query?: string
+        }
+      }
       recipes: {
         Row: {
           id: string

@@ -5,13 +5,14 @@ import { useRouter } from "next/navigation"
 import { useTheme } from "next-themes"
 import Head from "next/head"
 import { ChatInput } from "@/components/chat/chat-input"
-import { MealDrawer } from "@/components/meal/meal-drawer"
+import { RecipeDrawer } from "@/components/recipe/recipe-drawer"
 import { Brand } from "@/components/ui/brand"
 import { FitpalAIContext } from "@/context/context"
 import { getSettingsByUserId } from "@/db/settings"
 import { createClient } from "@/lib/supabase/client"
 import { Tables } from "@/supabase/types"
 import { Dashboard } from "@/components/ui/dashboard"
+import { RecipeCard } from "@/components/recipe/recipe-card"
 
 export default function SearchPage() {
   const { generatedRecipes, isGenerating, setSettings } =
@@ -72,20 +73,9 @@ export default function SearchPage() {
       >
         {recipes.map(recipe => (
           <div key={recipe.id} onClick={() => openDrawer(recipe.id)}>
-            <MealDrawer recipe={recipe} isOpen={isOpen}>
-              <div className="flex w-48 flex-col">
-                {recipe.imgurl ? (
-                  <img
-                    src={`${recipe.imgurl}`}
-                    className="border-1 mb-2 h-48 w-full rounded-lg border-input object-cover"
-                    alt={recipe.name || "Recipe Image"}
-                  />
-                ) : (
-                  <div className="border-1 mb-2 h-48 rounded-lg border-input bg-input p-2 py-10 text-black"></div>
-                )}
-                <p className="text-md w-full text-left">{recipe.name}</p>
-              </div>
-            </MealDrawer>
+            <RecipeDrawer recipe={recipe} isOpen={isOpen}>
+              <RecipeCard recipe={recipe} />
+            </RecipeDrawer>
           </div>
         ))}
       </div>
@@ -98,7 +88,7 @@ export default function SearchPage() {
         <title>FitpalAI | Find Recipes from Ingredients</title>
         <meta
           name="description"
-          content="Discover delicious recipes from ingredients you have. Just enter what you have, and get personalized recipe suggestions."
+          content="Find curated recipes by entering your ingredients into our AI-powered search engine. You can now search deeper into the recipes beyond just ingredients."
         />
         <meta
           name="keywords"
@@ -110,7 +100,7 @@ export default function SearchPage() {
         />
         <meta
           property="og:description"
-          content="Discover delicious recipes from ingredients you have. Just enter what you have, and get personalized recipe suggestions."
+          content="Find curated recipes by entering your ingredients into our AI-powered search engine. You can now search deeper into the recipes beyond just ingredients."
         />
         <meta property="og:url" content="https://fitpalai.com/search" />
         <meta property="og:type" content="website" />
@@ -120,7 +110,7 @@ export default function SearchPage() {
         />
         <meta
           name="twitter:description"
-          content="Discover delicious recipes from ingredients you have. Just enter what you have, and get personalized recipe suggestions."
+          content="Find curated recipes by entering your ingredients into our AI-powered search engine. You can now search deeper into the recipes beyond just ingredients."
         />
       </Head>
       <div className="hide-scrollbar relative flex size-full flex-col items-center overflow-y-auto px-4 sm:px-6">
@@ -132,9 +122,9 @@ export default function SearchPage() {
             Find Recipes from Ingredients You Have
           </h1>
           <p className="visually-hidden">
-            Welcome to FitpalAI! Enter the ingredients you have, and we will help
-            you find delicious recipes in no time. Whether you have chicken,
-            pasta, or veggies, we have got you covered.
+            Welcome to FitpalAI! Enter the ingredients you have, and we will
+            help you find delicious recipes in no time. Whether you have
+            chicken, pasta, or veggies, we have got you covered.
           </p>
           <ChatInput />
         </div>

@@ -6,6 +6,8 @@ import { FC, useContext, useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { createClient } from "@/lib/supabase/client"
 import { LoginDrawer } from "../login/login-drawer"
+import { v4 as uuidv4 } from "uuid"
+
 interface ChatInputProps {}
 
 export const ChatInput: FC<ChatInputProps> = ({}: ChatInputProps) => {
@@ -103,6 +105,18 @@ export const ChatInput: FC<ChatInputProps> = ({}: ChatInputProps) => {
       </button>
     )
   }
+  const registerClick = async () => {
+    // TODO: Implement
+    console.log("setting click", input)
+    try {
+      const res = await supabase.from("search_button_clicks").insert({
+        id: uuidv4(),
+        query: input || ""
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }
   return (
     <>
       <div className="relative mt-3 flex min-h-[60px] w-full items-center justify-center rounded-xl border-2 border-input">
@@ -141,6 +155,9 @@ export const ChatInput: FC<ChatInputProps> = ({}: ChatInputProps) => {
             <LoginDrawer>
               {" "}
               <IconSend
+                onClick={() => {
+                  registerClick()
+                }}
                 className={cn("rounded bg-primary p-1 text-secondary")}
                 size={30}
               />
