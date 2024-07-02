@@ -11,6 +11,7 @@ import { SearchInput } from "./search/search-input"
 import { MealDrawer } from "./meal/meal-drawer"
 import { Clock } from "lucide-react"
 import { convertTime } from "@/utils/helpers"
+import { Search } from "lucide-react"
 
 interface SearchPageProps {
   for_you: Tables<"recipes">[]
@@ -33,6 +34,22 @@ const SearchPage = ({ for_you }: SearchPageProps) => {
         className="border-1 size-48 rounded-lg border-zinc-300 bg-input p-2 py-10 text-black"
       ></div>
     ))
+  }
+
+  const NoResultsFound = () => {
+    return (
+      <div className="flex flex-col items-center justify-center h-screen bg-zinc-800 text-zinc-100">
+        <Search size={64} className="text-zinc-400 mb-4" />
+        <h2 className="text-2xl font-bold mb-2">No Results Found</h2>
+        <p className="text-center mb-4">
+          We couldn't find any recipes matching your search.
+        </p>
+        <p className="text-center text-sm text-zinc-400">
+          Try adjusting your search terms or browse our categories for
+          inspiration.
+        </p>
+      </div>
+    )
   }
 
   const renderRecipes = (recipes: Tables<"recipes">[], title: string) => (
