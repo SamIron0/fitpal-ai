@@ -12,7 +12,7 @@ export default async function ResultPage({ params }: { params: { query: string }
   if (session) {
     let settings = await getSettingsById(session.data.session?.user.id as string)
   }
-  const herokuPromise = fetch("https://fitpal-search.onrender.com/search", {
+  const herokuPromise = await fetch("https://fitpal-search.onrender.com/search", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
