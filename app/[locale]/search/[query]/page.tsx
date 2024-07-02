@@ -1,3 +1,4 @@
+import { getRecipeById } from "@/db/admin"
 import { getSettingsById } from "@/db/settings"
 import { createClient } from "@/lib/supabase/server"
 import { Tables } from "@/supabase/types"
@@ -10,23 +11,34 @@ export default async function ResultPage({ params }: { params: { query: string }
   if (session) {
     let settings = await getSettingsById(session.data.session?.user.id as string)
   }
-
-  const res = await fetch(
-    "https://www.fitpalai.com/api/recipe/get_recipes",
-    {
+  const herokuPromise = fetch("https://fitpal-search.onrender.com/search", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
       method: "POST",
       body: JSON.stringify({
         input: params.query,
         diet: settings?.diet || ['Anything'],
         allergy: settings?.allergies || ['None'],
       })
-    }
-  )
+    })
+  }).then(data => data.json())
 
-  if (!res.ok) {
-    console.error("Error retrieving:", res)
+  const [responseData] = await Promise.all([herokuPromise])
+  const recipeIds = responseData.result
+
+  if (!recipeIds) {
+    return new Response(JSON.stringify({ error: "None" }))
   }
-  const recipes = await res.json()
+
+  // Fetch recipes in parallel
+  const recipePromises = recipeIds.map((recipeId: string) =>
+    getRecipeById(recipeId)
+  )
+  const recipes = await Promise.all(recipePromises)
+
   return (
     <div>
       {recipes.map((recipe: any) => (
