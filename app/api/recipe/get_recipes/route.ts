@@ -18,12 +18,14 @@ export async function POST(request: Request) {
     const cookieStore = cookies()
     const supabase = createClient(cookieStore)
 
-    const uid = (await supabase.auth.getSession()).data.session?.user.id
+    let uid = (await supabase.auth.getSession()).data.session?.user.id
     // Save user query
+    /*
+     */
     if (!uid) {
-      return new Response(JSON.stringify({ error: "None" }))
+      //return new Response(JSON.stringify({ error: "None" }))
+      uid = "000"
     }
-
     // Run save_query and Heroku call in parallel
     const saveQueryPromise = save_query(uid, input)
     const herokuPromise = fetch("https://fitpal-search.onrender.com/search", {

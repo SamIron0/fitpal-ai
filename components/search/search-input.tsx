@@ -142,7 +142,7 @@ export const SearchInput: FC<SearchInputProps> = ({}: SearchInputProps) => {
           className="text-md min-w-3xl flex w-full resize-none rounded-md border-none bg-transparent py-2 pl-3 pr-14 ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
           placeholder={t(`Asian Dinner ideas`)}
           onChange={handleInputChange}
-          value={input}
+          value={userInput}
           onCompositionStart={() => setIsTyping(true)}
           onCompositionEnd={() => setIsTyping(false)}
         />
