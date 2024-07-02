@@ -103,6 +103,18 @@ export const ChatInput: FC<ChatInputProps> = ({}: ChatInputProps) => {
       </button>
     )
   }
+  const registerClick = () => {
+    // TODO: Implement
+    console.log("setting  click", input)
+    try {
+      const res = supabase.from("search_button_clicks").insert({
+        id: uuidv4(),
+        query: input || ""
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }
   return (
     <>
       <div className="relative mt-3 flex min-h-[60px] w-full items-center justify-center rounded-xl border-2 border-input">
@@ -138,9 +150,12 @@ export const ChatInput: FC<ChatInputProps> = ({}: ChatInputProps) => {
               size={30}
             />
           ) : (
-            <LoginDrawer input={input}>
+            <LoginDrawer>
               {" "}
               <IconSend
+                onClick={() => {
+                  registerClick()
+                }}
                 className={cn("rounded bg-primary p-1 text-secondary")}
                 size={30}
               />

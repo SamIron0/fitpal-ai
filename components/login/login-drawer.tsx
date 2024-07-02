@@ -81,21 +81,11 @@ export const LoginDrawer = ({
     }
   }
   const handleResetPassword = async (formData: FormData) => {}
-  useEffect(() => {
-    console.log("setting  click", input)
-    try {
-      const res = supabase.from("search_button_clicks").insert({
-        id: uuidv4(),
-        query: input || ""
-      })
-    } catch (error) {
-      console.error(error)
-    }
-  }, [])
+
   return (
     <>
       <Drawer>
-        <DrawerTrigger className="focus:outline-none  ">
+        <DrawerTrigger  className="focus:outline-none  ">
           {" "}
           {children}
         </DrawerTrigger>
