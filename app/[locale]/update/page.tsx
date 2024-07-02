@@ -180,7 +180,7 @@ export default function Update() {
             type="text"
             value={url}
             onChange={e => setUrl(e.target.value)}
-            placeholder="URL"
+            placeholder="Search for a recipe"
             className="max-w-2xl grow rounded-l-md border-r border-border bg-input p-2 text-foreground focus:outline-none"
           />
           <button

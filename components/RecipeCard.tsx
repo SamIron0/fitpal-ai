@@ -73,7 +73,6 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
           <AlertDialog>
             <AlertDialogTrigger>
               <button
-                onClick={() => deleteRecipe(index)}
                 className="rounded-full bg-red-100 p-1 text-red-600 hover:bg-red-200"
                 title="Delete Recipe"
               >
