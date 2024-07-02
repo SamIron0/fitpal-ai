@@ -6,10 +6,145 @@ import { useRouter } from "next/navigation"
 import { createClient } from "@/lib/supabase/client"
 import { TablesInsert } from "@/supabase/types"
 
-interface Recipe {
-  name: string
-  total_time: string
-  imgurl: string | File // Changed to accept File type for images
+interface RecipeCardProps {
+  recipe: TablesInsert<"recipes">
+  index: number
+  updateData: <K extends keyof TablesInsert<"recipes">>(
+    index: number,
+    key: K,
+    value: TablesInsert<"recipes">[K]
+  ) => void
+  deleteRecipe: (index: number) => void
+  handleDrop: (e: React.DragEvent<HTMLDivElement>, index: number) => void
+}
+
+const RecipeCard: React.FC<RecipeCardProps> = ({
+  recipe,
+  index,
+  updateData,
+  deleteRecipe,
+  handleDrop
+}) => {
+  return (
+    <div
+      className="relative rounded-lg bg-card p-4 shadow-md transition-all hover:shadow-lg"
+      onDrop={e => handleDrop(e, index)}
+      onDragOver={e => e.preventDefault()}
+    >
+      <div className="mb-3 flex items-center justify-between">
+        <input
+          type="text"
+          value={recipe.name || ""}
+          onChange={e => updateData(index, "name", e.target.value)}
+          className="w-full rounded bg-input p-2 text-lg font-semibold text-foreground"
+          placeholder="Recipe Name"
+        />
+        <div className="ml-2 flex items-center space-x-2">
+          <button
+            onClick={() => deleteRecipe(index)}
+            className="rounded-full bg-red-100 p-1 text-red-600 hover:bg-red-200"
+            title="Delete Recipe"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="h-5 w-5"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+          <div
+            className="rounded-full bg-gray-100 p-1"
+            title={
+              recipe.imgurl && recipe.total_time ? "Complete" : "Incomplete"
+            }
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className={`h-5 w-5 ${
+                recipe.imgurl && recipe.total_time
+                  ? "text-green-500"
+                  : "text-orange-500"
+              }`}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div className="mb-2 flex items-center space-x-2">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="h-5 w-5 text-gray-500"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
+        </svg>
+        <input
+          type="text"
+          value={recipe.total_time || ""}
+          onChange={e => updateData(index, "total_time", e.target.value)}
+          className="w-full rounded bg-input p-2 text-foreground"
+          placeholder="Total Time"
+        />
+      </div>
+
+      <div className="flex items-center space-x-2">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="h-5 w-5 text-gray-500"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244"
+          />
+        </svg>
+        <input
+          type="text"
+          value={recipe.url || ""}
+          onChange={e => updateData(index, "url", e.target.value)}
+          className="w-full rounded bg-input p-2 text-foreground"
+          placeholder="Recipe URL"
+        />
+      </div>
+
+      {typeof recipe.imgurl === "string" && (
+        <img
+          src={recipe.imgurl}
+          alt="Recipe"
+          className="mt-4 h-auto w-full rounded-md object-cover shadow-md"
+        />
+      )}
+    </div>
+  )
 }
 
 export default function Dash() {
@@ -97,7 +232,6 @@ export default function Dash() {
       toast.dismiss(toastId)
       toast.error("Error scraping recipes")
     }
-    return
   }
 
   const handleDrop = async (e: DragEvent<HTMLDivElement>, index: number) => {
@@ -112,11 +246,9 @@ export default function Dash() {
       setRecipes(newRecipes)
       console.log("Updated recipes:", newRecipes[0])
     }
-    return
   }
 
   const uploadToCloudinary = async (file: File) => {
-    //console.log(process.env.CLOUDINARY_CLOUD_NAME)
     const url = `https://api.cloudinary.com/v1_1/ddhg7gunr/image/upload`
     const formData = new FormData()
 
@@ -133,8 +265,9 @@ export default function Dash() {
     }
 
     const data = await res.json()
-    return data.secure_url // URL of the uploaded image
+    return data.secure_url
   }
+
   const handleSave = async () => {
     console.log("saving: ", recipes[0])
     const id = toast.loading("Saving")
@@ -144,7 +277,7 @@ export default function Dash() {
           if (recipe.imgurl instanceof File) {
             try {
               const url = await uploadToCloudinary(recipe.imgurl)
-              recipe.imgurl = url // Replace File object with Cloudinary URL
+              recipe.imgurl = url
             } catch (error) {
               toast.dismiss(id)
               console.error("Error uploading file:", error)
@@ -169,7 +302,6 @@ export default function Dash() {
             toast.success(`Recipe ${recipe.name} saved successfully!`)
           } catch (error) {
             toast.dismiss(id)
-
             console.error("Error saving recipe:", error)
             toast.error(`Error saving recipe: ${recipe.name}`)
             throw error
@@ -180,11 +312,11 @@ export default function Dash() {
       setRecipes([])
     } catch (error) {
       toast.dismiss(id)
-
       console.error("Error saving recipes:", error)
       toast.error("Error saving recipes")
     }
   }
+
   const updateData = <K extends keyof TablesInsert<"recipes">>(
     index: number,
     key: K,
@@ -202,14 +334,14 @@ export default function Dash() {
 
   return (
     <div className="min-h-screen w-full bg-background p-8 text-foreground">
-      <div className="mx-auto max-w-4xl">
+      <div className="mx-auto max-w-6xl">
         <div className="mb-6 flex items-center">
           <input
             type="text"
             value={url}
             onChange={e => setUrl(e.target.value)}
-            placeholder="URL"
-            className="max-w-2xl grow rounded-l-md border-r border-border bg-input p-2 text-foreground focus:outline-none"
+            placeholder="Enter URL(s) separated by commas"
+            className="flex-grow rounded-l-md border-r border-border bg-input p-2 text-foreground focus:outline-none"
           />
           <button
             onClick={() => handleScrapeUrl(url)}
@@ -221,7 +353,7 @@ export default function Dash() {
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="size-6"
+              className="h-6 w-6"
             >
               <path
                 strokeLinecap="round"
@@ -241,7 +373,7 @@ export default function Dash() {
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="mr-2 size-6"
+              className="mr-2 h-6 w-6"
             >
               <path
                 strokeLinecap="round"
@@ -249,86 +381,20 @@ export default function Dash() {
                 d="M12 4.5v15m7.5-7.5h-15"
               />
             </svg>
-            Save
+            Save All
           </button>
         </div>
 
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {recipes.map((recipe, index) => (
-            <div
+            <RecipeCard
               key={index}
-              className="relative rounded-md bg-black p-4 text-card-foreground shadow"
-              onDrop={e => handleDrop(e, index)}
-              onDragOver={e => e.preventDefault()}
-            >
-              <div className="mb-2 flex items-center justify-between">
-                <input
-                  type="text"
-                  value={recipe.name || ""}
-                  onChange={e => updateData(index, "name", e.target.value)}
-                  className="w-2/3 rounded bg-input p-1 text-foreground"
-                  placeholder="Name"
-                />
-                <button
-                  onClick={() => deleteRecipe(index)}
-                  className="absolute top-2 right-2 p-1 text-red-600 hover:text-red-800"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="size-6"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M6 18L18 6M6 6l12 12"
-                    />
-                  </svg>
-                </button>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className={
-                    "size-6 " +
-                    (recipe.imgurl && recipe.total_time
-                      ? "text-green-500"
-                      : "text-orange-500")
-                  }
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                  />
-                </svg>
-              </div>
-
-              <div className="mb-2 flex items-center">
-                <input
-                  type="text"
-                  value={recipe.total_time || ""}
-                  onChange={e =>
-                    updateData(index, "total_time", e.target.value)
-                  }
-                  className="mr-2 w-1/2 rounded bg-input p-1 text-foreground"
-                  placeholder="Time"
-                />
-              </div>
-
-              {typeof recipe.imgurl === "string" && (
-                <img
-                  src={recipe.imgurl}
-                  alt="Recipe"
-                  className="mt-2 h-auto max-w-full rounded-md shadow-md"
-                />
-              )}
-            </div>
+              recipe={recipe}
+              index={index}
+              updateData={updateData}
+              deleteRecipe={deleteRecipe}
+              handleDrop={handleDrop}
+            />
           ))}
         </div>
       </div>
