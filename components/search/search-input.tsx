@@ -16,7 +16,6 @@ export const SearchInput: FC<SearchInputProps> = ({}: SearchInputProps) => {
   const router = useRouter()
   const searchParams = useSearchParams()
   const [session, setSession] = useState<any>(null)
-  const [input, setInput] = useState<string>("")
   const chatInputRef = useRef<HTMLInputElement>(null)
   const { t } = useTranslation()
   const [isTyping, setIsTyping] = useState<boolean>(false)
@@ -48,7 +47,6 @@ export const SearchInput: FC<SearchInputProps> = ({}: SearchInputProps) => {
   useEffect(() => {
     const query = searchParams.get("q")
     if (query) {
-      setInput(query)
       setUserInput(query)
       generateMeals(query)
     }
@@ -95,13 +93,10 @@ export const SearchInput: FC<SearchInputProps> = ({}: SearchInputProps) => {
     setIsGenerating(false)
   }
 
-  const handleInputChange = (event: any) => {
-    setInput(event.target.value)
-    setUserInput(event.target.value)
+  const handleInputChange = (event: any) => {    setUserInput(event.target.value)
   }
 
   const handleSuggestionClick = (caption: string) => () => {
-    setInput(caption)
     setUserInput(caption)
   }
 
@@ -123,7 +118,7 @@ export const SearchInput: FC<SearchInputProps> = ({}: SearchInputProps) => {
     try {
       const res = await supabase.from("search_button_clicks").insert({
         id: uuidv4(),
-        query: input || ""
+        query: userInput || ""
       })
     } catch (error) {
       console.error(error)
