@@ -22,13 +22,13 @@ export default async function ResultPage({ params }: { params: { query: string }
       method: "POST",
       body: JSON.stringify({
         input: params.query,
-        diet: settings?.diet || ['Anything'],
-        allergy: settings?.allergies || ['None'],
+        diet:  "Anything",
+        allergy:["None"],
       })
     })
   }).then(data => data.json())
 
-    console.log('heroku',herokuPromise)
+    console.log('rennd',herokuPromise)
   return (
     <div>
       hi
