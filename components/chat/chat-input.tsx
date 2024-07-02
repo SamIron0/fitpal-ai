@@ -105,11 +105,11 @@ export const ChatInput: FC<ChatInputProps> = ({}: ChatInputProps) => {
       </button>
     )
   }
-  const registerClick = () => {
+  const registerClick = async () => {
     // TODO: Implement
-    console.log("setting  click", input)
+    console.log("setting click", input)
     try {
-      const res = supabase.from("search_button_clicks").insert({
+      const res = await supabase.from("search_button_clicks").insert({
         id: uuidv4(),
         query: input || ""
       })
