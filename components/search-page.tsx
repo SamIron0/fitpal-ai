@@ -82,36 +82,7 @@ const SearchPage = ({for_you}: SearchPageProps) => {
   )
 
   return (
-    <div>
-      <Head>
-        <meta
-          name="description"
-          content="Find curated recipes by entering your ingredients into our AI-powered search engine. You can now search deeper into the recipes beyond just ingredients."
-        />
-        <meta
-          name="keywords"
-          content="recipes, ingredients, cooking, meals, personalized recipes"
-        />
-        <meta
-          property="og:title"
-          content="Find Recipes from Ingredients | FitpalAI"
-        />
-        <meta
-          property="og:description"
-          content="Find curated recipes by entering your ingredients into our AI-powered search engine. You can now search deeper into the recipes beyond just ingredients."
-        />
-        <meta property="og:url" content="https://fitpalai.com/search" />
-        <meta property="og:type" content="website" />
-        <meta
-          name="twitter:title"
-          content="Find Recipes from Ingredients | FitpalAI"
-        />
-        <meta
-          name="twitter:description"
-          content="Find curated recipes by entering your ingredients into our AI-powered search engine. You can now search deeper into the recipes beyond just ingredients."
-        />
-      </Head>
-      <div className="hide-scrollbar relative flex size-full flex-col items-center overflow-y-auto px-4 sm:px-6">
+     <div className="hide-scrollbar relative flex size-full flex-col items-center overflow-y-auto px-4 sm:px-6">
         <div className="top-50% left-50% -translate-x-50% -translate-y-50% mb-9 mt-32 lg:mt-24">
           <Brand theme={theme === "dark" ? "dark" : "light"} />
         </div>
@@ -160,7 +131,6 @@ const SearchPage = ({for_you}: SearchPageProps) => {
           </>
         )}
       </div>
-    </div>
   )
 }
 export default SearchPage
