@@ -68,6 +68,7 @@ export default function Update() {
     return
   }
   const deleteRecipe = async (index: number) => {
+    const id = toast.loading("Deleting...")
     const recipe = recipes[index]
     try {
       const response = await fetch("api/recipe/delete_recipe", {
@@ -78,11 +79,16 @@ export default function Update() {
         body: JSON.stringify({ recipe })
       })
       if (response.ok) {
+        toast.success("Recipe deleted")
         setRecipes(prevRecipes => prevRecipes.filter((_, i) => i !== index))
       } else {
+        toast.error("Failed to delete recipe")
         console.error("Failed to delete recipe")
       }
+      toast.dismiss(id)
     } catch (error) {
+      toast.dismiss(id)
+      toast.error("Failed to delete recipe")
       console.error("Error:", error)
     }
   }
@@ -167,7 +173,7 @@ export default function Update() {
   }
 
   return (
-    <div className="min-h-screen w-full bg-background p-8 text-foreground">
+    <div className="min-h-screen w-full bg-black p-8 text-foreground">
       <div className="mx-auto max-w-4xl">
         <div className="mb-6 flex items-center">
           <input

@@ -56,7 +56,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
             </svg>
           </button>
           <div
-            className="rounded-full bg-gray-100 p-1"
+            className="rounded-full "
             title={
               recipe.imgurl && recipe.total_time ? "Complete" : "Incomplete"
             }
@@ -67,7 +67,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className={`h-5 w-5 ${
+              className={`h-8 w-8 ${
                 recipe.imgurl && recipe.total_time
                   ? "text-green-500"
                   : "text-orange-500"
