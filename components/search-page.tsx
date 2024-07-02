@@ -22,7 +22,7 @@ const SearchPage = ({ for_you }: SearchPageProps) => {
   const [forYou, setForYou] = useState<Tables<"recipes">[]>(for_you)
   const { theme } = useTheme()
   const [isOpen, setIsOpen] = useState<string>("0")
-
+  const [noresults, setNoResults] = useState(false)
   const openDrawer = (id: string) => {
     setIsOpen(id)
   }
@@ -42,7 +42,7 @@ const SearchPage = ({ for_you }: SearchPageProps) => {
         <Search size={64} className="text-zinc-400 mb-4" />
         <h2 className="text-2xl font-bold mb-2">No Results Found</h2>
         <p className="text-center mb-4">
-          We couldn't find any recipes matching your search.
+          We couldn&apos;t find any recipes matching your search.
         </p>
         <p className="text-center text-sm text-zinc-400">
           Try adjusting your search terms or browse our categories for
@@ -113,28 +113,26 @@ const SearchPage = ({ for_you }: SearchPageProps) => {
             {renderSkeleton()}
           </div>
         </div>
+      ) : noresults ? (
+        <>{NoResultsFound}</>
+      ) : generatedRecipes.length > 0 ? (
+        renderRecipes(generatedRecipes, "Best Results")
       ) : (
-        <>
-          {generatedRecipes.length > 0 ? (
-            renderRecipes(generatedRecipes, "Best Results")
+        <div className="w-full max-w-4xl">
+          {forYou.length > 0 ? (
+            renderRecipes(forYou, "For You")
           ) : (
-            <div className="w-full max-w-4xl">
-              {forYou.length > 0 ? (
-                renderRecipes(forYou, "For You")
-              ) : (
-                <div className="w-full max-w-4xl py-28">
-                  <h2 className="mb-5 text-2xl font-semibold">For You</h2>
-                  <div
-                    role="status"
-                    className="grid w-full max-w-4xl animate-pulse grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4"
-                  >
-                    {renderSkeleton()}
-                  </div>
-                </div>
-              )}
+            <div className="w-full max-w-4xl py-28">
+              <h2 className="mb-5 text-2xl font-semibold">For You</h2>
+              <div
+                role="status"
+                className="grid w-full max-w-4xl animate-pulse grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4"
+              >
+                {renderSkeleton()}
+              </div>
             </div>
           )}
-        </>
+        </div>
       )}
     </div>
   )
