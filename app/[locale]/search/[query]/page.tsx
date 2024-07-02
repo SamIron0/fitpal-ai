@@ -39,7 +39,7 @@ export default async function ResultPage({ params }: { params: { query: string }
   return (
     <div>
       hi
-      {recipes.map((recipe: any) => (
+      {recipes?.map((recipe: any) => (
         <div key={recipe.id}>
           <h1>{recipe.title}</h1>
           <p>{recipe.description}</p>
