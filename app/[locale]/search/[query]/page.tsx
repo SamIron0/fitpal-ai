@@ -1,49 +1,10 @@
-import { getRecipeById } from "@/db/admin"
-import { getSettingsById } from "@/db/settings"
-import { createClient } from "@/lib/supabase/server"
-import { Tables } from "@/supabase/types"
-import { cookies } from "next/headers"
-
-export default async function ResultPage({ params }: { params: { query: string } }) {
-  console.log('query',params.query)
-  const supabase = createClient(cookies())
-  const session=await supabase.auth.getSession()
-  let settings: Tables<"settings">={} as Tables<"settings">
-  if (session) {
-    let settings = await getSettingsById(session.data.session?.user.id as string)
-  }
-  const herokuPromise = await fetch("https://fitpal-search.onrender.com/search", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      method: "POST",
-      body: JSON.stringify({
-        input: params.query,
-        diet: settings?.diet || ['Anything'],
-        allergy: settings?.allergies || ['None'],
-      })
-    })
-  }).then(data => data.json())
-
-  const [responseData] = await Promise.all([herokuPromise])
-  const recipeIds = responseData.result
-
-  // Fetch recipes in parallel
-  const recipePromises = recipeIds.map((recipeId: string) =>
-    getRecipeById(recipeId)
-  )
-  const recipes = await Promise.all(recipePromises)
-
-  return (
-    <div>
-      hi
-      {recipes.map((recipe: any) => (
-        <div key={recipe.id}>
-          <h1>{recipe.title}</h1>
-          <p>{recipe.description}</p>
-        </div>
-      ))}
-    </div>
-  )}
+export default function Page({ params }: { params: { slug: string } }) {
+  return <div>My Post: {params.slug}</div>
+}
+export async function generateStaticParams() {
+  //const posts = await fetch('https://.../posts').then((res) => res.json())
+ const posts= [ { slug: "1" }, { slug: "2" }, { slug: "3" } ]
+  return posts.map((post: any) => ({
+    query: post.slug,
+  }))
+}
