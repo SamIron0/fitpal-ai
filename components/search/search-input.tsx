@@ -8,9 +8,9 @@ import { createClient } from "@/lib/supabase/client"
 import { LoginDrawer } from "../login/login-drawer"
 import { v4 as uuidv4 } from "uuid"
 
-interface ChatInputProps {}
+interface SearchInputProps {}
 
-export const ChatInput: FC<ChatInputProps> = ({}: ChatInputProps) => {
+export const SearchInput: FC<ChatInputProps> = ({}: SearchInputProps) => {
   const supabase = createClient()
   const [session, setSession] = useState<any>(null)
   useEffect(() => {

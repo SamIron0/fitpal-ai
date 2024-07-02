@@ -7,7 +7,7 @@ import { createClient } from "@/lib/supabase/client"
 import { useTheme } from "next-themes"
 import { FitpalAIContext } from "@/context/context"
 import { useRouter } from "next/navigation"
-import { ChatInput } from "./chat/chat-input"
+import { SearchInput } from "./search/search-input"
 import { MealDrawer } from "./meal/meal-drawer"
 import { Clock } from "lucide-react"
 import { convertTime } from "@/utils/helpers"
@@ -84,7 +84,7 @@ const SearchPage = ({ for_you }: SearchPageProps) => {
           you find delicious recipes in no time. Whether you have chicken,
           pasta, or veggies, we have got you covered.
         </p>
-        <ChatInput />
+        <SearchInput />
       </div>
       {isGenerating ? (
         <div className="w-full max-w-4xl py-28">
