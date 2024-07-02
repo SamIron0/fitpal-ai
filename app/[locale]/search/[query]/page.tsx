@@ -5,7 +5,7 @@ import { Tables } from "@/supabase/types"
 import { cookies } from "next/headers"
 
 export default async function ResultPage({ params }: { params: { query: string } }) {
-  console.log(params.query)
+  console.log('query',params.query)
   const supabase = createClient(cookies())
   const session=await supabase.auth.getSession()
   let settings: Tables<"settings">={} as Tables<"settings">
@@ -30,10 +30,6 @@ export default async function ResultPage({ params }: { params: { query: string }
   const [responseData] = await Promise.all([herokuPromise])
   const recipeIds = responseData.result
 
-  if (!recipeIds) {
-    return new Response(JSON.stringify({ error: "None" }))
-  }
-
   // Fetch recipes in parallel
   const recipePromises = recipeIds.map((recipeId: string) =>
     getRecipeById(recipeId)
@@ -42,6 +38,7 @@ export default async function ResultPage({ params }: { params: { query: string }
 
   return (
     <div>
+      hi
       {recipes.map((recipe: any) => (
         <div key={recipe.id}>
           <h1>{recipe.title}</h1>
