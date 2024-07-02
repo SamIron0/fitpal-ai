@@ -19,12 +19,10 @@ export default async function ResultPage({ params }: { params: { query: string }
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      method: "POST",
-      body: JSON.stringify({
-        input: params.query,
+              input: params.query,
         diet:  "Anything",
         allergy:["None"],
-      })
+      
     })
   }).then(data => data.json())
 
