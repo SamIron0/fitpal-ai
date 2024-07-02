@@ -31,7 +31,7 @@ export default async function ResultPage({ params }: { params: { query: string }
   const recipeIds = responseData.result
 
   // Fetch recipes in parallel
-  const recipePromises = recipeIds.map((recipeId: string) =>
+  const recipePromises = recipeIds?.map((recipeId: string) =>
     getRecipeById(recipeId)
   )
   const recipes = await Promise.all(recipePromises)
