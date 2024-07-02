@@ -26,7 +26,7 @@ export const RecipeCard = ({ recipe }: RecipeCardProps) => {
         <div className="border-1 mb-2 h-48 rounded-lg border-input bg-input p-2 py-10 text-black"></div>
       )}
       <p className="text-md w-full text-left">{recipe.name}</p>
-      <div className="flex w-full text-sm font-light mt-1 items-center text-gray-300">
+      <div className="flex w-full text-xs font-light mt-1 items-center text-zinc-400">
         <Clock className="w-4 h-4 mr-2" />
         <p className="  text-left">
           {convertTime(recipe.total_time as unknown as number)}
