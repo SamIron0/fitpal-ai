@@ -63,7 +63,7 @@ export default async function Login({
 
     const email = formData.get("email") as string
     const password = formData.get("password") as string
-   
+
     const cookieStore = cookies()
     const supabase = createClient(cookieStore)
 
@@ -71,7 +71,6 @@ export default async function Login({
       email,
       password,
       options: {
-        // USE IF YOU WANT TO SEND EMAIL VERIFICATION, ALSO CHANGE TOML FILE
         // emailRedirectTo: `${origin}/auth/callback`
       }
     })
@@ -80,9 +79,7 @@ export default async function Login({
       console.error(error)
       return redirect(`/login?message=${error.message}`)
     }
-
-    toast.success("Check your email to verify your account")
-
+    signIn(formData)
     // USE IF YOU WANT TO SEND EMAIL VERIFICATION, ALSO CHANGE TOML FILE
     // return redirect("/login?message=Check email to continue sign in process")
   }
