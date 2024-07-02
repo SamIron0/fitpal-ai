@@ -173,7 +173,7 @@ export default function Update() {
   }
 
   return (
-    <div className="min-h-screen w-full bg-black p-8 text-foreground">
+    <div className="min-h-screen w-full bg-black overflow-y-auto p-8 text-foreground">
       <div className="mx-auto max-w-4xl">
         <div className="mb-6 flex items-center">
           <input

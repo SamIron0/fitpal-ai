@@ -1,6 +1,16 @@
 import React from "react"
 import { TablesInsert } from "@/supabase/types"
-
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger
+} from "@/components/ui/alert-dialog"
 interface RecipeCardProps {
   recipe: TablesInsert<"recipes">
   index: number
@@ -35,26 +45,41 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
           placeholder="Recipe Name"
         />
         <div className="ml-2 flex items-center space-x-2">
-          <button
-            onClick={() => deleteRecipe(index)}
-            className="rounded-full bg-red-100 p-1 text-red-600 hover:bg-red-200"
-            title="Delete Recipe"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="h-5 w-5"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
-          </button>
+          <AlertDialog>
+            <AlertDialogTrigger>
+              <button
+                onClick={() => deleteRecipe(index)}
+                className="rounded-full bg-red-100 p-1 text-red-600 hover:bg-red-200"
+                title="Delete Recipe"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="h-5 w-5"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction onClick={() => deleteRecipe(index)}>Continue</AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+
           <div
             className="rounded-full "
             title={
