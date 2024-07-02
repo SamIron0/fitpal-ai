@@ -20,7 +20,7 @@ import {
 import { Badge } from "@/components/ui/badge"
 import { Tables } from "@/supabase/types"
 
-interface MealDrawerProps {
+interface RecipeDrawerProps {
   children?: React.ReactNode
   recipe: Tables<"recipes">
   isOpen?: string
@@ -120,7 +120,7 @@ const RecipeDetails: React.FC<{ recipe: Tables<"recipes"> }> = ({ recipe }) => (
   </div>
 )
 
-const MealDrawerContent: React.FC<{ recipe: Tables<"recipes"> }> = ({
+const RecipeDrawerContent: React.FC<{ recipe: Tables<"recipes"> }> = ({
   recipe
 }) => (
   <div className="flex flex-col space-y-6 overflow-y-auto pb-20">
@@ -130,7 +130,7 @@ const MealDrawerContent: React.FC<{ recipe: Tables<"recipes"> }> = ({
   </div>
 )
 
-export const MealDrawer: React.FC<MealDrawerProps> = ({
+export const RecipeDrawer: React.FC<RecipeDrawerProps> = ({
   children,
   recipe,
   isOpen
@@ -143,7 +143,7 @@ export const MealDrawer: React.FC<MealDrawerProps> = ({
           <DrawerTitle className="text-zinc-100">{recipe.name}</DrawerTitle>
           <DrawerDescription>Recipe details</DrawerDescription>
         </DrawerHeader>
-        {recipe && <MealDrawerContent recipe={recipe} />}
+        {recipe && <RecipeDrawerContent recipe={recipe} />}
         <DrawerFooter className="absolute inset-x-0 bottom-0 bg-background p-4">
           <DrawerClose asChild>
             <Button variant="outline" className="w-full max-w-3xl mx-auto ">

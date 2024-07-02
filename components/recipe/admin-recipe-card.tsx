@@ -11,7 +11,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger
 } from "@/components/ui/alert-dialog"
-interface RecipeCardProps {
+interface AdminRecipeCardProps {
   recipe: TablesInsert<"recipes">
   index: number
   updateData: <K extends keyof TablesInsert<"recipes">>(
@@ -23,7 +23,7 @@ interface RecipeCardProps {
   handleDrop: (e: React.DragEvent<HTMLDivElement>, index: number) => void
 }
 
-const RecipeCard: React.FC<RecipeCardProps> = ({
+const AdminRecipeCard: React.FC<RecipeCardProps> = ({
   recipe,
   index,
   updateData,
@@ -158,4 +158,4 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
   )
 }
 
-export default RecipeCard
+export default AdminRecipeCard
