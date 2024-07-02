@@ -16,6 +16,7 @@ export const SearchInput: FC<SearchInputProps> = ({}: SearchInputProps) => {
   const router = useRouter()
   const searchParams = useSearchParams()
   const [session, setSession] = useState<any>(null)
+  const [input, setInput] = useState<string>("")
   const chatInputRef = useRef<HTMLInputElement>(null)
   const { t } = useTranslation()
   const [isTyping, setIsTyping] = useState<boolean>(false)
@@ -47,6 +48,7 @@ export const SearchInput: FC<SearchInputProps> = ({}: SearchInputProps) => {
   useEffect(() => {
     const query = searchParams.get("q")
     if (query) {
+      setInput(query)
       setUserInput(query)
       generateMeals(query)
     }
@@ -93,10 +95,13 @@ export const SearchInput: FC<SearchInputProps> = ({}: SearchInputProps) => {
     setIsGenerating(false)
   }
 
-  const handleInputChange = (event: any) => {    setUserInput(event.target.value)
+  const handleInputChange = (event: any) => {
+    setInput(event.target.value)
+    setUserInput(event.target.value)
   }
 
   const handleSuggestionClick = (caption: string) => () => {
+    setInput(caption)
     setUserInput(caption)
   }
 
@@ -118,7 +123,7 @@ export const SearchInput: FC<SearchInputProps> = ({}: SearchInputProps) => {
     try {
       const res = await supabase.from("search_button_clicks").insert({
         id: uuidv4(),
-        query: userInput || ""
+        query: input || ""
       })
     } catch (error) {
       console.error(error)
@@ -137,7 +142,7 @@ export const SearchInput: FC<SearchInputProps> = ({}: SearchInputProps) => {
           className="text-md min-w-3xl flex w-full resize-none rounded-md border-none bg-transparent py-2 pl-3 pr-14 ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
           placeholder={t(`Asian Dinner ideas`)}
           onChange={handleInputChange}
-          value={userInput}
+          value={input}
           onCompositionStart={() => setIsTyping(true)}
           onCompositionEnd={() => setIsTyping(false)}
         />
@@ -153,7 +158,7 @@ export const SearchInput: FC<SearchInputProps> = ({}: SearchInputProps) => {
             <IconSend
               className={cn(
                 "rounded bg-primary p-1 text-secondary",
-                !userInput ? "cursor-not-allowed opacity-50" : ""
+                !input ? "cursor-not-allowed opacity-50" : ""
               )}
               onClick={() => {
                 if (!userInput) {
