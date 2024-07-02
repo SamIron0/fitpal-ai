@@ -154,7 +154,7 @@ export const SearchInput: FC<SearchInputProps> = ({}: SearchInputProps) => {
               onClick={() => {}}
               size={30}
             />
-          ) : session ? (
+          ) : (
             <IconSend
               className={cn(
                 "rounded bg-primary p-1 text-secondary",
@@ -169,17 +169,6 @@ export const SearchInput: FC<SearchInputProps> = ({}: SearchInputProps) => {
               }}
               size={30}
             />
-          ) : (
-            <LoginDrawer>
-              <IconSend
-                onClick={() => {
-                  registerClick()
-                  updateURL(input)
-                }}
-                className={cn("rounded bg-primary p-1 text-secondary")}
-                size={30}
-              />
-            </LoginDrawer>
           )}
         </div>
       </div>
