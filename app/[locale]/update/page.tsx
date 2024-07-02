@@ -5,13 +5,12 @@ import { toast } from "sonner"
 import { useRouter } from "next/navigation"
 import { createClient } from "@/lib/supabase/client"
 import { TablesInsert } from "@/supabase/types"
-
+import RecipeCard from "@/components/RecipeCard"
 export default function Update() {
   const supabase = createClient()
   const router = useRouter()
   const [recipes, setRecipes] = useState<TablesInsert<"recipes">[]>([])
   const [url, setUrl] = useState<string>("")
-
   useEffect(() => {
     const get_recipes = async () => {
       try {
@@ -68,7 +67,25 @@ export default function Update() {
     }
     return
   }
-
+  const deleteRecipe = async (index: number) => {
+    const recipe = recipes[index]
+    try {
+      const response = await fetch("api/recipe/delete_recipe", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ recipe })
+      })
+      if (response.ok) {
+        setRecipes(prevRecipes => prevRecipes.filter((_, i) => i !== index))
+      } else {
+        console.error("Failed to delete recipe")
+      }
+    } catch (error) {
+      console.error("Error:", error)
+    }
+  }
   const uploadToCloudinary = async (file: File) => {
     //console.log(process.env.CLOUDINARY_CLOUD_NAME)
     const url = `https://api.cloudinary.com/v1_1/ddhg7gunr/image/upload`
@@ -89,7 +106,6 @@ export default function Update() {
     const data = await res.json()
     return data.secure_url // URL of the uploaded image
   }
-
   const handleSave = async () => {
     console.log("updating: ", recipes[0])
     const id = toast.loading("Updating...")
@@ -140,7 +156,6 @@ export default function Update() {
       toast.error("Error saving recipes")
     }
   }
-
   const updateData = <K extends keyof TablesInsert<"recipes">>(
     index: number,
     key: K,
@@ -149,26 +164,6 @@ export default function Update() {
     const newRecipes = [...recipes]
     newRecipes[index][key] = value
     setRecipes(newRecipes)
-  }
-
-  const deleteRecipe = async (index: number) => {
-    const recipe = recipes[index]
-    try {
-      const response = await fetch("api/recipe/delete_recipe", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ recipe })
-      })
-      if (response.ok) {
-        setRecipes(prevRecipes => prevRecipes.filter((_, i) => i !== index))
-      } else {
-        console.error("Failed to delete recipe")
-      }
-    } catch (error) {
-      console.error("Error:", error)
-    }
   }
 
   return (
@@ -224,82 +219,16 @@ export default function Update() {
           </button>
         </div>
 
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {recipes?.map((recipe, index) => (
-            <div
+            <RecipeCard
               key={index}
-              className="relative rounded-md bg-black p-4 text-card-foreground shadow"
-              onDrop={e => handleDrop(e, index)}
-              onDragOver={e => e.preventDefault()}
-            >
-              <div className="mb-2 flex items-center justify-between">
-                <input
-                  type="text"
-                  value={recipe.name || ""}
-                  onChange={e => updateData(index, "name", e.target.value)}
-                  className="w-2/3 rounded bg-input p-1 text-foreground"
-                  placeholder="Name"
-                />
-                <button
-                  onClick={() => deleteRecipe(index)}
-                  className="absolute top-2 right-2 p-1 text-red-600 hover:text-red-800"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="size-6"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M6 18L18 6M6 6l12 12"
-                    />
-                  </svg>
-                </button>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className={
-                    "size-6 " +
-                    (recipe.imgurl && recipe.total_time
-                      ? "text-green-500"
-                      : "text-orange-500")
-                  }
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                  />
-                </svg>
-              </div>
-
-              <div className="mb-2 flex items-center">
-                <input
-                  type="text"
-                  value={recipe.total_time || ""}
-                  onChange={e =>
-                    updateData(index, "total_time", e.target.value)
-                  }
-                  className="mr-2 w-1/2 rounded bg-input p-1 text-foreground"
-                  placeholder="Time"
-                />
-              </div>
-              <div className="mb-2 flex items-center">
-                <input
-                  type="text"
-                  value={recipe.url || ""}
-                  className="mr-2 w-1/2 rounded bg-input p-1 text-foreground"
-                  placeholder="example.com"
-                />
-              </div>
-            </div>
+              recipe={recipe}
+              index={index}
+              updateData={updateData}
+              deleteRecipe={deleteRecipe}
+              handleDrop={handleDrop}
+            />
           ))}
         </div>
       </div>
