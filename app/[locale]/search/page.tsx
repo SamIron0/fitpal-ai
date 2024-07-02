@@ -2,6 +2,7 @@ import SearchPage from "@/components/search-page"
 import { Dashboard } from "@/components/ui/dashboard"
 import { getForYou, getGuestForYou } from "@/db/admin"
 import { createClient } from "@/lib/supabase/server"
+import { Tables } from "@/supabase/types"
 import { cookies } from "next/headers"
 
 export default async function Search() {
