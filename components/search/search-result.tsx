@@ -73,7 +73,11 @@ export const SearchResult = ({ recipes, query }: SearchResultProps) => {
   const [input, setInput] = useState<string>("")
   const chatInputRef = useRef<HTMLInputElement>(null)
   const onSearch = (query: string) => {
-    const formattedQuery = query.replace(/ /g, "-")
+    const formattedQuery = query
+      .trim() // Trim leading and trailing spaces
+      .toLowerCase() // Convert to lowercase
+      .replace(/\s+/g, "-") // Replace spaces with hyphens
+      .replace(/[^\w-]+/g, "") // Remove any special characters except hyphens and word characters
     router.push(`/search/${formattedQuery}`)
   }
   useEffect(() => {
