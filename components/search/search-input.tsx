@@ -9,10 +9,9 @@ import { useRouter } from "next/navigation"
 import { LoginDrawer } from "../login/login-drawer"
 import { v4 as uuidv4 } from "uuid"
 import { useParams } from "next/navigation"
-interface SearchInputProps {
-}
+interface SearchInputProps {}
 
-export const SearchInput: FC<SearchInputProps> = ({ }) => {
+export const SearchInput: FC<SearchInputProps> = ({}) => {
   const supabase = createClient()
   const params = useParams()
   const router = useRouter()
@@ -24,12 +23,14 @@ export const SearchInput: FC<SearchInputProps> = ({ }) => {
   const { isGenerating, setIsGenerating, setGeneratedRecipes, settings } =
     useContext(FitpalAIContext)
 
-
   useEffect(() => {
     if (params.query) {
-      const query = typeof params.query === "string" ? params.query : params.query[0]
+      const query =
+        typeof params.query === "string" ? params.query : params.query[0]
       setInput(query)
       generateMeals(query)
+    } else {
+      router.push(`/search/${params.query}`)
     }
   }, [params])
 
