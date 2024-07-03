@@ -1,4 +1,4 @@
-'use client'
+"use client"
 import { Tables } from "@/supabase/types"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
@@ -19,8 +19,8 @@ export const SearchResult = ({ recipes, query }: SearchResultProps) => {
     setIsOpen(id)
   }
   const renderRecipes = (recipes: Tables<"recipes">[]) => (
-    <div className="w-full max-w-4xl  py-28">
-      <h2 className="mb-5 text-2xl font-semibold">{query}</h2>
+    <div className="w-full max-w-4xl mx-auto py-28">
+      <h1 className="mb-5 text-4xl font-semibold">{query}</h1>
       <div
         role="status"
         className="grid w-full max-w-4xl grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4"
@@ -53,7 +53,7 @@ export const SearchResult = ({ recipes, query }: SearchResultProps) => {
     </div>
   )
   return (
-    <div className=" w-full  flex flex-col">
+    <div className=" w-full  p-4 my-6 flex flex-col">
       {renderRecipes(recipes)}
     </div>
   )
