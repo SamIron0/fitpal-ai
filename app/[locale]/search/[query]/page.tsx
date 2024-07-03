@@ -30,8 +30,8 @@ export default async function ResultPage({
       method: "POST",
       body: JSON.stringify({
         input: query,
-        diet: settings.diet,
-        allergy: settings.allergies
+        diet: settings?.diet || "Anything",
+        allergy: settings?.allergies || ["None"]
       })
     })
 
@@ -41,7 +41,6 @@ export default async function ResultPage({
     const data = await res.json()
     const recipes = data
 
-    //console.log("rennd", herokuPromise.json())
     return (
       <Dashboard>
         <Head>
