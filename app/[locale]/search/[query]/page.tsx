@@ -24,7 +24,7 @@ export default async function ResultPage({
     const query =
       typeof params.query === "string" ? params.query : params.query[0]
     //console.log(query)
-    const saveQueryPromise = save_query(uid || "", query)
+    const saveQueryPromise = save_query(uid || null, query)
 
     const herokuPromise = fetch("https://fitpal-search.onrender.com/search", {
       method: "POST",

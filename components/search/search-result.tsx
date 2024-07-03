@@ -7,6 +7,12 @@ interface SearchResultProps {
 }
 
 export const SearchResult = ({ recipes }: SearchResultProps) => {
- console.log('len,',recipes)
-  return <></>
+  console.log("len,", recipes)
+  return (
+    <div className=" w-full flex flex-col">
+      {recipes.map(recipe => (
+        <h1>{recipe.name}</h1>
+      ))}
+    </div>
+  )
 }

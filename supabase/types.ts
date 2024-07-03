@@ -40,17 +40,17 @@ export type Database = {
         Row: {
           id: string
           query: string
-          uid: string
+          uid: string | null
         }
         Insert: {
           id: string
           query: string
-          uid: string
+          uid: string | null
         }
         Update: {
           id?: string
           query?: string
-          uid?: string
+          uid?: string | null
         }
       }
       settings: {

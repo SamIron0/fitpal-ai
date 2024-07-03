@@ -116,7 +116,7 @@ export const getAllRecipes = async () => {
   }
   return recipes
 }
-export const save_query = async (uid: string, query: string) => {
+export const save_query = async (uid: string|null, query: string) => {
   const { data: queryData, error } = await supabaseAdmin
     .from("queries")
     .insert({
