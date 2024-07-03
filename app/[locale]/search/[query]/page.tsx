@@ -19,13 +19,11 @@ export default async function ResultPage({ params }: { params: { query: string }
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-              input: params.query,
+        input: "rice",
         diet:  "Anything",
         allergy:["None"],
-      
-    })
-  }).then(data => data.json())
-
+          })
+  })
     console.log('rennd',herokuPromise)
   return (
     <div>
