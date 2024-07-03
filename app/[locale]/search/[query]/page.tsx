@@ -33,8 +33,8 @@ export default async function ResultPage({
       },
       body: JSON.stringify({
         input: query,
-        diet: settings.diet || "Anything",
-        allergy: settings.allergies || ["None"]
+        diet: uid ? settings.diet : "Anything",
+        allergy: uid ? settings.allergies : ["None"]
       })
     }).then(data => data.json())
 
