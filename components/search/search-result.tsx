@@ -16,12 +16,12 @@ interface SearchResultProps {
 }
 
 export const SearchResult = ({ recipes, query }: SearchResultProps) => {
-  console.log("len,", recipes)
   const [isOpen, setIsOpen] = useState<string>("0")
 
   const openDrawer = (id: string) => {
     setIsOpen(id)
   }
+  const router = useRouter()
   const renderRecipes = (recipes: Tables<"recipes">[]) => (
     <div className="w-full py-6 max-w-4xl mx-auto ">
       <h1 className="mb-8 text-4xl font-semibold">{query}</h1>
@@ -60,7 +60,7 @@ export const SearchResult = ({ recipes, query }: SearchResultProps) => {
   const [input, setInput] = useState<string>("")
   const chatInputRef = useRef<HTMLInputElement>(null)
   const onSearch = (query: string) => {
-    return
+    router.push(`/search/${query}`)
   }
   useEffect(() => {
     const inputElement = chatInputRef.current
@@ -92,7 +92,7 @@ export const SearchResult = ({ recipes, query }: SearchResultProps) => {
   return (
     <div className=" w-full p-4 flex flex-col overflow-y-auto">
       <div className="fixed bottom-4 left-4 right-4 flex justify-center">
-        <div className="bg-input text-gray-200 w-full max-w-2xl rounded-full py-2 px-4 border border-zinc-500 flex items-center space-x-2 shadow-lg  transition-colors">
+        <div className="bg-input text-gray-200 w-full max-w-xl rounded-full py-2 px-4 border border-zinc-500 flex items-center space-x-2 shadow-lg  transition-colors">
           <input
             className="text-md min-w-3xl flex w-full resize-none rounded-md border-none bg-transparent py-2 pl-3 pr-14 ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
             placeholder={t(`Search`)}
@@ -105,14 +105,14 @@ export const SearchResult = ({ recipes, query }: SearchResultProps) => {
           <div className=" bottom-[14px] flex cursor-pointer justify-center hover:opacity-50">
             {isGenerating ? (
               <IconPlayerStopFilled
-                className="animate-pulse rounded-full bg-transparent p-1 hover:bg-background"
+                className="animate-pulse rounded bg-transparent p-1 hover:bg-background"
                 onClick={() => {}}
                 size={30}
               />
             ) : (
               <IconSend
                 className={cn(
-                  "rounded bg-primary p-1 text-secondary",
+                  "rounded-full bg-primary p-1 text-secondary",
                   !input ? "cursor-not-allowed opacity-50" : ""
                 )}
                 onClick={() => {
