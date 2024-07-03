@@ -92,7 +92,7 @@ export const SearchResult = ({ recipes, query }: SearchResultProps) => {
   return (
     <div className=" w-full p-4 flex flex-col overflow-y-auto">
       <div className="fixed bottom-4 left-4 right-4 flex justify-center">
-        <div className="bg-gray-800 text-gray-200 rounded-full py-2 px-4 border-2 border-input flex items-center space-x-2 shadow-lg  transition-colors">
+        <div className="bg-input text-gray-200 rounded-full py-2 px-4 border-2 border-zinc-500 flex items-center space-x-2 shadow-lg  transition-colors">
           <input
             className="text-md min-w-3xl flex w-full resize-none rounded-md border-none bg-transparent py-2 pl-3 pr-14 ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
             placeholder={t(`Search`)}
