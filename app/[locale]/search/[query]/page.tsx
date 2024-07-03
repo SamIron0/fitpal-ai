@@ -6,6 +6,7 @@ import Head from "next/head"
 
 import { Dashboard } from "@/components/ui/dashboard"
 import { SearchResult } from "@/components/search/search-result"
+import { getRecipeById, save_query } from "@/db/admin"
 
 export default async function ResultPage({
   params
@@ -22,21 +23,30 @@ export default async function ResultPage({
 
     const query =
       typeof params.query === "string" ? params.query : params.query[0]
-    console.log('quer',query)
-    const res = await fetch("https://www.fitpalai.com/api/recipe/get_recipes", {
-      method: "POST",
-      body: JSON.stringify({
-        input: query,
-        diet: settings?.diet || "Anything",
-        allergy: settings?.allergies || ["None"]
-      })
-    })
+    //console.log(query)
+    const saveQueryPromise = save_query(uid || "", query)
 
-    if (!res.ok) {
-      throw new Error(`Failed to get recipes`)
-    }
-    const data = await res.json()
-    const recipes = data
+    const herokuPromise = fetch("https://fitpal-search.onrender.com/search", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        query: query,
+        diet: settings.diet,
+        allergy: settings.allergies
+      })
+    }).then(data => data.json())
+
+    const [_, responseData] = await Promise.all([
+      saveQueryPromise,
+      herokuPromise
+    ])
+    const recipeIds = responseData.result
+    const recipePromises = recipeIds.map((recipeId: string) =>
+      getRecipeById(recipeId)
+    )
+    const recipes = await Promise.all(recipePromises)
 
     return (
       <Dashboard>
