@@ -18,16 +18,8 @@ interface SearchResultProps {
 export const SearchResult = ({ recipes, query }: SearchResultProps) => {
   const [isOpen, setIsOpen] = useState<string>("0")
   function convertURLComponent(urlComponent: string) {
-    // Decode the URL component to handle encoded characters
-    let decodedComponent = decodeURIComponent(urlComponent)
-
-    // Replace encoded spaces with actual spaces
-    let textWithSpaces = decodedComponent.replace(/%20/g, " ")
-
-    // Optionally, remove other non-alphanumeric characters if needed
-    // let cleanText = textWithSpaces.replace(/[^a-zA-Z0-9 ]/g, '');
-
-    return textWithSpaces
+    const decodedString = urlComponent.replace(/-/g, " ") // Replace hyphens with spaces
+    return decodedString.charAt(0).toUpperCase() + decodedString.slice(1) // Capitalize the first letter
   }
   const openDrawer = (id: string) => {
     setIsOpen(id)
