@@ -19,8 +19,9 @@ export const SearchResult = ({ recipes, query }: SearchResultProps) => {
     setIsOpen(id)
   }
   const renderRecipes = (recipes: Tables<"recipes">[]) => (
-    <div className="w-full max-w-4xl mx-auto py-28">
-      <h1 className="mb-5 text-4xl font-semibold">{query}</h1>
+    <div className="w-full py-6 max-w-4xl mx-auto ">
+      <h1 className="mb-8 text-4xl font-semibold">{query}</h1>
+      <p>{}</p>
       <div
         role="status"
         className="grid w-full max-w-4xl grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4"
@@ -53,7 +54,7 @@ export const SearchResult = ({ recipes, query }: SearchResultProps) => {
     </div>
   )
   return (
-    <div className=" w-full  p-4 my-6 flex flex-col">
+    <div className=" w-full p-4 flex flex-col overflow-y-auto">
       {renderRecipes(recipes)}
     </div>
   )
