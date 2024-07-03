@@ -7,6 +7,6 @@ interface SearchResultProps {
 }
 
 export const SearchResult = ({ recipes }: SearchResultProps) => {
- console.log('len,',recipes.length)
+ console.log('len,',recipes)
   return <></>
 }

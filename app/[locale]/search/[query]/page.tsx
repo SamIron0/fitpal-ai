@@ -1,5 +1,3 @@
-import SearchPage from "@/components/search/search-page"
-import { getRecipeById } from "@/db/admin"
 import { getSettingsById } from "@/db/settings"
 import { createClient } from "@/lib/supabase/server"
 import { Tables } from "@/supabase/types"
@@ -24,7 +22,7 @@ export default async function ResultPage({
 
     const query =
       typeof params.query === "string" ? params.query : params.query[0]
-
+    console.log('quer',query)
     const res = await fetch("https://www.fitpalai.com/api/recipe/get_recipes", {
       method: "POST",
       body: JSON.stringify({
