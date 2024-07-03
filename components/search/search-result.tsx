@@ -92,7 +92,7 @@ export const SearchResult = ({ recipes, query }: SearchResultProps) => {
   return (
     <div className=" w-full p-4 flex flex-col overflow-y-auto">
       <div className="fixed bottom-4 left-4 right-4 flex justify-center">
-        <button className="bg-gray-800 text-gray-200 rounded-full py-2 px-4 border-2 border-input flex items-center space-x-2 shadow-lg  transition-colors">
+        <div className="bg-gray-800 text-gray-200 rounded-full py-2 px-4 border-2 border-input flex items-center space-x-2 shadow-lg  transition-colors">
           <input
             className="text-md min-w-3xl flex w-full resize-none rounded-md border-none bg-transparent py-2 pl-3 pr-14 ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
             placeholder={t(`Search`)}
@@ -102,10 +102,10 @@ export const SearchResult = ({ recipes, query }: SearchResultProps) => {
             onCompositionEnd={() => setIsTyping(false)}
           />
 
-          <div className="absolute bottom-[14px] right-3 flex cursor-pointer justify-center hover:opacity-50">
+          <div className=" bottom-[14px] flex cursor-pointer justify-center hover:opacity-50">
             {isGenerating ? (
               <IconPlayerStopFilled
-                className="animate-pulse rounded bg-transparent p-1 hover:bg-background"
+                className="animate-pulse rounded-full bg-transparent p-1 hover:bg-background"
                 onClick={() => {}}
                 size={30}
               />
@@ -125,7 +125,7 @@ export const SearchResult = ({ recipes, query }: SearchResultProps) => {
               />
             )}
           </div>
-        </button>
+        </div>
       </div>
       {renderRecipes(recipes)}
     </div>
