@@ -1,10 +1,14 @@
 "use client"
 import { Tables } from "@/supabase/types"
 import { useRouter } from "next/navigation"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useRef, useState } from "react"
 import { MealDrawer } from "../meal/meal-drawer"
 import { Clock } from "lucide-react"
 import { convertTime } from "@/utils/helpers"
+import { useTranslation } from "react-i18next"
+import { IconPlayerStopFilled, IconSend } from "@tabler/icons-react"
+import { cn } from "@/lib/utils"
+import { FitpalAIContext } from "@/context/context"
 
 interface SearchResultProps {
   recipes: Tables<"recipes">[]
@@ -53,8 +57,76 @@ export const SearchResult = ({ recipes, query }: SearchResultProps) => {
       </div>
     </div>
   )
+  const [input, setInput] = useState<string>("")
+  const chatInputRef = useRef<HTMLInputElement>(null)
+  const onSearch = (query: string) => {
+    return
+  }
+  useEffect(() => {
+    const inputElement = chatInputRef.current
+    if (inputElement) {
+      inputElement.addEventListener("keydown", handleKeyDown)
+    }
+    return () => {
+      if (inputElement) {
+        inputElement.removeEventListener("keydown", handleKeyDown)
+      }
+    }
+  }, [input])
+
+  const handleKeyDown = (event: any) => {
+    if (event.key === "Enter") {
+      if (input) {
+        onSearch(input)
+      }
+    }
+  }
+
+  const handleInputChange = (event: any) => {
+    setInput(event.target.value)
+  }
+  const { t } = useTranslation()
+  const [isTyping, setIsTyping] = useState<boolean>(false)
+  const { isGenerating, setIsGenerating, setGeneratedRecipes, settings } =
+    useContext(FitpalAIContext)
   return (
     <div className=" w-full p-4 flex flex-col overflow-y-auto">
+      <div className="fixed bottom-4 left-4 right-4 flex justify-center">
+        <button className="bg-gray-800 text-gray-200 rounded-full py-2 px-4 border-2 border-input flex items-center space-x-2 shadow-lg  transition-colors">
+          <input
+            className="text-md min-w-3xl flex w-full resize-none rounded-md border-none bg-transparent py-2 pl-3 pr-14 ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+            placeholder={t(`Search`)}
+            onChange={handleInputChange}
+            value={input}
+            onCompositionStart={() => setIsTyping(true)}
+            onCompositionEnd={() => setIsTyping(false)}
+          />
+
+          <div className="absolute bottom-[14px] right-3 flex cursor-pointer justify-center hover:opacity-50">
+            {isGenerating ? (
+              <IconPlayerStopFilled
+                className="animate-pulse rounded bg-transparent p-1 hover:bg-background"
+                onClick={() => {}}
+                size={30}
+              />
+            ) : (
+              <IconSend
+                className={cn(
+                  "rounded bg-primary p-1 text-secondary",
+                  !input ? "cursor-not-allowed opacity-50" : ""
+                )}
+                onClick={() => {
+                  if (!input) {
+                    return
+                  }
+                  onSearch(input)
+                }}
+                size={30}
+              />
+            )}
+          </div>
+        </button>
+      </div>
       {renderRecipes(recipes)}
     </div>
   )
