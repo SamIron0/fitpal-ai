@@ -32,6 +32,6 @@ export default async function ResultPage({
       })
     }
   )
-  console.log("rennd", herokuPromise.json())
+  //console.log("rennd", herokuPromise.json())
   return <div>hi</div>
 }
