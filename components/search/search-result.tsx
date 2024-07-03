@@ -17,7 +17,7 @@ interface SearchResultProps {
 
 export const SearchResult = ({ recipes, query }: SearchResultProps) => {
   const [isOpen, setIsOpen] = useState<string>("0")
-  function convertURLComponent(urlComponent: string) {
+  function decodeURLComponent(urlComponent: string) {
     const decodedString = urlComponent.replace(/-/g, " ") // Replace hyphens with spaces
     return decodedString.charAt(0).toUpperCase() + decodedString.slice(1) // Capitalize the first letter
   }
@@ -28,7 +28,7 @@ export const SearchResult = ({ recipes, query }: SearchResultProps) => {
   const renderRecipes = (recipes: Tables<"recipes">[]) => (
     <div className="w-full py-6 max-w-4xl mx-auto ">
       <h1 className="mb-8 text-4xl font-semibold">
-        {convertURLComponent(query)}
+        {decodeURLComponent(query)}
       </h1>
       <p>{}</p>
       <div

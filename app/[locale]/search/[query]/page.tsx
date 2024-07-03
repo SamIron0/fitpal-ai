@@ -16,6 +16,10 @@ export default async function ResultPage({
   const supabase = createClient(cookies())
   const uid = (await supabase.auth.getSession()).data.session?.user.id
   let settings: Tables<"settings"> = {} as Tables<"settings">
+  function decodeURLComponent(urlComponent: string) {
+    const decodedString = urlComponent.replace(/-/g, " ") // Replace hyphens with spaces
+    return decodedString.charAt(0).toUpperCase() + decodedString.slice(1) // Capitalize the first letter
+  }
   if (params.query) {
     if (uid) {
       settings = await getSettingsById(uid)
@@ -24,7 +28,8 @@ export default async function ResultPage({
     const query =
       typeof params.query === "string" ? params.query : params.query[0]
     //console.log(query)
-    const saveQueryPromise = save_query(uid || null, query)
+
+    const saveQueryPromise = save_query(uid || null, decodeURLComponent(query))
 
     const herokuPromise = fetch("https://fitpal-search.onrender.com/search", {
       method: "POST",
