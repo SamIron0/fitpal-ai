@@ -11,7 +11,7 @@ export const SearchResult = ({ recipes }: SearchResultProps) => {
   return (
     <div className=" w-full flex flex-col">
       {recipes.map(recipe => (
-        <h1>{recipe.name}</h1>
+        <h1 key={recipe.id}>{recipe.name}</h1>
       ))}
     </div>
   )
