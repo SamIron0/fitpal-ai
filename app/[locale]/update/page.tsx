@@ -5,7 +5,7 @@ import { toast } from "sonner"
 import { useRouter } from "next/navigation"
 import { createClient } from "@/lib/supabase/client"
 import { TablesInsert } from "@/supabase/types"
-import RecipeCard from "@/components/RecipeCard"
+import RecipeCard from "@/components/recipe/RecipeCard"
 export default function Update() {
   const supabase = createClient()
   const router = useRouter()
