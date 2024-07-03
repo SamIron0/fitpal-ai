@@ -33,8 +33,8 @@ export default async function ResultPage({
       },
       body: JSON.stringify({
         input: query,
-        diet: settings.diet,
-        allergy: settings.allergies
+        diet: settings.diet || "Anything",
+        allergy: settings.allergies || ["None"]
       })
     }).then(data => data.json())
 
@@ -43,7 +43,7 @@ export default async function ResultPage({
       herokuPromise
     ])
     const recipeIds = responseData.result
-    const recipePromises = recipeIds.map((recipeId: string) =>
+    const recipePromises = recipeIds?.map((recipeId: string) =>
       getRecipeById(recipeId)
     )
     const recipes = await Promise.all(recipePromises)

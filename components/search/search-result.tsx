@@ -19,7 +19,7 @@ export const SearchResult = ({ recipes, query }: SearchResultProps) => {
     setIsOpen(id)
   }
   const renderRecipes = (recipes: Tables<"recipes">[]) => (
-    <div className="w-full max-w-4xl py-28">
+    <div className="w-full max-w-4xl  py-28">
       <h2 className="mb-5 text-2xl font-semibold">{query}</h2>
       <div
         role="status"
@@ -53,7 +53,7 @@ export const SearchResult = ({ recipes, query }: SearchResultProps) => {
     </div>
   )
   return (
-    <div className=" w-full justify-center flex flex-col">
+    <div className=" w-full  flex flex-col">
       {renderRecipes(recipes)}
     </div>
   )
