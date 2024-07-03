@@ -9,9 +9,11 @@ import { useRouter } from "next/navigation"
 import { LoginDrawer } from "../login/login-drawer"
 import { v4 as uuidv4 } from "uuid"
 import { useParams } from "next/navigation"
-interface SearchInputProps {}
+interface SearchInputProps {
+  onSearch: (query: string) => void
+}
 
-export const SearchInput: FC<SearchInputProps> = ({}) => {
+export const SearchInput: FC<SearchInputProps> = ({ onSearch }) => {
   const supabase = createClient()
   const params = useParams()
   const router = useRouter()
@@ -22,17 +24,6 @@ export const SearchInput: FC<SearchInputProps> = ({}) => {
   const [isTyping, setIsTyping] = useState<boolean>(false)
   const { isGenerating, setIsGenerating, setGeneratedRecipes, settings } =
     useContext(FitpalAIContext)
-
-  useEffect(() => {
-    if (params.query) {
-      const query =
-        typeof params.query === "string" ? params.query : params.query[0]
-      setInput(query)
-      generateMeals(query)
-    } else {
-      router.push(`/search/${params.query}`)
-    }
-  }, [params])
 
   useEffect(() => {
     const inputElement = chatInputRef.current
@@ -49,31 +40,9 @@ export const SearchInput: FC<SearchInputProps> = ({}) => {
   const handleKeyDown = (event: any) => {
     if (event.key === "Enter") {
       if (input) {
-        generateMeals(input)
+        onSearch(input)
       }
     }
-  }
-
-  const generateMeals = async (queryInput: string = input) => {
-    setIsGenerating(true)
-    const recipes = await fetch(
-      "https://www.fitpalai.com/api/recipe/get_recipes",
-      {
-        method: "POST",
-        body: JSON.stringify({
-          input: queryInput,
-          diet: settings.diet,
-          allergy: settings.allergies
-        })
-      }
-    )
-
-    if (!recipes.ok) {
-      console.error("Error retrieving:", recipes)
-    }
-    setGeneratedRecipes(await recipes.json())
-    setIsGenerating(false)
-    router.push(`/search/${queryInput}`)
   }
 
   const handleInputChange = (event: any) => {
@@ -96,21 +65,6 @@ export const SearchInput: FC<SearchInputProps> = ({}) => {
         </div>
       </button>
     )
-  }
-
-  const registerClick = async () => {
-    try {
-      const res = await supabase.from("search_button_clicks").insert({
-        id: uuidv4(),
-        query: input || ""
-      })
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  const updateURL = (query: string) => {
-    router.push(`/?q=${query}`)
   }
 
   return (
@@ -143,8 +97,7 @@ export const SearchInput: FC<SearchInputProps> = ({}) => {
                 if (!input) {
                   return
                 }
-                generateMeals()
-                updateURL(input)
+                onSearch(input)
               }}
               size={30}
             />

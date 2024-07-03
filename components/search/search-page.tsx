@@ -18,6 +18,7 @@ interface SearchPageProps {
 }
 
 const SearchPage = ({ for_you }: SearchPageProps) => {
+  const router = useRouter()
   const { generatedRecipes, isGenerating, setSettings } =
     useContext(FitpalAIContext)
   const [forYou, setForYou] = useState<Tables<"recipes">[]>(for_you || [])
@@ -100,7 +101,7 @@ const SearchPage = ({ for_you }: SearchPageProps) => {
           you find delicious recipes in no time. Whether you have chicken,
           pasta, or veggies, we have got you covered.
         </p>
-        <SearchInput />
+        <SearchInput onSearch={query => router.push(`/search/${query}`)} />
       </div>
       {isGenerating ? (
         <div className="w-full max-w-4xl py-28">
