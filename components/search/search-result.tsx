@@ -7,18 +7,19 @@ import { convertTime } from "@/utils/helpers"
 
 interface SearchResultProps {
   recipes: Tables<"recipes">[]
+  query: string
 }
 
-export const SearchResult = ({ recipes }: SearchResultProps) => {
+export const SearchResult = ({ recipes, query }: SearchResultProps) => {
   console.log("len,", recipes)
   const [isOpen, setIsOpen] = useState<string>("0")
 
   const openDrawer = (id: string) => {
     setIsOpen(id)
   }
-  const renderRecipes = (recipes: Tables<"recipes">[], title: string) => (
+  const renderRecipes = (recipes: Tables<"recipes">[]) => (
     <div className="w-full max-w-4xl py-28">
-      <h2 className="mb-5 text-2xl font-semibold">{title}</h2>
+      <h2 className="mb-5 text-2xl font-semibold">{query}</h2>
       <div
         role="status"
         className="grid w-full max-w-4xl grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4"
@@ -52,9 +53,7 @@ export const SearchResult = ({ recipes }: SearchResultProps) => {
   )
   return (
     <div className=" w-full justify-center flex flex-col">
-      {recipes.map(recipe => (
-        <h1 key={recipe.id}>{recipe.name}</h1>
-      ))}
+      {renderRecipes(recipes)}
     </div>
   )
 }

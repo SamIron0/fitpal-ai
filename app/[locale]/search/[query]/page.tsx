@@ -79,7 +79,7 @@ export default async function ResultPage({
           />
         </Head>
 
-        <SearchResult recipes={recipes} />
+        <SearchResult query={query} recipes={recipes} />
       </Dashboard>
     )
   }
