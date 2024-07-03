@@ -15,10 +15,9 @@ import { convertTime } from "@/utils/helpers"
 
 interface SearchPageProps {
   for_you?: Tables<"recipes">[]
-  query?: string
 }
 
-const SearchPage = ({ for_you, query }: SearchPageProps) => {
+const SearchPage = ({ for_you }: SearchPageProps) => {
   const { generatedRecipes, isGenerating, setSettings } =
     useContext(FitpalAIContext)
   const [forYou, setForYou] = useState<Tables<"recipes">[]>(for_you || [])
@@ -101,7 +100,7 @@ const SearchPage = ({ for_you, query }: SearchPageProps) => {
           you find delicious recipes in no time. Whether you have chicken,
           pasta, or veggies, we have got you covered.
         </p>
-        <SearchInput query={query} />
+        <SearchInput />
       </div>
       {isGenerating ? (
         <div className="w-full max-w-4xl py-28">

@@ -54,7 +54,7 @@ export default async function ResultPage({
         />
       </Head>
 
-      <SearchPage query={params.query} />
+      <SearchPage />
     </Dashboard>
   )
 }

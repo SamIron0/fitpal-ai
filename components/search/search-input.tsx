@@ -10,10 +10,9 @@ import { LoginDrawer } from "../login/login-drawer"
 import { v4 as uuidv4 } from "uuid"
 import { useParams } from "next/navigation"
 interface SearchInputProps {
-  query?: string
 }
 
-export const SearchInput: FC<SearchInputProps> = ({ query}: SearchInputProps) => {
+export const SearchInput: FC<SearchInputProps> = ({ }) => {
   const supabase = createClient()
   const params = useParams()
   const router = useRouter()
@@ -73,6 +72,7 @@ export const SearchInput: FC<SearchInputProps> = ({ query}: SearchInputProps) =>
     }
     setGeneratedRecipes(await recipes.json())
     setIsGenerating(false)
+    router.push(`/search/${queryInput}`)
   }
 
   const handleInputChange = (event: any) => {

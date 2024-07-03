@@ -50,7 +50,7 @@ export default async function Search() {
         />
       </Head>
 
-      <SearchPage for_you={forYou} />
+      <SearchPage />
     </Dashboard>
   )
 }
