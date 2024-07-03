@@ -32,7 +32,7 @@ export default async function ResultPage({
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        input: query,
+        query,
         diet: uid ? settings.diet : "Anything",
         allergy: uid ? settings.allergies : ["None"]
       })
