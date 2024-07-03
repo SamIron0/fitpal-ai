@@ -14,7 +14,6 @@ export default async function ResultPage({
 }: {
   params: { query: string }
 }) {
-  //console.log('query',params.query)
   const supabase = createClient(cookies())
   const uid = (await supabase.auth.getSession()).data.session?.user.id
   let settings: Tables<"settings"> = {} as Tables<"settings">
