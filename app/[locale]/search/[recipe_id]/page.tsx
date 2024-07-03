@@ -13,6 +13,5 @@ export default async function Recipe({
   console.log("cals", recipe.calories)
   const supabase = createClient(cookies())
   const session = (await supabase.auth.getSession()).data.session
-  //console.log()
   return <div></div>
 }

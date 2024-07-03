@@ -9,9 +9,11 @@ import { useRouter } from "next/navigation"
 import { LoginDrawer } from "../login/login-drawer"
 import { v4 as uuidv4 } from "uuid"
 import { useParams } from "next/navigation"
-interface SearchInputProps {}
+interface SearchInputProps {
+  query?: string
+}
 
-export const SearchInput: FC<SearchInputProps> = ({}: SearchInputProps) => {
+export const SearchInput: FC<SearchInputProps> = ({ query}: SearchInputProps) => {
   const supabase = createClient()
   const params = useParams()
   const router = useRouter()

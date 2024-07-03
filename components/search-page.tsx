@@ -14,13 +14,14 @@ import { MealDrawer } from "./meal/meal-drawer"
 import { convertTime } from "@/utils/helpers"
 
 interface SearchPageProps {
-  for_you: Tables<"recipes">[]
+  for_you?: Tables<"recipes">[]
+  query?: string
 }
 
-const SearchPage = ({ for_you }: SearchPageProps) => {
+const SearchPage = ({ for_you, query }: SearchPageProps) => {
   const { generatedRecipes, isGenerating, setSettings } =
     useContext(FitpalAIContext)
-  const [forYou, setForYou] = useState<Tables<"recipes">[]>(for_you)
+  const [forYou, setForYou] = useState<Tables<"recipes">[]>(for_you || [])
   const { theme } = useTheme()
   const [isOpen, setIsOpen] = useState<string>("0")
   const [noresults, setNoResults] = useState(false)
@@ -100,7 +101,7 @@ const SearchPage = ({ for_you }: SearchPageProps) => {
           you find delicious recipes in no time. Whether you have chicken,
           pasta, or veggies, we have got you covered.
         </p>
-        <SearchInput />
+        <SearchInput query={query} />
       </div>
       {isGenerating ? (
         <div className="w-full max-w-4xl py-28">
