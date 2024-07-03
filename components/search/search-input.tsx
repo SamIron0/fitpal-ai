@@ -25,25 +25,9 @@ export const SearchInput: FC<SearchInputProps> = ({ query}: SearchInputProps) =>
   const { isGenerating, setIsGenerating, setGeneratedRecipes, settings } =
     useContext(FitpalAIContext)
 
-  useEffect(() => {
-    async function getSession() {
-      const {
-        data: { session },
-        error
-      } = await supabase.auth.getSession()
-      if (error) {
-        console.error("Error getting session:", error)
-      } else {
-        setSession(session)
-      }
-    }
-
-    getSession()
-  }, [])
 
   useEffect(() => {
     if (params.query) {
-      // if type of params is string then set else set input to params[0]
       const query = typeof params.query === "string" ? params.query : params.query[0]
       setInput(query)
       generateMeals(query)
