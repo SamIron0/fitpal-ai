@@ -86,7 +86,10 @@ const SearchPage = ({ for_you }: SearchPageProps) => {
       </div>
     </div>
   )
-
+  const onSearch = (query: string) => {
+    const formattedQuery = query.replace(/ /g, "-")
+    router.push(`/search/${formattedQuery}`)
+  }
   return (
     <div className="hide-scrollbar relative flex size-full flex-col items-center overflow-y-auto px-4 sm:px-6">
       <div className="top-50% left-50% -translate-x-50% -translate-y-50% mb-9 mt-32 lg:mt-24">
@@ -101,7 +104,7 @@ const SearchPage = ({ for_you }: SearchPageProps) => {
           you find delicious recipes in no time. Whether you have chicken,
           pasta, or veggies, we have got you covered.
         </p>
-        <SearchInput onSearch={query => router.push(`/search/${query}`)} />
+        <SearchInput onSearch={onSearch} />
       </div>
       {isGenerating ? (
         <div className="w-full max-w-4xl py-28">

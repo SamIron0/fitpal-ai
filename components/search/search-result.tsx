@@ -73,7 +73,8 @@ export const SearchResult = ({ recipes, query }: SearchResultProps) => {
   const [input, setInput] = useState<string>("")
   const chatInputRef = useRef<HTMLInputElement>(null)
   const onSearch = (query: string) => {
-    router.push(`/search/${query}`)
+    const formattedQuery = query.replace(/ /g, "-")
+    router.push(`/search/${formattedQuery}`)
   }
   useEffect(() => {
     const inputElement = chatInputRef.current
