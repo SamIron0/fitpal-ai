@@ -5,12 +5,12 @@ import { useRouter } from "next/navigation"
 import { useTheme } from "next-themes"
 import { Clock, Search } from "lucide-react"
 
-import { Brand } from "./ui/brand"
+import { Brand } from "../ui/brand"
 import { Tables } from "@/supabase/types"
 import { createClient } from "@/lib/supabase/client"
 import { FitpalAIContext } from "@/context/context"
-import { SearchInput } from "./search/search-input"
-import { MealDrawer } from "./meal/meal-drawer"
+import { SearchInput } from "./search-input"
+import { MealDrawer } from "../meal/meal-drawer"
 import { convertTime } from "@/utils/helpers"
 
 interface SearchPageProps {

@@ -1,4 +1,4 @@
-import SearchPage from "@/components/search-page"
+import SearchPage from "@/components/search/search-page"
 import { getRecipeById } from "@/db/admin"
 import { getSettingsById } from "@/db/settings"
 import { createClient } from "@/lib/supabase/server"
