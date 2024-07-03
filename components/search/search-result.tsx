@@ -112,7 +112,7 @@ export const SearchResult = ({ recipes, query }: SearchResultProps) => {
             ) : (
               <IconSend
                 className={cn(
-                  "rounded-full bg-primary p-1 text-secondary",
+                  "rounded-full w-9 h-9 bg-primary p-1 text-secondary",
                   !input ? "cursor-not-allowed opacity-50" : ""
                 )}
                 onClick={() => {
