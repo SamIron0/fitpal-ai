@@ -18,6 +18,7 @@ export default async function ResultPage({ params }: { params: { query: string }
     headers: {
       "Content-Type": "application/json"
     },
+  
     body: JSON.stringify({
         input: "rice",
         diet:  "Anything",
