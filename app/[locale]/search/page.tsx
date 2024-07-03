@@ -5,7 +5,6 @@ import { createClient } from "@/lib/supabase/server"
 import { Tables } from "@/supabase/types"
 import Head from "next/head"
 import { cookies } from "next/headers"
-
 export default async function Search() {
   const supabase = createClient(cookies())
   const {
