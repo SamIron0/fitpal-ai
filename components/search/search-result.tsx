@@ -17,14 +17,27 @@ interface SearchResultProps {
 
 export const SearchResult = ({ recipes, query }: SearchResultProps) => {
   const [isOpen, setIsOpen] = useState<string>("0")
+  function convertURLComponent(urlComponent: string) {
+    // Decode the URL component to handle encoded characters
+    let decodedComponent = decodeURIComponent(urlComponent)
 
+    // Replace encoded spaces with actual spaces
+    let textWithSpaces = decodedComponent.replace(/%20/g, " ")
+
+    // Optionally, remove other non-alphanumeric characters if needed
+    // let cleanText = textWithSpaces.replace(/[^a-zA-Z0-9 ]/g, '');
+
+    return textWithSpaces
+  }
   const openDrawer = (id: string) => {
     setIsOpen(id)
   }
   const router = useRouter()
   const renderRecipes = (recipes: Tables<"recipes">[]) => (
     <div className="w-full py-6 max-w-4xl mx-auto ">
-      <h1 className="mb-8 text-4xl font-semibold">{query}</h1>
+      <h1 className="mb-8 text-4xl font-semibold">
+        {convertURLComponent(query)}
+      </h1>
       <p>{}</p>
       <div
         role="status"
@@ -85,6 +98,7 @@ export const SearchResult = ({ recipes, query }: SearchResultProps) => {
   const handleInputChange = (event: any) => {
     setInput(event.target.value)
   }
+
   const { t } = useTranslation()
   const [isTyping, setIsTyping] = useState<boolean>(false)
   const { isGenerating, setIsGenerating, setGeneratedRecipes, settings } =
