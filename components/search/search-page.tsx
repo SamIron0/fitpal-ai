@@ -87,7 +87,7 @@ const SearchPage = ({ for_you }: SearchPageProps) => {
     </div>
   )
   const onSearch = (query: string) => {
-    const formattedQuery = query.toLowerCase().replace(/ /g, "-")
+    const formattedQuery = encodeURIComponent(query.toLowerCase().replace(/ /g, "-"));
     router.push(`/search/${formattedQuery}`)
   }
   return (
