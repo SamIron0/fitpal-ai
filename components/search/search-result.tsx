@@ -18,9 +18,17 @@ interface SearchResultProps {
 export const SearchResult = ({ recipes, query }: SearchResultProps) => {
   const [isOpen, setIsOpen] = useState<string>("0")
   function decodeURLComponent(urlComponent: string) {
-    const decodedString = urlComponent.replace(/-/g, " ") // Replace hyphens with spaces
-    return decodedString.charAt(0).toUpperCase() + decodedString.slice(1) // Capitalize the first letter
+    // Decode the URL component
+    const decodedString = decodeURIComponent(urlComponent).replace(/-/g, " ") // Replace hyphens with spaces
+
+    // Capitalize the first letter of each word
+    const capitalizedString = decodedString.replace(/\b\w/g, char =>
+      char.toUpperCase()
+    )
+
+    return capitalizedString
   }
+
   const openDrawer = (id: string) => {
     setIsOpen(id)
   }
