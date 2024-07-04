@@ -30,7 +30,8 @@ export default async function ResultPage({
     //console.log(query)
 
     const saveQueryPromise = save_query(uid || null, decodeURLComponent(query))
-
+   
+    
     const renderPromise = fetch("https://fitpal-search.onrender.com/search", {
       method: "POST",
       headers: {
@@ -41,18 +42,18 @@ export default async function ResultPage({
         diet: uid ? settings.diet : "Anything",
         allergy: uid ? settings.allergies : ["None"]
       })
-    }).then(data => data.json())
-
+    }).then(response => response.json());
+    
     const [_, responseData] = await Promise.all([
       saveQueryPromise,
       renderPromise
-    ])
-    const recipeIds = responseData.result
-    const recipePromises = recipeIds?.map((recipeId: string) =>
-      getRecipeById(recipeId)
-    )
-    const recipes = await Promise.all(recipePromises)
-
+    ]);
+    
+    const recipes = responseData.result;
+    
+    // Now `recipes` contains the full recipe data returned by the server
+    console.log(recipes);
+    
     return (
       <Dashboard>
         <Head>

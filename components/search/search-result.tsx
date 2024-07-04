@@ -1,5 +1,5 @@
 "use client"
-import { Tables } from "@/supabase/types"
+import { Tables, TablesInsert } from "@/supabase/types"
 import { useRouter } from "next/navigation"
 import { useContext, useEffect, useRef, useState } from "react"
 import { MealDrawer } from "../meal/meal-drawer"
@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils"
 import { FitpalAIContext } from "@/context/context"
 
 interface SearchResultProps {
-  recipes: Tables<"recipes">[]
+  recipes: TablesInsert<"recipes">[]
   query: string
 }
 
