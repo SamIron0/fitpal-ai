@@ -18,14 +18,14 @@ import {
   CardTitle
 } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Tables } from "@/supabase/types"
+import { TablesInsert } from "@/supabase/types"
 
 interface MealDrawerProps {
   children?: React.ReactNode
   recipe: TablesInsert<"recipes">
   isOpen?: string
 }
-const NutritionFacts: React.FC<{ recipe: Tables<"recipes"> }> = ({
+const NutritionFacts: React.FC<{ recipe: TablesInsert<"recipes"> }> = ({
   recipe
 }) => (
   <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
@@ -54,7 +54,7 @@ const convertTime = (totalMinutes: number) => {
     return `${minutes} min`
   }
 }
-const IngredientsList: React.FC<{ ingredients: string[] | null }> = ({
+const IngredientsList: React.FC<{ ingredients: string[] | null | undefined }> = ({
   ingredients
 }) => (
   <ul className="list-inside list-disc space-y-2">
@@ -66,7 +66,7 @@ const IngredientsList: React.FC<{ ingredients: string[] | null }> = ({
   </ul>
 )
 
-const DirectionsList: React.FC<{ instructions: string[] | null }> = ({
+const DirectionsList: React.FC<{ instructions: string[] | null | undefined }> = ({
   instructions
 }) => (
   <ol className="list-inside list-decimal space-y-4">
@@ -78,7 +78,7 @@ const DirectionsList: React.FC<{ instructions: string[] | null }> = ({
   </ol>
 )
 
-const RecipeDetails: React.FC<{ recipe: Tables<"recipes"> }> = ({ recipe }) => (
+const RecipeDetails: React.FC<{ recipe: TablesInsert<"recipes"> }> = ({ recipe }) => (
   <div className="space-y-8">
     <div>
       <h1 className="text-3xl mt-6 font-bold text-zinc-100">{recipe.name}</h1>
@@ -105,7 +105,7 @@ const RecipeDetails: React.FC<{ recipe: Tables<"recipes"> }> = ({ recipe }) => (
         <CardTitle>Ingredients</CardTitle>
       </CardHeader>
       <CardContent>
-        <IngredientsList ingredients={recipe.ingredients} />
+        <IngredientsList ingredients={recipe?.ingredients} />
       </CardContent>
     </Card>
 
@@ -114,13 +114,13 @@ const RecipeDetails: React.FC<{ recipe: Tables<"recipes"> }> = ({ recipe }) => (
         <CardTitle>Directions</CardTitle>
       </CardHeader>
       <CardContent className="w-full max-w-2xl">
-        <DirectionsList instructions={recipe.instructions} />
+        <DirectionsList instructions={recipe?.instructions} />
       </CardContent>
     </Card>
   </div>
 )
 
-const MealDrawerContent: React.FC<{ recipe: Tables<"recipes"> }> = ({
+const MealDrawerContent: React.FC<{ recipe: TablesInsert<"recipes"> }> = ({
   recipe
 }) => (
   <div className="flex flex-col space-y-6 overflow-y-auto pb-20">
