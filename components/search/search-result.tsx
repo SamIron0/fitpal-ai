@@ -13,9 +13,10 @@ import { FitpalAIContext } from "@/context/context"
 interface SearchResultProps {
   recipes: TablesInsert<"recipes">[]
   query: string
+  text: string
 }
 
-export const SearchResult = ({ recipes, query }: SearchResultProps) => {
+export const SearchResult = ({ recipes, query, text }: SearchResultProps) => {
   const [isOpen, setIsOpen] = useState<string>("0")
   function decodeURLComponent(urlComponent: string) {
     // Decode the URL component

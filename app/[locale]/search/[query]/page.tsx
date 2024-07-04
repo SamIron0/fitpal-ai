@@ -50,6 +50,7 @@ export default async function ResultPage({
 
     const recipes = responseData.result
     const description = responseData.description
+    const text = responseData.text
     const pageTitle = decodeURLComponent(query)
     const keywords = responseData.keywords
     const canonicalUrl = `https://fitpalai.com/search/${query}`
@@ -70,7 +71,7 @@ export default async function ResultPage({
           <meta name="twitter:description" content={description} />
           <meta name="twitter:image" content={ogImage} />
         </Head>
-        <SearchResult query={query} recipes={recipes} />
+        <SearchResult query={query} recipes={recipes} text={text} />
       </Dashboard>
     )
   }
