@@ -31,13 +31,13 @@ export default async function ResultPage({
 
     const saveQueryPromise = save_query(uid || null, decodeURLComponent(query))
 
-    const herokuPromise = fetch("https://fitpal-search.onrender.com/search", {
+    const renderPromise = fetch("https://fitpal-search.onrender.com/search", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        query: decodeURLComponent(query),
+        query: query,
         diet: uid ? settings.diet : "Anything",
         allergy: uid ? settings.allergies : ["None"]
       })
@@ -45,7 +45,7 @@ export default async function ResultPage({
 
     const [_, responseData] = await Promise.all([
       saveQueryPromise,
-      herokuPromise
+      renderPromise
     ])
     const recipeIds = responseData.result
     const recipePromises = recipeIds?.map((recipeId: string) =>
