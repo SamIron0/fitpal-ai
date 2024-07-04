@@ -22,7 +22,7 @@ import { Tables } from "@/supabase/types"
 
 interface MealDrawerProps {
   children?: React.ReactNode
-  recipe: Tables<"recipes">
+  recipe: TablesInsert<"recipes">
   isOpen?: string
 }
 const NutritionFacts: React.FC<{ recipe: Tables<"recipes"> }> = ({
