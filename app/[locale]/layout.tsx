@@ -13,14 +13,13 @@ import "./globals.css"
 import ToasterProvider from "@/components/utility/toasterProvider"
 import { Analytics } from "@vercel/analytics/react"
 import { Dashboard } from "@/components/ui/dashboard"
-import Head from "next/head"
 
 const inter = Inter({ subsets: ["latin"] })
 const APP_NAME = "Fitpal AI"
 const APP_DEFAULT_TITLE = "Fitpal AI"
 const APP_TITLE_TEMPLATE = "%s - Fitpal AI"
 const APP_DESCRIPTION =
-  "Find curated recipes by entering your ingredients into our AI-powered search engine. You can now search deeper into the recipes beyond just ingredients."
+  "Find Recipes from Ingredients You Have. Enter the ingredients you have or keywords, and we will help you find delicious recipes in no time."
 
 interface RootLayoutProps {
   children: ReactNode
@@ -112,35 +111,6 @@ export default async function RootLayout({
           }}
         ></script>
       </head>
-      <Head>
-          <meta
-            name="description"
-            content="Find curated recipes by entering your ingredients into our AI-powered search engine. You can now search deeper into recipes beyond just ingredients."
-          />
-          <meta
-            name="keywords"
-            content="recipes, ingredients, cooking, meals, personalized recipes"
-          />
-          <meta
-            property="og:title"
-            content="Find Recipes from Ingredients | FitpalAI"
-          />
-          <meta
-            property="og:description"
-            content="Find curated recipes by entering your ingredients into our AI-powered search engine. You can now search deeper into recipes beyond just ingredients."
-          />
-          <meta property="og:url" content="https://fitpalai.com/search" />
-          <meta property="og:type" content="website" />
-          <meta
-            name="twitter:title"
-            content="Find Recipes from Ingredients | FitpalAI"
-          />
-          <meta
-            name="twitter:description"
-            content="Find curated recipes by entering your ingredients into our AI-powered search engine. You can now search deeper into recipes beyond just ingredients."
-          />
-        </Head>
-
       <body className={inter.className + "bg-background"}>
         <ToasterProvider />
         <Providers attribute="class" defaultTheme="dark">
