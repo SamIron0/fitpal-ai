@@ -30,8 +30,7 @@ export default async function ResultPage({
     //console.log(query)
 
     const saveQueryPromise = save_query(uid || null, decodeURLComponent(query))
-   
-    
+
     const renderPromise = fetch("https://fitpal-search.onrender.com/search", {
       method: "POST",
       headers: {
@@ -42,48 +41,35 @@ export default async function ResultPage({
         diet: uid ? settings.diet : "Anything",
         allergy: uid ? settings.allergies : ["None"]
       })
-    }).then(response => response.json());
-    
+    }).then(response => response.json())
+
     const [_, responseData] = await Promise.all([
       saveQueryPromise,
       renderPromise
-    ]);
-    
-    const recipes = responseData.result;
+    ])
+
+    const recipes = responseData.result
     const description = responseData.description
-    console.log(description)
-    
+    const pageTitle = decodeURLComponent(query)
+    const keywords = responseData.keywords
+    const canonicalUrl = `https://fitpalai.com/search/${query}`
+    const ogImage = responseData.ogImage || "https://fitpalai.com/logo.png"
+
     return (
       <Dashboard>
         <Head>
-          <meta
-            name="description"
-            content="Find curated recipes by entering your ingredients into our AI-powered search engine. You can now search deeper into recipes beyond just ingredients."
-          />
-          <meta
-            name="keywords"
-            content="recipes, ingredients, cooking, meals, personalized recipes"
-          />
-          <meta
-            property="og:title"
-            content="Find Recipes from Ingredients | FitpalAI"
-          />
-          <meta
-            property="og:description"
-            content="Find curated recipes by entering your ingredients into our AI-powered search engine. You can now search deeper into recipes beyond just ingredients."
-          />
-          <meta property="og:url" content="https://fitpalai.com/search" />
-          <meta property="og:type" content="website" />
-          <meta
-            name="twitter:title"
-            content="Find Recipes from Ingredients | FitpalAI"
-          />
-          <meta
-            name="twitter:description"
-            content="Find curated recipes by entering your ingredients into our AI-powered search engine. You can now search deeper into recipes beyond just ingredients."
-          />
+          <title>{pageTitle}</title>
+          <meta name="description" content={description} />
+          <meta name="keywords" content={keywords} />
+          <link rel="canonical" href={canonicalUrl} />
+          <meta property="og:title" content={pageTitle} />
+          <meta property="og:description" content={description} />
+          <meta property="og:image" content={ogImage} />
+          <meta property="og:url" content={canonicalUrl} />
+          <meta name="twitter:title" content={pageTitle} />
+          <meta name="twitter:description" content={description} />
+          <meta name="twitter:image" content={ogImage} />
         </Head>
-
         <SearchResult query={query} recipes={recipes} />
       </Dashboard>
     )
