@@ -87,7 +87,10 @@ const SearchPage = ({ for_you }: SearchPageProps) => {
     </div>
   )
   const onSearch = (query: string) => {
-    const formattedQuery = encodeURIComponent(query.toLowerCase().replace(/ /g, "-"));
+    const formattedQuery = encodeURIComponent(
+      query.trim().toLowerCase().replace(/\s+/g, "-")
+    )
+
     router.push(`/search/${formattedQuery}`)
   }
   return (
@@ -100,9 +103,9 @@ const SearchPage = ({ for_you }: SearchPageProps) => {
           Find Recipes from Ingredients You Have
         </h1>
         <p className="visually-hidden">
-          Enter the ingredients you have, and we will help
-          you find delicious recipes in no time. Whether you have chicken,
-          pasta, or veggies, we have got you covered.
+          Enter the ingredients you have, and we will help you find delicious
+          recipes in no time. Whether you have chicken, pasta, or veggies, we
+          have got you covered.
         </p>
         <SearchInput onSearch={onSearch} />
       </div>
