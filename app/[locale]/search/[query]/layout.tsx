@@ -5,5 +5,5 @@ interface ResultLayoutProps {
 }
 
 export default function ResultLayout({ children }: ResultLayoutProps) {
-  return <>{children}</>
+  return <div>{children}</div>
 }
