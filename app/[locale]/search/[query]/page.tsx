@@ -50,9 +50,8 @@ export default async function ResultPage({
     ]);
     
     const recipes = responseData.result;
-    
-    // Now `recipes` contains the full recipe data returned by the server
-    console.log(recipes);
+    const description = responseData.description
+    console.log(description)
     
     return (
       <Dashboard>
