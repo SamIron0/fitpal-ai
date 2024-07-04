@@ -37,7 +37,7 @@ export default async function ResultPage({
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        query: query,
+        query: query.replace(/-/g, " "),
         diet: uid ? settings.diet : "Anything",
         allergy: uid ? settings.allergies : ["None"]
       })
