@@ -54,7 +54,7 @@ export default function SeoPage({ pages }: SeoProps) {
       console.log(card)
       const res = await fetch("/api/seo", {
         method: "POST",
-        body: JSON.stringify({ card })
+        body: JSON.stringify({ data: card })
       })
     } catch (err) {
       console.log(err)
