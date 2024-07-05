@@ -12,10 +12,6 @@ export async function POST(request: Request) {
   try {
     const saveResult = await saveSeoPage(data) // Save recipe to Supabase or your database
 
-    if (!saveResult) {
-      return new Response(JSON.stringify({ error: "None" }))
-    }
-    // add to long term cache
     const renderPromise = fetch("https://fitpal-search.onrender.com/search", {
       method: "POST",
       headers: {
