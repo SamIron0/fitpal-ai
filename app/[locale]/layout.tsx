@@ -19,7 +19,7 @@ const APP_NAME = "Fitpal AI"
 const APP_DEFAULT_TITLE = "Fitpal AI"
 const APP_TITLE_TEMPLATE = "%s - Fitpal AI"
 const APP_DESCRIPTION =
-  "Find Recipes from Ingredients You Have. Enter the ingredients you have or keywords, and we will help you find delicious recipes in no time."
+  " Find Recipes from Ingredients You Have. Enter the ingredients you have or keywords, and we will help you find delicious recipes in no time."
 
 interface RootLayoutProps {
   children: ReactNode
