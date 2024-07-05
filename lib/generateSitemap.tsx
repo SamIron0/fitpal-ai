@@ -10,9 +10,11 @@ interface Link {
 }
 // Dummy function to mimic your actual getSeoPages function
 async function getSeos() {
+  const seoPages = await getSeoPages()
+  console.log("seo", seoPages)
   return [
-    { id: "what can i make with ground beef" },
-        // Add more pages here
+    { id: "what can i make with ground beef" }
+    // Add more pages here
   ]
 }
 
