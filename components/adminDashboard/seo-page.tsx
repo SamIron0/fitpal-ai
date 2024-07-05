@@ -7,11 +7,10 @@ import { Button } from "@/components/ui/button"
 import { TablesInsert } from "@/supabase/types"
 
 interface SeoCard {
-  query: string
-  descr: string
-  text: string
-  kws: string
-  ogImg: string
+  id: string
+  description?: string
+  ogImage?: string
+  keywords?: string[]
 }
 
 interface SeoProps {
@@ -19,13 +18,12 @@ interface SeoProps {
   onSave: (page: TablesInsert<"search_result_metadata">) => void
 }
 export default function SeoPage({ pages, onSave }: SeoProps) {
-  const [cards, setCards] = useState<TablesInsert<"search_result_metadata">[]>(
-    []
-  )
+  const [cards, setCards] = useState<SeoCard[]>([])
+  const [updatedCards, setUpdatedCards] = useState<SeoCard[]>([])
 
   useEffect(() => {
     // Populate with one sample card when the component mounts
-    pages && setCards(pages)
+    pages && pages.length > 0 && setCards(pages)
   }, [])
 
   const addNewCard = () => {
@@ -65,26 +63,26 @@ export default function SeoPage({ pages, onSave }: SeoProps) {
               <Input
                 placeholder="Query"
                 value={card.id}
-                onChange={e => updateCard(index, "query", e.target.value)}
+                onChange={e => updateCard(index, "id", e.target.value)}
                 className="mb-2 bg-zinc-700 text-white"
               />
               <Input
                 placeholder="Description"
                 value={card.description}
-                onChange={e => updateCard(index, "descr", e.target.value)}
+                onChange={e => updateCard(index, "description", e.target.value)}
                 className="mb-2 bg-zinc-700 text-white"
               />
 
               <Input
                 placeholder="Keywords"
                 value={card.keywords}
-                onChange={e => updateCard(index, "kws", e.target.value)}
+                onChange={e => updateCard(index, "keywords", e.target.value)}
                 className="mb-2 bg-zinc-700 text-white"
               />
               <Input
                 placeholder="Original Image"
                 value={card.ogImage}
-                onChange={e => updateCard(index, "ogImg", e.target.value)}
+                onChange={e => updateCard(index, "ogImage", e.target.value)}
                 className="bg-zinc-700 text-white"
               />
             </CardContent>
