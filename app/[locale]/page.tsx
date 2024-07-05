@@ -28,7 +28,7 @@ export default async function Search() {
         />
         <meta
           name="keywords"
-          content="recipes, ingredients, cooking, meals, personalized recipes"
+          content="recipes, ingredients,ai, cooking, meals, personalized recipes"
         />
         <meta
           property="og:title"
