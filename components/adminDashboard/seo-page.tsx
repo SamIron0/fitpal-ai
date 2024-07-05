@@ -54,10 +54,6 @@ export default function SeoPage({ pages }: SeoProps) {
     const tid = toast.loading("Deleting...")
 
     try {
-      const res = await fetch("/api/seo", {
-        method: "DELETE",
-        body: JSON.stringify({ id })
-      })
       // delete from cards array
       setCards(cards.filter(card => card.id !== id))
       toast.dismiss(tid)
@@ -152,16 +148,14 @@ export default function SeoPage({ pages }: SeoProps) {
                       }
                       rows={4}
                     />
-                  </div> 
+                  </div>
                   <div className="flex flex-col space-y-1.5">
                     <Label htmlFor="text">Text</Label>
                     <Textarea
                       id="description"
                       placeholder="meta description"
                       value={card.description}
-                      onChange={e =>
-                        updateCard(index, "text", e.target.value)
-                      }
+                      onChange={e => updateCard(index, "text", e.target.value)}
                       rows={4}
                     />
                   </div>

@@ -10,7 +10,7 @@ export async function POST(request: Request) {
     await request.json()
   try {
     const saveResult = await saveSeoPage(data) // Save recipe to Supabase or your database
-    console.log(data)
+    //console.log(data)
 
     const renderPromise = await fetch(
       "https://fitpal-search.onrender.com/long_term_cache",
@@ -29,7 +29,7 @@ export async function POST(request: Request) {
         })
       }
     ).then(response => response.json())
-    console.log('res',renderPromise)
+    //console.log('res',renderPromise)
 
     return new Response(
       JSON.stringify({ message: "Page saved successfully", saveResult })
@@ -42,12 +42,21 @@ export async function POST(request: Request) {
 
 export async function DELETE(request: Request) {
   if (request.method !== "DELETE") {
-    return new Response("Method not allowed", { status: 405 })
-  }
-  try {
+      return new Response("Method not allowed", { status: 405 })
+    }
+    try {
     const { id } = await request.json()
-    console.log("deleting: ", id)
+    //console.log("deleting: ", id)
     const res = await deleteSeoPage(id)
+    const renderPromise = await fetch(
+      "https://fitpal-search.onrender.com/clear_cache",
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }
+    ).then(response => response.json())
   } catch (error) {
     console.error("Error deleting page:", error)
     return new Response(JSON.stringify({ error: error }))
