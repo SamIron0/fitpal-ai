@@ -198,12 +198,14 @@ export type Database = {
           keywords?: string[]
           ogImage?: string
           id: string
+          text?: string
         }
         Update: {
           description?: string
           keywords?: string[]
           ogImage?: string
           id?: string
+          text?: string
         }
       }
       documents: {

@@ -142,13 +142,25 @@ export default function SeoPage({ pages }: SeoProps) {
                     />
                   </div>
                   <div className="flex flex-col space-y-1.5">
-                    <Label htmlFor="name">Description</Label>
+                    <Label htmlFor="description">Description</Label>
                     <Textarea
                       id="description"
                       placeholder="meta description"
                       value={card.description}
                       onChange={e =>
                         updateCard(index, "description", e.target.value)
+                      }
+                      rows={4}
+                    />
+                  </div> 
+                  <div className="flex flex-col space-y-1.5">
+                    <Label htmlFor="text">Text</Label>
+                    <Textarea
+                      id="description"
+                      placeholder="meta description"
+                      value={card.description}
+                      onChange={e =>
+                        updateCard(index, "text", e.target.value)
                       }
                       rows={4}
                     />
