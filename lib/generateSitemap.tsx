@@ -19,7 +19,7 @@ async function getSeos() {
 export async function generateSitemap(): Promise<string> {
   const seoPages = await getSeos()
   const temp = await getSeoPages()
-  console.log(temp)
+  console.log('seopages', temp)
   const links: {
     url: string
     changefreq: string

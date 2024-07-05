@@ -125,6 +125,7 @@ export const getSeoPages = async () => {
   if (error) {
     throw error
   }
+  console.log('pg',pages)
   return pages
 }
 export const getGuestForYou = async () => {
