@@ -6,7 +6,8 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { TablesInsert } from "@/supabase/types"
 import { postData } from "@/utils/helpers"
-
+import { CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Label } from "@/components/ui/label"
 interface SeoCard {
   id: string
   description?: string
@@ -33,7 +34,11 @@ export default function SeoPage({ pages }: SeoProps) {
     ])
   }
 
-  const updateCard = (index: number, field: keyof SeoCard, value: string) => {
+  const updateCard = (
+    index: number,
+    field: keyof SeoCard,
+    value: string | string[]
+  ) => {
     const updatedCards = [...cards]
     updatedCards[index] = { ...updatedCards[index], [field]: value }
     setCards(updatedCards)
@@ -54,7 +59,7 @@ export default function SeoPage({ pages }: SeoProps) {
     <div className="min-h-screen w-full bg-black p-8 text-foreground">
       <div className="flex justify-end mb-4 space-x-2">
         <Button onClick={savePages} variant="outline" className="text-white">
-          SAVE
+          SAVE ALL
         </Button>
         <Button onClick={addNewCard} variant="outline" className="text-white  ">
           + NEW
@@ -62,34 +67,51 @@ export default function SeoPage({ pages }: SeoProps) {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {cards.map((card, index) => (
-          <Card key={index} className="bg-background">
-            <CardContent className="p-4">
-              <Input
-                placeholder="Query"
-                value={card.id}
-                onChange={e => updateCard(index, "id", e.target.value)}
-                className="mb-2 bg-zinc-700 text-white"
-              />
-              <Input
-                placeholder="Description"
-                value={card.description}
-                onChange={e => updateCard(index, "description", e.target.value)}
-                className="mb-2 bg-zinc-700 text-white"
-              />
-
-              <Input
-                placeholder="Keywords"
-                value={card.keywords}
-                onChange={e => updateCard(index, "keywords", e.target.value)}
-                className="mb-2 bg-zinc-700 text-white"
-              />
-              <Input
-                placeholder="Original Image"
-                value={card.ogImage}
-                onChange={e => updateCard(index, "ogImage", e.target.value)}
-                className="bg-zinc-700 text-white"
-              />
+          <Card className="w-[350px]">
+            <CardHeader>
+              <CardTitle>Seo Page</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <form>
+                <div className="grid w-full items-center gap-4">
+                  <div className="flex flex-col space-y-1.5">
+                    <Label htmlFor="name">Query</Label>
+                    <Input
+                      id="name"
+                      placeholder="Name of your project"
+                      value={card.id}
+                      onChange={e => updateCard(index, "id", e.target.value)}
+                    />
+                  </div>
+                  <div className="flex flex-col space-y-1.5">
+                    <Label htmlFor="name">Description</Label>
+                    <Input
+                      id="description"
+                      placeholder="meta description"
+                      value={card.description}
+                      onChange={e =>
+                        updateCard(index, "description", e.target.value)
+                      }
+                    />
+                  </div>
+                  <div className="flex flex-col space-y-1.5">
+                    <Label htmlFor="name">Keywords</Label>
+                    <Input
+                      id="keywords"
+                      placeholder="keywords"
+                      value={card.keywords}
+                      onChange={e =>
+                        updateCard(index, "keywords", e.target.value.split(","))
+                      }
+                    />
+                  </div>
+                </div>
+              </form>
             </CardContent>
+            <CardFooter className="flex justify-between">
+              <Button variant="outline">Cancel</Button>
+              <Button>Deploy</Button>
+            </CardFooter>
           </Card>
         ))}
       </div>
