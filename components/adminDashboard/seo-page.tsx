@@ -8,6 +8,7 @@ import { TablesInsert } from "@/supabase/types"
 import { postData } from "@/utils/helpers"
 import { CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
+import { Textarea } from "../ui/textarea"
 interface SeoCard {
   id: string
   description?: string
@@ -59,7 +60,7 @@ export default function SeoPage({ pages }: SeoProps) {
   }
 
   return (
-    <div className="min-h-screen w-full bg-black p-8 text-foreground">
+    <div className="w-full bg-black p-8 text-foreground">
       <div className="flex justify-end mb-4 space-x-2">
         <Button onClick={saveAllPages} variant="outline" className="text-white">
           SAVE ALL
@@ -88,13 +89,14 @@ export default function SeoPage({ pages }: SeoProps) {
                   </div>
                   <div className="flex flex-col space-y-1.5">
                     <Label htmlFor="name">Description</Label>
-                    <Input
+                    <Textarea
                       id="description"
                       placeholder="meta description"
                       value={card.description}
                       onChange={e =>
                         updateCard(index, "description", e.target.value)
                       }
+                      rows={4}
                     />
                   </div>
                   <div className="flex flex-col space-y-1.5">
