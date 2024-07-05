@@ -15,8 +15,5 @@ export default async function Seo() {
   }
   const pages = await getSeoPages()
 
-  const save_page = (page: TablesInsert<"search_result_metadata">) => {
-    const res = saveSeoPage(page)
-  }
-  return <SeoPage pages={pages} onSave={page => save_page(page)} />
+  return <SeoPage pages={pages} />
 }

@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { TablesInsert } from "@/supabase/types"
+import { postData } from "@/utils/helpers"
 
 interface SeoCard {
   id: string
@@ -15,9 +16,8 @@ interface SeoCard {
 
 interface SeoProps {
   pages: TablesInsert<"search_result_metadata">[] | null
-  onSave: (page: TablesInsert<"search_result_metadata">) => void
 }
-export default function SeoPage({ pages, onSave }: SeoProps) {
+export default function SeoPage({ pages }: SeoProps) {
   const [cards, setCards] = useState<SeoCard[]>([])
   const [updatedCards, setUpdatedCards] = useState<SeoCard[]>([])
 
@@ -39,17 +39,21 @@ export default function SeoPage({ pages, onSave }: SeoProps) {
     setCards(updatedCards)
   }
 
-  const saveCards = () => {
+  const savePages = () => {
     // Empty save function
     for (const card of cards) {
-      onSave(card)
+      try {
+        const res = postData({ url: "/api/seo", data: card })
+      } catch (err) {
+        console.log(err)
+      }
     }
   }
 
   return (
     <div className="min-h-screen w-full bg-black p-8 text-foreground">
       <div className="flex justify-end mb-4 space-x-2">
-        <Button onClick={saveCards} variant="outline" className="text-white">
+        <Button onClick={savePages} variant="outline" className="text-white">
           SAVE
         </Button>
         <Button onClick={addNewCard} variant="outline" className="text-white  ">
