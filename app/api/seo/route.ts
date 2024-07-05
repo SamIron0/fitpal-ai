@@ -8,24 +8,28 @@ export async function POST(request: Request) {
 
   const { data }: { data: TablesInsert<"search_result_metadata"> } =
     await request.json()
-  console.log(data)
   try {
     const saveResult = await saveSeoPage(data) // Save recipe to Supabase or your database
+    console.log(data)
 
-    const renderPromise = await fetch("https://fitpal-search.onrender.com/long_term_cache", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        query: data.id,
-        diet: "Anything",
-        allergy: ["None"],
-        description: data.description,
-        keywords: data.keywords,
-        ogImage: data.ogImage
-      })
-    }).then(response => response.json())
+    const renderPromise = await fetch(
+      "https://fitpal-search.onrender.com/long_term_cache",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          query: data.id,
+          diet: "Anything",
+          allergy: ["None"],
+          description: data.description,
+          keywords: data.keywords,
+          ogImage: data.ogImage
+        })
+      }
+    ).then(response => response.json())
+    console.log('res',renderPromise)
 
     return new Response(
       JSON.stringify({ message: "Page saved successfully", saveResult })

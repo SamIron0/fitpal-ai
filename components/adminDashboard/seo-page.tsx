@@ -86,9 +86,36 @@ export default function SeoPage({ pages }: SeoProps) {
     }
   }
 
+  const updateLongTermCache = async () => {
+    const id = toast.loading("Clearing...")
+    try {
+      const res = await fetch("/api/seo", {
+        method: "DELETE",
+        body: JSON.stringify({ data: cards })
+      })
+      toast.dismiss(id)
+      toast.success("Cache cleared successfully")
+      const id2 = toast.loading("Updating cache")
+      saveAllPages()
+      toast.dismiss(id2)
+      toast.success("Cache updated successfully")
+    } catch (err) {
+      toast.dismiss(id)
+      toast.error("Error clearing cache")
+      console.log(err)
+    }
+  }
   return (
     <div className="w-full bg-black  h-dvh p-8 text-foreground">
       <div className="flex justify-end mb-4 space-x-2">
+        <Button
+          onClick={updateLongTermCache}
+          variant="outline"
+          className="text-white"
+        >
+          CLEAR CACHE
+        </Button>
+
         <Button onClick={saveAllPages} variant="outline" className="text-white">
           SAVE ALL
         </Button>
