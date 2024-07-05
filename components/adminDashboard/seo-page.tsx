@@ -49,6 +49,16 @@ export default function SeoPage({ pages }: SeoProps) {
       savePage(card)
     }
   }
+  const deletePage = async (id: TablesInsert<"search_result_metadata">) => {
+    try {
+      const res = await fetch("/api/seo", {
+        method: "DELETE",
+        body: JSON.stringify({ data: id })
+      })
+    } catch (err) {
+      console.log(err)
+    }
+  }
   const savePage = async (card: TablesInsert<"search_result_metadata">) => {
     try {
       console.log(card)
@@ -116,7 +126,7 @@ export default function SeoPage({ pages }: SeoProps) {
               </form>
             </CardContent>
             <CardFooter className="flex justify-between">
-              <Button variant="outline">Delete</Button>
+              <Button onClick={() => deletePage(card.id)} variant="outline">Delete</Button>
               <Button onClick={() => savePage(card)}>Deploy</Button>
             </CardFooter>
           </Card>

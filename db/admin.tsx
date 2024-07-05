@@ -67,6 +67,19 @@ export const deleteRecipe = async (recipe: TablesInsert<"recipes">) => {
 
   return deletedRecipe
 }
+export const deleteSeoPage = async (id: string) => {
+  // Check if the recipe already exists by looking for a unique identifier (e.g., id)
+  const { data: deletedPage, error: fetchError } = await supabaseAdmin
+    .from("search_result_metadata")
+    .delete()
+    .eq("id", id)
+
+  if (fetchError && fetchError.code !== "PGRST116") {
+    throw fetchError
+  }
+
+  return deletedPage
+}
 export const saveSeoPage = async (
   page: TablesInsert<"search_result_metadata">
 ) => {
