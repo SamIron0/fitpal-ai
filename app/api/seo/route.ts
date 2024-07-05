@@ -12,7 +12,7 @@ export async function POST(request: Request) {
   try {
     const saveResult = await saveSeoPage(data) // Save recipe to Supabase or your database
 
-    const renderPromise = fetch("https://fitpal-search.onrender.com/search", {
+    const renderPromise = await fetch("https://fitpal-search.onrender.com/long_term_cache", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
