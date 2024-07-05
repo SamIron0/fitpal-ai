@@ -1,13 +1,16 @@
-// pages/api/sitemap.ts
-import type { NextApiRequest, NextApiResponse } from "next"
-import { generateSitemap } from "../../lib/generateSitemap"
+// app/api/sitemap/route.ts
+import { NextResponse } from "next/server"
+import { generateSitemap } from "@/lib/generateSitemap"
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+export async function GET() {
   try {
     const sitemap = await generateSitemap()
-    res.setHeader("Content-Type", "application/xml")
-    res.status(200).send(sitemap)
+    return new NextResponse(sitemap, {
+      headers: {
+        "Content-Type": "application/xml"
+      }
+    })
   } catch (error) {
-    res.status(500).send("Error generating sitemap")
+    return new NextResponse("Error generating sitemap", { status: 500 })
   }
 }

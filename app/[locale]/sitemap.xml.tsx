@@ -1,4 +1,3 @@
-// pages/sitemap.xml.tsx
 import { GetServerSideProps } from "next"
 import { generateSitemap } from "@/lib/generateSitemap"
 
