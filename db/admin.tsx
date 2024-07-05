@@ -67,7 +67,16 @@ export const deleteRecipe = async (recipe: TablesInsert<"recipes">) => {
 
   return deletedRecipe
 }
+export const getSeoPages = async () => {
+  const { data: pages, error } = await supabaseAdmin
+    .from("search_result_metadata")
+    .select("*")
 
+  if (error) {
+    throw error
+  }
+  return pages
+}
 export const getGuestForYou = async () => {
   // get 10 random entries from table recipes
   const { data: recipes, error } = await supabaseAdmin
@@ -116,7 +125,7 @@ export const getAllRecipes = async () => {
   }
   return recipes
 }
-export const save_query = async (uid: string|null, query: string) => {
+export const save_query = async (uid: string | null, query: string) => {
   const { data: queryData, error } = await supabaseAdmin
     .from("queries")
     .insert({

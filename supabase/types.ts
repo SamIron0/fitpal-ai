@@ -185,6 +185,27 @@ export type Database = {
         }
       }
 
+      search_result_metadata: {
+        Row: {
+          description?: string
+          keywords: string[]
+          ogImage?: string
+          id: string
+          text: string
+        }
+        Insert: {
+          description?: string
+          keywords?: string[]
+          ogImage?: string
+          id: string
+        }
+        Update: {
+          description?: string
+          keywords?: string[]
+          ogImage?: string
+          id?: string
+        }
+      }
       documents: {
         Row: {
           workspace_id: string
