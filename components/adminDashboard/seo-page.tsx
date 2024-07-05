@@ -44,21 +44,24 @@ export default function SeoPage({ pages }: SeoProps) {
     setCards(updatedCards)
   }
 
-  const savePages = () => {
+  const saveAllPages = () => {
     // Empty save function
     for (const card of cards) {
-      try {
-        const res = postData({ url: "/api/seo", data: card })
-      } catch (err) {
-        console.log(err)
-      }
+      savePage(card)
+    }
+  }
+  const savePage = async (card: SeoCard) => {
+    try {
+      const res = await postData({ url: "/api/seo", data: card })
+    } catch (err) {
+      console.log(err)
     }
   }
 
   return (
     <div className="min-h-screen w-full bg-black p-8 text-foreground">
       <div className="flex justify-end mb-4 space-x-2">
-        <Button onClick={savePages} variant="outline" className="text-white">
+        <Button onClick={saveAllPages} variant="outline" className="text-white">
           SAVE ALL
         </Button>
         <Button onClick={addNewCard} variant="outline" className="text-white  ">
@@ -110,7 +113,7 @@ export default function SeoPage({ pages }: SeoProps) {
             </CardContent>
             <CardFooter className="flex justify-between">
               <Button variant="outline">Cancel</Button>
-              <Button>Deploy</Button>
+              <Button onClick={() => savePage(card)}>Deploy</Button>
             </CardFooter>
           </Card>
         ))}
