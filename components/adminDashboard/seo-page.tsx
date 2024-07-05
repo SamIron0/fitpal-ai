@@ -81,7 +81,7 @@ export default function SeoPage({ pages }: SeoProps) {
                   <div className="flex flex-col space-y-1.5">
                     <Label htmlFor="name">Query</Label>
                     <Input
-                      id="name"
+                      id="id"
                       placeholder="Name of your project"
                       value={card.id}
                       onChange={e => updateCard(index, "id", e.target.value)}
@@ -114,7 +114,7 @@ export default function SeoPage({ pages }: SeoProps) {
               </form>
             </CardContent>
             <CardFooter className="flex justify-between">
-              <Button variant="outline">Cancel</Button>
+              <Button variant="outline">Delete</Button>
               <Button onClick={() => savePage(card)}>Deploy</Button>
             </CardFooter>
           </Card>

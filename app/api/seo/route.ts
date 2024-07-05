@@ -6,7 +6,7 @@ export async function POST(request: Request) {
   }
 
   const { data } = await request.json()
-
+  console.log(data)
   try {
     const saveResult = await saveSeoPage(data) // Save recipe to Supabase or your database
 
