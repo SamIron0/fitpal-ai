@@ -9,6 +9,7 @@ import { postData } from "@/utils/helpers"
 import { CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "../ui/textarea"
+import { toast } from "sonner"
 
 interface SeoProps {
   pages: TablesInsert<"search_result_metadata">[] | null
@@ -50,23 +51,37 @@ export default function SeoPage({ pages }: SeoProps) {
     }
   }
   const deletePage = async (id: string) => {
+    const tid = toast.loading("Deleting...")
+
     try {
       const res = await fetch("/api/seo", {
         method: "DELETE",
         body: JSON.stringify({ id })
       })
+      // delete from cards array
+      setCards(cards.filter(card => card.id !== id))
+      toast.dismiss(tid)
+      toast.success("Page deleted successfully")
     } catch (err) {
+      toast.dismiss(tid)
+      toast.error("Error deleting page")
       console.log(err)
     }
   }
   const savePage = async (card: TablesInsert<"search_result_metadata">) => {
+    const id = toast.loading("Saving...")
     try {
       console.log(card)
       const res = await fetch("/api/seo", {
         method: "POST",
         body: JSON.stringify({ data: card })
       })
+
+      toast.dismiss(id)
+      toast.success("Page saved successfully")
     } catch (err) {
+      toast.dismiss(id)
+      toast.error("Error saving page")
       console.log(err)
     }
   }
@@ -126,7 +141,9 @@ export default function SeoPage({ pages }: SeoProps) {
               </form>
             </CardContent>
             <CardFooter className="flex justify-between">
-              <Button onClick={() => deletePage(card.id)} variant="outline">Delete</Button>
+              <Button onClick={() => deletePage(card.id)} variant="outline">
+                Delete
+              </Button>
               <Button onClick={() => savePage(card)}>Deploy</Button>
             </CardFooter>
           </Card>
