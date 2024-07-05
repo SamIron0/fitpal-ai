@@ -11,14 +11,15 @@ interface Link {
 // Dummy function to mimic your actual getSeoPages function
 async function getSeos() {
   return [
-    { id: "what can i make with ground beef" }
-    // Add more pages here
+    { id: "what can i make with ground beef" },
+    { id: "what can i make with chicken" }
+        // Add more pages here
   ]
 }
 
 export async function generateSitemap(): Promise<string> {
-  const temp = await getSeoPages()
-  console.log('seopages', temp)
+  //const temp = await getSeoPages()
+  //console.log('seo pages', temp)
   const seoPages = await getSeos()
   const links: {
     url: string
