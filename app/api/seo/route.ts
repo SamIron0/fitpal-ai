@@ -43,6 +43,7 @@ export async function DELETE(request: Request) {
   }
   try {
     const { id } = await request.json()
+    console.log('deleting: ', id)
     const res = await deleteSeoPage(id)
   } catch (error) {
     console.error("Error deleting page:", error)
