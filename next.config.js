@@ -27,6 +27,14 @@ module.exports = withBundleAnalyzer(
     },
     experimental: {
       serverComponentsExternalPackages: ["sharp", "onnxruntime-node"]
+    },
+    async rewrites() {
+      return [
+        {
+          source: "/sitemap.xml",
+          destination: "/api/sitemap"
+        }
+      ]
     }
   })
 )
