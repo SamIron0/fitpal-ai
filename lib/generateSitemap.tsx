@@ -35,7 +35,6 @@ export async function generateSitemap(): Promise<string> {
     }
     // Add more static or dynamic routes here
   ]
-
   seoPages.forEach(page => {
     const formattedQuery = encodeURIComponent(
       page.id.trim().toLowerCase().replace(/\s+/g, "-")
