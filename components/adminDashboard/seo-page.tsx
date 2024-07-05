@@ -67,7 +67,7 @@ export default function SeoPage({ pages }: SeoProps) {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {cards.map((card, index) => (
-          <Card className="w-[350px]">
+          <Card className="w-[350px]" key={index}>
             <CardHeader>
               <CardTitle>Seo Page</CardTitle>
             </CardHeader>
