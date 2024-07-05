@@ -32,12 +32,6 @@ export async function generateSitemap(): Promise<string> {
       changefreq: "daily",
       priority: 1.0,
       lastmod: "2024-07-03T00:00:00+00:00"
-    },
-    {
-      url: "/search",
-      changefreq: "daily",
-      priority: 1.0,
-      lastmod: "2024-07-03T00:00:00+00:00"
     }
     // Add more static or dynamic routes here
   ]
