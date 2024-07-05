@@ -1,4 +1,5 @@
 // lib/generateSitemap.ts
+import { getSeoPages } from "@/db/admin"
 import { SitemapStream, streamToPromise } from "sitemap"
 import { Readable } from "stream"
 
@@ -10,6 +11,7 @@ interface Link {
 }
 
 export async function generateSitemap(): Promise<string> {
+  const seoPages = await getSeoPages()
   const links: Link[] = [
     {
       url: "/",
