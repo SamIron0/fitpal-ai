@@ -49,7 +49,7 @@ export default function SeoPage({ pages }: SeoProps) {
       savePage(card)
     }
   }
-  const deletePage = async (id: TablesInsert<"search_result_metadata">) => {
+  const deletePage = async (id: string) => {
     try {
       const res = await fetch("/api/seo", {
         method: "DELETE",
