@@ -12,14 +12,13 @@ import { ReactNode } from "react"
 import "./globals.css"
 import ToasterProvider from "@/components/utility/toasterProvider"
 import { Analytics } from "@vercel/analytics/react"
-import { Dashboard } from "@/components/ui/dashboard"
 
 const inter = Inter({ subsets: ["latin"] })
 const APP_NAME = "Fitpal AI"
 const APP_DEFAULT_TITLE = "Fitpal AI"
 const APP_TITLE_TEMPLATE = "%s - Fitpal AI"
 const APP_DESCRIPTION =
-  " Find Recipes from Ingredients You Have. Enter the ingredients you have or keywords, and we will help you find delicious recipes in no time."
+  "Find curated recipes by entering your ingredients into our AI-powered search engine. Search using natural language or ingredients and get the closest recipes."
 
 interface RootLayoutProps {
   children: ReactNode
@@ -110,7 +109,7 @@ export default async function RootLayout({
           }}
         ></script>
       </head>
-      <body className={inter.className + "bg-background"}>
+      <body className={inter.className + " bg-background"}>
         <ToasterProvider />
         <Providers attribute="class" defaultTheme="dark">
           <Toaster richColors position="top-center" duration={3000} />
