@@ -53,7 +53,7 @@ export default function SeoPage({ pages }: SeoProps) {
     try {
       const res = await fetch("/api/seo", {
         method: "DELETE",
-        body: JSON.stringify({ data: id })
+        body: JSON.stringify({ id })
       })
     } catch (err) {
       console.log(err)
