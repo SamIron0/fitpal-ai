@@ -1,8 +1,7 @@
-"use client"
-
 import SeoPage from "@/components/adminDashboard/seo-page"
-import { getSeoPages } from "@/db/admin"
+import { getSeoPages, saveSeoPage } from "@/db/admin"
 import { createClient } from "@/lib/supabase/server"
+import { TablesInsert } from "@/supabase/types"
 import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
 
@@ -16,5 +15,8 @@ export default async function Seo() {
   }
   const pages = await getSeoPages()
 
-  return <SeoPage pages={pages} />
+  const save_page = (page: TablesInsert<"search_result_metadata">) => {
+    const res = saveSeoPage(page)
+  }
+  return <SeoPage pages={pages} onSave={page => save_page(page)} />
 }

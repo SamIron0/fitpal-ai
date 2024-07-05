@@ -67,6 +67,43 @@ export const deleteRecipe = async (recipe: TablesInsert<"recipes">) => {
 
   return deletedRecipe
 }
+export const saveSeoPage = async (
+  page: TablesInsert<"search_result_metadata">
+) => {
+  // Check if the recipe already exists by looking for a unique identifier (e.g., id)
+  const { data: existingPage, error: fetchError } = await supabaseAdmin
+    .from("search_result_metadata")
+    .select("*")
+    .eq("id", page.id)
+    .single()
+
+  if (fetchError && fetchError.code !== "PGRST116") {
+    throw fetchError
+  }
+
+  if (existingPage) {
+    // If the recipe exists, update it
+    const { data: updatedPage, error: updateError } = await supabaseAdmin
+      .from("search_result_metadata")
+      .update(page)
+      .eq("id", page.id)
+
+    if (updateError) {
+      throw updateError
+    }
+    return updatedPage
+  } else {
+    // If the recipe does not exist, insert it
+    const { data: newPage, error: insertError } = await supabaseAdmin
+      .from("search_result_metadata")
+      .insert(page)
+
+    if (insertError) {
+      throw insertError
+    }
+    return newPage
+  }
+}
 export const getSeoPages = async () => {
   const { data: pages, error } = await supabaseAdmin
     .from("search_result_metadata")

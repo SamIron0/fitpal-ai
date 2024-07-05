@@ -15,9 +15,10 @@ interface SeoCard {
 }
 
 interface SeoProps {
-  pages: TablesInsert<"search_result_metadata"> []| null
+  pages: TablesInsert<"search_result_metadata">[] | null
+  onSave: (page: TablesInsert<"search_result_metadata">) => void
 }
-export default function SeoPage({ pages }: SeoProps) {
+export default function SeoPage({ pages, onSave }: SeoProps) {
   const [cards, setCards] = useState<TablesInsert<"search_result_metadata">[]>(
     []
   )
@@ -42,7 +43,9 @@ export default function SeoPage({ pages }: SeoProps) {
 
   const saveCards = () => {
     // Empty save function
-    console.log("Saving cards:", cards)
+    for (const card of cards) {
+      onSave(card)
+    }
   }
 
   return (
