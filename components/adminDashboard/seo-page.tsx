@@ -10,13 +10,16 @@ import { CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "../ui/textarea"
 
-
 interface SeoProps {
   pages: TablesInsert<"search_result_metadata">[] | null
 }
 export default function SeoPage({ pages }: SeoProps) {
-  const [cards, setCards] = useState<TablesInsert<"search_result_metadata">[]>([])
-  const [updatedCards, setUpdatedCards] = useState<TablesInsert<"search_result_metadata">[]>([])
+  const [cards, setCards] = useState<TablesInsert<"search_result_metadata">[]>(
+    []
+  )
+  const [updatedCards, setUpdatedCards] = useState<
+    TablesInsert<"search_result_metadata">[]
+  >([])
 
   useEffect(() => {
     // Populate with one sample card when the component mounts
@@ -49,14 +52,17 @@ export default function SeoPage({ pages }: SeoProps) {
   const savePage = async (card: TablesInsert<"search_result_metadata">) => {
     try {
       console.log(card)
-      const res = await postData({ url: "/api/seo", data: card })
+      const res = await fetch("/api/seo", {
+        method: "POST",
+        body: JSON.stringify({ card })
+      })
     } catch (err) {
       console.log(err)
     }
   }
 
   return (
-    <div className="w-full bg-black p-8 text-foreground">
+    <div className="w-full bg-black  h-dvh p-8 text-foreground">
       <div className="flex justify-end mb-4 space-x-2">
         <Button onClick={saveAllPages} variant="outline" className="text-white">
           SAVE ALL
