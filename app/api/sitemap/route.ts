@@ -6,7 +6,6 @@ import { getSeoPages } from "@/db/admin"
 export async function GET() {
   try {
     //console.log("seo pages")
-    //console.log("seo pages, ", seoPages)
 
     const sitemap = await generateSitemap()
     return new NextResponse(sitemap, {

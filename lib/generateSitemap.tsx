@@ -1,4 +1,3 @@
-// lib/generateSitemap.ts
 import { getSeoPages } from "@/db/admin"
 import { SitemapStream, streamToPromise } from "sitemap"
 import { Readable } from "stream"
@@ -10,8 +9,7 @@ interface Link {
 }
 // Dummy function to mimic your actual getSeoPages function
 async function getSeos() {
-  const seoPages = await getSeoPages()
-  console.log("seo", seoPages)
+  //console.log("seo", seoPages)
   return [
     { id: "what can i make with ground beef" }
     // Add more pages here
@@ -20,6 +18,8 @@ async function getSeos() {
 
 export async function generateSitemap(): Promise<string> {
   //const temp = await getSeoPages()
+  const seoPage = await getSeoPages()
+  console.log(seoPage)
   const seoPages = await getSeos()
   const links: {
     url: string
