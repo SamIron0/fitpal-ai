@@ -53,7 +53,7 @@ export default async function ResultPage({
     const text = responseData.text
     const pageTitle = decodeURLComponent(query)
     const keywords = responseData.keywords
-    const canonicalUrl = `https://fitpalai.com/search/${query}`
+    const canonicalUrl = `https://fitpalai.com/${query}`
     const ogImage = responseData.ogImage || "https://fitpalai.com/logo.png"
 
     return (
