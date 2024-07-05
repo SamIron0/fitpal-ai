@@ -9,19 +9,14 @@ import { postData } from "@/utils/helpers"
 import { CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "../ui/textarea"
-interface SeoCard {
-  id: string
-  description?: string
-  ogImage?: string
-  keywords?: string[]
-}
+
 
 interface SeoProps {
   pages: TablesInsert<"search_result_metadata">[] | null
 }
 export default function SeoPage({ pages }: SeoProps) {
-  const [cards, setCards] = useState<SeoCard[]>([])
-  const [updatedCards, setUpdatedCards] = useState<SeoCard[]>([])
+  const [cards, setCards] = useState<TablesInsert<"search_result_metadata">[]>([])
+  const [updatedCards, setUpdatedCards] = useState<TablesInsert<"search_result_metadata">[]>([])
 
   useEffect(() => {
     // Populate with one sample card when the component mounts
@@ -37,7 +32,7 @@ export default function SeoPage({ pages }: SeoProps) {
 
   const updateCard = (
     index: number,
-    field: keyof SeoCard,
+    field: keyof TablesInsert<"search_result_metadata">,
     value: string | string[]
   ) => {
     const updatedCards = [...cards]
@@ -51,7 +46,7 @@ export default function SeoPage({ pages }: SeoProps) {
       savePage(card)
     }
   }
-  const savePage = async (card: SeoCard) => {
+  const savePage = async (card: TablesInsert<"search_result_metadata">) => {
     try {
       const res = await postData({ url: "/api/seo", data: card })
     } catch (err) {
