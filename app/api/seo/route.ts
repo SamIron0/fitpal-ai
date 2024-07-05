@@ -15,7 +15,7 @@ export async function POST(request: Request) {
     if (!saveResult) {
       return new Response(JSON.stringify({ error: "None" }))
     }
-    /* add to long term cache
+    // add to long term cache
     const renderPromise = fetch("https://fitpal-search.onrender.com/search", {
       method: "POST",
       headers: {
@@ -24,10 +24,13 @@ export async function POST(request: Request) {
       body: JSON.stringify({
         query: data.id,
         diet: "Anything",
-        allergy: ["None"]
+        allergy: ["None"],
+        description: data.description,
+        keywords: data.keywords,
+        ogImage: data.ogImage
       })
     }).then(response => response.json())
-*/
+
     return new Response(
       JSON.stringify({ message: "Page saved successfully", saveResult })
     )
@@ -43,7 +46,7 @@ export async function DELETE(request: Request) {
   }
   try {
     const { id } = await request.json()
-    console.log('deleting: ', id)
+    console.log("deleting: ", id)
     const res = await deleteSeoPage(id)
   } catch (error) {
     console.error("Error deleting page:", error)
