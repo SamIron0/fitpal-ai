@@ -77,7 +77,7 @@ export async function generateMetadata(
   const seo: Tables<"search_result_metadata"> =
     {} as Tables<"search_result_metadata">
   try {
-    const seo = await getSeoPage(query)
+    const seo = await getSeoPage(query.replace(/-/g, " "))
   } catch (e) {
     console.log(e)
   }
