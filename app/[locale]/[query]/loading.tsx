@@ -1,8 +1,9 @@
+import { Dashboard } from "@/components/ui/dashboard"
 import { IconLoader2 } from "@tabler/icons-react"
 
 export default function Loading() {
   return (
-    <div className="flex size-full h-screen flex-col items-center justify-center">
+    <Dashboard>
       <div className=" w-full p-4 flex flex-col overflow-y-auto">
         <div className="flex size-full flex-col items-center justify-center">
           <div className="w-full py-6 max-w-4xl mx-auto">
@@ -22,6 +23,6 @@ export default function Loading() {
           </div>
         </div>
       </div>
-    </div>
+    </Dashboard>
   )
 }
