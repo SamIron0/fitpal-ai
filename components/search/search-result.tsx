@@ -34,7 +34,7 @@ export const SearchResult = ({ recipes, query, text }: SearchResultProps) => {
   }
   const router = useRouter()
   const renderRecipes = (recipes: TablesInsert<"recipes">[]) => (
-    <div className="w-full py-6 max-w-4xl mx-auto ">
+    <div className="w-full mt-6 pb-12 max-w-4xl mx-auto ">
       <h1 className="mb-8 text-4xl font-semibold">
         {decodeURLComponent(query)}
       </h1>
