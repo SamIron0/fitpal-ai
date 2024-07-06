@@ -46,9 +46,12 @@ export default function SeoPage({ pages }: SeoProps) {
 
   const saveAllPages = () => {
     // Empty save function
+    const id = toast.loading("Saving all pages...")
     for (const card of cards) {
       savePage(card)
     }
+    toast.dismiss(id)
+    toast.success("All pages saved")
   }
   const deletePage = async (id: string) => {
     const tid = toast.loading("Deleting...")
@@ -65,10 +68,10 @@ export default function SeoPage({ pages }: SeoProps) {
       })
       if (!res.ok) throw new Error("Failed to delete page")
       toast.dismiss(tid)
-      toast.success("Page deleted successfully")
+      toast.success("Page deleted ")
     } catch (err) {
       toast.dismiss(tid)
-      toast.error("Error deleting page")
+      toast.error("Error deleting ")
       console.log(err)
     }
   }
@@ -82,7 +85,7 @@ export default function SeoPage({ pages }: SeoProps) {
       })
 
       toast.dismiss(id)
-      toast.success("Page saved successfully")
+      toast.success("Saved")
     } catch (err) {
       toast.dismiss(id)
       toast.error("Error saving page")
@@ -97,11 +100,11 @@ export default function SeoPage({ pages }: SeoProps) {
         method: "DELETE"
       })
       toast.dismiss(id)
-      toast.success("Cache cleared successfully")
-      const id2 = toast.loading("Updating cache")
+      toast.success("Cache cleared ")
+
       saveAllPages()
-      toast.dismiss(id2)
-      toast.success("Cache updated successfully")
+
+      toast.success("Cache updated ")
     } catch (err) {
       toast.dismiss(id)
       toast.error("Error clearing cache")
