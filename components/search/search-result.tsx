@@ -22,10 +22,9 @@ export const SearchResult = ({ recipes, query, text }: SearchResultProps) => {
     // Decode the URL component
     const decodedString = decodeURIComponent(urlComponent).replace(/-/g, " ") // Replace hyphens with spaces
 
-    // Capitalize the first letter of each word
-    const capitalizedString = decodedString.replace(/\b\w/g, char =>
-      char.toUpperCase()
-    )
+    // Capitalize the first letter of the first word
+    const capitalizedString =
+      decodedString.charAt(0).toUpperCase() + decodedString.slice(1)
 
     return capitalizedString
   }

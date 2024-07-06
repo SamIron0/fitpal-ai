@@ -11,9 +11,16 @@ import { SearchResult } from "@/components/search/search-result"
 import { getRecipeById, getSeoPage, save_query } from "@/db/admin"
 
 function decodeURLComponent(urlComponent: string) {
-  const decodedString = urlComponent.replace(/-/g, " ") // Replace hyphens with spaces
-  return decodedString.charAt(0).toUpperCase() + decodedString.slice(1) // Capitalize the first letter
+  // Decode the URL component
+  const decodedString = decodeURIComponent(urlComponent).replace(/-/g, " ") // Replace hyphens with spaces
+
+  // Capitalize the first letter of the first word
+  const capitalizedString =
+    decodedString.charAt(0).toUpperCase() + decodedString.slice(1)
+
+  return capitalizedString
 }
+
 export default async function ResultPage({
   params
 }: {
@@ -53,10 +60,7 @@ export default async function ResultPage({
     const recipes = responseData.result
     const description = responseData.description
     const text = responseData.text
-    const pageTitle = decodeURLComponent(query)
-    const keywords = responseData.keywords
-    const ogImage = console.log(description)
-
+   
     return (
       <Dashboard>
         <SearchResult query={query} recipes={recipes} text={text} />
