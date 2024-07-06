@@ -58,7 +58,7 @@ export default function SeoPage({ pages }: SeoProps) {
       setCards(cards.filter(card => card.id !== id))
       const res = await fetch("/api/seo", {
         method: "DELETE",
-        body: JSON.stringify({ data: id }),
+        body: JSON.stringify({ id }),
         headers: {
           "Content-Type": "application/json"
         }

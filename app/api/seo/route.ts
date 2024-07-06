@@ -46,7 +46,6 @@ export async function DELETE(request: Request) {
   }
   try {
     const { id } = await request.json()
-    //console.log("deleting: ", id)
     const res = await deleteSeoPage(id)
 
     return new Response(
@@ -57,5 +56,4 @@ export async function DELETE(request: Request) {
     return new Response(JSON.stringify({ error: error }))
   }
 
-  return new Response(JSON.stringify({ message: "Page deleted successfully" }))
 }
