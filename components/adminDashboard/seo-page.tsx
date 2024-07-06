@@ -46,12 +46,9 @@ export default function SeoPage({ pages }: SeoProps) {
 
   const saveAllPages = () => {
     // Empty save function
-    const id = toast.loading("Saving all pages...")
     for (const card of cards) {
       savePage(card)
     }
-    toast.dismiss(id)
-    toast.success("All pages saved")
   }
   const deletePage = async (id: string) => {
     const tid = toast.loading("Deleting...")
@@ -76,29 +73,26 @@ export default function SeoPage({ pages }: SeoProps) {
     }
   }
   const savePage = async (card: TablesInsert<"search_result_metadata">) => {
-    const id = toast.loading("Saving...")
     try {
       console.log(card)
       const res = await fetch("/api/seo", {
         method: "POST",
         body: JSON.stringify({ data: card })
       })
-
-      toast.dismiss(id)
       toast.success("Saved")
     } catch (err) {
-      toast.dismiss(id)
       toast.error("Error saving page")
       console.log(err)
     }
   }
 
   const updateLongTermCache = async () => {
-    const id = toast.loading("Clearing...")
+    const id = toast.loading("Clearing cache...")
     try {
       const res = await fetch("/api/seo/clear-cache", {
         method: "DELETE"
       })
+
       toast.dismiss(id)
       toast.success("Cache cleared ")
 
