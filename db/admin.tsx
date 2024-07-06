@@ -125,7 +125,7 @@ export const getSeoPages = async () => {
   if (error) {
     throw error
   }
-  
+
   return pages
 }
 export const getGuestForYou = async () => {
@@ -175,6 +175,17 @@ export const getAllRecipes = async () => {
     throw new Error(error.message)
   }
   return recipes
+}
+export const getSeoPage = async (query: string) => {
+  const { data: seoPage, error } = await supabaseAdmin
+    .from("search_result_metadata")
+    .select("*")
+    .eq("id", query)
+    .single()
+  if (error) {
+    throw new Error(error.message)
+  }
+  return seoPage
 }
 export const save_query = async (uid: string | null, query: string) => {
   const { data: queryData, error } = await supabaseAdmin
