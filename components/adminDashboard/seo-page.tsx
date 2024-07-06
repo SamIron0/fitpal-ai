@@ -152,7 +152,7 @@ export default function SeoPage({ pages }: SeoProps) {
                   <div className="flex flex-col space-y-1.5">
                     <Label htmlFor="text">Text</Label>
                     <Textarea
-                      id="  text"
+                      id="text"
                       placeholder="text"
                       value={card.text}
                       onChange={e => updateCard(index, "text", e.target.value)}
