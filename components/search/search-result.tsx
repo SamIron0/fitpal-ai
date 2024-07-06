@@ -107,7 +107,7 @@ export const SearchResult = ({ recipes, query, text }: SearchResultProps) => {
   const { isGenerating, setIsGenerating, setGeneratedRecipes, settings } =
     useContext(FitpalAIContext)
   return (
-    <div className=" w-full p-4 flex flex-col overflow-y-auto">
+    <div className=" w-full p-6 flex flex-col overflow-y-auto">
       <div className="fixed bottom-4 left-4 right-4 flex justify-center">
         <div className="bg-input text-gray-200 w-full max-w-xl rounded-full py-2 px-4 border border-zinc-500 flex items-center space-x-2 shadow-lg  transition-colors">
           <input
