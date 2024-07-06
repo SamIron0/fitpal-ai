@@ -88,8 +88,6 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <title>{APP_DEFAULT_TITLE}</title>
-        <meta name="description" content={APP_DESCRIPTION} />
         <meta name="application-name" content={APP_NAME} />
         <meta name="apple-mobile-web-app-title" content={APP_DEFAULT_TITLE} />
         <link rel="icon" href="/favicon.ico" sizes="any" />
