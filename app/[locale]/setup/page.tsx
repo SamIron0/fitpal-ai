@@ -66,7 +66,7 @@ export default function SetupPage() {
         if (!profile.has_onboarded) {
           setLoading(false)
         } else {
-          return router.push(`/search`)
+          return router.push(`/`)
         }
       }
     })()
@@ -118,7 +118,7 @@ export default function SetupPage() {
 
     setProfile(updatedProfile)
 
-    return router.push(`/search`)
+    return router.push(`/`)
   }
 
   const renderStep = (stepNum: number) => {

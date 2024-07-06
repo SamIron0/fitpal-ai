@@ -35,7 +35,7 @@ export default async function Login({
   const session = (await supabase.auth.getSession()).data.session
 
   if (session) {
-    return redirect(`/search`)
+    return redirect(`/`)
   }
 
   const signIn = async (formData: FormData) => {
@@ -55,7 +55,7 @@ export default async function Login({
       return redirect(`/login?message=${error.message}`)
     }
 
-    return redirect(`/search`)
+    return redirect(`/`)
   }
 
   const signUp = async (formData: FormData) => {

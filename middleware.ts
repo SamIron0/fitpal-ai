@@ -17,7 +17,7 @@ export async function middleware(request: NextRequest) {
     if (redirectToChat) {
      
       return NextResponse.redirect(
-        new URL(`/search`, request.url)
+        new URL(`/`, request.url)
       )
     }
 
