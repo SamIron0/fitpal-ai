@@ -74,11 +74,16 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   // read route params
   const query = params.query
-  const seo = await getSeoPage(query)
-
+  const seo: Tables<"search_result_metadata"> =
+    {} as Tables<"search_result_metadata">
+  try {
+    const seo = await getSeoPage(query)
+  } catch (e) {
+    console.log(e)
+  }
   return {
     title: decodeURLComponent(query),
-    description: seo.description || (await parent).description,
+    description: seo?.description || (await parent).description,
     keywords: seo.keywords || (await parent).keywords,
     openGraph: {
       title: decodeURLComponent(query),
