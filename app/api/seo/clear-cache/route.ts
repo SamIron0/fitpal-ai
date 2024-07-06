@@ -1,4 +1,8 @@
-export async function GET(request: Request) {
+export async function DELETE(request: Request) {
+  if (request.method !== "DELETE") {
+    return new Response("Method not allowed", { status: 405 })
+  }
+
   try {
     const renderPromise = await fetch(
       "https://fitpal-search.onrender.com/clear_cache",
