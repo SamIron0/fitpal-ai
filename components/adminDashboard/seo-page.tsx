@@ -51,15 +51,11 @@ export default function SeoPage({ pages }: SeoProps) {
     }
   }
   const deletePage = async (id: string) => {
-    const tid = toast.loading("Deleting...")
-
     try {
       // delete from cards array
       setCards(cards.filter(card => card.id !== id))
-      toast.dismiss(tid)
       toast.success("Page deleted successfully")
     } catch (err) {
-      toast.dismiss(tid)
       toast.error("Error deleting page")
       console.log(err)
     }
@@ -85,9 +81,8 @@ export default function SeoPage({ pages }: SeoProps) {
   const updateLongTermCache = async () => {
     const id = toast.loading("Clearing...")
     try {
-      const res = await fetch("/api/seo", {
-        method: "DELETE",
-        body: JSON.stringify({ data: cards })
+      const res = await fetch("/api/seo/clear_cache", {
+        method: "DELETE"
       })
       toast.dismiss(id)
       toast.success("Cache cleared successfully")
@@ -103,13 +98,13 @@ export default function SeoPage({ pages }: SeoProps) {
   }
   return (
     <div className="w-full bg-black  p-8 text-foreground">
-      <div className="flex justify-end mb-12 space-x-2">
+      <div className="flex justify-end  space-x-2">
         <Button
           onClick={updateLongTermCache}
           variant="outline"
           className="text-white"
         >
-          CLEAR CACHE
+          UPDATE CACHE
         </Button>
 
         <Button onClick={saveAllPages} variant="outline" className="text-white">
@@ -119,7 +114,7 @@ export default function SeoPage({ pages }: SeoProps) {
           + NEW
         </Button>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 py-12">
         {cards.map((card, index) => (
           <Card className="w-[350px]" key={index}>
             <CardHeader>
@@ -132,7 +127,7 @@ export default function SeoPage({ pages }: SeoProps) {
                     <Label htmlFor="name">Query</Label>
                     <Input
                       id="id"
-                      placeholder="Name of your project"
+                      placeholder="Query"
                       value={card.id}
                       onChange={e => updateCard(index, "id", e.target.value)}
                     />

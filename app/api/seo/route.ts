@@ -42,21 +42,16 @@ export async function POST(request: Request) {
 
 export async function DELETE(request: Request) {
   if (request.method !== "DELETE") {
-      return new Response("Method not allowed", { status: 405 })
-    }
-    try {
+    return new Response("Method not allowed", { status: 405 })
+  }
+  try {
     const { id } = await request.json()
     //console.log("deleting: ", id)
     const res = await deleteSeoPage(id)
-    const renderPromise = await fetch(
-      "https://fitpal-search.onrender.com/clear_cache",
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json"
-        }
-      }
-    ).then(response => response.json())
+
+    return new Response(
+      JSON.stringify({ message: "Page deleted successfully", res })
+    )
   } catch (error) {
     console.error("Error deleting page:", error)
     return new Response(JSON.stringify({ error: error }))
