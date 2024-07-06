@@ -1,6 +1,6 @@
 export default function Loading() {
   return (
-    <div className="flex w-full py-6 max-w-4xl flex-col overflow-y-auto items-center mx-auto">
+    <div className="flex w-full p-5 max-w-4xl flex-col overflow-y-auto items-center mx-auto">
       <div className="mb-8 h-10 w-3/4 bg-input animate-pulse rounded"></div>
       <div className="grid w-full max-w-4xl grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
         {[...Array(8)].map((_, index) => (

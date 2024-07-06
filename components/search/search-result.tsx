@@ -46,7 +46,7 @@ export const SearchResult = ({ recipes, query, text }: SearchResultProps) => {
         {recipes.map(recipe => (
           <div key={recipe.id} onClick={() => openDrawer(recipe.id)}>
             <MealDrawer recipe={recipe} isOpen={isOpen}>
-              <div className="flex mx-auto w-48 flex-col">
+              <div className="flex mx-auto flex-col">
                 {recipe.imgurl ? (
                   <img
                     src={`${recipe.imgurl}`}
