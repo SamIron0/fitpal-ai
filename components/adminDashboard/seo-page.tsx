@@ -102,8 +102,8 @@ export default function SeoPage({ pages }: SeoProps) {
     }
   }
   return (
-    <div className="w-full bg-black  h-dvh p-8 text-foreground">
-      <div className="flex justify-end mb-4 space-x-2">
+    <div className="w-full bg-black  p-8 text-foreground">
+      <div className="flex justify-end mb-12 space-x-2">
         <Button
           onClick={updateLongTermCache}
           variant="outline"
@@ -152,9 +152,9 @@ export default function SeoPage({ pages }: SeoProps) {
                   <div className="flex flex-col space-y-1.5">
                     <Label htmlFor="text">Text</Label>
                     <Textarea
-                      id="description"
-                      placeholder="meta description"
-                      value={card.description}
+                      id="  text"
+                      placeholder="text"
+                      value={card.text}
                       onChange={e => updateCard(index, "text", e.target.value)}
                       rows={4}
                     />
