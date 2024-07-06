@@ -84,12 +84,12 @@ export async function generateMetadata(
   console.log(seo)
   return {
     title: decodeURLComponent(query),
-    description: seo?.description || (await parent).description,
-    keywords: seo.keywords || (await parent).keywords,
+    description: seo?.description,
+    keywords: seo.keywords,
     openGraph: {
       title: decodeURLComponent(query),
-      description: seo.description || (await parent).description || "",
-      images: [seo?.ogImage || "", ...((await parent).openGraph?.images || "")]
+      description: seo.description,
+      images: [seo?.ogImage || ""]
     }
   }
 }
