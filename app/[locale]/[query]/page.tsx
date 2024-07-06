@@ -74,13 +74,14 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   // read route params
   const query = params.query
-  const seo: Tables<"search_result_metadata"> =
+  let seo: Tables<"search_result_metadata"> =
     {} as Tables<"search_result_metadata">
   try {
-    const seo = await getSeoPage(query.replace(/-/g, " "))
+    seo = await getSeoPage(query.replace(/-/g, " "))
   } catch (e) {
     console.log(e)
   }
+  console.log(seo)
   return {
     title: decodeURLComponent(query),
     description: seo?.description || (await parent).description,
