@@ -51,11 +51,23 @@ export default function SeoPage({ pages }: SeoProps) {
     }
   }
   const deletePage = async (id: string) => {
+    const tid = toast.loading("Deleting...")
+
     try {
       // delete from cards array
       setCards(cards.filter(card => card.id !== id))
+      const res = await fetch("/api/seo", {
+        method: "DELETE",
+        body: JSON.stringify({ data: id }),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      if (!res.ok) throw new Error("Failed to delete page")
+      toast.dismiss(tid)
       toast.success("Page deleted successfully")
     } catch (err) {
+      toast.dismiss(tid)
       toast.error("Error deleting page")
       console.log(err)
     }
