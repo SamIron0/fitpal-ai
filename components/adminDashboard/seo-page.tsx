@@ -96,7 +96,7 @@ export default function SeoPage({ pages }: SeoProps) {
   const updateLongTermCache = async () => {
     const id = toast.loading("Clearing...")
     try {
-      const res = await fetch("/api/seo/clear_cache", {
+      const res = await fetch("/api/seo/clear-cache", {
         method: "DELETE"
       })
       toast.dismiss(id)
