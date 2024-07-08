@@ -6,6 +6,7 @@ import { cookies } from "next/headers"
 import { Tables } from "@/supabase/types"
 export async function GET() {
   try {
+    
     const cookieStore = cookies()
     const supabase = createClient(cookieStore)
 
