@@ -184,6 +184,56 @@ export type Database = {
           created_at?: string | null
         }
       }
+      recipes2: {
+        Row: {
+          id: string
+          name: string | null
+          instructions: string[] | null
+          portions: number | null
+          ingredients: string[] | null
+          cuisine: string[] | null
+          total_time: string | null
+          calories: number | null
+          protein: number | null
+          fats: number | null
+          carbs: number | null
+          url: string | null
+          imgurl: string | null
+          created_at: string | null
+        }
+        Insert: {
+          id: string
+          name?: string | null
+          instructions?: string[] | null
+          portions?: number | null
+          ingredients?: string[] | null
+          cuisine?: string[] | null
+          total_time?: string | null
+          calories?: number | null
+          protein?: number | null
+          fats?: number | null
+          carbs?: number | null
+          url?: string | null
+          imgurl?: string | null
+          created_at?: string | null
+        }
+        Update: {
+          id?: string
+          name?: string | null
+          instructions?: string[] | null
+          portions?: number | null
+          ingredients?: string[] | null
+          cuisine?: string[] | null
+          total_time?: string | null
+          calories?: number | null
+          protein?: number | null
+          fats?: number | null
+          carbs?: number | null
+          url?: string | null
+          imgurl?: string | null
+          created_at?: string | null
+        }
+      }
 
       search_result_metadata: {
         Row: {

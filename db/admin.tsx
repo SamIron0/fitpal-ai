@@ -131,7 +131,7 @@ export const getSeoPages = async () => {
 export const getGuestForYou = async () => {
   // get 10 random entries from table recipes
   const { data: recipes, error } = await supabaseAdmin
-    .from("recipes")
+    .from("recipes2")
     .select("*")
     //.order("RANDOM()")
     .limit(10)
@@ -155,7 +155,7 @@ export const getForYou = async (uid: string) => {
   const res = []
   // get 10 random entries from table recipes
   const { data: recipes, error: recipesError } = await supabaseAdmin
-    .from("recipes")
+    .from("recipes2")
     .select("*")
     .limit(8)
   if (recipesError) {
