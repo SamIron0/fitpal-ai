@@ -11,6 +11,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger
 } from "@/components/ui/alert-dialog"
+import { convertTime } from "@/utils/helpers"
 interface RecipeCardProps {
   recipe: TablesInsert<"recipes2">
   index: number
@@ -48,7 +49,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
           <div
             className="rounded-full "
             title={
-              recipe.imgurl && `${recipe.total_time[0]}hrs ${recipe.total_time[1]}mins} ` ? "Complete" : "Incomplete"
+              recipe.imgurl && recipe.total_time ? "Complete" : "Incomplete"
             }
           >
             <svg
@@ -58,7 +59,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
               strokeWidth={1.5}
               stroke="currentColor"
               className={`h-8 w-8 ${
-                recipe.imgurl && `${recipe.total_time[0]}hrs ${recipe.total_time[1]}mins} `
+                recipe.imgurl && recipe.total_time
                   ? "text-green-500"
                   : "text-orange-500"
               }`}
@@ -122,13 +123,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
             d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"
           />
         </svg>
-        <input
-          type="text"
-          value={`${recipe.total_time[0]}hrs ${recipe.total_time[1]}mins} ` || ""}
-          onChange={e => updateData(index, "total_time", e.target.value)}
-          className="w-full rounded bg-input p-2 text-foreground"
-          placeholder="Total Time"
-        />
+        
       </div>
 
       <div className="flex items-center space-x-2">
