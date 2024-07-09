@@ -66,11 +66,11 @@ const SearchPage = ({ for_you }: SearchPageProps) => {
                 {recipe.imgurl ? (
                   <img
                     src={`${recipe.imgurl}`}
-                    className="border-1 mb-2 h-48 w-full rounded-lg border-input object-cover"
+                    className="border-1 mb-2 h-52 w-full rounded-lg border-input object-cover"
                     alt={recipe.name || "Recipe Image"}
                   />
                 ) : (
-                  <div className="border-1 mb-2 h-48 rounded-lg border-input bg-input p-2 py-10 text-black"></div>
+                  <div className="border-1 mb-2 h-52 rounded-lg border-input bg-input p-2 py-10 text-black"></div>
                 )}
                 <p className="text-md w-full text-left">{recipe.name}</p>
                 <div className="flex w-full text-xs font-light mt-1 items-center text-zinc-400">
