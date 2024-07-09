@@ -1,5 +1,4 @@
 import { oneLine, stripIndent } from "common-tags"
-import { retrieveEmbedding } from "@/components/sidebar/settings/embeddings"
 import { Database, Tables } from "@/supabase/types"
 import { ChatSettings } from "@/types"
 import { createClient } from "@supabase/supabase-js"
