@@ -58,7 +58,7 @@ export default async function ResultPage({
     const recipes = responseData.result
     const description = responseData.description
     const text = responseData.text
-
+    console.log(responseData)
     return (
       <Dashboard>
         <SearchResult query={query} recipes={recipes} text={text} />
