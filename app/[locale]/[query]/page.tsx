@@ -6,7 +6,6 @@ import { Tables } from "@/supabase/types"
 import { cookies } from "next/headers"
 import Head from "next/head"
 
-import { Dashboard } from "@/components/ui/dashboard"
 import { SearchResult } from "@/components/search/search-result"
 import { getRecipeById, getSeoPage, save_query } from "@/db/admin"
 

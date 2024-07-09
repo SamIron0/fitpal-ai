@@ -1,5 +1,4 @@
 import SearchPage from "@/components/search/search-page"
-import { Dashboard } from "@/components/ui/dashboard"
 import { getForYou, getGuestForYou } from "@/db/admin"
 import { createClient } from "@/lib/supabase/server"
 import { Tables } from "@/supabase/types"
