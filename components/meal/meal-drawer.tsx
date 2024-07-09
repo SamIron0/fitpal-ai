@@ -36,7 +36,7 @@ const NutritionFacts: React.FC<{ recipe: TablesInsert<"recipes2"> }> = ({
       { label: "Carbs", value: `${recipe.carbs}` },
       { label: "Calories", value: `${recipe.calories} ` }
     ].map(item => (
-      <Card key={item.label} className="bg-background">
+      <Card key={item.label} className="bg-black">
         <CardContent className="p-4">
           <p className="text-sm font-medium text-zinc-500">{item.label}</p>
           <p className="text-2xl font-bold">{item.value}</p>

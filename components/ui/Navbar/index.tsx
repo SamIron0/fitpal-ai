@@ -56,9 +56,9 @@ const Navbar = ({ user }: NavbarProps) => {
                   Logout{" "}
                 </MenubarItem>
               ) : (
-                <MenubarItem>
+                <MenubarItem onClick={() => router.push("/login")}>
                   {" "}
-                  <LoginDrawer>Login </LoginDrawer>
+                  Login
                 </MenubarItem>
               )}
             </MenubarContent>
