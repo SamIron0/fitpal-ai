@@ -11,7 +11,7 @@ export async function GET() {
     const supabase = createClient(cookieStore)
 
     const session = (await supabase.auth.getSession()).data.session
-    let for_you: Tables<"recipes">[] = []
+    let for_you: Tables<"recipes2">[] = []
     if (!session) {
       let for_you = await getGuestForYou()
       return new Response(JSON.stringify({ for_you }))
