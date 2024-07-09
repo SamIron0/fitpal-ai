@@ -22,10 +22,10 @@ import { TablesInsert } from "@/supabase/types"
 
 interface MealDrawerProps {
   children?: React.ReactNode
-  recipe: TablesInsert<"recipes">
+  recipe: TablesInsert<"recipes2">
   isOpen?: string
 }
-const NutritionFacts: React.FC<{ recipe: TablesInsert<"recipes"> }> = ({
+const NutritionFacts: React.FC<{ recipe: TablesInsert<"recipes2"> }> = ({
   recipe
 }) => (
   <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
@@ -54,9 +54,9 @@ const convertTime = (totalMinutes: number) => {
     return `${minutes} min`
   }
 }
-const IngredientsList: React.FC<{ ingredients: string[] | null | undefined }> = ({
-  ingredients
-}) => (
+const IngredientsList: React.FC<{
+  ingredients: string[] | null | undefined
+}> = ({ ingredients }) => (
   <ul className="list-inside list-disc space-y-2">
     {ingredients?.map((ingredient, index) => (
       <li key={index} className="text-zinc-100">
@@ -66,9 +66,9 @@ const IngredientsList: React.FC<{ ingredients: string[] | null | undefined }> = 
   </ul>
 )
 
-const DirectionsList: React.FC<{ instructions: string[] | null | undefined }> = ({
-  instructions
-}) => (
+const DirectionsList: React.FC<{
+  instructions: string[] | null | undefined
+}> = ({ instructions }) => (
   <ol className="list-inside list-decimal space-y-4">
     {instructions?.map((direction, index) => (
       <li key={index} className="text-zinc-100">
@@ -78,7 +78,9 @@ const DirectionsList: React.FC<{ instructions: string[] | null | undefined }> = 
   </ol>
 )
 
-const RecipeDetails: React.FC<{ recipe: TablesInsert<"recipes"> }> = ({ recipe }) => (
+const RecipeDetails: React.FC<{ recipe: TablesInsert<"recipes2"> }> = ({
+  recipe
+}) => (
   <div className="space-y-8">
     <div>
       <h1 className="text-3xl mt-6 font-bold text-zinc-100">{recipe.name}</h1>
@@ -114,13 +116,13 @@ const RecipeDetails: React.FC<{ recipe: TablesInsert<"recipes"> }> = ({ recipe }
         <CardTitle>Directions</CardTitle>
       </CardHeader>
       <CardContent className="w-full max-w-2xl">
-        <DirectionsList instructions={recipe?.instructions} />
+        <DirectionsList instructions={recipe?.instructions?.split(".")} />
       </CardContent>
     </Card>
   </div>
 )
 
-const MealDrawerContent: React.FC<{ recipe: TablesInsert<"recipes"> }> = ({
+const MealDrawerContent: React.FC<{ recipe: TablesInsert<"recipes2"> }> = ({
   recipe
 }) => (
   <div className="flex flex-col space-y-6 overflow-y-auto pb-20">

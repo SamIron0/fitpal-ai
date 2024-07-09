@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils"
 import { FitpalAIContext } from "@/context/context"
 
 interface SearchResultProps {
-  recipes: TablesInsert<"recipes">[]
+  recipes: TablesInsert<"recipes2">[]
   query: string
   text: string
 }
@@ -33,7 +33,7 @@ export const SearchResult = ({ recipes, query, text }: SearchResultProps) => {
     setIsOpen(id)
   }
   const router = useRouter()
-  const renderRecipes = (recipes: TablesInsert<"recipes">[]) => (
+  const renderRecipes = (recipes: TablesInsert<"recipes2">[]) => (
     <div className="w-full mt-6 pb-12 max-w-4xl mx-auto ">
       <h1 className="mb-8 text-4xl font-semibold">
         {decodeURLComponent(query)}

@@ -188,53 +188,80 @@ export type Database = {
         Row: {
           id: string
           name: string | null
-          instructions: string[] | null
-          portions: number | null
+          portions: string | null
+          prep_time: number[] | null
+          cook_time: number[] | null
+          total_time: number[] | null
+          description: string | null
+          calories: string | null
+          protein: string | null
+          fats: string | null
+          carbs: string | null
+          category: string | null
+          servings: string | null
           ingredients: string[] | null
-          cuisine: string[] | null
-          total_time: string | null
-          calories: number | null
-          protein: number | null
-          fats: number | null
-          carbs: number | null
-          url: string | null
+          instructions: string | null
+          cuisine: string | null
+          rating_count: number | null
+          rating_value: number | null
           imgurl: string | null
-          created_at: string | null
+          url: string | null
+          kw_search_text: string | null
+          fts: string | null
+          embedding2: string | null
         }
         Insert: {
           id: string
           name?: string | null
-          instructions?: string[] | null
-          portions?: number | null
+          portions?: string | null
+          prep_time?: number[] | null
+          cook_time?: number[] | null
+          total_time?: number[] | null
+          description?: string | null
+          calories?: string | null
+          protein?: string | null
+          fats?: string | null
+          carbs?: string | null
+          category?: string | null
+          servings?: string | null
           ingredients?: string[] | null
-          cuisine?: string[] | null
-          total_time?: string | null
-          calories?: number | null
-          protein?: number | null
-          fats?: number | null
-          carbs?: number | null
-          url?: string | null
+          instructions?: string | null
+          cuisine?: string | null
+          rating_count?: number | null
+          rating_value?: number | null
           imgurl?: string | null
-          created_at?: string | null
+          url?: string | null
+          kw_search_text?: string | null
+          fts?: string | null
+          embedding2?: string | null
         }
         Update: {
           id?: string
           name?: string | null
-          instructions?: string[] | null
-          portions?: number | null
+          portions?: string | null
+          prep_time?: number[] | null
+          cook_time?: number[] | null
+          total_time?: number[] | null
+          description?: string | null
+          calories?: string | null
+          protein?: string | null
+          fats?: string | null
+          carbs?: string | null
+          category?: string | null
+          servings?: string | null
           ingredients?: string[] | null
-          cuisine?: string[] | null
-          total_time?: string | null
-          calories?: number | null
-          protein?: number | null
-          fats?: number | null
-          carbs?: number | null
-          url?: string | null
+          instructions?: string | null
+          cuisine?: string | null
+          rating_count?: number | null
+          rating_value?: number | null
           imgurl?: string | null
-          created_at?: string | null
+          url?: string | null
+          kw_search_text?: string | null
+          fts?: string | null
+          embedding2?: string | null
         }
       }
-
+      
       search_result_metadata: {
         Row: {
           description?: string
