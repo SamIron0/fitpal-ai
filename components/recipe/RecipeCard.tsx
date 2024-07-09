@@ -48,7 +48,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
           <div
             className="rounded-full "
             title={
-              recipe.imgurl && recipe.total_time ? "Complete" : "Incomplete"
+              recipe.imgurl && `${recipe[0]}hrs ${recipe[1]}mins} ` ? "Complete" : "Incomplete"
             }
           >
             <svg
@@ -58,7 +58,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
               strokeWidth={1.5}
               stroke="currentColor"
               className={`h-8 w-8 ${
-                recipe.imgurl && recipe.total_time
+                recipe.imgurl && `${recipe[0]}hrs ${recipe[1]}mins} `
                   ? "text-green-500"
                   : "text-orange-500"
               }`}
@@ -124,7 +124,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
         </svg>
         <input
           type="text"
-          value={recipe.total_time || ""}
+          value={`${recipe[0]}hrs ${recipe[1]}mins} ` || ""}
           onChange={e => updateData(index, "total_time", e.target.value)}
           className="w-full rounded bg-input p-2 text-foreground"
           placeholder="Total Time"

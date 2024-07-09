@@ -87,7 +87,7 @@ const RecipeDetails: React.FC<{ recipe: TablesInsert<"recipes2"> }> = ({
       <div className="mt-2 flex space-x-4">
         <Badge variant="secondary">Portions: {recipe.portions}</Badge>
         <Badge variant="secondary">
-          Time: {convertTime(recipe.total_time as unknown as number)}
+          Time: {convertTime(`${recipe[0]}hrs ${recipe[1]}mins} ` as unknown as number)}
         </Badge>
       </div>
     </div>
