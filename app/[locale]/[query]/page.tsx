@@ -4,10 +4,9 @@ import { getSettingsById } from "@/db/settings"
 import { createClient } from "@/lib/supabase/server"
 import { Tables } from "@/supabase/types"
 import { cookies } from "next/headers"
-import Head from "next/head"
 
 import { SearchResult } from "@/components/search/search-result"
-import { getRecipeById, getSeoPage, save_query } from "@/db/admin"
+import { getSeoPage, save_query } from "@/db/admin"
 
 function decodeURLComponent(urlComponent: string) {
   // Decode the URL component
