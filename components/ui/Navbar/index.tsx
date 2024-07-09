@@ -16,7 +16,7 @@ import { useRouter } from "next/navigation"
 import { useContext } from "react"
 
 interface NavbarProps {
-  user: User
+  user: User | undefined
 }
 const Navbar = ({ user }: NavbarProps) => {
   const router = useRouter()
@@ -50,7 +50,7 @@ const Navbar = ({ user }: NavbarProps) => {
               </svg>
             </MenubarTrigger>
             <MenubarContent>
-              {user.id ? (
+              {user? (
                 <MenubarItem onClick={handleSignOut}>
                   <IconLogout className="mr-1" size={20} />
                   Logout{" "}
