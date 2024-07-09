@@ -5,12 +5,13 @@ import {
   MenubarContent,
   MenubarItem,
   MenubarMenu,
+  MenubarSeparator,
   MenubarTrigger
 } from "@/components/ui/menubar"
 import { FitpalAIContext } from "@/context/context"
 import { supabase } from "@/lib/supabase/browser-client"
 import { User } from "@supabase/supabase-js"
-import { IconLogout } from "@tabler/icons-react"
+import { IconHome, IconLogout } from "@tabler/icons-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useContext } from "react"
@@ -50,10 +51,8 @@ const Navbar = ({ user }: NavbarProps) => {
               </svg>
             </MenubarTrigger>
             <MenubarContent>
-              <MenubarItem onClick={() => router.push("/")}>
-                {" "}
-                Home
-              </MenubarItem>
+              <MenubarItem onClick={() => router.push("/")}><IconHome className="mr-1" size={20} /> Home</MenubarItem>
+              <MenubarSeparator />
               {user ? (
                 <MenubarItem onClick={handleSignOut}>
                   <IconLogout className="mr-1" size={20} />
