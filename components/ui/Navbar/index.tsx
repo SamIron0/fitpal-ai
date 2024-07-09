@@ -50,7 +50,7 @@ const Navbar = ({ user }: NavbarProps) => {
               </svg>
             </MenubarTrigger>
             <MenubarContent>
-              {user? (
+              {user ? (
                 <MenubarItem onClick={handleSignOut}>
                   <IconLogout className="mr-1" size={20} />
                   Logout{" "}

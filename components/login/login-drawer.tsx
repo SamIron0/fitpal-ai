@@ -80,9 +80,9 @@ export const LoginDrawer = ({
   const handleResetPassword = async (formData: FormData) => {}
 
   return (
-    <>
+    <div>
       <Drawer>
-        <DrawerTrigger  className="focus:outline-none  ">
+        <DrawerTrigger  className="focus:outline-none w-full">
           {children}
         </DrawerTrigger>
         <DrawerContent className="flex flex-col items-center focus:outline-none">
@@ -131,6 +131,6 @@ export const LoginDrawer = ({
           </div>
         </DrawerContent>
       </Drawer>
-    </>
+    </div>
   )
 }

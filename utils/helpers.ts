@@ -126,18 +126,35 @@ export const getErrorRedirect = (
     arbitraryParams
   )
 
-export const convertTime = (totalMinutes: number | number[] | undefined | null) => {
-  if (!totalMinutes) {
+export const convertTime = (totalMinutes: number[] | undefined | null) => {
+  if (totalMinutes === undefined || totalMinutes === null) {
     return "0 min"
   }
-  if(totalMinutes instanceof Array) {
-    return `${totalMinutes[0]} hr ${totalMinutes[1]} min`
+  let hr = ""
+  let min = ""
+
+  if (totalMinutes[0] > 0) {
+    hr = `${totalMinutes[0]} hr `
   }
-  const hours = Math.floor(totalMinutes / 60)
-  const minutes = totalMinutes % 60
-  if (hours > 0) {
-    return `${hours} hr ${minutes} min`
-  } else {
-    return `${minutes} min`
+  if (totalMinutes[1] > 0) {
+    min = `${totalMinutes[1]} min`
   }
+  return `${hr}${min}`
+
+  /*
+
+    if (!totalMinutes) {
+      return "0 min"
+    }
+    if(totalMinutes instanceof Array) {
+      return `${totalMinutes[0]} hr ${totalMinutes[1]} min`
+    }
+    const hours = 
+    const minutes = totalMinutes % 60
+    if (hours > 0 && minutes > 0) {
+      return `${hours} hr ${minutes} min`
+    } else if( hours > 0 && m {
+      return `${minutes} min`
+    }
+   */
 }
