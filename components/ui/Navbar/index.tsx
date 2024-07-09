@@ -50,7 +50,7 @@ const Navbar = ({ user }: NavbarProps) => {
             </svg>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={() => router.push("/")}>
               <IconHome className="mr-1" size={20} /> Home
             </DropdownMenuItem>
             <DropdownMenuSeparator />
@@ -62,7 +62,7 @@ const Navbar = ({ user }: NavbarProps) => {
             ) : (
               <DropdownMenuItem onClick={() => router.push("/login")}>
                 {" "}
-                <IconLogin>Login</IconLogin>
+                <IconLogin  className="mr-1" size={20} />Login
               </DropdownMenuItem>
             )}
           </DropdownMenuContent>
