@@ -15,7 +15,7 @@ export async function GET() {
     const supabase = createClient(cookieStore)
 
     const session = (await supabase.auth.getSession()).data.session
-    //let all_recipes: Tables<"recipes">[] = []
+    //let all_recipes: Tables<"recipes2">[] = []
     if (session?.user.email !== "ekaronke@gmail.com") {
       return new Response(JSON.stringify({ error: "error" }))
     }

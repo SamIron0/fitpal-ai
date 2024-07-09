@@ -12,12 +12,12 @@ import {
   AlertDialogTrigger
 } from "@/components/ui/alert-dialog"
 interface RecipeCardProps {
-  recipe: TablesInsert<"recipes">
+  recipe: TablesInsert<"recipes2">
   index: number
-  updateData: <K extends keyof TablesInsert<"recipes">>(
+  updateData: <K extends keyof TablesInsert<"recipes2">>(
     index: number,
     key: K,
-    value: TablesInsert<"recipes">[K]
+    value: TablesInsert<"recipes2">[K]
   ) => void
   deleteRecipe: (index: number) => void
   handleDrop: (e: React.DragEvent<HTMLDivElement>, index: number) => void

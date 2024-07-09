@@ -9,7 +9,7 @@ import RecipeCard from "@/components/recipe/RecipeCard"
 export default function Update() {
   const supabase = createClient()
   const router = useRouter()
-  const [recipes, setRecipes] = useState<TablesInsert<"recipes">[]>([])
+  const [recipes, setRecipes] = useState<TablesInsert<"recipes2">[]>([])
   const [url, setUrl] = useState<string>("")
   useEffect(() => {
     const get_recipes = async () => {
@@ -162,10 +162,10 @@ export default function Update() {
       toast.error("Error saving recipes")
     }
   }
-  const updateData = <K extends keyof TablesInsert<"recipes">>(
+  const updateData = <K extends keyof TablesInsert<"recipes2">>(
     index: number,
     key: K,
-    value: TablesInsert<"recipes">[K]
+    value: TablesInsert<"recipes2">[K]
   ) => {
     const newRecipes = [...recipes]
     newRecipes[index][key] = value

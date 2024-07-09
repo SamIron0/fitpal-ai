@@ -32,13 +32,13 @@ export const GlobalState: FC<GlobalStateProps> = ({ children }) => {
 
   // PROFILE STORE
   const [profile, setProfile] = useState<Tables<"profiles"> | null>(null)
-  const [generatedRecipes, setGeneratedRecipes] = useState<Tables<"recipes">[]>(
+  const [generatedRecipes, setGeneratedRecipes] = useState<Tables<"recipes2">[]>(
     []
   )
   // ITEMS STORE
   const [assistants, setAssistants] = useState<Tables<"assistants">[]>([])
   const [collections, setCollections] = useState<Tables<"collections">[]>([])
-  const [recentRecipes, setRecentRecipes] = useState<Tables<"recipes">[]>([])
+  const [recentRecipes, setRecentRecipes] = useState<Tables<"recipes2">[]>([])
   const [chats, setChats] = useState<Tables<"chats">[]>([])
   const [files, setFiles] = useState<Tables<"files">[]>([])
   const [folders, setFolders] = useState<Tables<"folders">[]>([])

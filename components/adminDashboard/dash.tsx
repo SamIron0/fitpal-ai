@@ -7,12 +7,12 @@ import { createClient } from "@/lib/supabase/client"
 import { TablesInsert } from "@/supabase/types"
 
 interface RecipeCardProps {
-  recipe: TablesInsert<"recipes">
+  recipe: TablesInsert<"recipes2">
   index: number
-  updateData: <K extends keyof TablesInsert<"recipes">>(
+  updateData: <K extends keyof TablesInsert<"recipes2">>(
     index: number,
     key: K,
-    value: TablesInsert<"recipes">[K]
+    value: TablesInsert<"recipes2">[K]
   ) => void
   deleteRecipe: (index: number) => void
   handleDrop: (e: React.DragEvent<HTMLDivElement>, index: number) => void
@@ -150,7 +150,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
 export default function Dash() {
   const supabase = createClient()
   const router = useRouter()
-  const [recipes, setRecipes] = useState<TablesInsert<"recipes">[]>([])
+  const [recipes, setRecipes] = useState<TablesInsert<"recipes2">[]>([])
   const [url, setUrl] = useState<string>("")
 
   useEffect(() => {
@@ -317,10 +317,10 @@ export default function Dash() {
     }
   }
 
-  const updateData = <K extends keyof TablesInsert<"recipes">>(
+  const updateData = <K extends keyof TablesInsert<"recipes2">>(
     index: number,
     key: K,
-    value: TablesInsert<"recipes">[K]
+    value: TablesInsert<"recipes2">[K]
   ) => {
     const newRecipes = [...recipes]
     newRecipes[index][key] = value

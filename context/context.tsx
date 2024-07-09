@@ -18,9 +18,9 @@ interface FitpalAIContext {
   profile: Tables<"profiles"> | null
   setProfile: Dispatch<SetStateAction<Tables<"profiles"> | null>>
   generatedRecipes: Tables<"recipes2">[]
-  setGeneratedRecipes: Dispatch<SetStateAction<Tables<"recipes">[]>>
+  setGeneratedRecipes: Dispatch<SetStateAction<Tables<"recipes2">[]>>
   recentRecipes: Tables<"recipes2">[]
-  setRecentRecipes: Dispatch<SetStateAction<Tables<"recipes">[]>>
+  setRecentRecipes: Dispatch<SetStateAction<Tables<"recipes2">[]>>
   // ITEMS STORE
   assistants: Tables<"assistants">[]
   setAssistants: Dispatch<SetStateAction<Tables<"assistants">[]>>
