@@ -57,7 +57,7 @@ const SearchPage = ({ for_you }: SearchPageProps) => {
       <h2 className="mb-5 text-lg font-semibold">{title}</h2>
       <div
         role="status"
-        className="grid w-full max-w-4xl grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4"
+        className="grid w-full max-w-4xl gap-4 sm:grid-cols-2 lg:grid-cols-3"
       >
         {recipes.map(recipe => (
           <div key={recipe.id} onClick={() => openDrawer(recipe.id)}>
