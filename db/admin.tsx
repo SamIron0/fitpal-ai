@@ -57,7 +57,7 @@ export const saveRecipe = async (recipe: TablesInsert<"recipes2">) => {
 export const deleteRecipe = async (recipe: TablesInsert<"recipes2">) => {
   // Check if the recipe already exists by looking for a unique identifier (e.g., id)
   const { data: deletedRecipe, error: fetchError } = await supabaseAdmin
-    .from("recipes")
+    .from("recipes2")
     .delete()
     .eq("id", recipe.id)
 
@@ -168,7 +168,7 @@ export const getForYou = async (uid: string) => {
 }
 export const getAllRecipes = async () => {
   const { data: recipes, error } = await supabaseAdmin
-    .from("recipes")
+    .from("recipes2")
     .select("*")
 
   if (error) {
@@ -204,7 +204,7 @@ export const save_query = async (uid: string | null, query: string) => {
 
 export const getRecipeById = async (id: string) => {
   const { data: recipeData, error } = await supabaseAdmin
-    .from("recipes")
+    .from("recipes2")
     .select("*")
     .eq("id", id)
     .single()
