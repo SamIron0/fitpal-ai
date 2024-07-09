@@ -27,7 +27,8 @@ export default async function ResultPage({
   params: { query: string }
 }) {
   const supabase = createClient(cookies())
-  const uid = (await supabase.auth.getSession()).data.session?.user.id
+  const session = (await supabase.auth.getSession()).data.session
+  const uid = session?.user.id
   let settings: Tables<"settings"> = {} as Tables<"settings">
 
   if (params.query) {
@@ -38,8 +39,7 @@ export default async function ResultPage({
     const query =
       typeof params.query === "string" ? params.query : params.query[0]
     //console.log(query)
-    const saveQueryPromise = save_query(uid || null, decodeURLComponent(query))
-
+    
     const renderPromise = fetch("https://embed-umber.vercel.app/search", {
       method: "POST",
       headers: {
@@ -49,16 +49,19 @@ export default async function ResultPage({
         query: query.replace(/-/g, " ")
       })
     }).then(response => response.json())
+    if (session?.user.email !== "ekaronke@gmail.com") {
+      await save_query(
+        uid || null,
+        decodeURLComponent(query)
+      )
+    }
 
-    const [_, responseData] = await Promise.all([
-      saveQueryPromise,
-      renderPromise
-    ])
+    const responseData = await renderPromise
 
     const recipes = responseData.result
     const description = responseData.description
     const text = responseData.text
-    console.log(responseData)
+
     return (
       <Dashboard>
         <SearchResult query={query} recipes={recipes} text={text} />
