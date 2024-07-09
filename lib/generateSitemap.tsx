@@ -40,7 +40,7 @@ export async function generateSitemap(): Promise<string> {
       page.id.trim().toLowerCase().replace(/\s+/g, "-")
     )
     links.push({
-      url: `/${formattedQuery}`,
+      url: `/search/${formattedQuery}`,
       changefreq: "weekly",
       priority: 0.8,
       lastmod: new Date().toISOString()
