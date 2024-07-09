@@ -5,7 +5,7 @@ export async function DELETE(request: Request) {
 
   try {
     const renderPromise = await fetch(
-      "https://fitpal-search.onrender.com/clear_cache",
+      "https://embed-umber.vercel.app/clear_cache",
       {
         method: "DELETE",
         headers: {
