@@ -63,11 +63,7 @@ export default async function ResultPage({
     const description = responseData.description
     const text = responseData.text
 
-    return (
-      <Dashboard>
-        <SearchResult query={query} recipes={recipes} text={text} />
-      </Dashboard>
-    )
+    return <SearchResult query={query} recipes={recipes} text={text} />
   }
 }
 
