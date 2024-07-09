@@ -9,13 +9,16 @@ import {
 } from "@/components/ui/menubar"
 import { FitpalAIContext } from "@/context/context"
 import { supabase } from "@/lib/supabase/browser-client"
+import { User } from "@supabase/supabase-js"
 import { IconLogout } from "@tabler/icons-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useContext } from "react"
 
-const Navbar = () => {
-  const { profile } = useContext(FitpalAIContext)
+interface NavbarProps {
+  user: User
+}
+const Navbar = ({ user }: NavbarProps) => {
   const router = useRouter()
   const handleSignOut = async () => {
     await supabase.auth.signOut()
@@ -47,7 +50,7 @@ const Navbar = () => {
               </svg>
             </MenubarTrigger>
             <MenubarContent>
-              {profile ? (
+              {user.id ? (
                 <MenubarItem onClick={handleSignOut}>
                   <IconLogout className="mr-1" size={20} />
                   Logout{" "}
