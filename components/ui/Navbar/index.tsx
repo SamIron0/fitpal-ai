@@ -47,15 +47,15 @@ const Navbar = () => {
               </svg>
             </MenubarTrigger>
             <MenubarContent>
-              <MenubarItem> </MenubarItem>
-
               {profile ? (
                 <MenubarItem onClick={handleSignOut}>
                   <IconLogout className="mr-1" size={20} />
                   Logout{" "}
                 </MenubarItem>
               ) : (
-                <LoginDrawer>Login</LoginDrawer>
+                <MenubarItem>
+                  <LoginDrawer>Login</LoginDrawer>{" "}
+                </MenubarItem>
               )}
             </MenubarContent>
           </MenubarMenu>
