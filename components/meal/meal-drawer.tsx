@@ -69,8 +69,12 @@ const DirectionsList: React.FC<{
     ))}
   </ol>
 )
-function convertStringToNumber(str: string) {
-  return parseInt(str.replace(/\[|\]/g, ""), 10)
+function convertStringToNumber(str: string | null | undefined) {
+  // Remove the square brackets and double quotes
+  if (!str) return 0
+  const cleanedString = str.replace(/[\[\]"]/g, '');
+  // Convert the cleaned string to a number
+  return parseInt(cleanedString, 10);
 }
 const RecipeDetails: React.FC<{ recipe: TablesInsert<"recipes2"> }> = ({
   recipe

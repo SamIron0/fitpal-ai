@@ -50,6 +50,10 @@ const Navbar = ({ user }: NavbarProps) => {
               </svg>
             </MenubarTrigger>
             <MenubarContent>
+              <MenubarItem onClick={() => router.push("/")}>
+                {" "}
+                Home
+              </MenubarItem>
               {user ? (
                 <MenubarItem onClick={handleSignOut}>
                   <IconLogout className="mr-1" size={20} />
