@@ -50,7 +50,7 @@ export const SearchResult = ({ recipes, query, text }: SearchResultProps) => {
                 {recipe.imgurl ? (
                   <img
                     src={`${recipe.imgurl}`}
-                    className="border-1 mb-2 w-full rounded-lg border-input object-cover"
+                    className="border-1 mb-2 w-full h-48  rounded-lg border-input object-cover"
                     alt={recipe.name || "Recipe Image"}
                   />
                 ) : (
