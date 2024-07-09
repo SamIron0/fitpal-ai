@@ -31,12 +31,12 @@ const NutritionFacts: React.FC<{ recipe: TablesInsert<"recipes2"> }> = ({
 }) => (
   <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
     {[
-      { label: "Protein", value: `${recipe.protein}g` },
-      { label: "Fat", value: `${recipe.fats}g` },
-      { label: "Carbs", value: `${recipe.carbs}g` },
-      { label: "Calories", value: `${recipe.calories} kcal` }
+      { label: "Protein", value: `${recipe.protein}` },
+      { label: "Fat", value: `${recipe.fats}` },
+      { label: "Carbs", value: `${recipe.carbs}` },
+      { label: "Calories", value: `${recipe.calories} ` }
     ].map(item => (
-      <Card key={item.label} className="bg-black">
+      <Card key={item.label} className="bg-background">
         <CardContent className="p-4">
           <p className="text-sm font-medium text-zinc-500">{item.label}</p>
           <p className="text-2xl font-bold">{item.value}</p>
@@ -143,7 +143,7 @@ export const MealDrawer: React.FC<MealDrawerProps> = ({
           <DrawerDescription>Recipe details</DrawerDescription>
         </DrawerHeader>
         {recipe && <MealDrawerContent recipe={recipe} />}
-        <DrawerFooter className="absolute inset-x-0 bottom-0 bg-background p-4">
+        <DrawerFooter className="absolute inset-x-0 bottom-0 bg-black p-4">
           <DrawerClose asChild>
             <Button variant="outline" className="w-full max-w-3xl mx-auto ">
               Close
