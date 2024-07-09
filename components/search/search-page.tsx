@@ -116,7 +116,7 @@ const SearchPage = ({ for_you }: SearchPageProps) => {
           <h2 className="mb-5 text-2xl font-semibold">Best Results</h2>
           <div
             role="status"
-            className="grid w-full max-w-4xl animate-pulse grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4"
+            className="grid w-full max-w-4xl animate-pulse gap-4 sm:grid-cols-2 lg:grid-cols-3"
           >
             {renderSkeleton()}
           </div>
