@@ -56,9 +56,10 @@ const Navbar = ({ user }: NavbarProps) => {
                   Logout{" "}
                 </MenubarItem>
               ) : (
-                <MenubarItem>
-                  <LoginDrawer>Login</LoginDrawer>{" "}
-                </MenubarItem>
+                <LoginDrawer>
+                  {" "}
+                  <MenubarItem>Login</MenubarItem>
+                </LoginDrawer>
               )}
             </MenubarContent>
           </MenubarMenu>
