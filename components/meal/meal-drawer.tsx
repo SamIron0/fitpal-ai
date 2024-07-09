@@ -69,7 +69,9 @@ const DirectionsList: React.FC<{
     ))}
   </ol>
 )
-
+function convertStringToNumber(str: string) {
+  return parseInt(str.replace(/\[|\]/g, ""), 10)
+}
 const RecipeDetails: React.FC<{ recipe: TablesInsert<"recipes2"> }> = ({
   recipe
 }) => (
@@ -78,7 +80,8 @@ const RecipeDetails: React.FC<{ recipe: TablesInsert<"recipes2"> }> = ({
       <h1 className="text-3xl mt-6 font-bold text-zinc-100">{recipe.name}</h1>
       <div className="mt-2 flex space-x-4">
         <Badge variant="secondary">
-          Portions: {!recipe.portions ? 0 : recipe.portions[0]}
+          Portions:{" "}
+          {!recipe.portions ? 0 : convertStringToNumber(recipe.portions)}
         </Badge>
         <Badge variant="secondary">
           Time: {convertTime(recipe.total_time)}
