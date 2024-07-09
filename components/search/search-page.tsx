@@ -93,7 +93,7 @@ const SearchPage = ({ for_you }: SearchPageProps) => {
       query.trim().toLowerCase().replace(/\s+/g, "-")
     )
 
-    router.push(`/${formattedQuery}`)
+    router.push(`/search/${formattedQuery}`)
   }
   return (
     <div className="hide-scrollbar relative flex size-full flex-col items-center overflow-y-auto px-4 sm:px-6">
