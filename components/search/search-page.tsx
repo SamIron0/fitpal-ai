@@ -62,7 +62,7 @@ const SearchPage = ({ for_you }: SearchPageProps) => {
         {recipes.map(recipe => (
           <div key={recipe.id} onClick={() => openDrawer(recipe.id)}>
             <MealDrawer recipe={recipe} isOpen={isOpen}>
-              <div className="flex w-48 flex-col">
+              <div className="flex w-full flex-col">
                 {recipe.imgurl ? (
                   <img
                     src={`${recipe.imgurl}`}
