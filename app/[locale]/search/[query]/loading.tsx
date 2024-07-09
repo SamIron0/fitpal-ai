@@ -4,8 +4,8 @@ export default function Loading() {
       <div className="mb-8 h-10 w-3/4 bg-input animate-pulse rounded"></div>
       <div className="grid w-full max-w-4xl gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {[...Array(8)].map((_, index) => (
-          <div key={index} className="flex w-48 flex-col">
-            <div className="mb-2  w-full rounded-lg bg-input animate-pulse"></div>
+          <div key={index} className="flex w-56 flex-col">
+            <div className="mb-2 h-48 w-full rounded-lg bg-input animate-pulse"></div>
             <div className="h-6 w-3/4 bg-input animate-pulse rounded mb-2"></div>
             <div className="flex items-center">
               <div className="h-4 w-4 bg-input animate-pulse rounded mr-2"></div>
