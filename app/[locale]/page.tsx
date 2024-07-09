@@ -11,7 +11,7 @@ export default async function Search() {
   const {
     data: { session }
   } = await supabase.auth.getSession()
-  let forYou: Tables<"recipes">[] = []
+  let forYou: Tables<"recipes2">[] = []
 
   if (session) {
     forYou = await getForYou(session?.user.id)

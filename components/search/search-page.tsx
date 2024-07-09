@@ -14,14 +14,14 @@ import { MealDrawer } from "../meal/meal-drawer"
 import { convertTime } from "@/utils/helpers"
 
 interface SearchPageProps {
-  for_you?: Tables<"recipes">[]
+  for_you?: Tables<"recipes2">[]
 }
 
 const SearchPage = ({ for_you }: SearchPageProps) => {
   const router = useRouter()
   const { generatedRecipes, isGenerating, setSettings } =
     useContext(FitpalAIContext)
-  const [forYou, setForYou] = useState<Tables<"recipes">[]>(for_you || [])
+  const [forYou, setForYou] = useState<Tables<"recipes2">[]>(for_you || [])
   const { theme } = useTheme()
   const [isOpen, setIsOpen] = useState<string>("0")
   const [noresults, setNoResults] = useState(false)
@@ -52,7 +52,7 @@ const SearchPage = ({ for_you }: SearchPageProps) => {
     </div>
   )
 
-  const renderRecipes = (recipes: Tables<"recipes">[], title: string) => (
+  const renderRecipes = (recipes: Tables<"recipes2">[], title: string) => (
     <div className="w-full max-w-4xl py-28">
       <h2 className="mb-5 text-2xl font-semibold">{title}</h2>
       <div
