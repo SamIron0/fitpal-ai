@@ -12,8 +12,9 @@ export async function POST(request: Request) {
     const saveResult = await saveSeoPage(data) // Save recipe to Supabase or your database
     //console.log(data)
 
+
     const renderPromise = await fetch(
-      "https://fitpal-search.onrender.com/long_term_cache",
+      "https://embed-umber.vercel.app/long_term_cache",
       {
         method: "POST",
         headers: {
