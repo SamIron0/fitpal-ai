@@ -20,7 +20,7 @@ export default async function Search() {
   }
 
   return (
-    <Dashboard>
+    <div>
       <Head>
         <meta
           name="description"
@@ -51,6 +51,6 @@ export default async function Search() {
       </Head>
 
       <SearchPage for_you={forYou} />
-    </Dashboard>
+    </div>
   )
 }
