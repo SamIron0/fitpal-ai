@@ -40,7 +40,7 @@ export default async function ResultPage({
     //console.log(query)
     const saveQueryPromise = save_query(uid || null, decodeURLComponent(query))
 
-    const renderPromise = fetch("https://fitpal-search.onrender.com/search", {
+    const renderPromise = fetch("https://embed-umber.vercel.app/search", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
