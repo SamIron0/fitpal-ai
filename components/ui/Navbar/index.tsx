@@ -1,3 +1,4 @@
+'use client'
 import { LoginDrawer } from "@/components/login/login-drawer"
 import {
   Menubar,
@@ -8,12 +9,14 @@ import {
   MenubarShortcut,
   MenubarTrigger
 } from "@/components/ui/menubar"
+import { FitpalAIContext } from "@/context/context"
+import { supabase } from "@/lib/supabase/browser-client"
+import { IconLogout } from "@tabler/icons-react"
 import Link from "next/link"
+import { useContext } from "react"
 
 const Navbar = () => {
-  //export default function Navbar() {
-  function handleButtonClick(): void {}
-
+  const { profile } = useContext(FitpalAIContext)
   return (
     <header className="sticky top-0 z-50 flex h-16 w-full shrink-0 items-center  justify-between border-b border-[#232325] bg-gradient-to-b from-background/10 via-background/50 to-background/80 backdrop-blur-xl">
       <div className="flex w-full items-center justify-end space-x-2 pr-3 lg:pr-24">
@@ -38,8 +41,17 @@ const Navbar = () => {
               </svg>
             </MenubarTrigger>
             <MenubarContent>
-              <LoginDrawer><MenubarItem>Login</MenubarItem></LoginDrawer>
-              <MenubarItem>Signup</MenubarItem>
+              <MenubarItem> </MenubarItem>
+
+              {profile ? (
+                <MenubarItem>
+                  {" "}
+                  <IconLogout className="mr-1" size={20} />
+                  Logout{" "}
+                </MenubarItem>
+              ) : (
+                <LoginDrawer>Login</LoginDrawer>
+              )}
             </MenubarContent>
           </MenubarMenu>
         </Menubar>
