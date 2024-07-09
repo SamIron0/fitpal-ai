@@ -75,9 +75,11 @@ const SearchPage = ({ for_you }: SearchPageProps) => {
                 <p className="text-md w-full text-left">{recipe.name}</p>
                 <div className="flex w-full text-xs font-light mt-1 items-center text-zinc-400">
                   <Clock className="w-4 h-4 mr-2" />
-                  <p className="text-left">
-                    {convertTime(`${recipe[0]}hrs ${recipe[1]}mins} ` as unknown as number)}
-                  </p>
+                  {recipe.total_time && (
+                    <p className="text-left">
+                      {`${recipe.total_time[0]}hrs ${recipe.total_time[1]}mins`}
+                    </p>
+                  )}
                 </div>
               </div>
             </MealDrawer>

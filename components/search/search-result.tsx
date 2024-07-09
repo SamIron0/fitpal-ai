@@ -59,9 +59,7 @@ export const SearchResult = ({ recipes, query, text }: SearchResultProps) => {
                 <p className="text-md w-full text-left">{recipe.name}</p>
                 <div className="flex w-full text-xs font-light mt-1 items-center text-zinc-400">
                   <Clock className="w-4 h-4 mr-2" />
-                  <p className="text-left">
-                    {convertTime(`${recipe[0]}hrs ${recipe[1]}mins} ` as unknown as number)}
-                  </p>
+                  <p className="text-left">{convertTime(recipe.total_time)}</p>
                 </div>
               </div>
             </MealDrawer>

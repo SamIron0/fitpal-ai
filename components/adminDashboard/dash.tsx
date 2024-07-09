@@ -63,7 +63,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
           <div
             className="rounded-full bg-gray-100 p-1"
             title={
-              recipe.imgurl && `${recipe[0]}hrs ${recipe[1]}mins} ` ? "Complete" : "Incomplete"
+              recipe.imgurl && recipe.total_time ? "Complete" : "Incomplete"
             }
           >
             <svg
@@ -73,7 +73,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
               strokeWidth={1.5}
               stroke="currentColor"
               className={`h-5 w-5 ${
-                recipe.imgurl && `${recipe[0]}hrs ${recipe[1]}mins} `
+                recipe.imgurl && recipe.total_time
                   ? "text-green-500"
                   : "text-orange-500"
               }`}
@@ -103,13 +103,6 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
             d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"
           />
         </svg>
-        <input
-          type="text"
-          value={`${recipe[0]}hrs ${recipe[1]}mins} ` || ""}
-          onChange={e => updateData(index, "total_time", e.target.value)}
-          className="w-full rounded bg-input p-2 text-foreground"
-          placeholder="Total Time"
-        />
       </div>
 
       <div className="flex items-center space-x-2">

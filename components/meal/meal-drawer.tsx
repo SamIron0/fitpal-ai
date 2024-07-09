@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { TablesInsert } from "@/supabase/types"
+import { convertTime } from "@/utils/helpers"
 
 interface MealDrawerProps {
   children?: React.ReactNode
@@ -45,15 +46,6 @@ const NutritionFacts: React.FC<{ recipe: TablesInsert<"recipes2"> }> = ({
   </div>
 )
 
-const convertTime = (totalMinutes: number) => {
-  const hours = Math.floor(totalMinutes / 60)
-  const minutes = totalMinutes % 60
-  if (hours > 0) {
-    return `${hours} hr ${minutes} min`
-  } else {
-    return `${minutes} min`
-  }
-}
 const IngredientsList: React.FC<{
   ingredients: string[] | null | undefined
 }> = ({ ingredients }) => (
@@ -87,7 +79,7 @@ const RecipeDetails: React.FC<{ recipe: TablesInsert<"recipes2"> }> = ({
       <div className="mt-2 flex space-x-4">
         <Badge variant="secondary">Portions: {recipe.portions}</Badge>
         <Badge variant="secondary">
-          Time: {convertTime(`${recipe[0]}hrs ${recipe[1]}mins} ` as unknown as number)}
+          Time: {convertTime(recipe.total_time)}
         </Badge>
       </div>
     </div>
