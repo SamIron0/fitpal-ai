@@ -106,6 +106,7 @@ export default async function RootLayout({
           }}
         ></script>
       </head>
+      
       <body className={inter.className}>
         <ToasterProvider />
         <Providers attribute="class" defaultTheme="dark">
