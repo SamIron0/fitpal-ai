@@ -11,7 +11,7 @@ import {
 import { FitpalAIContext } from "@/context/context"
 import { supabase } from "@/lib/supabase/browser-client"
 import { User } from "@supabase/supabase-js"
-import { IconHome, IconLogout } from "@tabler/icons-react"
+import { IconHome, IconLogin, IconLogout } from "@tabler/icons-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useContext } from "react"
@@ -31,7 +31,7 @@ const Navbar = ({ user }: NavbarProps) => {
     <header className="sticky top-0 z-50 flex h-16 w-full shrink-0 items-center  justify-between border-b border-[#232325] bg-gradient-to-b from-background/10 via-background/50 to-background/80 backdrop-blur-xl">
       <div className="flex w-full items-center justify-end space-x-2 pr-3 lg:pr-12">
         <DropdownMenu>
-          <DropdownMenuTrigger>
+          <DropdownMenuTrigger className="focus:outline-none p-2 border border-input">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -62,7 +62,7 @@ const Navbar = ({ user }: NavbarProps) => {
             ) : (
               <DropdownMenuItem onClick={() => router.push("/login")}>
                 {" "}
-                Login
+                <IconLogin>Login</IconLogin>
               </DropdownMenuItem>
             )}
           </DropdownMenuContent>
