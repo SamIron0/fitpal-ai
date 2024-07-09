@@ -12,6 +12,7 @@ import { ReactNode } from "react"
 import "./globals.css"
 import ToasterProvider from "@/components/utility/toasterProvider"
 import { Analytics } from "@vercel/analytics/react"
+import Navbar from "@/components/ui/Navbar"
 
 const inter = Inter({ subsets: ["latin"] })
 const APP_NAME = "Fitpal AI"
@@ -112,6 +113,7 @@ export default async function RootLayout({
         <Providers attribute="class" defaultTheme="dark">
           <Toaster richColors position="top-center" duration={3000} />
           <div className="flex h-dvh flex-col items-center overflow-x-hidden bg-background text-foreground">
+            <Navbar />
             {session ? <GlobalState>{children}</GlobalState> : children}
           </div>
         </Providers>
