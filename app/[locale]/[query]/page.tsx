@@ -46,9 +46,7 @@ export default async function ResultPage({
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        query: query.replace(/-/g, " "),
-        diet: uid ? settings.diet : "Anything",
-        allergy: uid ? settings.allergies : ["None"]
+        query: query.replace(/-/g, " ")
       })
     }).then(response => response.json())
 
@@ -60,7 +58,7 @@ export default async function ResultPage({
     const recipes = responseData.result
     const description = responseData.description
     const text = responseData.text
-   
+
     return (
       <Dashboard>
         <SearchResult query={query} recipes={recipes} text={text} />
