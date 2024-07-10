@@ -128,10 +128,10 @@ const SearchPage = ({ for_you }: SearchPageProps) => {
       ) : (
         <div className="w-full max-w-4xl">
           {forYou.length > 0 ? (
-            renderRecipes(forYou, "For You")
+            renderRecipes(forYou, "Recents")
           ) : (
             <div className="w-full max-w-4xl py-28">
-              <h2 className="mb-5 text-2xl font-semibold">For You</h2>
+              <h2 className="mb-5 text-2xl font-semibold">Recents</h2>
               <div
                 role="status"
                 className="grid w-full max-w-4xl animate-pulse  gap-4 sm:grid-cols-2 lg:grid-cols-3"
