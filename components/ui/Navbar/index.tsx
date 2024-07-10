@@ -33,11 +33,11 @@ const Navbar = ({ user }: NavbarProps) => {
       <div className="flex w-full items-center justify-end space-x-2 pr-3 lg:pr-12">
         <DropdownMenu>
           <DropdownMenuTrigger className="focus:outline-none">
-            <div className="border rounded-md p-1 border-input bg-background hover:bg-accent hover:text-accent-foreground">
+            <div className="border rounded-full p-2 border-input bg-background hover:bg-accent hover:text-accent-foreground">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
+                width="19"
+                height="19"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
