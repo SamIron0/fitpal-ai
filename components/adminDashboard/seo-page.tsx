@@ -74,7 +74,7 @@ export default function SeoPage({ pages }: SeoProps) {
   }
   const savePage = async (card: TablesInsert<"search_result_metadata">) => {
     try {
-      console.log(card)
+      //console.log(card)
       const res = await fetch("/api/seo", {
         method: "POST",
         body: JSON.stringify({ data: card })
