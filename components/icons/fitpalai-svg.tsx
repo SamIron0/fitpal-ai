@@ -16,6 +16,7 @@ export const FitpalAISVG: FC<FitpalAISVGProps> = ({ theme="dark", scale = 1 }) =
       viewBox="0 0 375 374.999991"
       preserveAspectRatio="xMidYMid meet"
       version="1.0"
+      className={`fill-${theme === "dark" ? "purple" : "black"}`}
     >
       <defs>
         <clipPath id="b5f5f0d98f">
