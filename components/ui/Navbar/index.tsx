@@ -31,9 +31,9 @@ const Navbar = ({ user }: NavbarProps) => {
   return (
     <header className="sticky top-0 z-50 flex h-16 w-full shrink-0 items-center  justify-between border-b border-[#232325] bg-gradient-to-b from-background/10 via-background/50 to-background/80 backdrop-blur-xl">
       <div className="flex w-full items-center justify-end space-x-2 pr-3 lg:pr-12">
-        <DropdownMenu >
+        <DropdownMenu>
           <DropdownMenuTrigger className="focus:outline-none">
-            <Button variant="outline">
+            <div className="border rounded-md p-1 border-input bg-background hover:bg-accent hover:text-accent-foreground">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -50,7 +50,7 @@ const Navbar = ({ user }: NavbarProps) => {
                 <path d="M4 8l16 0" />
                 <path d="M4 16l16 0" />
               </svg>
-            </Button>
+            </div>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
             <DropdownMenuItem onClick={() => router.push("/")}>
