@@ -32,7 +32,7 @@ const Navbar = ({ user }: NavbarProps) => {
     <header className="sticky top-0 z-50 flex h-16 w-full shrink-0 items-center  justify-between border-b border-[#232325] bg-gradient-to-b from-background/10 via-background/50 to-background/80 backdrop-blur-xl">
       <div className="pl-3 lg:pl-12">
         <Link href="/" className="text-2xl font-bold text-primary-foreground">
-          <FitpalAISVG scale={0.21} theme="dark" />
+          <FitpalAISVG scale={0.15} theme="dark" />
         </Link>
       </div>
       <div className="flex w-full items-center justify-end space-x-2 pr-3 lg:pr-12">
