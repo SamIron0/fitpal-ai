@@ -74,21 +74,21 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   // read route params
   const query = params.query
-  let seo: Tables<"search_result_metadata"> =
+  let seo: Tables<"search_result_metadata"> | null =
     {} as Tables<"search_result_metadata">
   try {
     seo = await getSeoPage(query.replace(/-/g, " "))
   } catch (e) {
     console.log(e)
   }
-  console.log(seo)
+  //console.log(seo)
   return {
     title: decodeURLComponent(query),
     description: seo?.description,
-    keywords: seo.keywords,
+    keywords: seo?.keywords,
     openGraph: {
       title: decodeURLComponent(query),
-      description: seo.description,
+      description: seo?.description,
       images: [seo?.ogImage || ""]
     }
   }

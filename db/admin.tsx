@@ -181,11 +181,10 @@ export const getSeoPage = async (query: string) => {
     .from("search_result_metadata")
     .select("*")
     .eq("id", query)
-    .single()
   if (error) {
     throw new Error(error.message)
   }
-  return seoPage
+  return seoPage ? seoPage[0] : null
 }
 export const save_query = async (uid: string | null, query: string) => {
   const { data: queryData, error } = await supabaseAdmin
