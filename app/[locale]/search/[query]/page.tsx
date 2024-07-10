@@ -7,6 +7,7 @@ import { cookies } from "next/headers"
 
 import { SearchResult } from "@/components/search/search-result"
 import { getSeoPage, save_query } from "@/db/admin"
+import { redirect } from "next/navigation"
 
 function decodeURLComponent(urlComponent: string) {
   // Decode the URL component
@@ -41,27 +42,30 @@ export default async function ResultPage({
       session.data.session?.user.email != "ekaronke@gmail.com"
         ? save_query(uid || null, decodeURLComponent(query))
         : null
+    try {
+      const renderPromise = fetch("https://embed-umber.vercel.app/search", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          query: query.replace(/-/g, " ")
+        })
+      }).then(response => response.json())
 
-    const renderPromise = fetch("https://embed-umber.vercel.app/search", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        query: query.replace(/-/g, " ")
-      })
-    }).then(response => response.json())
+      const [_, responseData] = await Promise.all([
+        saveQueryPromise,
+        renderPromise
+      ])
 
-    const [_, responseData] = await Promise.all([
-      saveQueryPromise,
-      renderPromise
-    ])
+      const recipes = responseData.result
+      const description = responseData.description
+      const text = responseData.text
 
-    const recipes = responseData.result
-    const description = responseData.description
-    const text = responseData.text
-
-    return <SearchResult query={query} recipes={recipes} text={text} />
+      return <SearchResult query={query} recipes={recipes} text={text} />
+    } catch (e) {
+      redirect("/?error=Something went wrong")
+    }
   }
 }
 
