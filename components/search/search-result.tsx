@@ -71,7 +71,7 @@ export const SearchResult = ({ recipes, query, text }: SearchResultProps) => {
   const chatInputRef = useRef<HTMLInputElement>(null)
   const onSearch = (query: string) => {
     const formattedQuery = encodeURIComponent(
-      query.trim().toLowerCase().replace(/\s+/g, "-")
+      query.trim().toLowerCase().replace(/\s+/g, "-").replace(/\./g, "-")
     )
     router.push(`/search/${formattedQuery}`)
   }

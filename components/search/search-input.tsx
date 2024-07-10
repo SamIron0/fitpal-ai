@@ -73,7 +73,7 @@ export const SearchInput: FC<SearchInputProps> = ({ onSearch }) => {
         <input
           ref={chatInputRef}
           className="text-md min-w-3xl flex w-full resize-none rounded-md border-none bg-transparent py-2 pl-3 pr-14 ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
-          placeholder={t(`Asian Dinner ideas`)}
+          placeholder={t(`Search`)}
           onChange={handleInputChange}
           value={input}
           onCompositionStart={() => setIsTyping(true)}
@@ -105,8 +105,8 @@ export const SearchInput: FC<SearchInputProps> = ({ onSearch }) => {
         </div>
       </div>
       <div className="mt-3 grid w-full grid-cols-2">
-        <SuggestionPill icon={"🍜"} caption="Pasta with chicken" />
         <SuggestionPill icon={"🧄"} caption="Garlic, onion, pork" />
+        <SuggestionPill icon={"🍜"} caption="Pasta with chicken" />
         <SuggestionPill icon={"🥘"} caption="Jambalaya" />
         <SuggestionPill icon={"🥓"} caption="Breakfast with bacon" />
       </div>
