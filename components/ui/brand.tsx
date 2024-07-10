@@ -16,10 +16,6 @@ export const Brand: FC<BrandProps> = ({ theme = "dark" }) => {
       target="_blank"
       rel="noopener noreferrer"
     >
-      <div className="mb-2">
-        <FitpalAISVG theme={theme === "dark" ? "dark" : "light"} scale={0.3} />
-      </div>
-
       <div className="text-4xl font-bold tracking-wide">Fitpal AI</div>
     </Link>
   )

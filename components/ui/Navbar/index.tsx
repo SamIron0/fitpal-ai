@@ -16,7 +16,7 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useContext } from "react"
 import { Button } from "../button"
-
+import { FitpalAISVG } from "@/components/icons/fitpalai-svg"
 interface NavbarProps {
   user: User | undefined
 }
@@ -30,6 +30,11 @@ const Navbar = ({ user }: NavbarProps) => {
   }
   return (
     <header className="sticky top-0 z-50 flex h-16 w-full shrink-0 items-center  justify-between border-b border-[#232325] bg-gradient-to-b from-background/10 via-background/50 to-background/80 backdrop-blur-xl">
+      <div>
+        <Link href="/" className="text-2xl font-bold text-primary-foreground">
+          <FitpalAISVG scale={0.8} theme="dark"/>
+        </Link>
+      </div>
       <div className="flex w-full items-center justify-end space-x-2 pr-3 lg:pr-12">
         <DropdownMenu>
           <DropdownMenuTrigger className="focus:outline-none">
