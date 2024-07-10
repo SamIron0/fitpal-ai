@@ -11,7 +11,6 @@ export const FitpalAISVG: FC<FitpalAISVGProps> = ({ theme="dark", scale = 1 }) =
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
       width={189 * scale}
-      height={194 * scale}
       zoomAndPan="magnify"
       viewBox="0 0 375 374.999991"
       preserveAspectRatio="xMidYMid meet"
