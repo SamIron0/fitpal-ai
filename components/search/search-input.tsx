@@ -57,7 +57,7 @@ export const SearchInput: FC<SearchInputProps> = ({ onSearch }) => {
     return (
       <button
         onClick={handleSuggestionClick(caption)}
-        className="m-1 rounded-md border border-input p-1 font-medium text-zinc-400 shadow-sm hover:bg-input focus:outline-none"
+        className="m-1 rounded-md border border-input p-1 font-medium  shadow-sm hover:bg-input focus:outline-none"
       >
         <div className="flex items-center">
           <span className="mr-1 px-1 bg-fuchsia-400 hover:bg-none rounded-sm text-xl">{icon}</span>
