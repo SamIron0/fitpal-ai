@@ -19,15 +19,17 @@ import { toast } from "sonner"
 import { useContext, useState } from "react"
 import { saveRecipe } from "@/db/recipes"
 import { FitpalAIContext } from "@/context/context"
+import { supabase } from "@/lib/supabase/browser-client"
 interface RecipeCardProps {
   recipe: Tables<"recipes2">
+  onSave: (recipe_id: string) => void
 }
 
-export const RecipeCard = ({ recipe }: RecipeCardProps) => {
+
+export const RecipeCard = ({ recipe, onSave }: RecipeCardProps) => {
   const [voteStatus, setVoteStatus] = useState("none") // 'none', 'upvoted', or 'downvoted'
   const [voteCount, setVoteCount] = useState(155)
   const [isLoginDrawerOpen, setIsLoginDrawerOpen] = useState(false)
-
   const bounceAnimation = {
     scale: [1, 1.2, 1],
     transition: { duration: 0.4 }
@@ -46,19 +48,6 @@ export const RecipeCard = ({ recipe }: RecipeCardProps) => {
         setVoteCount(voteType === "upvoted" ? voteCount + 2 : voteCount - 2)
       }
     }
-  }
-
-  const save = async (id: string) => {
-    if (!profile) {
-      return
-    }
-    const res = await saveRecipe(profile?.id, id)
-    if (res != "Saved") {
-      toast.error("Failed to save")
-      return
-    }
-    console.log(res)
-    toast.success("Saved")
   }
 
   const { profile } = useContext(FitpalAIContext)
@@ -80,7 +69,7 @@ export const RecipeCard = ({ recipe }: RecipeCardProps) => {
           <DropdownMenuContent align="end">
             {profile ? (
               <DropdownMenuItem>
-                <span onClick={e => save(recipe.id)}>Save</span>
+                <span onClick={() => onSave(recipe.id)}>Save</span>
               </DropdownMenuItem>
             ) : (
               <DropdownMenuItem onSelect={e => e.preventDefault()}>

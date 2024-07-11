@@ -49,7 +49,7 @@ export default async function Search() {
         />
       </Head>
 
-      <SearchPage for_you={forYou} />
+      <SearchPage for_you={forYou} user_id={session?.user.id}/>
     </div>
   )
 }

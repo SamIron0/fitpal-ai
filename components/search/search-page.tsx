@@ -14,9 +14,10 @@ import { RecipeCard } from "../recipe/RecipeCard"
 
 interface SearchPageProps {
   for_you?: Tables<"recipes2">[]
+  user_id?: string
 }
 
-const SearchPage = ({ for_you }: SearchPageProps) => {
+const SearchPage = ({ for_you, user_id }: SearchPageProps) => {
   const router = useRouter()
   const { generatedRecipes, isGenerating, setSettings } =
     useContext(FitpalAIContext)
@@ -32,7 +33,6 @@ const SearchPage = ({ for_you }: SearchPageProps) => {
       ></div>
     ))
 
-
   const NoResultsFound = () => (
     <div className="flex max-w-4xl py-28 flex-col items-center justify-center w-full text-zinc-100">
       <Search size={64} className="text-zinc-400 mb-4" />
@@ -46,7 +46,18 @@ const SearchPage = ({ for_you }: SearchPageProps) => {
       </p>
     </div>
   )
-  
+  const save= async (recipe_id: string) => {
+    if (!user_id) {
+      return
+    }
+    const res = await saveRecipe(user_id, recipe_id)
+    if (res != "Saved") {
+      toast.error("Failed to save")
+      return
+    }
+    console.log(res)
+    toast.success("Saved")
+  }
   const renderRecipes = (recipes: Tables<"recipes2">[], title: string) => (
     <div className="w-full max-w-4xl py-28">
       <h2 className="mb-5 text-lg font-semibold">{title}</h2>
@@ -55,7 +66,11 @@ const SearchPage = ({ for_you }: SearchPageProps) => {
         className="grid w-full max-w-4xl gap-4 sm:grid-cols-2 lg:grid-cols-3"
       >
         {recipes.map(recipe => (
-          <RecipeCard recipe={recipe} key={recipe.id} />
+          <RecipeCard
+            recipe={recipe}
+            key={recipe.id}
+            onSave={recipe_id => save(recipe_id)}
+          />
         ))}
       </div>
     </div>
