@@ -84,6 +84,9 @@ const SearchPage = ({ for_you }: SearchPageProps) => {
       }
     }
   }
+  const save = async (userId: string, id: string) => {
+    saveRecipe(userId, id)
+  }
   const renderRecipes = (recipes: Tables<"recipes2">[], title: string) => (
     <div className="w-full max-w-4xl py-28">
       <h2 className="mb-5 text-lg font-semibold">{title}</h2>
@@ -108,7 +111,7 @@ const SearchPage = ({ for_you }: SearchPageProps) => {
                 <DropdownMenuContent align="end">
                   {profile ? (
                     <DropdownMenuItem
-                      onClick={() => saveRecipe(profile?.id, recipe.id)}
+                      onClick={() => save(profile?.id, recipe.id)}
                     >
                       Save
                     </DropdownMenuItem>
