@@ -17,6 +17,18 @@ export const vote = async (
   }
   return data
 }
+export const getTotalVotes = async (recipe_id: string): Promise<number> => {
+  const { data, error } = await supabase
+    .from("votes")
+    .select("vote")
+    .eq("recipe_id", recipe_id)
+  if (error) {
+    console.log(error)
+    return 0
+  }
+  // sum up all votes
+  return data.reduce((acc, curr) => acc + curr.vote, 0)
+}
 export const saveRecipe = async (user_id: string, recipe_id: string) => {
   // check if recipe is already saved
   const { data: insert, error: insertError } = await supabase

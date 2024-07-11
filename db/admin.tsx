@@ -45,6 +45,7 @@ export const deleteSeoPage = async (id: string) => {
 
   return deletedPage
 }
+
 export const saveSeoPage = async (
   page: TablesInsert<"search_result_metadata">
 ) => {

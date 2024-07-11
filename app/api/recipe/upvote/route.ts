@@ -7,12 +7,12 @@ export const runtime: ServerRuntime = "edge"
 
 export async function POST(request: Request) {
   const json = await request.json()
-  const { recipe_id } = json
+  const { vote,recipe_id } = json
   const supabase = createClient(cookies())
   const user_id = (await supabase.auth.getUser()).data.user?.id
   if (!user_id) {
     return new Response("Not logged in")
   }
-  await vote(1, user_id, recipe_id)
+  await vote(vote, user_id, recipe_id)
   return new Response("Upvoted")
 }
