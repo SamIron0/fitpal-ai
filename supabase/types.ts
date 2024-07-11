@@ -203,7 +203,7 @@ export type Database = {
       }
       votes: {
         Row: {
-          id: string
+          id?: string
           user_id: string
           vote: number
           recipe_id: string
