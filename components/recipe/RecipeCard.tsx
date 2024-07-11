@@ -68,7 +68,7 @@ export const RecipeCard = ({ recipe, onSave }: RecipeCardProps) => {
           <DropdownMenuContent align="end">
             {profile ? (
               <DropdownMenuItem>
-                <div onClick={() => onSave(recipe.id)}>Save</div>
+                <div className="cursor-pointer w-full text-left" onClick={() => onSave(recipe.id)}>Save</div>
               </DropdownMenuItem>
             ) : (
               <DropdownMenuItem onSelect={e => e.preventDefault()}>
