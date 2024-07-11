@@ -46,17 +46,12 @@ const SearchPage = ({ for_you, user_id }: SearchPageProps) => {
       </p>
     </div>
   )
-  const save= async (recipe_id: string) => {
+  const save = async (recipe_id: string) => {
     if (!user_id) {
       return
     }
     const res = await saveRecipe(user_id, recipe_id)
-    if (res != "Saved") {
-      toast.error("Failed to save")
-      return
-    }
-    console.log(res)
-    toast.success("Saved")
+    toast.success(res)
   }
   const renderRecipes = (recipes: Tables<"recipes2">[], title: string) => (
     <div className="w-full max-w-4xl py-28">
