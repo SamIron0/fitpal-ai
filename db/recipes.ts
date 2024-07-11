@@ -12,11 +12,17 @@ export const saveRecipe = async (userId: string, id: string) => {
     console.log(error)
     return error
   }
+  console.log(data)
+  if (data[0].id) {
+    return "Already saved"
+  }
+  const { error: insertError } = await supabase
+    .from("user_recipes")
+    .insert({ id: userId, recipe_id: id })
 
-  if (!data[0].id) {
-    const { error: insertError } = await supabase
-      .from("user_recipes")
-      .insert({ id: userId, recipe_id: id })
+  if (insertError) {
+    console.log(insertError)
+    return insertError
   }
   return "Saved"
 }
