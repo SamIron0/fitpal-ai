@@ -42,6 +42,7 @@ export const SearchResult = ({ recipes, query, text }: SearchResultProps) => {
         role="status"
         className="grid w-full max-w-4xl gap-4 sm:grid-cols-2 lg:grid-cols-3"
       >
+
         {recipes.map(recipe => (
           <div key={recipe.id} onClick={() => openDrawer(recipe.id)}>
             <MealDrawer recipe={recipe} isOpen={isOpen}>
@@ -98,7 +99,6 @@ export const SearchResult = ({ recipes, query, text }: SearchResultProps) => {
   const handleInputChange = (event: any) => {
     setInput(event.target.value)
   }
-
   const { t } = useTranslation()
   const [isTyping, setIsTyping] = useState<boolean>(false)
   const { isGenerating, setIsGenerating, setGeneratedRecipes, settings } =
