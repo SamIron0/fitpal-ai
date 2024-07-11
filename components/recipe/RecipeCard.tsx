@@ -21,6 +21,7 @@ import { useContext, useState } from "react"
 import { saveRecipe } from "@/db/recipes"
 import { FitpalAIContext } from "@/context/context"
 import { supabase } from "@/lib/supabase/browser-client"
+import { convertTime } from "@/utils/helpers"
 interface RecipeCardProps {
   recipe: Tables<"recipes2">
   onSave: (recipe_id: string) => void
@@ -43,6 +44,34 @@ export const RecipeCard = ({
   }
 
   const { profile } = useContext(FitpalAIContext)
+
+  const handleUpvote = () => {
+    if (voteStatus === "upvoted") {
+      setVoteStatus("none")
+      setVoteCount(voteCount - 1)
+    } else {
+      setVoteStatus("upvoted")
+      setVoteCount(voteStatus === "downvoted" ? voteCount + 2 : voteCount + 1)
+      if (voteStatus === "downvoted") {
+        setVoteStatus("upvoted")
+      }
+    }
+    upvoteRecipe()
+  }
+
+  const handleDownvote = () => {
+    if (voteStatus === "downvoted") {
+      setVoteStatus("none")
+      setVoteCount(voteCount + 1)
+    } else {
+      setVoteStatus("downvoted")
+      setVoteCount(voteStatus === "upvoted" ? voteCount - 2 : voteCount - 1)
+      if (voteStatus === "upvoted") {
+        setVoteStatus("downvoted")
+      }
+    }
+    downvoteRecipe()
+  }
 
   return (
     <div
@@ -91,7 +120,7 @@ export const RecipeCard = ({
                       ? "text-purple-500 fill-purple-500"
                       : ""
                   }`}
-                  onClick={() => upvoteRecipe()}
+                  onClick={handleUpvote}
                 />
               </motion.div>
               <span className="text-xs border-r border-zinc-600 pl-1 pr-2">
@@ -103,10 +132,10 @@ export const RecipeCard = ({
                 <IconArrowBigDown
                   className={`w-4 ${
                     voteStatus === "downvoted"
-                      ? "text-purple-500 fill-purple-500"
+                      ? "text-zinc-500 fill-zinc-500"
                       : ""
                   }`}
-                  onClick={() => downvoteRecipe()}
+                  onClick={handleDownvote}
                 />
               </motion.div>
             </div>
@@ -122,10 +151,10 @@ export const RecipeCard = ({
                   <IconArrowBigUp
                     className={`w-4 ${
                       voteStatus === "upvoted"
-                        ? "text-purple-500 fill-purple-500"
+                        ? "text-fuscia-500 fill-fuscia-500"
                         : ""
                     }`}
-                    onClick={() => upvoteRecipe()}
+                    onClick={handleUpvote}
                   />
                 </motion.div>
                 <span className="text-xs border-r border-zinc-600 pl-1 pr-2">
@@ -143,7 +172,7 @@ export const RecipeCard = ({
                         ? "text-purple-500 fill-purple-500"
                         : ""
                     }`}
-                    onClick={() => downvoteRecipe()}
+                    onClick={handleDownvote}
                   />
                 </motion.div>
               </div>
@@ -152,7 +181,7 @@ export const RecipeCard = ({
         )}
         <div className="flex w-full text-xs justify-end items-center">
           <IconClockHour10 className="mr-1 w-5 " />
-          30 mins
+          {convertTime(recipe.total_time)}
         </div>
       </div>
     </div>
