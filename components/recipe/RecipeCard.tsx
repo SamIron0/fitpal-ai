@@ -91,7 +91,7 @@ export const RecipeCard = ({
             {profile ? (
               <DropdownMenuItem>
                 <div
-                  className="cursor-pointer w-full text-left"
+                  className="cursor-pointer w-full text-left flex"
                   onClick={() => onSave(recipe.id)}
                 >
                   <IconDeviceFloppy className="mr-1" size={20} /> Save
