@@ -63,8 +63,8 @@ const SearchPage = ({ for_you, user_id }: SearchPageProps) => {
       return
     }
     const vote_id: string =
-    votedRecipes.map(v => v.id).find(id => id === recipe_id) || uuidv4()
-  
+      votedRecipes.map(v => v.id).find(id => id === recipe_id) || uuidv4()
+
     const res = await vote(1, user_id, recipe_id, vote_id)
     return
   }
