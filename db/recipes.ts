@@ -18,16 +18,16 @@ export const vote = async (
     return
   }
   const totalVotes = await getTotalVotes(recipe_id)
-
-  const { data: recipeData, error: noRecipeError } = await supabase
+  console.log("total_votes", totalVotes)
+  const { data: recipeData, error: recipeError } = await supabase
     .from("recipes2")
-    .update({ id: recipe_id, total_votes: totalVotes + vote })
+    .update({ id: recipe_id, total_votes: totalVotes ? totalVotes : 0 + vote })
     .eq("id", recipe_id)
     .select("id")
     .single()
 
-  if (noRecipeError) {
-    console.log(noRecipeError)
+  if (recipeError) {
+    console.log(recipeError)
     return
   }
 
