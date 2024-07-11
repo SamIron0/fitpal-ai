@@ -25,7 +25,6 @@ interface RecipeCardProps {
   onSave: (recipe_id: string) => void
 }
 
-
 export const RecipeCard = ({ recipe, onSave }: RecipeCardProps) => {
   const [voteStatus, setVoteStatus] = useState("none") // 'none', 'upvoted', or 'downvoted'
   const [voteCount, setVoteCount] = useState(155)
@@ -69,7 +68,7 @@ export const RecipeCard = ({ recipe, onSave }: RecipeCardProps) => {
           <DropdownMenuContent align="end">
             {profile ? (
               <DropdownMenuItem>
-                <span onClick={() => onSave(recipe.id)}>Save</span>
+                <div onClick={() => onSave(recipe.id)}>Save</div>
               </DropdownMenuItem>
             ) : (
               <DropdownMenuItem onSelect={e => e.preventDefault()}>
@@ -77,7 +76,7 @@ export const RecipeCard = ({ recipe, onSave }: RecipeCardProps) => {
                   isOpen={isLoginDrawerOpen}
                   onClose={() => setIsLoginDrawerOpen(false)}
                 >
-                  <span className="cursor-pointer w-full text-left">Save</span>
+                  <div className="cursor-pointer w-full text-left">Save</div>
                 </LoginDrawer>
               </DropdownMenuItem>
             )}
