@@ -85,7 +85,7 @@ export const LoginDrawer = ({
 
   return (
     <Drawer>
-      <DrawerTrigger className="focus:outline-none w-full">
+      <DrawerTrigger className="focus:outline-none">
         {children}
       </DrawerTrigger>
       <DrawerContent className="flex flex-col items-center focus:outline-none">

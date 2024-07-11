@@ -77,7 +77,7 @@ export const RecipeCard = ({ recipe, onSave }: RecipeCardProps) => {
                   isOpen={isLoginDrawerOpen}
                   onClose={() => setIsLoginDrawerOpen(false)}
                 >
-                  <span className="cursor-pointer w-full">Save</span>
+                  <span className="cursor-pointer w-full text-left">Save</span>
                 </LoginDrawer>
               </DropdownMenuItem>
             )}
