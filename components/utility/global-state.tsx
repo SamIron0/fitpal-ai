@@ -130,7 +130,7 @@ export const GlobalState: FC<GlobalStateProps> = ({ children }) => {
   const [toolInUse, setToolInUse] = useState<string>("none")
 
   const [votedRecipes, setVotedRecipes] = useState<
-    { recipe_id: string; vote: number }[]
+    {id: string; recipe_id: string; vote: number }[]
   >([])
 
   useEffect(() => {

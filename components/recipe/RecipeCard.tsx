@@ -158,7 +158,6 @@ export const RecipeCard = ({
           </div>
         </>
       ) : (
-        <>
           <LoginDrawer>
             {recipe.imgurl ? (
               <Image
@@ -192,7 +191,6 @@ export const RecipeCard = ({
               </div>
             </div>
           </LoginDrawer>
-        </>
       )}
       <div className="flex w-full text-xs justify-end items-center">
         <IconClockHour10 className="mr-1 w-5 " />

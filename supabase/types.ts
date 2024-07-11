@@ -203,19 +203,19 @@ export type Database = {
       }
       votes: {
         Row: {
-          id?: string
+          id: string
           user_id: string
           vote: number
           recipe_id: string
         }
         Insert: {
-          id?: string
+          id: string
           user_id?: string
           vote?: number
           recipe_id?: string
         }
         Update: {
-          id?: string
+          id: string
           user_id?: string
           vote?: number
           recipe_id?: string
