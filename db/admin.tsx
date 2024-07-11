@@ -23,6 +23,7 @@ export const updateRecipe = async (recipe: TablesInsert<"recipes2">) => {
   const { data: existingRecipe, error: fetchError } = await supabaseAdmin
     .from("recipes2")
     .update(recipe)
+    .eq("id", recipe.id)
 
   if (fetchError && fetchError.code !== "PGRST116") {
     throw fetchError
