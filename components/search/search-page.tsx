@@ -8,7 +8,7 @@ import { Brand } from "../ui/brand"
 import { Tables } from "@/supabase/types"
 import { FitpalAIContext } from "@/context/context"
 import { SearchInput } from "./search-input"
-import { saveRecipe } from "@/db/recipes"
+import { saveRecipe, vote } from "@/db/recipes"
 import { toast } from "sonner"
 import { RecipeCard } from "../recipe/RecipeCard"
 
@@ -57,8 +57,19 @@ const SearchPage = ({ for_you, user_id }: SearchPageProps) => {
       toast.error("Failed to save")
     }
   }
-  const upvoteRecipe = async (recipe_id: string) => {}
-  const downvoteRecipe = async (recipe_id: string) => {}
+  const upvote = async (recipe_id: string) => {
+    if (!user_id) {
+      return
+    }
+    const res = await vote(1, user_id, recipe_id)
+  }
+  const downvoteRecipe = async (recipe_id: string) => {
+    if (!user_id) {
+      return
+    }
+    const res = await vote(-1, user_id, recipe_id)
+    return
+  }
   const renderRecipes = (recipes: Tables<"recipes2">[], title: string) => (
     <div className="w-full max-w-4xl py-28">
       <h2 className="mb-5 text-lg font-semibold">{title}</h2>
@@ -71,7 +82,7 @@ const SearchPage = ({ for_you, user_id }: SearchPageProps) => {
             recipe={recipe}
             key={recipe.id}
             upvoteRecipe={() => {
-              upvoteRecipe(recipe.id)
+              upvote(recipe.id)
             }}
             downvoteRecipe={() => {
               downvoteRecipe(recipe.id)

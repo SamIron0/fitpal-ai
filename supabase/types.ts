@@ -184,7 +184,7 @@ export type Database = {
           created_at?: string | null
         }
       }
-      user_recipes: {
+      saved_recipes: {
         Row: {
           id: string
           user_id: string
@@ -198,6 +198,26 @@ export type Database = {
         Update: {
           id: string
           user_id?: string
+          recipe_id?: string
+        }
+      }
+      votes: {
+        Row: {
+          id: string
+          user_id: string
+          vote: number
+          recipe_id: string
+        }
+        Insert: {
+          id: string
+          user_id: string
+          vote?: number
+          recipe_id: string
+        }
+        Update: {
+          id: string
+          user_id?: string
+          vote?: number
           recipe_id?: string
         }
       }
