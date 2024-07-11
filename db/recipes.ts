@@ -28,7 +28,6 @@ export const vote = async (
     console.log(recipeError)
     return
   }
-
   return recipeData
 }
 export const hasVoted = async (user_id: string, recipe_id: string) => {
