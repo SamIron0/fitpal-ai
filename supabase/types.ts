@@ -133,7 +133,7 @@ export type Database = {
           course_type: string[] | null
           allergies: string[] | null
           url: string | null
-          imgurl: string | null | File
+          imgurl: string | null
           embedding: number[]
           created_at: string | null
         }
@@ -156,7 +156,7 @@ export type Database = {
           course_type?: string[] | null
           allergies?: string[] | null
           url?: string | null
-          imgurl?: string | null | File
+          imgurl?: string | null
           embedding?: number[] | null
           created_at?: string | null
         }
@@ -179,7 +179,7 @@ export type Database = {
           course_type?: string[] | null
           allergies?: string[] | null
           url?: string | null
-          imgurl?: string | null | File
+          imgurl?: string | null
           embedding?: number[] | null
           created_at?: string | null
         }
@@ -241,7 +241,7 @@ export type Database = {
           cuisine: string | null
           rating_count: number | null
           rating_value: number | null
-          imgurl: string | null | File
+          imgurl: string | null
           url: string | null
           total_votes: number
           kw_search_text: string | null

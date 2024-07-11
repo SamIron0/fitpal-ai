@@ -1,4 +1,5 @@
 "use client"
+import Image from "next/image"
 import { Tables } from "@/supabase/types"
 import {
   DropdownMenu,
@@ -111,8 +112,15 @@ export const RecipeCard = ({
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-
-      <div className="bg-teal-500 h-52 mb-1 rounded-xl"></div>
+      {recipe.imgurl ? (
+        <Image
+          src={recipe.imgurl}
+          alt={recipe.name || "food-photo"}
+          className="border-1 mb-2 w-full h-52  rounded-lg border-input object-cover"
+        />
+      ) : (
+        <div className="bg-input h-52 mb-1 rounded-xl"></div>
+      )}
       <div className="flex flex-row text-zinc-400">
         {profile ? (
           <div className="flex border items-center border-zinc-600 rounded-2xl py-0.5 px-2">
