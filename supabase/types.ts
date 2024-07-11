@@ -243,8 +243,7 @@ export type Database = {
           rating_value: number | null
           imgurl: string | null | File
           url: string | null
-          upvotes: number
-          downvotes: number
+          total_votes: number
           kw_search_text: string | null
           fts: string | null
           embedding2: string | null
@@ -270,8 +269,7 @@ export type Database = {
           rating_value?: number | null
           imgurl?: string | null | File
           url?: string | null
-          upvotes?: number
-          downvotes?: number
+          total_votes?: number
           kw_search_text?: string | null
           fts?: string | null
           embedding2?: string | null
@@ -297,8 +295,7 @@ export type Database = {
           rating_value?: number | null
           imgurl?: string | null | File
           url?: string | null
-          upvotes?: number
-          downvotes?: number
+          total_votes?: number
           kw_search_text?: string | null
           fts?: string | null
           embedding2?: string | null

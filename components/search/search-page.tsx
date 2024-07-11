@@ -81,6 +81,7 @@ const SearchPage = ({ for_you, user_id }: SearchPageProps) => {
       >
         {recipes.map(recipe => (
           <RecipeCard
+            user_id={user_id}
             recipe={recipe}
             key={recipe.id}
             upvoteRecipe={() => {

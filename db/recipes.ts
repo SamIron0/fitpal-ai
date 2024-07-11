@@ -17,7 +17,20 @@ export const vote = async (
   }
   return data
 }
-export const getTotalVotes = async (recipe_id: string): Promise<number> => {
+export const hasVoted = async (user_id: string, recipe_id: string) => {
+  const { data, error } = await supabase
+    .from("votes")
+    .select("vote")
+    .eq("user_id", user_id)
+    .eq("recipe_id", recipe_id)
+
+  if (error) {
+    console.log(error)
+    return 0
+  }
+  return data[0].vote
+}
+export const getTotalVotes = async (recipe_id: string) => {
   const { data, error } = await supabase
     .from("votes")
     .select("vote")
