@@ -50,6 +50,7 @@ export const RecipeCard = ({ recipe }: RecipeCardProps) => {
     const res = await saveRecipe(userId, id)
     if (res != "success") {
       toast.error('Failed to save')
+      return
     }
     toast.success("Saved")
   }

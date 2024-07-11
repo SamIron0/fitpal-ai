@@ -190,15 +190,15 @@ export type Database = {
       user_recipes: {
         Row: {
           id: string
-          recipe_ids: string[]
+          recipe_id: string
         }
         Insert: {
           id: string
-          recipe_ids: string[]
+          recipe_id: string
         }
         Update: {
           id?: string
-          recipe_ids: string[]
+          recipe_id: string
         }
       }
       recipes2: {

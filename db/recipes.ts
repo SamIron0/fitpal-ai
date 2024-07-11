@@ -5,8 +5,8 @@ export const saveRecipe = async (userId: string, id: string) => {
   // add id to recipe_ids column(uuid array) of user_recipes table
   const { data, error } = await supabase
     .from("user_recipes")
-    .select("recipe_ids")
-    .eq("id", userId)
+    .select("*")
+    .eq("recipe_id", id)
 
   if (error) {
     console.log(error)
@@ -16,20 +16,7 @@ export const saveRecipe = async (userId: string, id: string) => {
   if (!data) {
     const { error: insertError } = await supabase
       .from("user_recipes")
-      .insert({ id: userId, recipe_ids: [id] })
-  }
-  const recipeIds = data[0].recipe_ids
-
-  const newRecipeIds = [...recipeIds, id]
-
-  const { error: updateError } = await supabase
-    .from("user_recipes")
-    .update({ recipe_ids: newRecipeIds })
-    .eq("id", userId)
-
-  if (updateError) {
-    console.log(updateError)
-    return updateError
+      .insert({ id: userId, recipe_id: id })
   }
 
   return "success"
