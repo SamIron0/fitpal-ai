@@ -61,7 +61,22 @@ const SearchPage = ({ for_you, user_id }: SearchPageProps) => {
     if (!user_id) {
       return
     }
-    const res = await vote(1, user_id, recipe_id)
+    const res = await fetch(`/api/recipe/upvote`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        user_id,
+        recipe_id
+      })
+    })
+    const json = await res.json()
+    if (json.error) {
+      console.log(json.error)
+    }
+
+    return
   }
   const downvoteRecipe = async (recipe_id: string) => {
     if (!user_id) {
