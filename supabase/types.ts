@@ -136,6 +136,7 @@ export type Database = {
           imgurl: string | null | File
           embedding: number[]
           created_at: string | null
+          vote_total: number
         }
         Insert: {
           id: string
@@ -159,6 +160,7 @@ export type Database = {
           imgurl?: string | null | File
           embedding?: number[] | null
           created_at?: string | null
+          vote_total?: number
         }
         Update: {
           id?: string
@@ -182,6 +184,7 @@ export type Database = {
           imgurl?: string | null | File
           embedding?: number[] | null
           created_at?: string | null
+          vote_total?: number
         }
       }
       user_recipes: {

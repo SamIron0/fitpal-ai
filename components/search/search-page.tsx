@@ -27,6 +27,7 @@ import {
 import { Button } from "../ui/button"
 import { LoginDrawer } from "../login/login-drawer"
 import { saveRecipe } from "@/db/recipes"
+import { toast } from "sonner"
 
 interface SearchPageProps {
   for_you?: Tables<"recipes2">[]
@@ -86,6 +87,7 @@ const SearchPage = ({ for_you }: SearchPageProps) => {
   }
   const save = async (userId: string, id: string) => {
     saveRecipe(userId, id)
+    toast.success("Saved")
   }
   const renderRecipes = (recipes: Tables<"recipes2">[], title: string) => (
     <div className="w-full max-w-4xl py-28">
@@ -116,9 +118,10 @@ const SearchPage = ({ for_you }: SearchPageProps) => {
                       Save
                     </DropdownMenuItem>
                   ) : (
-                    <LoginDrawer>
-                      <DropdownMenuItem>Save</DropdownMenuItem>
-                    </LoginDrawer>
+                    <DropdownMenuItem>
+                      {" "}
+                      <LoginDrawer>Save</LoginDrawer>
+                    </DropdownMenuItem>
                   )}
                 </DropdownMenuContent>
               </DropdownMenu>
