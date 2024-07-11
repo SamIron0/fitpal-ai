@@ -1,4 +1,4 @@
-'use client'
+"use client"
 import { Tables } from "@/supabase/types"
 import {
   DropdownMenu,
@@ -47,7 +47,10 @@ export const RecipeCard = ({ recipe }: RecipeCardProps) => {
     }
   }
   const save = async (userId: string, id: string) => {
-    saveRecipe(userId, id)
+    const res = await saveRecipe(userId, id)
+    if (res != "success") {
+      toast.error(res)
+    }
     toast.success("Saved")
   }
   const { profile } = useContext(FitpalAIContext)

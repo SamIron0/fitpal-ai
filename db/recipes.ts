@@ -32,5 +32,5 @@ export const saveRecipe = async (userId: string, id: string) => {
     return updateError
   }
 
-  return data
+  return "success"
 }
