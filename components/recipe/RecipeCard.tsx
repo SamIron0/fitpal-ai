@@ -11,6 +11,7 @@ import {
   IconArrowBigDown,
   IconArrowBigUp,
   IconClockHour10,
+  IconDeviceFloppy,
   IconDots
 } from "@tabler/icons-react"
 import { LoginDrawer } from "../login/login-drawer"
@@ -23,30 +24,22 @@ import { supabase } from "@/lib/supabase/browser-client"
 interface RecipeCardProps {
   recipe: Tables<"recipes2">
   onSave: (recipe_id: string) => void
+  upvoteRecipe: () => void
+  downvoteRecipe: () => void
 }
 
-export const RecipeCard = ({ recipe, onSave }: RecipeCardProps) => {
+export const RecipeCard = ({
+  recipe,
+  onSave,
+  upvoteRecipe,
+  downvoteRecipe
+}: RecipeCardProps) => {
   const [voteStatus, setVoteStatus] = useState("none") // 'none', 'upvoted', or 'downvoted'
-  const [voteCount, setVoteCount] = useState(155)
+  const [voteCount, setVoteCount] = useState(recipe.upvotes - recipe.downvotes)
   const [isLoginDrawerOpen, setIsLoginDrawerOpen] = useState(false)
   const bounceAnimation = {
     scale: [1, 1.2, 1],
     transition: { duration: 0.4 }
-  }
-  const handleVote = (voteType: any) => {
-    if (voteStatus === voteType) {
-      // If clicking the same vote type, remove the vote
-      setVoteStatus("none")
-      setVoteCount(voteType === "upvoted" ? voteCount - 1 : voteCount + 1)
-    } else {
-      // If changing vote or voting for the first time
-      setVoteStatus(voteType)
-      if (voteStatus === "none") {
-        setVoteCount(voteType === "upvoted" ? voteCount + 1 : voteCount - 1)
-      } else {
-        setVoteCount(voteType === "upvoted" ? voteCount + 2 : voteCount - 2)
-      }
-    }
   }
 
   const { profile } = useContext(FitpalAIContext)
@@ -68,14 +61,16 @@ export const RecipeCard = ({ recipe, onSave }: RecipeCardProps) => {
           <DropdownMenuContent align="end">
             {profile ? (
               <DropdownMenuItem>
-                <div className="cursor-pointer w-full text-left" onClick={() => onSave(recipe.id)}>Save</div>
+                <div
+                  className="cursor-pointer w-full text-left"
+                  onClick={() => onSave(recipe.id)}
+                >
+                  <IconDeviceFloppy className="mr-1" size={20} /> Save
+                </div>
               </DropdownMenuItem>
             ) : (
               <DropdownMenuItem onSelect={e => e.preventDefault()}>
-                <LoginDrawer
-                  isOpen={isLoginDrawerOpen}
-                  onClose={() => setIsLoginDrawerOpen(false)}
-                >
+                <LoginDrawer>
                   <div className="cursor-pointer w-full text-left">Save</div>
                 </LoginDrawer>
               </DropdownMenuItem>
@@ -96,7 +91,7 @@ export const RecipeCard = ({ recipe, onSave }: RecipeCardProps) => {
                       ? "text-purple-500 fill-purple-500"
                       : ""
                   }`}
-                  onClick={() => handleVote("upvoted")}
+                  onClick={() => upvoteRecipe()}
                 />
               </motion.div>
               <span className="text-xs border-r border-zinc-600 pl-1 pr-2">
@@ -111,17 +106,14 @@ export const RecipeCard = ({ recipe, onSave }: RecipeCardProps) => {
                       ? "text-purple-500 fill-purple-500"
                       : ""
                   }`}
-                  onClick={() => handleVote("downvoted")}
+                  onClick={() => downvoteRecipe()}
                 />
               </motion.div>
             </div>
           </div>
         ) : (
-          <LoginDrawer
-            isOpen={isLoginDrawerOpen}
-            onClose={() => setIsLoginDrawerOpen(false)}
-          >
-            <div className="flex border items-center border-zinc-600 rounded-2xl py-0.5 px-2">
+          <div className="flex border items-center border-zinc-600 rounded-2xl py-0.5 px-2">
+            <LoginDrawer>
               <div className="flex items-center">
                 <motion.div
                   whileTap={bounceAnimation}
@@ -133,7 +125,7 @@ export const RecipeCard = ({ recipe, onSave }: RecipeCardProps) => {
                         ? "text-purple-500 fill-purple-500"
                         : ""
                     }`}
-                    onClick={() => handleVote("upvoted")}
+                    onClick={() => upvoteRecipe()}
                   />
                 </motion.div>
                 <span className="text-xs border-r border-zinc-600 pl-1 pr-2">
@@ -151,12 +143,12 @@ export const RecipeCard = ({ recipe, onSave }: RecipeCardProps) => {
                         ? "text-purple-500 fill-purple-500"
                         : ""
                     }`}
-                    onClick={() => handleVote("downvoted")}
+                    onClick={() => downvoteRecipe()}
                   />
                 </motion.div>
               </div>
-            </div>
-          </LoginDrawer>
+            </LoginDrawer>
+          </div>
         )}
         <div className="flex w-full text-xs justify-end items-center">
           <IconClockHour10 className="mr-1 w-5 " />

@@ -136,7 +136,6 @@ export type Database = {
           imgurl: string | null | File
           embedding: number[]
           created_at: string | null
-          vote_total: number
         }
         Insert: {
           id: string
@@ -160,7 +159,6 @@ export type Database = {
           imgurl?: string | null | File
           embedding?: number[] | null
           created_at?: string | null
-          vote_total?: number
         }
         Update: {
           id?: string
@@ -184,7 +182,6 @@ export type Database = {
           imgurl?: string | null | File
           embedding?: number[] | null
           created_at?: string | null
-          vote_total?: number
         }
       }
       user_recipes: {
@@ -226,6 +223,8 @@ export type Database = {
           rating_value: number | null
           imgurl: string | null | File
           url: string | null
+          upvotes: number
+          downvotes: number
           kw_search_text: string | null
           fts: string | null
           embedding2: string | null
@@ -251,6 +250,8 @@ export type Database = {
           rating_value?: number | null
           imgurl?: string | null | File
           url?: string | null
+          upvotes?: number
+          downvotes?: number
           kw_search_text?: string | null
           fts?: string | null
           embedding2?: string | null
@@ -276,6 +277,8 @@ export type Database = {
           rating_value?: number | null
           imgurl?: string | null | File
           url?: string | null
+          upvotes?: number
+          downvotes?: number
           kw_search_text?: string | null
           fts?: string | null
           embedding2?: string | null

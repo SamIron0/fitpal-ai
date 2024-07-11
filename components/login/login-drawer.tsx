@@ -21,15 +21,11 @@ interface LoginDrawerProps {
   input?: string
   children?: React.ReactNode
   searchParams?: { message: string }
-  isOpen: boolean
-  onClose: () => void
 }
 export const LoginDrawer = ({
   input,
   children,
-  searchParams,
-  isOpen,
-  onClose
+  searchParams
 }: LoginDrawerProps) => {
   const router = useRouter()
   const signIn = async (formData: FormData) => {

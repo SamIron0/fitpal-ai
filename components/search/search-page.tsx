@@ -57,6 +57,8 @@ const SearchPage = ({ for_you, user_id }: SearchPageProps) => {
       toast.error("Failed to save")
     }
   }
+  const upvoteRecipe = async (recipe_id: string) => {}
+  const downvoteRecipe = async (recipe_id: string) => {}
   const renderRecipes = (recipes: Tables<"recipes2">[], title: string) => (
     <div className="w-full max-w-4xl py-28">
       <h2 className="mb-5 text-lg font-semibold">{title}</h2>
@@ -68,6 +70,12 @@ const SearchPage = ({ for_you, user_id }: SearchPageProps) => {
           <RecipeCard
             recipe={recipe}
             key={recipe.id}
+            upvoteRecipe={() => {
+              upvoteRecipe(recipe.id)
+            }}
+            downvoteRecipe={() => {
+              downvoteRecipe(recipe.id)
+            }}
             onSave={recipe_id => save(recipe_id)}
           />
         ))}
