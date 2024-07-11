@@ -25,8 +25,8 @@ import {
   DropdownMenuTrigger
 } from "../ui/dropdown-menu"
 import { Button } from "../ui/button"
-import { saveRecipe } from "@/db/recipes"
 import { LoginDrawer } from "../login/login-drawer"
+import { saveRecipe } from "@/db/recipes"
 
 interface SearchPageProps {
   for_you?: Tables<"recipes2">[]
@@ -93,7 +93,7 @@ const SearchPage = ({ for_you }: SearchPageProps) => {
       >
         {recipes.map(recipe => (
           <div
-            key={recipe.idx}
+            key={recipe.id}
             className="bg-black text-zinc-200 p-2 rounded-xl max-w-lg"
           >
             <div className="flex items-center justify-between mb-1">
