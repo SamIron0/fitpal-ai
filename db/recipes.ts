@@ -23,8 +23,6 @@ export const vote = async (
     .from("recipes2")
     .update({ id: recipe_id, total_votes: totalVotes ? totalVotes : 0 + vote })
     .eq("id", recipe_id)
-    .select("id")
-    .single()
 
   if (recipeError) {
     console.log(recipeError)
