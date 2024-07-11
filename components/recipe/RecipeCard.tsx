@@ -113,7 +113,7 @@ export const RecipeCard = ({
         {profile ? (
           <div className="flex border items-center border-zinc-600 rounded-2xl py-0.5 px-2">
             <div className="flex items-center">
-              <motion.div whileTap={bounceAnimation} className="cursor-pointer">
+              <motion.div whileTap={bounceAnimation} className="cursor-pointer  focus: outline-none">
                 <IconArrowBigUp
                   className={`w-4 ${
                     voteStatus === "upvoted"
@@ -128,7 +128,7 @@ export const RecipeCard = ({
               </span>
             </div>
             <div className="pl-1">
-              <motion.div whileTap={bounceAnimation} className="cursor-pointer">
+              <motion.div whileTap={bounceAnimation} className="cursor-pointer focus: outline-none">
                 <IconArrowBigDown
                   className={`w-4 ${
                     voteStatus === "downvoted"
@@ -146,7 +146,7 @@ export const RecipeCard = ({
               <div className="flex items-center">
                 <motion.div
                   whileTap={bounceAnimation}
-                  className="cursor-pointer"
+                  className="cursor-pointer  focus: outline-none"
                 >
                   <IconArrowBigUp
                     className={`w-4 ${
@@ -164,7 +164,7 @@ export const RecipeCard = ({
               <div className="pl-1">
                 <motion.div
                   whileTap={bounceAnimation}
-                  className="cursor-pointer"
+                  className="cursor-pointer  focus: outline-none"
                 >
                   <IconArrowBigDown
                     className={`w-4 ${
