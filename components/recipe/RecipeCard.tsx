@@ -48,7 +48,11 @@ export const RecipeCard = ({ recipe }: RecipeCardProps) => {
   }
   const save = async (userId: string, id: string) => {
     const res = await saveRecipe(userId, id)
-    toast.success(res)
+    if (res != "Saved") {
+      toast.error("Failed to save")
+      return
+    }
+    toast.success("Saved")
   }
   const { profile } = useContext(FitpalAIContext)
   return (

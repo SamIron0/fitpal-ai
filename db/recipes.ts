@@ -17,10 +17,6 @@ export const saveRecipe = async (userId: string, id: string) => {
     const { error: insertError } = await supabase
       .from("user_recipes")
       .insert({ id: userId, recipe_id: id })
-      return "Saved"
   }
-  else{
-    return "Already saved"
-  }
-
+  return "Saved"
 }
