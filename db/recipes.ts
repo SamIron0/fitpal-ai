@@ -12,8 +12,7 @@ export const vote = async (
   const { data, error } = await supabase
     .from("votes")
     .upsert({ id: vote_id, user_id, recipe_id, vote })
-    .eq("user_id", user_id)
-
+    .select()
   if (error) {
     console.log(error)
     return
