@@ -3,10 +3,10 @@ import { supabase } from "@/lib/supabase/browser-client"
 import { v4 as uuidv4 } from "uuid"
 
 export const vote = async (
-  vote: number,
+  vote_id: string,
   user_id: string,
   recipe_id: string,
-  vote_id: string
+  vote: number
 ) => {
   //insert or update votet if it exists
   const { data, error } = await supabase
