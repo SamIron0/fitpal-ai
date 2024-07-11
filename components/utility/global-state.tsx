@@ -21,6 +21,7 @@ import { VALID_ENV_KEYS } from "@/types/valid-keys"
 import { useRouter } from "next/navigation"
 import { FC, useEffect, useState } from "react"
 import { getSettingsByUserId } from "@/db/settings"
+import { getVotedRecipesByUserId } from "@/db/recipes"
 
 interface GlobalStateProps {
   children: React.ReactNode
@@ -31,9 +32,9 @@ export const GlobalState: FC<GlobalStateProps> = ({ children }) => {
 
   // PROFILE STORE
   const [profile, setProfile] = useState<Tables<"profiles"> | null>(null)
-  const [generatedRecipes, setGeneratedRecipes] = useState<Tables<"recipes2">[]>(
-    []
-  )
+  const [generatedRecipes, setGeneratedRecipes] = useState<
+    Tables<"recipes2">[]
+  >([])
   // ITEMS STORE
   const [assistants, setAssistants] = useState<Tables<"assistants">[]>([])
   const [collections, setCollections] = useState<Tables<"collections">[]>([])
@@ -128,6 +129,10 @@ export const GlobalState: FC<GlobalStateProps> = ({ children }) => {
   const [selectedTools, setSelectedTools] = useState<Tables<"tools">[]>([])
   const [toolInUse, setToolInUse] = useState<string>("none")
 
+  const [votedRecipes, setVotedRecipes] = useState<
+    { recipe_id: string; vote: number }[]
+  >([])
+
   useEffect(() => {
     ;(async () => {
       await fetchStartingData()
@@ -144,6 +149,9 @@ export const GlobalState: FC<GlobalStateProps> = ({ children }) => {
       setProfile(profile)
       const settings = await getSettingsByUserId(session.user.id)
       setSettings(settings)
+
+      const votedRecipes = await getVotedRecipesByUserId(user.id)
+      setVotedRecipes(votedRecipes)
       if (!profile.has_onboarded) {
         return router.push("/setup")
       }
@@ -158,6 +166,8 @@ export const GlobalState: FC<GlobalStateProps> = ({ children }) => {
         // PROFILE STORE
         profile,
         setProfile,
+        votedRecipes,
+        setVotedRecipes,
         generatedRecipes,
         setGeneratedRecipes,
         recentRecipes,

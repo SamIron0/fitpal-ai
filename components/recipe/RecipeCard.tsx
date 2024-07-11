@@ -37,16 +37,12 @@ export const RecipeCard = ({
   downvoteRecipe,
   user_id
 }: RecipeCardProps) => {
+  const { votedRecipes, setVotedRecipes } = useContext(FitpalAIContext)
   const [voteCount, setVoteCount] = useState(recipe.total_votes)
   const [vote, setVote] = useState(0)
   useEffect(() => {
-    const check = async () => {
-      if (!user_id) return
-      const vote_res = await hasVoted(user_id, recipe.id)
-      setVote(vote_res)
-    }
-    check()
-  })
+    votedRecipes.map(r => r.recipe_id === recipe.id && setVote(r.vote))
+  }, [votedRecipes])
   const bounceAnimation = {
     scale: [1, 1.2, 1],
     transition: { duration: 0.4 }
@@ -158,12 +154,7 @@ export const RecipeCard = ({
                   whileTap={bounceAnimation}
                   className="cursor-pointer  focus: outline-none"
                 >
-                  <IconArrowBigUp
-                    className={`w-4 ${
-                      vote === 1 ? "text-fuscia-500 fill-fuscia-500" : ""
-                    }`}
-                    onClick={onUpvote}
-                  />
+                  <IconArrowBigUp className={`w-4 `} />
                 </motion.div>
                 <span className="text-xs border-r border-zinc-600 pl-1 pr-2">
                   {voteCount}
@@ -174,12 +165,7 @@ export const RecipeCard = ({
                   whileTap={bounceAnimation}
                   className="cursor-pointer  focus: outline-none"
                 >
-                  <IconArrowBigDown
-                    className={`w-4 ${
-                      vote === -1 ? "text-purple-500 fill-purple-500" : ""
-                    }`}
-                    onClick={onDownvote}
-                  />
+                  <IconArrowBigDown className={`w-4 `} />
                 </motion.div>
               </div>
             </div>
