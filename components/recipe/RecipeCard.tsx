@@ -19,7 +19,7 @@ import { LoginDrawer } from "../login/login-drawer"
 import { motion } from "framer-motion"
 import { toast } from "sonner"
 import { useContext, useEffect, useState } from "react"
-import { hasVoted, saveRecipe } from "@/db/recipes"
+import { getTotalVotes, hasVoted, saveRecipe } from "@/db/recipes"
 import { FitpalAIContext } from "@/context/context"
 import { supabase } from "@/lib/supabase/browser-client"
 import { convertTime } from "@/utils/helpers"
@@ -43,6 +43,7 @@ export const RecipeCard = ({
   const [vote, setVote] = useState(0)
   useEffect(() => {
     votedRecipes.map(r => r.recipe_id === recipe.id && setVote(r.vote))
+    getTotalVotes(recipe.id).then(v => setVoteCount(v))
   }, [votedRecipes])
   const bounceAnimation = {
     scale: [1, 1.2, 1],
