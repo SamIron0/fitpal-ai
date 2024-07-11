@@ -48,8 +48,11 @@ export const RecipeCard = ({ recipe }: RecipeCardProps) => {
     }
   }
 
-  const save = async (userId: string, id: string) => {
-    const res = await saveRecipe(userId, id)
+  const save = async (id: string) => {
+    if (!profile) {
+      return
+    }
+    const res = await saveRecipe(profile?.id, id)
     if (res != "Saved") {
       toast.error("Failed to save")
       return
@@ -60,15 +63,6 @@ export const RecipeCard = ({ recipe }: RecipeCardProps) => {
 
   const { profile } = useContext(FitpalAIContext)
 
-  const handleSaveClick = (e: React.MouseEvent) => {
-    e.preventDefault()
-    e.stopPropagation()
-    if (profile) {
-      save(profile.id, recipe.id)
-    } else {
-      setIsLoginDrawerOpen(true)
-    }
-  }
   return (
     <div
       key={recipe.id}
@@ -86,7 +80,7 @@ export const RecipeCard = ({ recipe }: RecipeCardProps) => {
           <DropdownMenuContent align="end">
             {profile ? (
               <DropdownMenuItem>
-                <span onClick={handleSaveClick}>Save</span>
+                <span onClick={e => save(recipe.id)}>Save</span>
               </DropdownMenuItem>
             ) : (
               <DropdownMenuItem onSelect={e => e.preventDefault()}>
@@ -94,7 +88,7 @@ export const RecipeCard = ({ recipe }: RecipeCardProps) => {
                   isOpen={isLoginDrawerOpen}
                   onClose={() => setIsLoginDrawerOpen(false)}
                 >
-                  <span onClick={handleSaveClick}>Save</span>
+                  <span>Save</span>
                 </LoginDrawer>
               </DropdownMenuItem>
             )}
@@ -104,35 +98,78 @@ export const RecipeCard = ({ recipe }: RecipeCardProps) => {
 
       <div className="bg-teal-500 h-52 mb-1 rounded-xl"></div>
       <div className="flex flex-row text-zinc-400">
-        <div className="flex border items-center border-zinc-600 rounded-2xl py-0.5 px-2">
-          <div className="flex items-center">
-            <motion.div whileTap={bounceAnimation} className="cursor-pointer">
-              <IconArrowBigUp
-                className={`w-4 ${
-                  voteStatus === "upvoted"
-                    ? "text-purple-500 fill-purple-500"
-                    : ""
-                }`}
-                onClick={() => handleVote("upvoted")}
-              />
-            </motion.div>
-            <span className="text-xs border-r border-zinc-600 pl-1 pr-2">
-              {voteCount}
-            </span>
+        {profile ? (
+          <div className="flex border items-center border-zinc-600 rounded-2xl py-0.5 px-2">
+            <div className="flex items-center">
+              <motion.div whileTap={bounceAnimation} className="cursor-pointer">
+                <IconArrowBigUp
+                  className={`w-4 ${
+                    voteStatus === "upvoted"
+                      ? "text-purple-500 fill-purple-500"
+                      : ""
+                  }`}
+                  onClick={() => handleVote("upvoted")}
+                />
+              </motion.div>
+              <span className="text-xs border-r border-zinc-600 pl-1 pr-2">
+                {voteCount}
+              </span>
+            </div>
+            <div className="pl-1">
+              <motion.div whileTap={bounceAnimation} className="cursor-pointer">
+                <IconArrowBigDown
+                  className={`w-4 ${
+                    voteStatus === "downvoted"
+                      ? "text-purple-500 fill-purple-500"
+                      : ""
+                  }`}
+                  onClick={() => handleVote("downvoted")}
+                />
+              </motion.div>
+            </div>
           </div>
-          <div className="pl-1">
-            <motion.div whileTap={bounceAnimation} className="cursor-pointer">
-              <IconArrowBigDown
-                className={`w-4 ${
-                  voteStatus === "downvoted"
-                    ? "text-purple-500 fill-purple-500"
-                    : ""
-                }`}
-                onClick={() => handleVote("downvoted")}
-              />
-            </motion.div>
-          </div>
-        </div>
+        ) : (
+          <LoginDrawer
+            isOpen={isLoginDrawerOpen}
+            onClose={() => setIsLoginDrawerOpen(false)}
+          >
+            <div className="flex border items-center border-zinc-600 rounded-2xl py-0.5 px-2">
+              <div className="flex items-center">
+                <motion.div
+                  whileTap={bounceAnimation}
+                  className="cursor-pointer"
+                >
+                  <IconArrowBigUp
+                    className={`w-4 ${
+                      voteStatus === "upvoted"
+                        ? "text-purple-500 fill-purple-500"
+                        : ""
+                    }`}
+                    onClick={() => handleVote("upvoted")}
+                  />
+                </motion.div>
+                <span className="text-xs border-r border-zinc-600 pl-1 pr-2">
+                  {voteCount}
+                </span>
+              </div>
+              <div className="pl-1">
+                <motion.div
+                  whileTap={bounceAnimation}
+                  className="cursor-pointer"
+                >
+                  <IconArrowBigDown
+                    className={`w-4 ${
+                      voteStatus === "downvoted"
+                        ? "text-purple-500 fill-purple-500"
+                        : ""
+                    }`}
+                    onClick={() => handleVote("downvoted")}
+                  />
+                </motion.div>
+              </div>
+            </div>
+          </LoginDrawer>
+        )}
         <div className="flex w-full text-xs justify-end items-center">
           <IconClockHour10 className="mr-1 w-5 " />
           30 mins
