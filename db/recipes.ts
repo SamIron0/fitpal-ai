@@ -13,7 +13,7 @@ export const saveRecipe = async (userId: string, id: string) => {
     return error
   }
 
-  if (!data) {
+  if (!data[0].id) {
     const { error: insertError } = await supabase
       .from("user_recipes")
       .insert({ id: userId, recipe_id: id })
