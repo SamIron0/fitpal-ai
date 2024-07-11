@@ -7,15 +7,16 @@ export const vote = async (
   user_id: string,
   recipe_id: string
 ) => {
+  //insert or update votet if it exists
+
   const { data, error } = await supabase
     .from("votes")
-    .insert({ id: uuidv4(), user_id, recipe_id, vote })
-
+    .upsert({ user_id, recipe_id, vote })
+    
   if (error) {
     console.log(error)
-    return error
+    return
   }
-  return data
 }
 export const hasVoted = async (user_id: string, recipe_id: string) => {
   const { data, error } = await supabase
