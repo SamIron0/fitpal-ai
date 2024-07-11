@@ -14,9 +14,9 @@ import { Dispatch, SetStateAction, createContext } from "react"
 import { number } from "zod"
 
 interface FitpalAIContext {
-  votedRecipes: { recipe_id: string; vote: number }[]
+  votedRecipes: { id: string; recipe_id: string; vote: number }[]
   setVotedRecipes: Dispatch<
-    SetStateAction<{ recipe_id: string; vote: number }[]>
+    SetStateAction<{ id: string; recipe_id: string; vote: number }[]>
   >
   // PROFILE STORE
   profile: Tables<"profiles"> | null

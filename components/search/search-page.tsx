@@ -11,6 +11,7 @@ import { SearchInput } from "./search-input"
 import { saveRecipe, vote } from "@/db/recipes"
 import { toast } from "sonner"
 import { RecipeCard } from "../recipe/RecipeCard"
+import { v4 as uuidv4 } from "uuid"
 
 interface SearchPageProps {
   for_you?: Tables<"recipes2">[]
@@ -19,7 +20,7 @@ interface SearchPageProps {
 
 const SearchPage = ({ for_you, user_id }: SearchPageProps) => {
   const router = useRouter()
-  const { generatedRecipes, isGenerating, setSettings } =
+  const { votedRecipes, generatedRecipes, isGenerating, setSettings } =
     useContext(FitpalAIContext)
   const [forYou, setForYou] = useState<Tables<"recipes2">[]>(for_you || [])
   const { theme } = useTheme()
@@ -61,14 +62,19 @@ const SearchPage = ({ for_you, user_id }: SearchPageProps) => {
     if (!user_id) {
       return
     }
-    const res = await vote(1, user_id, recipe_id)
+    const vote_id: string =
+    votedRecipes.map(v => v.id).find(id => id === recipe_id) || uuidv4()
+  
+    const res = await vote(1, user_id, recipe_id, vote_id)
     return
   }
   const downvoteRecipe = async (recipe_id: string) => {
     if (!user_id) {
       return
     }
-    const res = await vote(-1, user_id, recipe_id)
+    const vote_id: string =
+      votedRecipes.map(v => v.id).find(id => id === recipe_id) || uuidv4()
+    const res = await vote(-1, user_id, recipe_id, vote_id)
 
     return
   }

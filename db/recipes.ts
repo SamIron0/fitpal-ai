@@ -5,13 +5,14 @@ import { v4 as uuidv4 } from "uuid"
 export const vote = async (
   vote: number,
   user_id: string,
-  recipe_id: string
-) => {
+  recipe_id: string,
+  vote_id: string
+  ) => {
   //insert or update votet if it exists
-
   const { data, error } = await supabase
     .from("votes")
-    .upsert({ user_id, recipe_id, vote })
+    .upsert({ id: vote_id, user_id, recipe_id, vote })
+    .eq("user_id", user_id)
 
   if (error) {
     console.log(error)
@@ -34,7 +35,7 @@ export const hasVoted = async (user_id: string, recipe_id: string) => {
 export const getVotedRecipesByUserId = async (user_id: string) => {
   const { data, error } = await supabase
     .from("votes")
-    .select("recipe_id,vote")
+    .select("id,recipe_id,vote")
     .eq("user_id", user_id)
   if (error) {
     console.log(error)
