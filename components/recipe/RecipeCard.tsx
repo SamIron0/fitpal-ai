@@ -23,6 +23,7 @@ import { getTotalVotes, hasVoted, saveRecipe } from "@/db/recipes"
 import { FitpalAIContext } from "@/context/context"
 import { supabase } from "@/lib/supabase/browser-client"
 import { convertTime } from "@/utils/helpers"
+import { MealDrawer } from "../meal/meal-drawer"
 interface RecipeCardProps {
   user_id: string | undefined
   recipe: Tables<"recipes2">
@@ -115,6 +116,7 @@ export const RecipeCard = ({
       </div>
       {profile ? (
         <>
+        <MealDrawer recipe={recipe} >
           {recipe.imgurl ? (
             <Image
               src={recipe.imgurl}
@@ -123,7 +125,7 @@ export const RecipeCard = ({
             />
           ) : (
             <div className="bg-input h-52 mb-1 rounded-xl"></div>
-          )}
+          )}</MealDrawer>
           <div className="flex flex-row justify-between mb-2">
             <div className="flex flex-row text-zinc-400">
               <div className="flex border items-center border-zinc-600 rounded-2xl py-0.5 px-2">
