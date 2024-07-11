@@ -61,41 +61,15 @@ const SearchPage = ({ for_you, user_id }: SearchPageProps) => {
     if (!user_id) {
       return
     }
-    const res = await fetch(`/api/recipe/vote`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        vote: 1,
-        recipe_id
-      })
-    })
-    const json = await res.json()
-    if (json.error) {
-      console.log(json.error)
-    }
-
+    const res = await vote(1, user_id, recipe_id)
     return
   }
   const downvoteRecipe = async (recipe_id: string) => {
     if (!user_id) {
       return
     }
-    const res = await fetch(`/api/recipe/vote`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        vote: -1,
-        recipe_id
-      })
-    })
-    const json = await res.json()
-    if (json.error) {
-      console.log(json.error)
-    }
+    const res = await vote(-1, user_id, recipe_id)
+
     return
   }
   const renderRecipes = (recipes: Tables<"recipes2">[], title: string) => (
