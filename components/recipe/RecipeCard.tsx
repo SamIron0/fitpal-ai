@@ -155,29 +155,31 @@ export const RecipeCard = ({
             </div>
           </div>
         ) : (
-          <LoginDrawer>
-            <div className="flex border items-center border-zinc-600 rounded-2xl py-0.5 px-2">
-              <div className="flex items-center">
-                <motion.div
-                  whileTap={bounceAnimation}
-                  className="cursor-pointer  focus: outline-none"
-                >
-                  <IconArrowBigUp className={`w-4 `} />
-                </motion.div>
-                <span className="text-xs border-r border-zinc-600 pl-1 pr-2">
-                  {voteCount}
-                </span>
+          <>
+            <LoginDrawer>
+              <div className="flex border items-center border-zinc-600 rounded-2xl py-0.5 px-2">
+                <div className="flex items-center">
+                  <motion.div
+                    whileTap={bounceAnimation}
+                    className="cursor-pointer  focus: outline-none"
+                  >
+                    <IconArrowBigUp className={`w-4 `} />
+                  </motion.div>
+                  <span className="text-xs border-r border-zinc-600 pl-1 pr-2">
+                    {voteCount}
+                  </span>
+                </div>
+                <div className="pl-1">
+                  <motion.div
+                    whileTap={bounceAnimation}
+                    className="cursor-pointer  focus: outline-none"
+                  >
+                    <IconArrowBigDown className={`w-4 `} />
+                  </motion.div>
+                </div>
               </div>
-              <div className="pl-1">
-                <motion.div
-                  whileTap={bounceAnimation}
-                  className="cursor-pointer  focus: outline-none"
-                >
-                  <IconArrowBigDown className={`w-4 `} />
-                </motion.div>
-              </div>
-            </div>
-          </LoginDrawer>
+            </LoginDrawer>
+          </>
         )}
         <div className="flex w-full text-xs justify-end items-center">
           <IconClockHour10 className="mr-1 w-5 " />
