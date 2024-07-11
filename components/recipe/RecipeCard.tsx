@@ -112,79 +112,91 @@ export const RecipeCard = ({
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-      {recipe.imgurl ? (
-        <Image
-          src={recipe.imgurl}
-          alt={recipe.name || "food-photo"}
-          className="border-1 mb-2 w-full h-52  rounded-lg border-input object-cover"
-        />
-      ) : (
-        <div className="bg-input h-52 mb-1 rounded-xl"></div>
-      )}
-      <div className="flex flex-row text-zinc-400">
-        {profile ? (
-          <div className="flex border items-center border-zinc-600 rounded-2xl py-0.5 px-2">
-            <div className="flex items-center">
-              <motion.div
-                whileTap={bounceAnimation}
-                className="cursor-pointer  focus: outline-none"
-              >
-                <IconArrowBigUp
-                  className={`w-4 ${
-                    vote === 1 ? "text-purple-500 fill-purple-500" : ""
-                  }`}
-                  onClick={onUpvote}
-                />
-              </motion.div>
-              <span className="text-xs border-r border-zinc-600 pl-1 pr-2">
-                {voteCount}
-              </span>
-            </div>
-            <div className="pl-1">
-              <motion.div
-                whileTap={bounceAnimation}
-                className="cursor-pointer focus: outline-none"
-              >
-                <IconArrowBigDown
-                  className={`w-4 ${
-                    vote === -1 ? "text-zinc-500 fill-zinc-500" : ""
-                  }`}
-                  onClick={onDownvote}
-                />
-              </motion.div>
+      {profile ? (
+        <>
+          {recipe.imgurl ? (
+            <Image
+              src={recipe.imgurl}
+              alt={recipe.name || "food-photo"}
+              className="border-1 mb-2 w-full h-52  rounded-lg border-input object-cover"
+            />
+          ) : (
+            <div className="bg-input h-52 mb-1 rounded-xl"></div>
+          )}
+          <div className="flex flex-row text-zinc-400">
+            <div className="flex border items-center border-zinc-600 rounded-2xl py-0.5 px-2">
+              <div className="flex items-center">
+                <motion.div
+                  whileTap={bounceAnimation}
+                  className="cursor-pointer  focus: outline-none"
+                >
+                  <IconArrowBigUp
+                    className={`w-4 ${
+                      vote === 1 ? "text-purple-500 fill-purple-500" : ""
+                    }`}
+                    onClick={onUpvote}
+                  />
+                </motion.div>
+                <span className="text-xs border-r border-zinc-600 pl-1 pr-2">
+                  {voteCount}
+                </span>
+              </div>
+              <div className="pl-1">
+                <motion.div
+                  whileTap={bounceAnimation}
+                  className="cursor-pointer focus: outline-none"
+                >
+                  <IconArrowBigDown
+                    className={`w-4 ${
+                      vote === -1 ? "text-zinc-500 fill-zinc-500" : ""
+                    }`}
+                    onClick={onDownvote}
+                  />
+                </motion.div>
+              </div>
             </div>
           </div>
-        ) : (
-          <>
-            <LoginDrawer>
-              <div className="flex border items-center border-zinc-600 rounded-2xl py-0.5 px-2">
-                <div className="flex items-center">
-                  <motion.div
-                    whileTap={bounceAnimation}
-                    className="cursor-pointer  focus: outline-none"
-                  >
-                    <IconArrowBigUp className={`w-4 `} />
-                  </motion.div>
-                  <span className="text-xs border-r border-zinc-600 pl-1 pr-2">
-                    {voteCount}
-                  </span>
-                </div>
-                <div className="pl-1">
-                  <motion.div
-                    whileTap={bounceAnimation}
-                    className="cursor-pointer  focus: outline-none"
-                  >
-                    <IconArrowBigDown className={`w-4 `} />
-                  </motion.div>
-                </div>
+        </>
+      ) : (
+        <>
+          <LoginDrawer>
+            {recipe.imgurl ? (
+              <Image
+                src={recipe.imgurl}
+                alt={recipe.name || "food-photo"}
+                className="border-1 mb-2 w-full h-52  rounded-lg border-input object-cover"
+              />
+            ) : (
+              <div className="bg-input h-52 mb-1 rounded-xl"></div>
+            )}
+
+            <div className="flex border items-center border-zinc-600 rounded-2xl py-0.5 px-2">
+              <div className="flex items-center">
+                <motion.div
+                  whileTap={bounceAnimation}
+                  className="cursor-pointer  focus: outline-none"
+                >
+                  <IconArrowBigUp className={`w-4 `} />
+                </motion.div>
+                <span className="text-xs border-r border-zinc-600 pl-1 pr-2">
+                  {voteCount}
+                </span>
               </div>
-            </LoginDrawer>
-          </>
-        )}
-        <div className="flex w-full text-xs justify-end items-center">
-          <IconClockHour10 className="mr-1 w-5 " />
-          {convertTime(recipe.total_time)}
-        </div>
+              <div className="pl-1">
+                <motion.div
+                  whileTap={bounceAnimation}
+                  className="cursor-pointer  focus: outline-none"
+                >
+                  <IconArrowBigDown className={`w-4 `} />
+                </motion.div>
+              </div>
+            </div>
+          </LoginDrawer>
+        </>
+      )}
+      <div className="flex w-full text-xs justify-end items-center">
+        <IconClockHour10 className="mr-1 w-5 " />
+        {convertTime(recipe.total_time)}
       </div>
     </div>
   )
