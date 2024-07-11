@@ -49,7 +49,7 @@ export default async function ResultPage({
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          query: query.replace(/-/g, " ")
+          query: decodeURIComponent(query.replace(/-/g, " "))
         })
       }).then(response => response.json())
 
