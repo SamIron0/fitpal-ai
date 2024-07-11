@@ -92,7 +92,10 @@ const SearchPage = ({ for_you }: SearchPageProps) => {
         className="grid w-full max-w-4xl gap-4 sm:grid-cols-2 lg:grid-cols-3"
       >
         {recipes.map(recipe => (
-          <div className="bg-black text-zinc-200 p-2 rounded-xl max-w-lg">
+          <div
+            key={recipe.idx}
+            className="bg-black text-zinc-200 p-2 rounded-xl max-w-lg"
+          >
             <div className="flex items-center justify-between mb-1">
               <h2 className="text-lg font-semibold mb-1">{recipe.name}</h2>
               <DropdownMenu>
