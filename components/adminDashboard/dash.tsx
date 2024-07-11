@@ -18,7 +18,7 @@ interface RecipeCardProps {
   handleDrop: (e: React.DragEvent<HTMLDivElement>, index: number) => void
 }
 
-const RecipeCard: React.FC<RecipeCardProps> = ({
+const AdminRecipeCard: React.FC<RecipeCardProps> = ({
   recipe,
   index,
   updateData,
@@ -380,7 +380,7 @@ export default function Dash() {
 
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {recipes.map((recipe, index) => (
-            <RecipeCard
+            <AdminRecipeCard
               key={index}
               recipe={recipe}
               index={index}

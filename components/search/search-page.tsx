@@ -3,31 +3,14 @@ import Head from "next/head"
 import { useContext, useState } from "react"
 import { useRouter } from "next/navigation"
 import { useTheme } from "next-themes"
-import { Clock, Search } from "lucide-react"
-import { motion } from "framer-motion"
+import { Search } from "lucide-react"
 import { Brand } from "../ui/brand"
 import { Tables } from "@/supabase/types"
-import { createClient } from "@/lib/supabase/client"
 import { FitpalAIContext } from "@/context/context"
 import { SearchInput } from "./search-input"
-import { MealDrawer } from "../meal/meal-drawer"
-import { convertTime } from "@/utils/helpers"
-import {
-  IconArrowBigDown,
-  IconArrowBigUp,
-  IconClockHour10,
-  IconDots
-} from "@tabler/icons-react"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger
-} from "../ui/dropdown-menu"
-import { Button } from "../ui/button"
-import { LoginDrawer } from "../login/login-drawer"
 import { saveRecipe } from "@/db/recipes"
 import { toast } from "sonner"
+import { RecipeCard } from "../recipe/RecipeCard"
 
 interface SearchPageProps {
   for_you?: Tables<"recipes2">[]
@@ -35,7 +18,7 @@ interface SearchPageProps {
 
 const SearchPage = ({ for_you }: SearchPageProps) => {
   const router = useRouter()
-  const { profile, generatedRecipes, isGenerating, setSettings } =
+  const { generatedRecipes, isGenerating, setSettings } =
     useContext(FitpalAIContext)
   const [forYou, setForYou] = useState<Tables<"recipes2">[]>(for_you || [])
   const { theme } = useTheme()
@@ -49,10 +32,6 @@ const SearchPage = ({ for_you }: SearchPageProps) => {
       ></div>
     ))
 
-  const bounceAnimation = {
-    scale: [1, 1.2, 1],
-    transition: { duration: 0.4 }
-  }
 
   const NoResultsFound = () => (
     <div className="flex max-w-4xl py-28 flex-col items-center justify-center w-full text-zinc-100">
@@ -67,28 +46,7 @@ const SearchPage = ({ for_you }: SearchPageProps) => {
       </p>
     </div>
   )
-  const [voteStatus, setVoteStatus] = useState("none") // 'none', 'upvoted', or 'downvoted'
-  const [voteCount, setVoteCount] = useState(155)
-
-  const handleVote = (voteType: any) => {
-    if (voteStatus === voteType) {
-      // If clicking the same vote type, remove the vote
-      setVoteStatus("none")
-      setVoteCount(voteType === "upvoted" ? voteCount - 1 : voteCount + 1)
-    } else {
-      // If changing vote or voting for the first time
-      setVoteStatus(voteType)
-      if (voteStatus === "none") {
-        setVoteCount(voteType === "upvoted" ? voteCount + 1 : voteCount - 1)
-      } else {
-        setVoteCount(voteType === "upvoted" ? voteCount + 2 : voteCount - 2)
-      }
-    }
-  }
-  const save = async (userId: string, id: string) => {
-    saveRecipe(userId, id)
-    toast.success("Saved")
-  }
+  
   const renderRecipes = (recipes: Tables<"recipes2">[], title: string) => (
     <div className="w-full max-w-4xl py-28">
       <h2 className="mb-5 text-lg font-semibold">{title}</h2>
@@ -97,79 +55,7 @@ const SearchPage = ({ for_you }: SearchPageProps) => {
         className="grid w-full max-w-4xl gap-4 sm:grid-cols-2 lg:grid-cols-3"
       >
         {recipes.map(recipe => (
-          <div
-            key={recipe.id}
-            className="bg-black text-zinc-200 p-2 rounded-xl max-w-lg"
-          >
-            <div className="flex items-center justify-between mb-1">
-              <h2 className="text-lg font-semibold mb-1">{recipe.name}</h2>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button size="icon" variant="ghost" className="h-8 w-8">
-                    <IconDots className="h-3.5 w-3.5" />
-                    <span className="sr-only">More</span>
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  {profile ? (
-                    <DropdownMenuItem
-                      onClick={() => save(profile?.id, recipe.id)}
-                    >
-                      Save
-                    </DropdownMenuItem>
-                  ) : (
-                    <DropdownMenuItem>
-                      {" "}
-                      <LoginDrawer>Save</LoginDrawer>
-                    </DropdownMenuItem>
-                  )}
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
-
-            <div className="bg-teal-500 h-52 mb-1 rounded-xl"></div>
-            <div className="flex flex-row text-zinc-400">
-              <div className="flex border items-center border-zinc-600 rounded-2xl py-0.5 px-2">
-                <div className="flex items-center">
-                  <motion.div
-                    whileTap={bounceAnimation}
-                    className="cursor-pointer"
-                  >
-                    <IconArrowBigUp
-                      className={`w-4 ${
-                        voteStatus === "upvoted"
-                          ? "text-purple-500 fill-purple-500"
-                          : ""
-                      }`}
-                      onClick={() => handleVote("upvoted")}
-                    />
-                  </motion.div>
-                  <span className="text-xs border-r border-zinc-600 pl-1 pr-2">
-                    {voteCount}
-                  </span>
-                </div>
-                <div className="pl-1">
-                  <motion.div
-                    whileTap={bounceAnimation}
-                    className="cursor-pointer"
-                  >
-                    <IconArrowBigDown
-                      className={`w-4 ${
-                        voteStatus === "downvoted"
-                          ? "text-purple-500 fill-purple-500"
-                          : ""
-                      }`}
-                      onClick={() => handleVote("downvoted")}
-                    />
-                  </motion.div>
-                </div>
-              </div>
-              <div className="flex w-full text-xs justify-end items-center">
-                <IconClockHour10 className="mr-1 w-5 " />
-                30 mins
-              </div>
-            </div>
-          </div>
+          <RecipeCard recipe={recipe} key={recipe.id} />
         ))}
       </div>
     </div>

@@ -1,156 +1,121 @@
-import React from "react"
-import { TablesInsert } from "@/supabase/types"
+'use client'
+import { Tables } from "@/supabase/types"
 import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger
-} from "@/components/ui/alert-dialog"
-import { convertTime } from "@/utils/helpers"
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger
+} from "../ui/dropdown-menu"
+import { Button } from "../ui/button"
+import {
+  IconArrowBigDown,
+  IconArrowBigUp,
+  IconClockHour10,
+  IconDots
+} from "@tabler/icons-react"
+import { LoginDrawer } from "../login/login-drawer"
+import { motion } from "framer-motion"
+import { toast } from "sonner"
+import { useContext, useState } from "react"
+import { saveRecipe } from "@/db/recipes"
+import { FitpalAIContext } from "@/context/context"
 interface RecipeCardProps {
-  recipe: TablesInsert<"recipes2">
-  index: number
-  updateData: <K extends keyof TablesInsert<"recipes2">>(
-    index: number,
-    key: K,
-    value: TablesInsert<"recipes2">[K]
-  ) => void
-  deleteRecipe: (index: number) => void
-  handleDrop: (e: React.DragEvent<HTMLDivElement>, index: number) => void
+  recipe: Tables<"recipes2">
 }
 
-const RecipeCard: React.FC<RecipeCardProps> = ({
-  recipe,
-  index,
-  updateData,
-  deleteRecipe,
-  handleDrop
-}) => {
+export const RecipeCard = ({ recipe }: RecipeCardProps) => {
+  const [voteStatus, setVoteStatus] = useState("none") // 'none', 'upvoted', or 'downvoted'
+  const [voteCount, setVoteCount] = useState(155)
+
+  const bounceAnimation = {
+    scale: [1, 1.2, 1],
+    transition: { duration: 0.4 }
+  }
+  const handleVote = (voteType: any) => {
+    if (voteStatus === voteType) {
+      // If clicking the same vote type, remove the vote
+      setVoteStatus("none")
+      setVoteCount(voteType === "upvoted" ? voteCount - 1 : voteCount + 1)
+    } else {
+      // If changing vote or voting for the first time
+      setVoteStatus(voteType)
+      if (voteStatus === "none") {
+        setVoteCount(voteType === "upvoted" ? voteCount + 1 : voteCount - 1)
+      } else {
+        setVoteCount(voteType === "upvoted" ? voteCount + 2 : voteCount - 2)
+      }
+    }
+  }
+  const save = async (userId: string, id: string) => {
+    saveRecipe(userId, id)
+    toast.success("Saved")
+  }
+  const { profile } = useContext(FitpalAIContext)
   return (
     <div
-      className="relative rounded-lg bg-card p-4 shadow-md transition-all hover:shadow-lg"
-      onDrop={e => handleDrop(e, index)}
-      onDragOver={e => e.preventDefault()}
+      key={recipe.id}
+      className="bg-black text-zinc-200 p-2 rounded-xl max-w-lg"
     >
-      <div className="mb-3 flex items-center justify-between">
-        <input
-          type="text"
-          value={recipe.name || ""}
-          onChange={e => updateData(index, "name", e.target.value)}
-          className="w-full rounded bg-input p-2 text-lg font-semibold text-foreground"
-          placeholder="Recipe Name"
-        />
-        <div className="ml-2 flex items-center space-x-2">
-          <div
-            className="rounded-full "
-            title={
-              recipe.imgurl && recipe.total_time ? "Complete" : "Incomplete"
-            }
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className={`h-8 w-8 ${
-                recipe.imgurl && recipe.total_time
-                  ? "text-green-500"
-                  : "text-orange-500"
-              }`}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+      <div className="flex items-center justify-between mb-1">
+        <h2 className="text-lg font-semibold mb-1">{recipe.name}</h2>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button size="icon" variant="ghost" className="h-8 w-8">
+              <IconDots className="h-3.5 w-3.5" />
+              <span className="sr-only">More</span>
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            {profile ? (
+              <DropdownMenuItem onClick={() => save(profile?.id, recipe.id)}>
+                Save
+              </DropdownMenuItem>
+            ) : (
+              <DropdownMenuItem>
+                {" "}
+                <LoginDrawer>Save</LoginDrawer>
+              </DropdownMenuItem>
+            )}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+
+      <div className="bg-teal-500 h-52 mb-1 rounded-xl"></div>
+      <div className="flex flex-row text-zinc-400">
+        <div className="flex border items-center border-zinc-600 rounded-2xl py-0.5 px-2">
+          <div className="flex items-center">
+            <motion.div whileTap={bounceAnimation} className="cursor-pointer">
+              <IconArrowBigUp
+                className={`w-4 ${
+                  voteStatus === "upvoted"
+                    ? "text-purple-500 fill-purple-500"
+                    : ""
+                }`}
+                onClick={() => handleVote("upvoted")}
               />
-            </svg>
+            </motion.div>
+            <span className="text-xs border-r border-zinc-600 pl-1 pr-2">
+              {voteCount}
+            </span>
           </div>
-          <AlertDialog>
-            <AlertDialogTrigger>
-              <button
-                className="rounded-full bg-red-100 p-1 text-red-600 hover:bg-red-200"
-                title="Delete Recipe"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="h-5 w-5"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              </button>
-            </AlertDialogTrigger>
-            <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <AlertDialogAction onClick={() => deleteRecipe(index)}>
-                  Continue
-                </AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
+          <div className="pl-1">
+            <motion.div whileTap={bounceAnimation} className="cursor-pointer">
+              <IconArrowBigDown
+                className={`w-4 ${
+                  voteStatus === "downvoted"
+                    ? "text-purple-500 fill-purple-500"
+                    : ""
+                }`}
+                onClick={() => handleVote("downvoted")}
+              />
+            </motion.div>
+          </div>
         </div>
-      </div>
-
-      <div className="mb-2 flex items-center space-x-2">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="h-5 w-5 text-gray-500"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"
-          />
-        </svg>
-        
-      </div>
-
-      <div className="flex items-center space-x-2">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="h-5 w-5 text-gray-500"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244"
-          />
-        </svg>
-        <input
-          type="text"
-          value={recipe.url || ""}
-          onChange={e => updateData(index, "url", e.target.value)}
-          className="w-full rounded bg-input p-2 text-foreground"
-          placeholder="Recipe URL"
-        />
+        <div className="flex w-full text-xs justify-end items-center">
+          <IconClockHour10 className="mr-1 w-5 " />
+          30 mins
+        </div>
       </div>
     </div>
   )
 }
-
-export default RecipeCard
