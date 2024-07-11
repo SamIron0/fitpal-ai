@@ -21,6 +21,8 @@ interface LoginDrawerProps {
   input?: string
   children?: React.ReactNode
   searchParams?: { message: string }
+  isOpen: boolean
+  onClose: () => void
 }
 export const LoginDrawer = ({
   input,
@@ -80,57 +82,55 @@ export const LoginDrawer = ({
   const handleResetPassword = async (formData: FormData) => {}
 
   return (
-    <div>
-      <Drawer>
-        <DrawerTrigger  className="focus:outline-none w-full">
-          {children}
-        </DrawerTrigger>
-        <DrawerContent className="flex flex-col items-center focus:outline-none">
-          <div className="mb-14 flex w-full flex-1 flex-col justify-center gap-2 px-8 py-10 sm:max-w-md">
-            <form
-              className="flex w-full flex-1 flex-col justify-center gap-2 text-foreground animate-in"
-              action={signIn}
+    <Drawer open={isOpen} onOpenChange={onClose}>
+      <DrawerTrigger className="focus:outline-none w-full">
+        {children}
+      </DrawerTrigger>
+      <DrawerContent className="flex flex-col items-center focus:outline-none">
+        <div className="mb-14 flex w-full flex-1 flex-col justify-center gap-2 px-8 py-10 sm:max-w-md">
+          <form
+            className="flex w-full flex-1 flex-col justify-center gap-2 text-foreground animate-in"
+            action={signIn}
+          >
+            <Label className="text-md mt-4" htmlFor="email">
+              Email
+            </Label>
+            <Input
+              className="mb-3 rounded-md border bg-inherit px-4 py-2 text-[16px]"
+              name="email"
+              placeholder="you@example.com"
+              required
+            />
+
+            <Label className="text-md" htmlFor="password">
+              Password
+            </Label>
+            <Input
+              className="mb-6 rounded-md border bg-inherit px-4 py-2 text-[16px]"
+              type="password"
+              name="password"
+              placeholder="••••••••"
+            />
+
+            <SubmitButton className="mb-2 rounded-md bg-blue-700 px-4 py-2 text-white">
+              Login
+            </SubmitButton>
+
+            <SubmitButton
+              formAction={signUp}
+              className="mb-2 rounded-md border border-foreground/20 px-4 py-2"
             >
-              <Label className="text-md mt-4" htmlFor="email">
-                Email
-              </Label>
-              <Input
-                className="mb-3 rounded-md border bg-inherit px-4 py-2 text-[16px]"
-                name="email"
-                placeholder="you@example.com"
-                required
-              />
+              Sign Up
+            </SubmitButton>
 
-              <Label className="text-md" htmlFor="password">
-                Password
-              </Label>
-              <Input
-                className="mb-6 rounded-md border bg-inherit px-4 py-2 text-[16px]"
-                type="password"
-                name="password"
-                placeholder="••••••••"
-              />
-
-              <SubmitButton className="mb-2 rounded-md bg-blue-700 px-4 py-2 text-white">
-                Login
-              </SubmitButton>
-
-              <SubmitButton
-                formAction={signUp}
-                className="mb-2 rounded-md border border-foreground/20 px-4 py-2"
-              >
-                Sign Up
-              </SubmitButton>
-
-              {searchParams?.message && (
-                <p className="mt-4 bg-foreground/10 p-4 text-center text-foreground">
-                  {searchParams.message}
-                </p>
-              )}
-            </form>
-          </div>
-        </DrawerContent>
-      </Drawer>
-    </div>
+            {searchParams?.message && (
+              <p className="mt-4 bg-foreground/10 p-4 text-center text-foreground">
+                {searchParams.message}
+              </p>
+            )}
+          </form>
+        </div>
+      </DrawerContent>
+    </Drawer>
   )
 }

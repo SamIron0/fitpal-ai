@@ -26,6 +26,7 @@ interface RecipeCardProps {
 export const RecipeCard = ({ recipe }: RecipeCardProps) => {
   const [voteStatus, setVoteStatus] = useState("none") // 'none', 'upvoted', or 'downvoted'
   const [voteCount, setVoteCount] = useState(155)
+  const [isLoginDrawerOpen, setIsLoginDrawerOpen] = useState(false)
 
   const bounceAnimation = {
     scale: [1, 1.2, 1],
@@ -46,6 +47,7 @@ export const RecipeCard = ({ recipe }: RecipeCardProps) => {
       }
     }
   }
+
   const save = async (userId: string, id: string) => {
     const res = await saveRecipe(userId, id)
     if (res != "Saved") {
@@ -54,7 +56,18 @@ export const RecipeCard = ({ recipe }: RecipeCardProps) => {
     }
     toast.success("Saved")
   }
+
   const { profile } = useContext(FitpalAIContext)
+
+  const handleSaveClick = (e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    if (profile) {
+      save(profile.id, recipe.id)
+    } else {
+      setIsLoginDrawerOpen(true)
+    }
+  }
   return (
     <div
       key={recipe.id}
@@ -70,16 +83,18 @@ export const RecipeCard = ({ recipe }: RecipeCardProps) => {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            {profile ? (
-              <DropdownMenuItem onClick={() => save(profile?.id, recipe.id)}>
-                Save
-              </DropdownMenuItem>
-            ) : (
-              <DropdownMenuItem>
-                {" "}
-                <LoginDrawer>Save</LoginDrawer>
-              </DropdownMenuItem>
-            )}
+            <DropdownMenuItem onSelect={e => e.preventDefault()}>
+              {profile ? (
+                <span onClick={handleSaveClick}>Save</span>
+              ) : (
+                <LoginDrawer
+                  isOpen={isLoginDrawerOpen}
+                  onClose={() => setIsLoginDrawerOpen(false)}
+                >
+                  <span onClick={handleSaveClick}>Save</span>
+                </LoginDrawer>
+              )}
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
