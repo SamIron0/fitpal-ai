@@ -151,8 +151,8 @@ export const RecipeCard = ({
             </div>
           </div>
         ) : (
-          <div className="flex border items-center border-zinc-600 rounded-2xl py-0.5 px-2">
-            <LoginDrawer>
+          <LoginDrawer>
+            <div className="flex border items-center border-zinc-600 rounded-2xl py-0.5 px-2">
               <div className="flex items-center">
                 <motion.div
                   whileTap={bounceAnimation}
@@ -182,8 +182,8 @@ export const RecipeCard = ({
                   />
                 </motion.div>
               </div>
-            </LoginDrawer>
-          </div>
+            </div>
+          </LoginDrawer>
         )}
         <div className="flex w-full text-xs justify-end items-center">
           <IconClockHour10 className="mr-1 w-5 " />
