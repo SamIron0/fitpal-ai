@@ -84,7 +84,7 @@ export const LoginDrawer = ({
   const handleResetPassword = async (formData: FormData) => {}
 
   return (
-    <Drawer open={isOpen} onOpenChange={onClose}>
+    <Drawer>
       <DrawerTrigger className="focus:outline-none w-full">
         {children}
       </DrawerTrigger>

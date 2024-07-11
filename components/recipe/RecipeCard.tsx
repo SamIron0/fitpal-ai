@@ -54,6 +54,7 @@ export const RecipeCard = ({ recipe }: RecipeCardProps) => {
       toast.error("Failed to save")
       return
     }
+    console.log(res)
     toast.success("Saved")
   }
 
@@ -83,18 +84,20 @@ export const RecipeCard = ({ recipe }: RecipeCardProps) => {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuItem onSelect={e => e.preventDefault()}>
-              {profile ? (
+            {profile ? (
+              <DropdownMenuItem>
                 <span onClick={handleSaveClick}>Save</span>
-              ) : (
+              </DropdownMenuItem>
+            ) : (
+              <DropdownMenuItem onSelect={e => e.preventDefault()}>
                 <LoginDrawer
                   isOpen={isLoginDrawerOpen}
                   onClose={() => setIsLoginDrawerOpen(false)}
                 >
                   <span onClick={handleSaveClick}>Save</span>
                 </LoginDrawer>
-              )}
-            </DropdownMenuItem>
+              </DropdownMenuItem>
+            )}
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
