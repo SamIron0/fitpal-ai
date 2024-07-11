@@ -58,14 +58,28 @@ const SearchPage = ({ for_you, user_id }: SearchPageProps) => {
       toast.error("Failed to save")
     }
   }
-  const upvote = async (recipe_id: string) => {
+  const upvote = async (recipe: Tables<"recipes2">) => {
     if (!user_id) {
       return
     }
     const vote_id: string =
-      votedRecipes.map(v => v.id).find(id => id === recipe_id) || uuidv4()
+      votedRecipes.map(v => v.id).find(id => id === recipe.id) || uuidv4()
 
-    const res = await vote(vote_id, user_id, recipe_id, 1)
+    const res = await vote(vote_id, user_id, recipe.id, 1)
+    try {
+      const data = await fetch("/api/recipe/update_recipe", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          recipe: recipe,
+          total_votes: recipe.total_votes + 1
+        })
+      }).then(res => res.json())
+    } catch (err) {
+      console.log(err)
+    }
     return
   }
   const downvoteRecipe = async (recipe_id: string) => {
@@ -91,7 +105,7 @@ const SearchPage = ({ for_you, user_id }: SearchPageProps) => {
             recipe={recipe}
             key={recipe.id}
             upvoteRecipe={() => {
-              upvote(recipe.id)
+              upvote(recipe)
             }}
             downvoteRecipe={() => {
               downvoteRecipe(recipe.id)

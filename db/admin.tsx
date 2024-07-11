@@ -18,6 +18,18 @@ const supabaseAdmin = createClient<Database>(
   process.env.SUPABASE_SERVICE_ROLE_KEY || ""
 )
 
+export const updateRecipe = async (recipe: TablesInsert<"recipes2">) => {
+  // Check if the recipe already exists by looking for a unique identifier (e.g., id)
+  const { data: existingRecipe, error: fetchError } = await supabaseAdmin
+    .from("recipes2")
+    .upsert(recipe)
+
+  if (fetchError && fetchError.code !== "PGRST116") {
+    throw fetchError
+  }
+
+  return existingRecipe
+}
 
 export const deleteRecipe = async (recipe: TablesInsert<"recipes2">) => {
   // Check if the recipe already exists by looking for a unique identifier (e.g., id)
