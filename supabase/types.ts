@@ -184,6 +184,20 @@ export type Database = {
           created_at?: string | null
         }
       }
+      user_recipes: {
+        Row: {
+          id: string
+          recipe_ids: string[]
+        }
+        Insert: {
+          id: string
+          recipe_ids: string[]
+        }
+        Update: {
+          id?: string
+          recipe_ids: string[]
+        }
+      }
       recipes2: {
         Row: {
           id: string
@@ -261,7 +275,7 @@ export type Database = {
           embedding2?: string | null
         }
       }
-      
+
       search_result_metadata: {
         Row: {
           description?: string

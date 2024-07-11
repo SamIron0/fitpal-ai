@@ -69,6 +69,7 @@
     "d3-dsv": "^2.0.0",
     "date-fns": "^2.30.0",
     "endent": "^2.1.0",
+    "framer-motion": "^11.3.0",
     "fs": "^0.0.1-security",
     "gpt-tokenizer": "^2.1.2",
     "i18next": "^23.7.16",

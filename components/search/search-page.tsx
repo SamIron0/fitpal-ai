@@ -4,7 +4,7 @@ import { useContext, useState } from "react"
 import { useRouter } from "next/navigation"
 import { useTheme } from "next-themes"
 import { Clock, Search } from "lucide-react"
-
+import { motion } from "framer-motion"
 import { Brand } from "../ui/brand"
 import { Tables } from "@/supabase/types"
 import { createClient } from "@/lib/supabase/client"
@@ -12,6 +12,21 @@ import { FitpalAIContext } from "@/context/context"
 import { SearchInput } from "./search-input"
 import { MealDrawer } from "../meal/meal-drawer"
 import { convertTime } from "@/utils/helpers"
+import {
+  IconArrowBigDown,
+  IconArrowBigUp,
+  IconClockHour10,
+  IconDots
+} from "@tabler/icons-react"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger
+} from "../ui/dropdown-menu"
+import { Button } from "../ui/button"
+import { saveRecipe } from "@/db/recipes"
+import { LoginDrawer } from "../login/login-drawer"
 
 interface SearchPageProps {
   for_you?: Tables<"recipes2">[]
@@ -19,16 +34,11 @@ interface SearchPageProps {
 
 const SearchPage = ({ for_you }: SearchPageProps) => {
   const router = useRouter()
-  const { generatedRecipes, isGenerating, setSettings } =
+  const { profile, generatedRecipes, isGenerating, setSettings } =
     useContext(FitpalAIContext)
   const [forYou, setForYou] = useState<Tables<"recipes2">[]>(for_you || [])
   const { theme } = useTheme()
-  const [isOpen, setIsOpen] = useState<string>("0")
   const [noresults, setNoResults] = useState(false)
-
-  const openDrawer = (id: string) => {
-    setIsOpen(id)
-  }
 
   const renderSkeleton = () =>
     Array.from({ length: 8 }, (_, n) => (
@@ -37,6 +47,11 @@ const SearchPage = ({ for_you }: SearchPageProps) => {
         className="border-1 size-48 rounded-lg border-zinc-300 bg-input p-2 py-10 text-black"
       ></div>
     ))
+
+  const bounceAnimation = {
+    scale: [1, 1.2, 1],
+    transition: { duration: 0.4 }
+  }
 
   const NoResultsFound = () => (
     <div className="flex max-w-4xl py-28 flex-col items-center justify-center w-full text-zinc-100">
@@ -51,7 +66,24 @@ const SearchPage = ({ for_you }: SearchPageProps) => {
       </p>
     </div>
   )
+  const [voteStatus, setVoteStatus] = useState("none") // 'none', 'upvoted', or 'downvoted'
+  const [voteCount, setVoteCount] = useState(155)
 
+  const handleVote = (voteType: any) => {
+    if (voteStatus === voteType) {
+      // If clicking the same vote type, remove the vote
+      setVoteStatus("none")
+      setVoteCount(voteType === "upvoted" ? voteCount - 1 : voteCount + 1)
+    } else {
+      // If changing vote or voting for the first time
+      setVoteStatus(voteType)
+      if (voteStatus === "none") {
+        setVoteCount(voteType === "upvoted" ? voteCount + 1 : voteCount - 1)
+      } else {
+        setVoteCount(voteType === "upvoted" ? voteCount + 2 : voteCount - 2)
+      }
+    }
+  }
   const renderRecipes = (recipes: Tables<"recipes2">[], title: string) => (
     <div className="w-full max-w-4xl py-28">
       <h2 className="mb-5 text-lg font-semibold">{title}</h2>
@@ -60,29 +92,74 @@ const SearchPage = ({ for_you }: SearchPageProps) => {
         className="grid w-full max-w-4xl gap-4 sm:grid-cols-2 lg:grid-cols-3"
       >
         {recipes.map(recipe => (
-          <div key={recipe.id} onClick={() => openDrawer(recipe.id)}>
-            <MealDrawer recipe={recipe} isOpen={isOpen}>
-              <div className="flex w-full flex-col">
-                {recipe.imgurl ? (
-                  <img
-                    src={`${recipe.imgurl}`}
-                    className="border-1 mb-2 h-52 w-full rounded-lg border-input object-cover"
-                    alt={recipe.name || "Recipe Image"}
-                  />
-                ) : (
-                  <div className="border-1 mb-2 h-52 rounded-lg border-input bg-input p-2 py-10 text-black"></div>
-                )}
-                <p className="text-md w-full text-left">{recipe.name}</p>
-                <div className="flex w-full text-xs font-light mt-1 items-center text-zinc-400">
-                  <Clock className="w-4 h-4 mr-2" />
-                  {recipe.total_time && (
-                    <p className="text-left">
-                      {`${recipe.total_time[0]}hrs ${recipe.total_time[1]}mins`}
-                    </p>
+          <div className="bg-black text-zinc-200 p-2 rounded-xl max-w-lg">
+            <div className="flex items-center justify-between mb-1">
+              <h2 className="text-lg font-semibold mb-1">{recipe.name}</h2>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button size="icon" variant="ghost" className="h-8 w-8">
+                    <IconDots className="h-3.5 w-3.5" />
+                    <span className="sr-only">More</span>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  {profile ? (
+                    <DropdownMenuItem
+                      onClick={() => saveRecipe(profile?.id, recipe.id)}
+                    >
+                      Save
+                    </DropdownMenuItem>
+                  ) : (
+                    <LoginDrawer>
+                      <DropdownMenuItem>Save</DropdownMenuItem>
+                    </LoginDrawer>
                   )}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+
+            <div className="bg-teal-500 h-52 mb-1 rounded-xl"></div>
+            <div className="flex flex-row text-zinc-400">
+              <div className="flex border items-center border-zinc-600 rounded-2xl py-0.5 px-2">
+                <div className="flex items-center">
+                  <motion.div
+                    whileTap={bounceAnimation}
+                    className="cursor-pointer"
+                  >
+                    <IconArrowBigUp
+                      className={`w-4 ${
+                        voteStatus === "upvoted"
+                          ? "text-purple-500 fill-purple-500"
+                          : ""
+                      }`}
+                      onClick={() => handleVote("upvoted")}
+                    />
+                  </motion.div>
+                  <span className="text-xs border-r border-zinc-600 pl-1 pr-2">
+                    {voteCount}
+                  </span>
+                </div>
+                <div className="pl-1">
+                  <motion.div
+                    whileTap={bounceAnimation}
+                    className="cursor-pointer"
+                  >
+                    <IconArrowBigDown
+                      className={`w-4 ${
+                        voteStatus === "downvoted"
+                          ? "text-purple-500 fill-purple-500"
+                          : ""
+                      }`}
+                      onClick={() => handleVote("downvoted")}
+                    />
+                  </motion.div>
                 </div>
               </div>
-            </MealDrawer>
+              <div className="flex w-full text-xs justify-end items-center">
+                <IconClockHour10 className="mr-1 w-5 " />
+                30 mins
+              </div>
+            </div>
           </div>
         ))}
       </div>
