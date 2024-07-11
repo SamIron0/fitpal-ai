@@ -27,7 +27,9 @@ interface LoginDrawerProps {
 export const LoginDrawer = ({
   input,
   children,
-  searchParams
+  searchParams,
+  isOpen,
+  onClose
 }: LoginDrawerProps) => {
   const router = useRouter()
   const signIn = async (formData: FormData) => {
