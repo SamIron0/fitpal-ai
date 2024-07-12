@@ -134,7 +134,7 @@ export const RecipeCard = ({
                   >
                     <IconArrowBigUp
                       className={`w-4 ${
-                        vote === 1 ? "text-purple-500 fill-purple-500" : ""
+                        vote === 1 ? "text-fuchsia-500 fill-fuchsia-500" : ""
                       }`}
                       onClick={() => onVote(1)}
                     />
