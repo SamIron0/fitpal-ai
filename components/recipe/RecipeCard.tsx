@@ -59,15 +59,14 @@ export const RecipeCard = ({
       setVoteCount(voteCount - num)
       await undoVote(num)
       return
-    }
-
-    else if (vote === 0) {
+    } else if (vote === 0) {
       await voteRecipe(num)
       setVoteCount(voteCount + num)
       setVote(num)
       return
-    }
-    else {
+    } else {
+      await undoVote(vote)
+      await voteRecipe(num)
       setVoteCount(voteCount + num * 2)
       setVote(num)
       return
