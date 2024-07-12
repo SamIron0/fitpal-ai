@@ -77,8 +77,10 @@ const SearchPage = ({ for_you, user_id }: SearchPageProps) => {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          recipe: recipe,
-          total_votes: recipe.total_votes + 1
+          recipe: {
+            ...recipe,
+            total_votes: recipe.total_votes + vote_type
+          }
         })
       }).then(res => res.json())
     } catch (err) {

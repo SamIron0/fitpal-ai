@@ -8,7 +8,7 @@ export async function POST(request: Request) {
   const { recipe } = json as {
     recipe: TablesInsert<"recipes2">
   }
-  try {
+  try { 
     const updatedRecipe = await updateRecipe(recipe)
     return new Response(JSON.stringify(updatedRecipe))
   } catch (error) {
