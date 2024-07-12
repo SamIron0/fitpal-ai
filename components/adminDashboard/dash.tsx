@@ -263,12 +263,12 @@ export default function Dash() {
   }
 
   const handleSave = async () => {
-    /*
     console.log("saving: ", recipes[0])
     const id = toast.loading("Saving")
     try {
       await Promise.all(
         recipes.map(async recipe => {
+          /*
           if (recipe.imgurl instanceof File) {
             try {
               const url = await uploadToCloudinary(recipe.imgurl)
@@ -280,7 +280,7 @@ export default function Dash() {
               throw error
             }
           }
-
+*/
           try {
             const res = await fetch("/api/recipe/save_recipe", {
               method: "POST",
@@ -309,7 +309,7 @@ export default function Dash() {
       toast.dismiss(id)
       console.error("Error saving recipes:", error)
       toast.error("Error saving recipes")
-    } */
+    }
   }
 
   const updateData = <K extends keyof TablesInsert<"recipes2">>(
