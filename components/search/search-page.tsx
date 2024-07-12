@@ -8,7 +8,7 @@ import { Brand } from "../ui/brand"
 import { Tables } from "@/supabase/types"
 import { FitpalAIContext } from "@/context/context"
 import { SearchInput } from "./search-input"
-import { saveRecipe, vote } from "@/db/recipes"
+import { saveRecipe, undo_vote, vote } from "@/db/recipes"
 import { toast } from "sonner"
 import { RecipeCard } from "../recipe/RecipeCard"
 import { v4 as uuidv4 } from "uuid"
@@ -99,8 +99,15 @@ const SearchPage = ({ for_you, user_id }: SearchPageProps) => {
         }
       })
     })
-    console.log("w", recipe.total_votes - vote_type)
     //delete vote from voted db
+
+    for (const vote_json of votedRecipes) {
+      if (vote_json.recipe_id === recipe.id) {
+        const vote_id = vote_json.id
+        const votes_res = await undo_vote(vote_id)
+      }
+    }
+
     //update votetd recipes in coontext
   }
   const renderRecipes = (recipes: Tables<"recipes2">[], title: string) => (

@@ -10,7 +10,13 @@ export const vote = async (
 ) => {
   const { error } = await supabase
     .from("votes")
-    .insert({ id:vote_id, user_id, recipe_id, vote })
+    .insert({ id: vote_id, user_id, recipe_id, vote })
+  if (error) {
+    console.log(error)
+  }
+}
+export const undo_vote = async (vote_id: string) => {
+  const { error } = await supabase.from("votes").delete().eq("id", vote_id)
   if (error) {
     console.log(error)
   }
