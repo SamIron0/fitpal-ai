@@ -72,23 +72,8 @@ export const RecipeCard = ({
       return
     }
   }
-  /*
-  const onVote = async (num: number) => {
-    if (vote === num) {
-      await undoVote(num)
-      setVoteCount(voteCount - num)
-      //return
-    } else if (vote === 0) {
-      setVoteCount(voteCount + num)
-      await voteRecipe(num)
-    } else {
-      await undoVote(vote)
-      setVoteCount(voteCount + num * 2)
-      await voteRecipe(num)
-    }
-    setVote(num)
-  }
-*/
+ 
+  
   return (
     <div
       key={recipe.id}

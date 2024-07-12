@@ -63,6 +63,9 @@ const SearchPage = ({ for_you, user_id }: SearchPageProps) => {
     }
   }
   const doVote = async (vote_type: number, recipe: Tables<"recipes2">) => {
+    if (!user_id) {
+      return
+    }
     // increase tottal votes in recipes 2 db
     const res = await fetch("api/recipe/update_recipe", {
       method: "POST",
@@ -77,11 +80,13 @@ const SearchPage = ({ for_you, user_id }: SearchPageProps) => {
       })
     })
     //add vote to votes db
+    const vote_id = uuidv4()
+    const votes_res = await vote(vote_id, user_id, recipe.id, vote_type)
     //update voted recipes in coontext
   }
   const undoVote = async (vote_type: number, recipe: Tables<"recipes2">) => {
     // reduce tottal votes in recipes 2 db
-    console.log('vtype',vote_type)
+    console.log("vtype", vote_type)
     const res = await fetch("api/recipe/update_recipe", {
       method: "POST",
       headers: {
@@ -94,7 +99,7 @@ const SearchPage = ({ for_you, user_id }: SearchPageProps) => {
         }
       })
     })
-    console.log('w',recipe.total_votes - vote_type)
+    console.log("w", recipe.total_votes - vote_type)
     //delete vote from voted db
     //update votetd recipes in coontext
   }
