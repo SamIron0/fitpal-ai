@@ -53,10 +53,6 @@ export const RecipeCard = ({
 
   const { profile } = useContext(FitpalAIContext)
 
-  const undo = async (num: number) => {
-    //setVote(0)
-    return
-  }
   const onVote = async (num: number) => {
     if (vote === num) {
       await undoVote(num)

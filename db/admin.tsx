@@ -23,7 +23,7 @@ export const updateRecipe = async (recipe: TablesInsert<"recipes2">) => {
   const { data: existingRecipe, error: fetchError } = await supabaseAdmin
     .from("recipes2")
     .update({
-      ...recipe,
+      id: recipe.id,
       total_votes: recipe.total_votes
     })
     .eq("id", recipe.id)
