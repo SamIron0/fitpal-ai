@@ -102,7 +102,7 @@ const SearchPage = ({ for_you, user_id }: SearchPageProps) => {
       },
       body: JSON.stringify({
         recipe: recipe,
-        total_votes: recipe.total_votes + vote_type
+        total_votes: recipe.total_votes - vote_type
       })
     }).then(res => res.json())
 
