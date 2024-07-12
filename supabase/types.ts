@@ -267,7 +267,7 @@ export type Database = {
           cuisine?: string | null
           rating_count?: number | null
           rating_value?: number | null
-          imgurl?: string | null | File
+          imgurl?: string | null
           url?: string | null
           total_votes?: number
           kw_search_text?: string | null
@@ -293,7 +293,7 @@ export type Database = {
           cuisine?: string | null
           rating_count?: number | null
           rating_value?: number | null
-          imgurl?: string | null | File
+          imgurl?: string | null
           url?: string | null
           total_votes?: number
           kw_search_text?: string | null

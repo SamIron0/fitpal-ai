@@ -62,7 +62,7 @@ export default async function ResultPage({
       const description = responseData.description
       const text = responseData.text
 
-      return <SearchResult query={query} recipes={recipes} text={text} />
+      return <SearchResult user_id={uid} query={query} recipes={recipes} text={text} />
     } catch (e) {
       redirect("/?error=Something went wrong")
     }

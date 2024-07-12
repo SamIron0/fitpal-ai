@@ -9,15 +9,25 @@ import { useTranslation } from "react-i18next"
 import { IconPlayerStopFilled, IconSend } from "@tabler/icons-react"
 import { cn } from "@/lib/utils"
 import { FitpalAIContext } from "@/context/context"
-
+import { RecipeCard } from "../recipe/RecipeCard"
+import { v4 as uuidv4 } from "uuid"
+import { toast } from "sonner"
+import { saveRecipe, undo_vote, vote } from "@/db/recipes"
 interface SearchResultProps {
   recipes: TablesInsert<"recipes2">[]
   query: string
+  user_id: string | undefined
   text: string
 }
 
-export const SearchResult = ({ recipes, query, text }: SearchResultProps) => {
+export const SearchResult = ({
+  user_id,
+  recipes,
+  query,
+  text
+}: SearchResultProps) => {
   const [isOpen, setIsOpen] = useState<string>("0")
+  const { votedRecipes, setVotedRecipes } = useContext(FitpalAIContext)
   function decodeURLComponent(urlComponent: string) {
     // Decode the URL component
     const decodedString = decodeURIComponent(urlComponent).replace(/-/g, " ") // Replace hyphens with spaces
@@ -33,6 +43,78 @@ export const SearchResult = ({ recipes, query, text }: SearchResultProps) => {
     setIsOpen(id)
   }
   const router = useRouter()
+
+  const doVote = async (
+    vote_type: number,
+    recipe: TablesInsert<"recipes2">
+  ) => {
+    if (!user_id) {
+      return
+    }
+    // increase tottal votes in recipes 2 db
+    const res = await fetch("api/recipe/update_recipe", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        recipe: {
+          ...recipe,
+          total_votes: recipe?.total_votes ? recipe.total_votes + vote_type : 0
+        }
+      })
+    })
+    //add vote to votes db
+    const vote_id = uuidv4()
+    const votes_res = await vote(vote_id, user_id, recipe.id, vote_type)
+    //update voted recipes in coontext
+
+    setVotedRecipes([
+      ...votedRecipes,
+      { id: vote_id, recipe_id: recipe.id, vote: vote_type }
+    ])
+    //console.log("set context", votes_res)
+  }
+  const undoVote = async (
+    vote_type: number,
+    recipe: TablesInsert<"recipes2">
+  ) => {
+    // reduce tottal votes in recipes 2 db
+    console.log("vtype", vote_type)
+    const res = await fetch("api/recipe/update_recipe", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        recipe: {
+          ...recipe,
+          total_votes: recipe?.total_votes ? recipe.total_votes - vote_type : 0
+        }
+      })
+    })
+    //delete vote from voted db
+
+    for (const vote_json of votedRecipes) {
+      if (vote_json.recipe_id === recipe.id) {
+        const vote_id = vote_json.id
+        const votes_res = await undo_vote(vote_id)
+      }
+    }
+
+    //update votetd recipes in coontext
+  }
+  const save = async (recipe_id: string) => {
+    if (!user_id) {
+      return
+    }
+    const res = await saveRecipe(user_id, recipe_id)
+    if (typeof res === "string") {
+      toast.success(res)
+    } else {
+      toast.error("Failed to save")
+    }
+  }
   const renderRecipes = (recipes: TablesInsert<"recipes2">[]) => (
     <div className="w-full mt-6 pb-12 max-w-4xl mx-auto ">
       <h1 className="mb-8 text-2xl font-semibold">
@@ -42,28 +124,17 @@ export const SearchResult = ({ recipes, query, text }: SearchResultProps) => {
         role="status"
         className="grid w-full max-w-4xl gap-4 sm:grid-cols-2 lg:grid-cols-3"
       >
-
         {recipes.map(recipe => (
-          <div key={recipe.id} onClick={() => openDrawer(recipe.id)}>
-            <MealDrawer recipe={recipe} isOpen={isOpen}>
-              <div className="flex mx-auto flex-col">
-                {recipe.imgurl ? (
-                  <img
-                    src={`${recipe.imgurl}`}
-                    className="border-1 mb-2 w-full h-52  rounded-lg border-input object-cover"
-                    alt={recipe.name || "Recipe Image"}
-                  />
-                ) : (
-                  <div className="border-1 mb-2 rounded-lg border-input bg-input p-2 py-10 text-black"></div>
-                )}
-                <p className="text-md w-full text-left">{recipe.name}</p>
-                <div className="flex w-full text-xs font-light mt-1 items-center text-zinc-400">
-                  <Clock className="w-4 h-4 mr-2" />
-                  <p className="text-left">{convertTime(recipe.total_time)}</p>
-                </div>
-              </div>
-            </MealDrawer>
-          </div>
+          <RecipeCard
+            user_id={user_id}
+            recipe={recipe}
+            key={recipe.id}
+            voteRecipe={(num: number) => {
+              doVote(num, recipe)
+            }}
+            undoVote={(num: number) => undoVote(num, recipe)}
+            onSave={recipe_id => save(recipe_id)}
+          />
         ))}
       </div>
     </div>

@@ -1,6 +1,6 @@
 "use client"
 import Image from "next/image"
-import { Tables } from "@/supabase/types"
+import { Tables, TablesInsert } from "@/supabase/types"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -26,11 +26,12 @@ import { convertTime } from "@/utils/helpers"
 import { MealDrawer } from "../meal/meal-drawer"
 interface RecipeCardProps {
   user_id: string | undefined
-  recipe: Tables<"recipes2">
+  recipe: TablesInsert<"recipes2">
   onSave: (recipe_id: string) => void
   voteRecipe: (num: number) => void
   undoVote: (num: number) => void
 }
+
 
 export const RecipeCard = ({
   recipe,
@@ -40,7 +41,7 @@ export const RecipeCard = ({
   user_id
 }: RecipeCardProps) => {
   const { votedRecipes, setVotedRecipes } = useContext(FitpalAIContext)
-  const [voteCount, setVoteCount] = useState(recipe.total_votes)
+  const [voteCount, setVoteCount] = useState(recipe.total_votes || 0)
   const [vote, setVote] = useState(0)
   useEffect(() => {
     const getVotes = async () => {
@@ -158,7 +159,7 @@ export const RecipeCard = ({
                 </div>
               </div>
             </div>
-            <div className="flex w-full text-xs justify-end items-center">
+            <div className="flex w-full text-xs text-zinc-500 justify-end items-center">
               <IconClockHour10 className="mr-1 w-5 " />
               {convertTime(recipe.total_time)}
             </div>
