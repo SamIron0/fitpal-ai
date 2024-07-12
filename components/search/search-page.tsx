@@ -106,10 +106,9 @@ const SearchPage = ({ for_you, user_id }: SearchPageProps) => {
       })
     }).then(res => res.json())
 
-    // get vote id
-    const voteEntry = votedRecipes.find(v => v.recipe_id === recipe.id)
-    const vote_id: string = voteEntry ? voteEntry.id : ""
-
+    const vote_id: string =
+      votedRecipes.map(v => v.recipe_id).find(id => id === recipe.id) ||
+      uuidv4()
     // deletee the vote
     const res = await vote(vote_id, user_id, recipe.id, 0)
     return
