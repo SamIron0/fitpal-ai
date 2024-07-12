@@ -92,7 +92,7 @@ const SearchPage = ({ for_you, user_id }: SearchPageProps) => {
     if (!user_id) {
       return
     }
-    const newVotedRecipes = votedRecipes.filter(v => v.recipe_id !== recipe.id)
+    const newVotedRecipes = votedRecipes.filter(v => v.id !== recipe.id)
     setVotedRecipes(newVotedRecipes)
 
     const data = await fetch("/api/recipe/update_recipe", {
@@ -106,9 +106,9 @@ const SearchPage = ({ for_you, user_id }: SearchPageProps) => {
       })
     }).then(res => res.json())
 
-    const vote_id: string =
-      votedRecipes.map(v => v.recipe_id).find(id => id === recipe.id) ||
-      uuidv4()
+    console.log(votedRecipes)
+    const voteEntry = votedRecipes.find(v => v.recipe_id === recipe.id)
+    const vote_id: string = voteEntry ? voteEntry.id : ""
     // deletee the vote
     const res = await vote(vote_id, user_id, recipe.id, 0)
     return
