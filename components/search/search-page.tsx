@@ -63,37 +63,25 @@ const SearchPage = ({ for_you, user_id }: SearchPageProps) => {
     }
   }
   const doVote = async (vote_type: number, recipe: Tables<"recipes2">) => {
-    if (!user_id) {
-      return
-    }
-    const vote_id: string =
-      votedRecipes.map(v => v.id).find(id => id === recipe.id) || uuidv4()
-
-    const voteRes = await vote(vote_id, user_id, recipe.id, 1)
-    try {
-      const data = await fetch("/api/recipe/update_recipe", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          recipe: {
-            ...recipe,
-            total_votes: recipe.total_votes + vote_type
-          }
-        })
-      }).then(res => res.json())
-    } catch (err) {
-      console.log(err)
-    }
-
-    console.log("settign vote", vote_id)
-    if (!voteRes) return
-    setVotedRecipes([...votedRecipes, voteRes])
-    return
+    // increase tottal votes in recipes 2 db
+    const res = await fetch("api/recipe/update_recipe", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        recipe: {
+          ...recipe,
+          total_votes: recipe.total_votes + vote_type
+        }
+      })
+    })
+    //add vote to votes db
+    //update voted recipes in coontext
   }
   const undoVote = async (vote_type: number, recipe: Tables<"recipes2">) => {
     // reduce tottal votes in recipes 2 db
+    console.log('vtype',vote_type)
     const res = await fetch("api/recipe/update_recipe", {
       method: "POST",
       headers: {
@@ -106,6 +94,7 @@ const SearchPage = ({ for_you, user_id }: SearchPageProps) => {
         }
       })
     })
+    console.log('w',recipe.total_votes - vote_type)
     //delete vote from voted db
     //update votetd recipes in coontext
   }
