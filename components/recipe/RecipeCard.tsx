@@ -60,8 +60,13 @@ export const RecipeCard = ({
       return
     }
 
-    if (vote === 0) {
+    else if (vote === 0) {
       setVoteCount(voteCount + num)
+      setVote(num)
+      return
+    }
+    else {
+      setVoteCount(voteCount + num * 2)
       setVote(num)
       return
     }
