@@ -122,7 +122,7 @@ export const SearchResult = ({
       </h1>
       <div
         role="status"
-        className="grid w-full max-w-4xl gap-4 sm:grid-cols-2 lg:grid-cols-3"
+        className="grid items-end w-full max-w-4xl gap-4 sm:grid-cols-2 lg:grid-cols-3"
       >
         {recipes.map(recipe => (
           <RecipeCard

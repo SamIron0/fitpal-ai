@@ -112,7 +112,7 @@ export default async function RootLayout({
         <Providers attribute="class" defaultTheme="dark">
           <Toaster richColors position="top-center" duration={3000} />
           <Navbar user={session?.user} />
-          <div className="flex h-dvh flex-col items-center overflow-x-hidden bg-black text-foreground">
+          <div className="flex flex-col items-center overflow-x-hidden bg-black text-foreground">
             {session ? <GlobalState>{children}</GlobalState> : children}
           </div>
         </Providers>
