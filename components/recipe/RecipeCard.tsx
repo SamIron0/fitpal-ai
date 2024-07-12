@@ -54,11 +54,16 @@ export const RecipeCard = ({
   const { profile } = useContext(FitpalAIContext)
 
   const onVote = async (num: number) => {
-    setVote(num)
-    setVoteCount(voteCount + num)
     if (vote === num && vote !== 0) {
       setVote(0)
       setVoteCount(voteCount - num)
+      return
+    }
+
+    if (vote === 0) {
+      setVoteCount(voteCount + num)
+      setVote(num)
+      return
     }
   }
   /*
