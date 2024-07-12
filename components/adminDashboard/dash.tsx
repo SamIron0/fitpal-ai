@@ -228,6 +228,7 @@ export default function Dash() {
   }
 
   const handleDrop = async (e: DragEvent<HTMLDivElement>, index: number) => {
+    /*
     e.preventDefault()
     const file = e.dataTransfer.files[0]
     if (file) {
@@ -238,7 +239,7 @@ export default function Dash() {
       }
       setRecipes(newRecipes)
       console.log("Updated recipes:", newRecipes[0])
-    }
+    }*/
   }
 
   const uploadToCloudinary = async (file: File) => {
@@ -262,6 +263,7 @@ export default function Dash() {
   }
 
   const handleSave = async () => {
+    /*
     console.log("saving: ", recipes[0])
     const id = toast.loading("Saving")
     try {
@@ -307,7 +309,7 @@ export default function Dash() {
       toast.dismiss(id)
       console.error("Error saving recipes:", error)
       toast.error("Error saving recipes")
-    }
+    } */
   }
 
   const updateData = <K extends keyof TablesInsert<"recipes2">>(
