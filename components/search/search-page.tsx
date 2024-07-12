@@ -12,7 +12,6 @@ import { saveRecipe, vote } from "@/db/recipes"
 import { toast } from "sonner"
 import { RecipeCard } from "../recipe/RecipeCard"
 import { v4 as uuidv4 } from "uuid"
-
 interface SearchPageProps {
   for_you?: Tables<"recipes2">[]
   user_id?: string
@@ -20,8 +19,13 @@ interface SearchPageProps {
 
 const SearchPage = ({ for_you, user_id }: SearchPageProps) => {
   const router = useRouter()
-  const { votedRecipes, generatedRecipes, isGenerating, setSettings } =
-    useContext(FitpalAIContext)
+  const {
+    votedRecipes,
+    setVotedRecipes,
+    generatedRecipes,
+    isGenerating,
+    setSettings
+  } = useContext(FitpalAIContext)
   const [forYou, setForYou] = useState<Tables<"recipes2">[]>(for_you || [])
   const { theme } = useTheme()
   const [noresults, setNoResults] = useState(false)
@@ -58,7 +62,7 @@ const SearchPage = ({ for_you, user_id }: SearchPageProps) => {
       toast.error("Failed to save")
     }
   }
-  const upvote = async (recipe: Tables<"recipes2">) => {
+  const doVote = async (vote_type: number, recipe: Tables<"recipes2">) => {
     if (!user_id) {
       return
     }
@@ -82,14 +86,30 @@ const SearchPage = ({ for_you, user_id }: SearchPageProps) => {
     }
     return
   }
-  const downvoteRecipe = async (recipe_id: string) => {
+  const undoVote = async (vote_type: number, recipe: Tables<"recipes2">) => {
     if (!user_id) {
       return
     }
-    const vote_id: string =
-      votedRecipes.map(v => v.id).find(id => id === recipe_id) || uuidv4()
-    const res = await vote(vote_id, user_id, recipe_id, 1)
+    const newVotedRecipes = votedRecipes.filter(v => v.id !== recipe.id)
+    setVotedRecipes(newVotedRecipes)
 
+    const data = await fetch("/api/recipe/update_recipe", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        recipe: recipe,
+        total_votes: recipe.total_votes + vote_type
+      })
+    }).then(res => res.json())
+
+    // get voote id
+    const vote_id: string =
+      votedRecipes.map(v => v.id).find(id => id === recipe.id) || uuidv4()
+
+    // deletee the vote
+    const res = await vote(vote_id, user_id, recipe.id, 0)
     return
   }
   const renderRecipes = (recipes: Tables<"recipes2">[], title: string) => (
@@ -105,11 +125,12 @@ const SearchPage = ({ for_you, user_id }: SearchPageProps) => {
             recipe={recipe}
             key={recipe.id}
             upvoteRecipe={() => {
-              upvote(recipe)
+              doVote(1, recipe)
             }}
             downvoteRecipe={() => {
-              downvoteRecipe(recipe.id)
+              doVote(-1, recipe)
             }}
+            undoVote={(num: number) => undoVote(num, recipe)}
             onSave={recipe_id => save(recipe_id)}
           />
         ))}

@@ -30,6 +30,7 @@ interface RecipeCardProps {
   onSave: (recipe_id: string) => void
   upvoteRecipe: () => void
   downvoteRecipe: () => void
+  undoVote: (num: number) => void
 }
 
 export const RecipeCard = ({
@@ -37,6 +38,7 @@ export const RecipeCard = ({
   onSave,
   upvoteRecipe,
   downvoteRecipe,
+  undoVote,
   user_id
 }: RecipeCardProps) => {
   const { votedRecipes, setVotedRecipes } = useContext(FitpalAIContext)
@@ -66,17 +68,21 @@ export const RecipeCard = ({
     }
     await downvoteRecipe()
   }
+  const undoVote = async (num: number) => {
+    setVote(0)
+    setVoteCount(voteCount + num)
+    return
+  }
   const onUpvote = async () => {
     if (vote === 1) {
-      setVote(0)
-      setVoteCount(voteCount - 1)
+      undoVote(-1)
+      return
     } else if (vote === 0) {
-      setVote(1)
       setVoteCount(voteCount + 1)
     } else if (vote === -1) {
-      setVote(1)
       setVoteCount(voteCount + 2)
     }
+    setVote(1)
     await upvoteRecipe()
   }
 
@@ -116,16 +122,17 @@ export const RecipeCard = ({
       </div>
       {profile ? (
         <>
-        <MealDrawer recipe={recipe} >
-          {recipe.imgurl ? (
-            <Image
-              src={recipe.imgurl}
-              alt={recipe.name || "food-photo"}
-              className="border-1 mb-2 w-full h-52  rounded-lg border-input object-cover"
-            />
-          ) : (
-            <div className="bg-input h-52 mb-1 rounded-xl"></div>
-          )}</MealDrawer>
+          <MealDrawer recipe={recipe}>
+            {recipe.imgurl ? (
+              <Image
+                src={recipe.imgurl}
+                alt={recipe.name || "food-photo"}
+                className="border-1 mb-2 w-full h-52  rounded-lg border-input object-cover"
+              />
+            ) : (
+              <div className="bg-input h-52 mb-1 rounded-xl"></div>
+            )}
+          </MealDrawer>
           <div className="flex flex-row justify-between mb-2">
             <div className="flex flex-row text-zinc-400">
               <div className="flex border items-center border-zinc-600 rounded-2xl py-0.5 px-2">

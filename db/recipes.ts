@@ -8,6 +8,13 @@ export const vote = async (
   recipe_id: string,
   vote: number
 ) => {
+  // if vote is 0, delete vote
+  if (vote === 0) {
+    const { data, error } = await supabase
+      .from("votes")
+      .delete()
+      .eq("id", vote_id)
+  }
   //insert or update votet if it exists
   const { data, error } = await supabase
     .from("votes")
@@ -19,7 +26,6 @@ export const vote = async (
   }
   const totalVotes = await getTotalVotes(recipe_id)
   console.log("total_votes", totalVotes)
-  
 }
 export const hasVoted = async (user_id: string, recipe_id: string) => {
   const { data, error } = await supabase
