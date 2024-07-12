@@ -92,7 +92,7 @@ const SearchPage = ({ for_you, user_id }: SearchPageProps) => {
     if (!user_id) {
       return
     }
-    const newVotedRecipes = votedRecipes.filter(v => v.id !== recipe.id)
+    const newVotedRecipes = votedRecipes.filter(v => v.recipe_id !== recipe.id)
     setVotedRecipes(newVotedRecipes)
 
     const data = await fetch("/api/recipe/update_recipe", {
