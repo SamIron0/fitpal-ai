@@ -64,7 +64,7 @@ export const RecipeCard = ({
     } else {
       await undoVote(vote)
       setVoteCount(voteCount + num * 2)
-      await voteRecipe(num * 2)
+      await voteRecipe(num)
     }
     setVote(num)
   }
