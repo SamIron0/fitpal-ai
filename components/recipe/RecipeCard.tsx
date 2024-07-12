@@ -62,6 +62,7 @@ export const RecipeCard = ({
     }
 
     else if (vote === 0) {
+      await voteRecipe(num)
       setVoteCount(voteCount + num)
       setVote(num)
       return
