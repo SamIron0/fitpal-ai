@@ -35,7 +35,7 @@ export const vote = async (
   const totalVotes = await getTotalVotes(recipe_id)
   console.log("total_votes", totalVotes)
 
-  return data
+  return data[0]
 }
 export const hasVoted = async (user_id: string, recipe_id: string) => {
   const { data, error } = await supabase

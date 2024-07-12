@@ -88,6 +88,7 @@ const SearchPage = ({ for_you, user_id }: SearchPageProps) => {
     }
 
     console.log("settign vote", vote_id)
+    if (!voteRes) return
     setVotedRecipes([...votedRecipes, voteRes])
     return
   }
