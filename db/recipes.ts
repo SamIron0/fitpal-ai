@@ -27,13 +27,15 @@ export const vote = async (
   const { data, error } = await supabase
     .from("votes")
     .upsert({ id: vote_id, user_id, recipe_id, vote })
-    .select()
+    .select("*")
   if (error) {
     console.log(error)
     return
   }
   const totalVotes = await getTotalVotes(recipe_id)
   console.log("total_votes", totalVotes)
+
+  return data
 }
 export const hasVoted = async (user_id: string, recipe_id: string) => {
   const { data, error } = await supabase

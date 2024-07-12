@@ -69,7 +69,7 @@ const SearchPage = ({ for_you, user_id }: SearchPageProps) => {
     const vote_id: string =
       votedRecipes.map(v => v.id).find(id => id === recipe.id) || uuidv4()
 
-    const res = await vote(vote_id, user_id, recipe.id, 1)
+    const voteRes = await vote(vote_id, user_id, recipe.id, 1)
     try {
       const data = await fetch("/api/recipe/update_recipe", {
         method: "POST",
@@ -86,6 +86,9 @@ const SearchPage = ({ for_you, user_id }: SearchPageProps) => {
     } catch (err) {
       console.log(err)
     }
+
+    console.log("settign vote", vote_id)
+    setVotedRecipes([...votedRecipes, voteRes])
     return
   }
   const undoVote = async (vote_type: number, recipe: Tables<"recipes2">) => {
@@ -106,7 +109,7 @@ const SearchPage = ({ for_you, user_id }: SearchPageProps) => {
       })
     }).then(res => res.json())
 
-    console.log(votedRecipes)
+    console.log("v", votedRecipes)
     const voteEntry = votedRecipes.find(v => v.recipe_id === recipe.id)
     const vote_id: string = voteEntry ? voteEntry.id : ""
     // deletee the vote
