@@ -89,6 +89,7 @@ const SearchPage = ({ for_you, user_id }: SearchPageProps) => {
     return
   }
   const undoVote = async (vote_type: number, recipe: Tables<"recipes2">) => {
+  
     if (!user_id) {
       return
     }

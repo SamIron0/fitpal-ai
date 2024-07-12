@@ -10,10 +10,18 @@ export const vote = async (
 ) => {
   // if vote is 0, delete vote
   if (vote === 0) {
+    console.log("delete vote")
     const { data, error } = await supabase
       .from("votes")
       .delete()
       .eq("id", vote_id)
+
+    if (error) {
+      console.log(error)
+      return
+    }
+
+    return
   }
   //insert or update votet if it exists
   const { data, error } = await supabase
