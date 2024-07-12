@@ -85,7 +85,7 @@ const SearchPage = ({ for_you, user_id }: SearchPageProps) => {
     //update voted recipes in coontext
 
     setVotedRecipes([...votedRecipes, { id: vote_id, recipe_id: recipe.id,vote:vote_type }])
-    console.log("set context", votes_res)
+    //console.log("set context", votes_res)
   }
   const undoVote = async (vote_type: number, recipe: Tables<"recipes2">) => {
     // reduce tottal votes in recipes 2 db

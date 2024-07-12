@@ -45,7 +45,7 @@ export const RecipeCard = ({
   useEffect(() => {
     votedRecipes.map(r => r.recipe_id === recipe.id && setVote(r.vote))
     setVoteCount(recipe.total_votes)
-  }, [votedRecipes])
+  }, [])
   const bounceAnimation = {
     scale: [1, 1.2, 1],
     transition: { duration: 0.4 }
