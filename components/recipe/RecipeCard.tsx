@@ -43,9 +43,13 @@ export const RecipeCard = ({
   const [voteCount, setVoteCount] = useState(recipe.total_votes)
   const [vote, setVote] = useState(0)
   useEffect(() => {
-    votedRecipes.map(r => r.recipe_id === recipe.id && setVote(r.vote))
-    setVoteCount(recipe.total_votes)
-  }, [])
+    const getVotes = async () => {
+      votedRecipes.map(r => r.recipe_id === recipe.id && setVote(r.vote))
+      const res = await getTotalVotes(recipe.id)
+      setVoteCount(res)
+    }
+    getVotes()
+  }, [votedRecipes])
   const bounceAnimation = {
     scale: [1, 1.2, 1],
     transition: { duration: 0.4 }
@@ -72,8 +76,7 @@ export const RecipeCard = ({
       return
     }
   }
- 
-  
+
   return (
     <div
       key={recipe.id}
