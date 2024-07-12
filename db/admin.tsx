@@ -22,7 +22,10 @@ export const updateRecipe = async (recipe: TablesInsert<"recipes2">) => {
   // Check if the recipe already exists by looking for a unique identifier (e.g., id)
   const { data: existingRecipe, error: fetchError } = await supabaseAdmin
     .from("recipes2")
-    .update(recipe)
+    .update({
+      ...recipe,
+      total_votes: recipe.total_votes
+    })
     .eq("id", recipe.id)
 
   if (fetchError && fetchError.code !== "PGRST116") {
