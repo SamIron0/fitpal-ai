@@ -62,6 +62,7 @@ export const RecipeCard = ({
   const onVote = async (num: number) => {
     if (vote === num) {
       await undo(num)
+      return
     }
     setVote(num)
     setVoteCount(voteCount + num)
