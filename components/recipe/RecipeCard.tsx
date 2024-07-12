@@ -28,16 +28,14 @@ interface RecipeCardProps {
   user_id: string | undefined
   recipe: Tables<"recipes2">
   onSave: (recipe_id: string) => void
-  upvoteRecipe: () => void
-  downvoteRecipe: () => void
+  voteRecipe: (num: number) => void
   undoVote: (num: number) => void
 }
 
 export const RecipeCard = ({
   recipe,
   onSave,
-  upvoteRecipe,
-  downvoteRecipe,
+  voteRecipe,
   undoVote,
   user_id
 }: RecipeCardProps) => {
@@ -55,35 +53,19 @@ export const RecipeCard = ({
 
   const { profile } = useContext(FitpalAIContext)
 
-  const onDownvote = async () => {
-    if (vote === -1) {
-      setVote(0)
-      setVoteCount(voteCount + 1)
-    } else if (vote === 0) {
-      setVote(-1)
-      setVoteCount(voteCount - 1)
-    } else if (vote === 1) {
-      setVote(-1)
-      setVoteCount(voteCount - 2)
-    }
-    await downvoteRecipe()
-  }
-  const undoVote = async (num: number) => {
+  const undo = async (num: number) => {
     setVote(0)
-    setVoteCount(voteCount + num)
+    setVoteCount(voteCount - num)
+    await undoVote(num)
     return
   }
-  const onUpvote = async () => {
-    if (vote === 1) {
-      undoVote(-1)
-      return
-    } else if (vote === 0) {
-      setVoteCount(voteCount + 1)
-    } else if (vote === -1) {
-      setVoteCount(voteCount + 2)
+  const onVote = async (num: number) => {
+    if (vote === num) {
+      await undo(num)
     }
-    setVote(1)
-    await upvoteRecipe()
+    setVote(num)
+    setVoteCount(voteCount + num)
+    await voteRecipe(num)
   }
 
   return (
@@ -145,7 +127,7 @@ export const RecipeCard = ({
                       className={`w-4 ${
                         vote === 1 ? "text-purple-500 fill-purple-500" : ""
                       }`}
-                      onClick={onUpvote}
+                      onClick={() => onVote(1)}
                     />
                   </motion.div>
                   <span className="text-xs border-r border-zinc-600 pl-1 pr-2">
@@ -161,7 +143,7 @@ export const RecipeCard = ({
                       className={`w-4 ${
                         vote === -1 ? "text-zinc-500 fill-zinc-500" : ""
                       }`}
-                      onClick={onDownvote}
+                      onClick={() => onVote(-1)}
                     />
                   </motion.div>
                 </div>

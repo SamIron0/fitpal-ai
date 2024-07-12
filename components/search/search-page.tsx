@@ -124,11 +124,8 @@ const SearchPage = ({ for_you, user_id }: SearchPageProps) => {
             user_id={user_id}
             recipe={recipe}
             key={recipe.id}
-            upvoteRecipe={() => {
-              doVote(1, recipe)
-            }}
-            downvoteRecipe={() => {
-              doVote(-1, recipe)
+            voteRecipe={(num: number) => {
+              doVote(num, recipe)
             }}
             undoVote={(num: number) => undoVote(num, recipe)}
             onSave={recipe_id => save(recipe_id)}
