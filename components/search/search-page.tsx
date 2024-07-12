@@ -93,29 +93,21 @@ const SearchPage = ({ for_you, user_id }: SearchPageProps) => {
     return
   }
   const undoVote = async (vote_type: number, recipe: Tables<"recipes2">) => {
-    if (!user_id) {
-      return
-    }
-    const newVotedRecipes = votedRecipes.filter(v => v.id !== recipe.id)
-    setVotedRecipes(newVotedRecipes)
-
-    const data = await fetch("/api/recipe/update_recipe", {
+    // reduce tottal votes in recipes 2 db
+    const res = await fetch("api/recipe/update_recipe", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        recipe: recipe,
-        total_votes: recipe.total_votes - vote_type
+        recipe: {
+          ...recipe,
+          total_votes: recipe.total_votes - vote_type
+        }
       })
-    }).then(res => res.json())
-
-    console.log("v", votedRecipes)
-    const voteEntry = votedRecipes.find(v => v.recipe_id === recipe.id)
-    const vote_id: string = voteEntry ? voteEntry.id : ""
-    // deletee the vote
-    const res = await vote(vote_id, user_id, recipe.id, 0)
-    return
+    })
+    //delete vote from voted db
+    //update votetd recipes in coontext
   }
   const renderRecipes = (recipes: Tables<"recipes2">[], title: string) => (
     <div className="w-full max-w-4xl py-28">
