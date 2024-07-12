@@ -89,7 +89,6 @@ const SearchPage = ({ for_you, user_id }: SearchPageProps) => {
     return
   }
   const undoVote = async (vote_type: number, recipe: Tables<"recipes2">) => {
-  
     if (!user_id) {
       return
     }
@@ -109,8 +108,10 @@ const SearchPage = ({ for_you, user_id }: SearchPageProps) => {
 
     // get voote id
     const vote_id: string =
-      votedRecipes.map(v => v.id).find(id => id === recipe.id) || uuidv4()
+      votedRecipes.map(v => v.recipe_id).find(id => id === recipe.id) ||
+      uuidv4()
 
+      
     // deletee the vote
     const res = await vote(vote_id, user_id, recipe.id, 0)
     return
