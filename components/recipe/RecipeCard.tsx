@@ -80,7 +80,7 @@ export const RecipeCard = ({
   return (
     <div
       key={recipe.id}
-      className="bg-black text-zinc-200 p-2 rounded-xl max-w-lg"
+      className="bg-black text-zinc-200  rounded-xl max-w-lg"
     >
       <div className="flex items-center justify-between mb-1">
         <h2 className="text-lg font-semibold mb-1">{recipe.name}</h2>
