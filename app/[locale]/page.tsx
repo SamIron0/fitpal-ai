@@ -19,7 +19,7 @@ export default async function Search() {
   }
 
   return (
-    <div>
+    <div className="w-full h-full">
       <Head>
         <meta
           name="description"
