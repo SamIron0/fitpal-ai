@@ -144,9 +144,9 @@ const SearchPage = ({ for_you, user_id }: SearchPageProps) => {
   }
   return (
     <div className="hide-scrollbar relative flex size-full flex-col items-center overflow-y-auto sm:px-6">
-      <div className="top-50% left-50% -translate-x-50% -translate-y-50% mb-9 mt-32 lg:mt-24">
-        <Brand theme={theme === "dark" ? "dark" : "light"} />
-      </div>
+      <h1 className="text-2xl font-bold mb-9 mt-24 text-left md:text-center">
+        What ingredients do you have?
+      </h1>
       <div className="w-full max-w-md items-end pb-3 pt-0 sm:pb-8 sm:pt-5 lg:max-w-xl">
         <h1 className="visually-hidden">
           Find Recipes from Ingredients You Have
