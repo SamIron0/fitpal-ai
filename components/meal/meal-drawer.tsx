@@ -20,9 +20,21 @@ import {
 import { Badge } from "@/components/ui/badge"
 import { TablesInsert } from "@/supabase/types"
 import { convertTime } from "@/utils/helpers"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger
+} from "../ui/dropdown-menu"
+import { IconDeviceFloppy, IconDots } from "@tabler/icons-react"
+import { LoginDrawer } from "../login/login-drawer"
+import { toast } from "sonner"
+import { FitpalAIContext } from "@/context/context"
+import { saveRecipe } from "@/db/recipes"
 
 interface MealDrawerProps {
   children?: React.ReactNode
+  user_id?: string
   recipe: TablesInsert<"recipes2">
   isOpen?: string
 }
@@ -72,9 +84,9 @@ const DirectionsList: React.FC<{
 function convertStringToNumber(str: string | null | undefined) {
   // Remove the square brackets and double quotes
   if (!str) return 0
-  const cleanedString = str.replace(/[\[\]"]/g, '');
+  const cleanedString = str.replace(/[\[\]"]/g, "")
   // Convert the cleaned string to a number
-  return parseInt(cleanedString, 10);
+  return parseInt(cleanedString, 10)
 }
 const RecipeDetails: React.FC<{ recipe: TablesInsert<"recipes2"> }> = ({
   recipe
@@ -135,15 +147,58 @@ const MealDrawerContent: React.FC<{ recipe: TablesInsert<"recipes2"> }> = ({
 
 export const MealDrawer: React.FC<MealDrawerProps> = ({
   children,
+  user_id,
   recipe,
   isOpen
 }) => {
+  const { profile } = useContext(FitpalAIContext)
+  const onSave = async (recipe_id: string) => {
+    if (!user_id) {
+      return
+    }
+    const res = await saveRecipe(user_id, recipe_id)
+    if (typeof res === "string") {
+      toast.success(res)
+    } else {
+      toast.error("Failed to save")
+    }
+  }
   return (
     <Drawer>
       <DrawerTrigger asChild>{children}</DrawerTrigger>
       <DrawerContent className="h-[80vh] sm:h-[85vh] ">
         <DrawerHeader className="sr-only">
-          <DrawerTitle className="text-zinc-100">{recipe.name}</DrawerTitle>
+          <DrawerTitle className=" justify-between">
+            <div className="text-zinc-100">{recipe.name}</div>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button size="icon" variant="ghost" className="h-8 w-8">
+                  <IconDots className="h-3.5 w-3.5" />
+                  <span className="sr-only">More</span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                {profile ? (
+                  <DropdownMenuItem>
+                    <div
+                      className="cursor-pointer w-full text-left flex"
+                      onClick={() => onSave(recipe.id)}
+                    >
+                      <IconDeviceFloppy className="mr-1" size={20} /> Save
+                    </div>
+                  </DropdownMenuItem>
+                ) : (
+                  <DropdownMenuItem onSelect={e => e.preventDefault()}>
+                    <LoginDrawer>
+                      <div className="cursor-pointer w-full text-left">
+                        Save
+                      </div>
+                    </LoginDrawer>
+                  </DropdownMenuItem>
+                )}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </DrawerTitle>
           <DrawerDescription>Recipe details</DrawerDescription>
         </DrawerHeader>
         {recipe && <MealDrawerContent recipe={recipe} />}

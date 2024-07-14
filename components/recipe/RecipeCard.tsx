@@ -113,8 +113,7 @@ export const RecipeCard = ({
       </div>
       {profile ? (
         <>
-        
-          <MealDrawer recipe={recipe}>
+          <MealDrawer recipe={recipe} user_id={user_id}>
             {recipe.imgurl ? (
               <Image
                 src={recipe.imgurl}
