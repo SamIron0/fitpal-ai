@@ -43,6 +43,16 @@ export default async function ResultPage({
         ? save_query(uid || null, decodeURLComponent(query))
         : null
     try {
+      const renderPromise1 = fetch("https://embed-umber.vercel.app/search", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          query: decodeURIComponent(query.replace(/-/g, " "))
+        })
+      })
+      console.log("resposne", renderPromise1)
       const renderPromise = fetch("https://embed-umber.vercel.app/search", {
         method: "POST",
         headers: {
@@ -52,7 +62,6 @@ export default async function ResultPage({
           query: decodeURIComponent(query.replace(/-/g, " "))
         })
       }).then(response => response.json())
-
       const [_, responseData] = await Promise.all([
         saveQueryPromise,
         renderPromise
@@ -62,7 +71,14 @@ export default async function ResultPage({
       const description = responseData.description
       const text = responseData.text
 
-      return <SearchResult user_id={uid} query={query} recipes={recipes} text={text} />
+      return (
+        <SearchResult
+          user_id={uid}
+          query={query}
+          recipes={recipes}
+          text={text}
+        />
+      )
     } catch (e) {
       redirect("/?error=Something went wrong")
     }
