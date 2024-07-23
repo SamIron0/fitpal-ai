@@ -79,9 +79,7 @@ export default async function Login({
       console.error(error)
       return redirect(`/login?message=${error.message}`)
     }
-    signIn(formData)
-    // USE IF YOU WANT TO SEND EMAIL VERIFICATION, ALSO CHANGE TOML FILE
-    // return redirect("/login?message=Check email to continue sign in process")
+    return redirect("/setup")
   }
 
   const handleResetPassword = async (formData: FormData) => {
