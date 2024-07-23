@@ -31,10 +31,6 @@ export default async function ResultPage({
   let settings: Tables<"settings"> = {} as Tables<"settings">
 
   if (params.query) {
-    if (uid) {
-      settings = await getSettingsById(uid)
-    }
-
     const query =
       typeof params.query === "string" ? params.query : params.query[0]
     //console.log(query)
@@ -62,7 +58,14 @@ export default async function ResultPage({
       const description = responseData.description
       const text = responseData.text
 
-      return <SearchResult user_id={uid} query={query} recipes={recipes} text={text} />
+      return (
+        <SearchResult
+          user_id={uid}
+          query={query}
+          recipes={recipes}
+          text={text}
+        />
+      )
     } catch (e) {
       redirect("/?error=Something went wrong")
     }
