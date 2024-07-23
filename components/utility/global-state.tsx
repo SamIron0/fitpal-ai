@@ -147,8 +147,8 @@ export const GlobalState: FC<GlobalStateProps> = ({ children }) => {
 
       const profile = await getProfileByUserId(user.id)
       setProfile(profile)
-      const settings = await getSettingsByUserId(session.user.id)
-      setSettings(settings)
+      //const settings = await getSettingsByUserId(session.user.id)
+      //setSettings(settings)
 
       const votedRecipes = await getVotedRecipesByUserId(user.id)
       setVotedRecipes(votedRecipes)
