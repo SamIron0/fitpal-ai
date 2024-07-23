@@ -32,9 +32,7 @@ export const PreferencesStep: FC<PreferencesStepProps> = ({
         <DataSelect
           data={[
             "Anything",
-            "Paleo",
             "Vegan",
-            "Gluten-free",
             "Ketogenic",
             "Pescatarian",
             "Mediterranean",
