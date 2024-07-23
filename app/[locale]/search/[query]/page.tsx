@@ -37,12 +37,14 @@ export default async function ResultPage({
 
     const query =
       typeof params.query === "string" ? params.query : params.query[0]
-    //console.log(query)
+    console.log(query)
     const saveQueryPromise =
       session.data.session?.user.email != "ekaronke@gmail.com"
         ? save_query(uid || null, decodeURLComponent(query))
         : null
     try {
+      console.log("running promis1")
+
       const renderPromise1 = fetch("https://embed-umber.vercel.app/search", {
         method: "POST",
         headers: {
@@ -52,7 +54,6 @@ export default async function ResultPage({
           query: decodeURIComponent(query.replace(/-/g, " "))
         })
       })
-      console.log("resposne", renderPromise1)
       const renderPromise = fetch("https://embed-umber.vercel.app/search", {
         method: "POST",
         headers: {
@@ -62,10 +63,11 @@ export default async function ResultPage({
           query: decodeURIComponent(query.replace(/-/g, " "))
         })
       }).then(response => response.json())
-      const [_, responseData] = await Promise.all([
-        saveQueryPromise,
+      const [responseData] = await Promise.all([
+        //saveQueryPromise,
         renderPromise
       ])
+      console.log("resposne", responseData)
 
       const recipes = responseData.result
       const description = responseData.description
