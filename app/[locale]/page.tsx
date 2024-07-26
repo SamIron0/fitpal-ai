@@ -37,7 +37,7 @@ export default async function Search() {
           property="og:description"
           content="Find curated recipes by entering your ingredients into our AI-powered search engine. Search using natural language or ingredients and get the closest recipes."
         />
-        <meta property="og:url" content="https://fitpalai.com/" />
+        <meta property="og:url" content="https://fitpalai.xyz/" />
         <meta property="og:type" content="website" />
         <meta
           name="twitter:title"

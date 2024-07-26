@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://fitpalai.com/sitemap.xml
+Sitemap: https://fitpalai.xyz/sitemap.xml

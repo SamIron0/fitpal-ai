@@ -47,7 +47,7 @@ export async function generateSitemap(): Promise<string> {
     })
   })
 
-  const stream = new SitemapStream({ hostname: "https://www.fitpalai.com" })
+  const stream = new SitemapStream({ hostname: "https://www.fitpalai.xyz" })
   const xmlString = await streamToPromise(
     Readable.from(links).pipe(stream)
   ).then(data => data.toString())
