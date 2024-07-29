@@ -1,7 +1,7 @@
 import Stripe from "stripe"
 
 const relevantEvents = new Set(["payment_intent.succeeded"])
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? "")
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? "",)
 export async function POST(req: Request) {
   const body = await req.text()
   const sig = req.headers.get("stripe-signature") as string
@@ -16,7 +16,6 @@ export async function POST(req: Request) {
     console.log(`❌ Error message: ${err.message}`)
     return new Response(`Webhook Error: ${err.message}`, { status: 400 })
   }
-
   if (relevantEvents.has(event.type)) {
     try {
       switch (event.type) {
